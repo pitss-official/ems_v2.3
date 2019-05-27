@@ -15,7 +15,7 @@ class CreateQueuesTable extends Migration
     {
         Schema::create('queues', function (Blueprint $table) {
             //id as queue id
-            $table->increments('id');
+            $table->unsignedBigInteger('id')->autoIncrement();
 
             //remarks by the requester who is putting task into queue
             $table->string('requesterRemarks', 200)->nullable();

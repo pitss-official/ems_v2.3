@@ -19,13 +19,13 @@ class CreateEnrollmentsTable extends Migration
             $table->unsignedInteger('eventID');
             $table->unsignedInteger('participantCollegeUID');
             $table->unsignedInteger('facilitatorCollegeUID');
-            $table->unsignedInteger('fundTransactionID')->nullable();
-            $table->unsignedInteger('enrollmentFeesTransactionID');
+            $table->unsignedBigInteger('fundTransactionID')->nullable();
+            $table->unsignedBigInteger('enrollmentFeesTransactionID');
             $table->boolean('partialPay')->default(0);
 
             $table->foreign('eventID')->references('id')->on('events');
-            $table->foreign('participantCollegeUID')->references('id')->on('users');
-            $table->foreign('facilitatorCollegeUID')->references('id')->on('users');
+            $table->foreign('participantCollegeUID')->references('collegeUID')->on('users');
+            $table->foreign('facilitatorCollegeUID')->references('collegeUID')->on('users');
             $table->foreign('fundTransactionID')->references('id')->on('transactions');
             $table->foreign('enrollmentFeesTransactionID')->references('id')->on('transactions');
 
