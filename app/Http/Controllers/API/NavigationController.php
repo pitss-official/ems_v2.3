@@ -71,6 +71,6 @@ class NavigationController extends Controller
     }
     public function pushAllLinks()
     {
-
+        return "OK";
     }
 }

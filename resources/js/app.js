@@ -9,17 +9,24 @@
 window.Vue = require('vue');
 window.axios = require('axios');
 import VueRouter from 'vue-router'
+import { loadProgressBar } from 'axios-progress-bar'
+import { Form, HasError, AlertError } from 'vform'
+Vue.component(HasError.name, HasError)
+Vue.component(AlertError.name, AlertError)
 Vue.use(VueRouter)
+window.Form=Form
 let routes=[
     {path:'/home',component: require('./components/Personal/Dashboard').default},
     {path:'/test',component: require('./components/test1').default},
     {path:'/MyAccount/Settings',component: require('./components/Personal/Settings').default},
+    {path:'/MyProfile/view',component: require('./components/Personal/Profile').default},
     {path:'*',component: require('./components/Global/404Error').default},
 ]
 const router =new VueRouter({
     mode:'history',
     routes
 })
+loadProgressBar()
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue

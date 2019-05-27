@@ -186,8 +186,8 @@
                     <div class="profile-text"><a href="#" class="dropdown-toggle u-dropdown currentUserFullName"
                                                  data-toggle="dropdown" role="button" aria-haspopup="true"
                                                  aria-expanded="true">User Name</a>
-                        <div class="dropdown-menu animated flipInY"><a href="#" class="dropdown-item"><i
-                                    class="ti-user"></i> My Profile</a> <a href="#" class="dropdown-item"><i
+                        <div class="dropdown-menu animated flipInY"><router-link to="/MyProfile/view" class="dropdown-item"><i
+                                    class="ti-user"></i> My Profile</router-link> <a href="#" class="dropdown-item"><i
                                     class="ti-wallet"></i> My Balance</a> <a href="#" class="dropdown-item"><i
                                     class="ti-email"></i> Inbox</a>
                             <div class="dropdown-divider"></div>
