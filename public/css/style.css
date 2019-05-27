@@ -1688,7 +1688,6 @@ File: scss
  Topbar
 *******************/
 .topbar {
-  position: fixed;
     width: 100%;
   z-index: 50;
   -webkit-box-shadow: 5px 0px 10px rgba(0, 0, 0, 0.5);
@@ -5268,9 +5267,9 @@ Main sidebar
   position: absolute;
   width: 240px;
   height: 100%;
-  top: 0px;
+  /*top: 0px;*/
   z-index: 20;
-  padding-top: 70px;
+  /*padding-top: 70px;*/
   background: #fff;
   -webkit-box-shadow: 1px 0px 20px rgba(0, 0, 0, 0.08);
   box-shadow: 1px 0px 20px rgba(0, 0, 0, 0.08); }

@@ -21,7 +21,7 @@
     <link href="../assets/plugins/chartist-plugin-tooltip-master/dist/chartist-plugin-tooltip.css" rel="stylesheet">
     <link href="../assets/plugins/css-chart/css-chart.css" rel="stylesheet">
     <!-- Vector CSS -->
-    <link href="../assets/plugins/vectormap/jquery-jvectormap-2.0.2.css" rel="stylesheet" />
+    <link href="../assets/plugins/vectormap/jquery-jvectormap-2.0.2.css" rel="stylesheet"/>
     <!-- Custom CSS -->
     <link href="css/style.css" rel="stylesheet">
     <!-- You can change the theme colors from here -->
@@ -40,11 +40,12 @@
 <!-- ============================================================== -->
 <div class="preloader">
     <svg class="circular" viewBox="25 25 50 50">
-        <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10" /> </svg>
+        <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10"/>
+    </svg>
 </div>
 <!-- ============================================================== -->
 <!-- Main wrapper - style you can find in pages.scss -->
-{{--TODO:Always set topbar to 100%width and fixed position and also remove is stuck classes--}}
+{{--:remove top and padding top from sidebar stylecss--}}
 <!-- ============================================================== -->
 <div id="app">
 
@@ -62,16 +63,16 @@
                         <!-- Logo icon --><b>
                             <!--You can put here icon as well // <i class="wi wi-sunset"></i> //-->
                             <!-- Dark Logo icon -->
-                            <img src="../assets/images/logo-icon.png" alt="homepage" class="dark-logo" />
+                            <img src="../assets/images/logo-icon.png" alt="homepage" class="dark-logo"/>
                             <!-- Light Logo icon -->
-                            <img src="../assets/images/logo-light-icon.png" alt="homepage" class="light-logo" />
+                            <img src="../assets/images/logo-light-icon.png" alt="homepage" class="light-logo"/>
                         </b>
                         <!--End Logo icon -->
                         <!-- Logo text --><span>
                          <!-- dark Logo text -->
-                         <img src="../assets/images/logo-text.png" alt="homepage" class="dark-logo" />
+                         <img src="../assets/images/logo-text.png" alt="homepage" class="dark-logo"/>
                             <!-- Light Logo text -->
-                         <img src="../assets/images/logo-light-text.png" class="light-logo" alt="homepage" /></span> </a>
+                         <img src="../assets/images/logo-light-text.png" class="light-logo" alt="homepage"/></span> </a>
                 </div>
                 <!-- ============================================================== -->
                 <!-- End Logo -->
@@ -82,22 +83,27 @@
                     <!-- ============================================================== -->
                     <ul class="navbar-nav mr-auto mt-md-0">
                         <!-- This is  -->
-                        <li class="nav-item"> <a class="nav-link nav-toggler hidden-md-up text-muted waves-effect waves-dark" href="javascript:void(0)"><i class="mdi mdi-menu"></i></a> </li>
-                        <li class="nav-item"> <a class="nav-link sidebartoggler hidden-sm-down text-muted waves-effect waves-dark" href="javascript:void(0)"><i class="ti-menu"></i></a> </li>
+                        <li class="nav-item"><a
+                                class="nav-link nav-toggler hidden-md-up text-muted waves-effect waves-dark"
+                                href="javascript:void(0)"><i class="mdi mdi-menu"></i></a></li>
+                        <li class="nav-item"><a
+                                class="nav-link sidebartoggler hidden-sm-down text-muted waves-effect waves-dark"
+                                href="javascript:void(0)"><i class="ti-menu"></i></a></li>
                         <!-- ============================================================== -->
                         <!-- Search -->
                         <!-- ============================================================== -->
-                        <li class="nav-item hidden-sm-down search-box"> <a class="nav-link hidden-sm-down text-muted waves-effect waves-dark" href="javascript:void(0)"><i class="ti-search"></i></a>
+                        <li class="nav-item hidden-sm-down search-box"><a
+                                class="nav-link hidden-sm-down text-muted waves-effect waves-dark"
+                                href="javascript:void(0)"><i class="ti-search"></i></a>
                             <form class="app-search">
-                                <input type="text" class="form-control" placeholder="Search & enter"> <a class="srh-btn"><i class="ti-close"></i></a> </form>
+                                <input type="text" class="form-control" placeholder="Search & enter"> <a
+                                    class="srh-btn"><i class="ti-close"></i></a>
+                            </form>
                         </li>
                         <!-- ============================================================== -->
                         <!-- Messages -->
                         <!-- ============================================================== -->
                         <naive-queues></naive-queues>
-                                </ul>
-                            </div>
-                        </li>
                         <!-- ============================================================== -->
                         <!-- End Messages -->
                         <!-- ============================================================== -->
@@ -109,15 +115,21 @@
                         <naive-notifications></naive-notifications>
                         <naive-messages></naive-messages>
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="../assets/images/users/1.jpg" alt="user" class="profile-pic" /></a>
+                            <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark" href=""
+                               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img
+                                    src="../assets/images/users/1.jpg" alt="user" class="profile-pic"/></a>
                             <div class="dropdown-menu dropdown-menu-right scale-up">
                                 <ul class="dropdown-user">
                                     <li>
-                                        <div class="dw-user-box">
+                                        <div class="dw-user-box" style="word-wrap: break-word;">
                                             <div class="u-img"><img src="../assets/images/users/1.jpg" alt="user"></div>
                                             <div class="u-text">
                                                 <h4 class="currentUserFullName">UserName</h4>
-                                                <p class="text-muted">varun@gmail.com</p><a href="profile.html" class="btn btn-rounded btn-danger btn-sm">View Profile</a></div>
+                                                <p class="text-muted currentUserID"></p>
+                                                <p class="text-muted currentUserEmail"></p>
+                                                <a href="profile.html"
+                                                                                            class="btn btn-rounded btn-danger btn-sm">View
+                                                    Profile</a></div>
                                         </div>
                                     </li>
                                     <li role="separator" class="divider"></li>
@@ -127,7 +139,8 @@
                                     <li role="separator" class="divider"></li>
                                     <li><a href="#"><i class="ti-settings"></i> Account Setting</a></li>
                                     <li role="separator" class="divider"></li>
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST"
+                                          style="display: none;">
                                         @csrf
                                     </form>
                                     <li><a href="{{ route('logout') }}"
@@ -142,8 +155,15 @@
                         <!-- Language -->
                         <!-- ============================================================== -->
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="flag-icon flag-icon-us"></i></a>
-                            <div class="dropdown-menu dropdown-menu-right scale-up"> <a class="dropdown-item" href="#"><i class="flag-icon flag-icon-in"></i> India</a> <a class="dropdown-item" href="#"><i class="flag-icon flag-icon-fr"></i> French</a> <a class="dropdown-item" href="#"><i class="flag-icon flag-icon-cn"></i> China</a> <a class="dropdown-item" href="#"><i class="flag-icon flag-icon-de"></i> Dutch</a> </div>
+                            <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark" href=""
+                               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i
+                                    class="flag-icon flag-icon-us"></i></a>
+                            <div class="dropdown-menu dropdown-menu-right scale-up"><a class="dropdown-item" href="#"><i
+                                        class="flag-icon flag-icon-in"></i> India</a> <a class="dropdown-item" href="#"><i
+                                        class="flag-icon flag-icon-fr"></i> French</a> <a class="dropdown-item"
+                                                                                          href="#"><i
+                                        class="flag-icon flag-icon-cn"></i> China</a> <a class="dropdown-item" href="#"><i
+                                        class="flag-icon flag-icon-de"></i> Dutch</a></div>
                         </li>
                     </ul>
                 </div>
@@ -161,12 +181,19 @@
                 <!-- User profile -->
                 <div class="user-profile" style="background: url(../assets/images/background/user-info.jpg) no-repeat;">
                     <!-- User profile image -->
-                    <div class="profile-img"> <img src="../assets/images/users/profile.png" alt="user" /> </div>
+                    <div class="profile-img"><img src="../assets/images/users/profile.png" alt="user"/></div>
                     <!-- User profile text-->
-                    <div class="profile-text"> <a href="#" class="dropdown-toggle u-dropdown currentUserFullName" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true">User Name</a>
-                        <div class="dropdown-menu animated flipInY"> <a href="#" class="dropdown-item"><i class="ti-user"></i> My Profile</a> <a href="#" class="dropdown-item"><i class="ti-wallet"></i> My Balance</a> <a href="#" class="dropdown-item"><i class="ti-email"></i> Inbox</a>
-                            <div class="dropdown-divider"></div> <a href="#" class="dropdown-item"><i class="ti-settings"></i> Account Setting</a>
-                            <div class="dropdown-divider"></div> <a href="login.html" class="dropdown-item"><i class="fa fa-power-off"></i> Logout</a> </div>
+                    <div class="profile-text"><a href="#" class="dropdown-toggle u-dropdown currentUserFullName"
+                                                 data-toggle="dropdown" role="button" aria-haspopup="true"
+                                                 aria-expanded="true">User Name</a>
+                        <div class="dropdown-menu animated flipInY"><a href="#" class="dropdown-item"><i
+                                    class="ti-user"></i> My Profile</a> <a href="#" class="dropdown-item"><i
+                                    class="ti-wallet"></i> My Balance</a> <a href="#" class="dropdown-item"><i
+                                    class="ti-email"></i> Inbox</a>
+                            <div class="dropdown-divider"></div>
+                            <a href="#" class="dropdown-item"><i class="ti-settings"></i> Account Setting</a>
+                            <div class="dropdown-divider"></div>
+                            <a href="login.html" class="dropdown-item"><i class="fa fa-power-off"></i> Logout</a></div>
                     </div>
                 </div>
                 <!-- End User profile text-->
@@ -174,7 +201,8 @@
                 <nav class="sidebar-nav">
                     <ul id="sidebarnav">
                         <li class="nav-small-cap">PERSONAL</li>
-                        <li> <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><i class="mdi mdi-gauge"></i><span class="hide-menu">Dashboard </span></a>
+                        <li><a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><i
+                                    class="mdi mdi-gauge"></i><span class="hide-menu">Dashboard </span></a>
                             <ul aria-expanded="false" class="collapse">
                                 <li><a href="index.html">Dashboard 1</a></li>
                                 <li><a href="index2.html">Dashboard 2</a></li>
@@ -184,7 +212,8 @@
                                 <li><a href="index6.html">Dashboard 6</a></li>
                             </ul>
                         </li>
-                        <li> <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><i class="mdi mdi-laptop-windows"></i><span class="hide-menu">Template Demos</span></a>
+                        <li><a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><i
+                                    class="mdi mdi-laptop-windows"></i><span class="hide-menu">Template Demos</span></a>
                             <ul aria-expanded="false" class="collapse">
                                 <li><a href="../minisidebar/index.html">Minisidebar</a></li>
                                 <li><a href="../horizontal/index2.html">Horizontal</a></li>
@@ -193,7 +222,8 @@
                                 <li><a href="javascript:angular">Anuglar-CLI Starter kit</a></li>
                             </ul>
                         </li>
-                        <li> <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><i class="mdi mdi-bullseye"></i><span class="hide-menu">Apps</span></a>
+                        <li><a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><i
+                                    class="mdi mdi-bullseye"></i><span class="hide-menu">Apps</span></a>
                             <ul aria-expanded="false" class="collapse">
                                 <li><a href="app-calendar.html">Calendar</a></li>
                                 <li><a href="app-chat.html">Chat app</a></li>
@@ -203,14 +233,16 @@
                                 <li><a href="app-contact-detail.html">Contact Detail</a></li>
                             </ul>
                         </li>
-                        <li> <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><i class="mdi mdi-email"></i><span class="hide-menu">Inbox</span></a>
+                        <li><a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><i
+                                    class="mdi mdi-email"></i><span class="hide-menu">Inbox</span></a>
                             <ul aria-expanded="false" class="collapse">
                                 <li><a href="app-email.html">Mailbox</a></li>
                                 <li><a href="app-email-detail.html">Mailbox Detail</a></li>
                                 <li><a href="app-compose.html">Compose Mail</a></li>
                             </ul>
                         </li>
-                        <li> <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><i class="mdi mdi-chart-bubble"></i><span class="hide-menu">Ui Elements</span></a>
+                        <li><a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><i
+                                    class="mdi mdi-chart-bubble"></i><span class="hide-menu">Ui Elements</span></a>
                             <ul aria-expanded="false" class="collapse">
                                 <li><a href="ui-cards.html">Cards</a></li>
                                 <li><a href="ui-user-card.html">User Cards</a></li>
@@ -242,7 +274,8 @@
                         </li>
                         <li class="nav-devider"></li>
                         <li class="nav-small-cap">FORMS, TABLE &amp; WIDGETS</li>
-                        <li> <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><i class="mdi mdi-file"></i><span class="hide-menu">Forms</span></a>
+                        <li><a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><i
+                                    class="mdi mdi-file"></i><span class="hide-menu">Forms</span></a>
                             <ul aria-expanded="false" class="collapse">
                                 <li><a href="form-basic.html">Basic Forms</a></li>
                                 <li><a href="form-layout.html">Form Layouts</a></li>
@@ -264,7 +297,8 @@
                                 <li><a href="form-tinymce.html">Tinymce Editor</a></li>
                             </ul>
                         </li>
-                        <li> <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><i class="mdi mdi-table"></i><span class="hide-menu">Tables</span></a>
+                        <li><a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><i
+                                    class="mdi mdi-table"></i><span class="hide-menu">Tables</span></a>
                             <ul aria-expanded="false" class="collapse">
                                 <li><a href="table-basic.html">Basic Tables</a></li>
                                 <li><a href="table-layout.html">Table Layouts</a></li>
@@ -276,7 +310,8 @@
                                 <li><a href="table-editable-table.html">Editable Table</a></li>
                             </ul>
                         </li>
-                        <li> <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><i class="mdi mdi-widgets"></i><span class="hide-menu">Widgets</span></a>
+                        <li><a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><i
+                                    class="mdi mdi-widgets"></i><span class="hide-menu">Widgets</span></a>
                             <ul aria-expanded="false" class="collapse">
                                 <li><a href="widget-apps.html">Widget Apps</a></li>
                                 <li><a href="widget-data.html">Widget Data</a></li>
@@ -285,7 +320,8 @@
                         </li>
                         <li class="nav-devider"></li>
                         <li class="nav-small-cap">EXTRA COMPONENTS</li>
-                        <li> <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><i class="mdi mdi-book-multiple"></i><span class="hide-menu">Page Layout</span></a>
+                        <li><a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><i
+                                    class="mdi mdi-book-multiple"></i><span class="hide-menu">Page Layout</span></a>
                             <ul aria-expanded="false" class="collapse">
                                 <li><a href="layout-single-column.html">1 Column</a></li>
                                 <li><a href="layout-fix-header.html">Fix header</a></li>
@@ -295,11 +331,14 @@
                                 <li><a href="layout-logo-center.html">Logo in Center</a></li>
                             </ul>
                         </li>
-                        <li> <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><i class="mdi mdi-book-open-variant"></i><span class="hide-menu">Sample Pages</span></a>
+                        <li><a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><i
+                                    class="mdi mdi-book-open-variant"></i><span
+                                    class="hide-menu">Sample Pages</span></a>
                             <ul aria-expanded="false" class="collapse">
                                 <li><a href="starter-kit.html">Starter Kit</a></li>
                                 <li><a href="pages-blank.html">Blank page</a></li>
-                                <li><a href="#" class="has-arrow">Authentication <span class="label label-rounded label-success">6</span></a>
+                                <li><a href="#" class="has-arrow">Authentication <span
+                                            class="label label-rounded label-success">6</span></a>
                                     <ul aria-expanded="false" class="collapse">
                                         <li><a href="pages-login.html">Login 1</a></li>
                                         <li><a href="pages-login-2.html">Login 2</a></li>
@@ -333,7 +372,8 @@
                                 </li>
                             </ul>
                         </li>
-                        <li> <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><i class="mdi mdi-file-chart"></i><span class="hide-menu">Charts</span></a>
+                        <li><a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><i
+                                    class="mdi mdi-file-chart"></i><span class="hide-menu">Charts</span></a>
                             <ul aria-expanded="false" class="collapse">
                                 <li><a href="chart-morris.html">Morris Chart</a></li>
                                 <li><a href="chart-chartist.html">Chartis Chart</a></li>
@@ -346,7 +386,8 @@
                                 <li><a href="chart-peity.html">Peity Charts</a></li>
                             </ul>
                         </li>
-                        <li> <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><i class="mdi mdi-brush"></i><span class="hide-menu">Icons</span></a>
+                        <li><a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><i
+                                    class="mdi mdi-brush"></i><span class="hide-menu">Icons</span></a>
                             <ul aria-expanded="false" class="collapse">
                                 <li><a href="icon-material.html">Material Icons</a></li>
                                 <li><a href="icon-fontawesome.html">Fontawesome Icons</a></li>
@@ -357,17 +398,20 @@
                                 <li><a href="icon-flag.html">Flag Icons</a></li>
                             </ul>
                         </li>
-                        <li> <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><i class="mdi mdi-map-marker"></i><span class="hide-menu">Maps</span></a>
+                        <li><a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><i
+                                    class="mdi mdi-map-marker"></i><span class="hide-menu">Maps</span></a>
                             <ul aria-expanded="false" class="collapse">
                                 <li><a href="map-google.html">Google Maps</a></li>
                                 <li><a href="map-vector.html">Vector Maps</a></li>
                             </ul>
                         </li>
-                        <li> <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><i class="mdi mdi-arrange-send-backward"></i><span class="hide-menu">Multi level dd</span></a>
+                        <li><a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><i
+                                    class="mdi mdi-arrange-send-backward"></i><span
+                                    class="hide-menu">Multi level dd</span></a>
                             <ul aria-expanded="false" class="collapse">
                                 <li><a href="#">item 1.1</a></li>
                                 <li><a href="#">item 1.2</a></li>
-                                <li> <a class="has-arrow" href="#" aria-expanded="false">Menu 1.3</a>
+                                <li><a class="has-arrow" href="#" aria-expanded="false">Menu 1.3</a>
                                     <ul aria-expanded="false" class="collapse">
                                         <li><a href="#">item 1.3.1</a></li>
                                         <li><a href="#">item 1.3.2</a></li>
@@ -380,15 +424,19 @@
                         </li>
                     </ul>
                 </nav>
-{{--                <naive-link-controller></naive-link-controller>--}}
-                <!-- End Sidebar navigation -->
+            {{--                <naive-link-controller></naive-link-controller>--}}
+            <!-- End Sidebar navigation -->
             </div>
             <!-- End Sidebar scroll-->
             <!-- Bottom points-->
             <div class="sidebar-footer">
-                <!-- item--><router-link to="/MyAccount/settings" class="link" data-toggle="tooltip" title="Settings"><i class="ti-settings"></i></router-link>
-                <!-- item--><a href="" class="link" data-toggle="tooltip" title="Email"><i class="mdi mdi-gmail"></i></a>
-                <!-- item--><a href="" class="link" data-toggle="tooltip" title="Logout"><i class="mdi mdi-cog"></i></a> </div>
+                <!-- item-->
+                <router-link to="/MyAccount/settings" class="link" data-toggle="tooltip" title="Settings"><i
+                        class="ti-settings"></i></router-link>
+                <!-- item--><a href="" class="link" data-toggle="tooltip" title="Email"><i
+                        class="mdi mdi-gmail"></i></a>
+                <!-- item--><a href="" class="link" data-toggle="tooltip" title="Logout"><i class="mdi mdi-logout"></i></a>
+            </div>
             <!-- End Bottom points-->
         </aside>
         <!-- ============================================================== -->
@@ -422,7 +470,7 @@
             <!-- ============================================================== -->
             <!-- footer -->
             <!-- ============================================================== -->
-            <footer class="footer"> © 2017 Material Pro Admin by wrappixel.com </footer>
+            <footer class="footer"> © 2017 Material Pro Admin by wrappixel.com</footer>
             <!-- ============================================================== -->
             <!-- End footer -->
             <!-- ============================================================== -->
@@ -449,7 +497,7 @@
 <!--Menu sidebar -->
 <script src="js/sidebarmenu.js"></script>
 <!--stickey kit -->
-<script src="../assets/plugins/sticky-kit-master/dist/sticky-kit.min.js"></script>
+<script src="../assets/plugins/sticky-kit-master/dist/sticky-kit.js"></script>
 <script src="../assets/plugins/sparkline/jquery.sparkline.min.js"></script>
 <!--stickey kit -->
 <script src="../assets/plugins/sticky-kit-master/dist/sticky-kit.min.js"></script>
@@ -471,12 +519,15 @@
 <!-- Style switcher -->
 <!-- ============================================================== -->
 <script src="../assets/plugins/styleswitcher/jQuery.style.switcher.js"></script>
-    <script src="/js/app.js"></script>
+<script src="/js/app.js"></script>
 </body>
 <script defer>
-    window.currentUserID={{Auth::user()->collegeUID}};
-    window.currentUserFullName="{{Auth::user()->firstName.' '.Auth::user()->middleName.' '.Auth::user()->lastName}}";
-    document.getElementsByClassName("currentUserFullName").innerHTML=currentUserFullName;
+    window.currentUserID ={{Auth::user()->collegeUID}};
+    window.currentUserEmail ="{{Auth::user()->email}}";
+    window.currentUserFullName = "{{Auth::user()->firstName.' '.Auth::user()->middleName.' '.Auth::user()->lastName}}";
+    document.getElementsByClassName("currentUserFullName").innerHTML = currentUserFullName;
     $(".currentUserFullName").text(currentUserFullName);
+    $(".currentUserID").text(currentUserID);
+    $(".currentUserEmail").text(currentUserEmail);
 </script>
 </html>

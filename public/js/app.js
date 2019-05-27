@@ -170,10 +170,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "breadcumb"
 });
@@ -2318,78 +2314,62 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { attrs: { id: "breadcumb" } }, [
-      _c("div", { attrs: { id: "breadcumb-main" } }, [
-        _c("div", { staticClass: "row page-titles" }, [
-          _c("div", { staticClass: "col-md-5 col-8 align-self-center" }, [
-            _c("h3", { staticClass: "text-themecolor" }, [_vm._v("Dashboard")]),
-            _vm._v(" "),
-            _c("ol", { staticClass: "breadcrumb" }, [
-              _c("li", { staticClass: "breadcrumb-item" }, [
-                _c("a", { attrs: { href: "javascript:void(0)" } }, [
-                  _vm._v("Home")
-                ])
+    return _c("div", { staticClass: "row page-titles" }, [
+      _c("div", { staticClass: "col-md-5 col-8 align-self-center" }, [
+        _c("h3", { staticClass: "text-themecolor" }, [_vm._v("Dashboard")]),
+        _vm._v(" "),
+        _c("ol", { staticClass: "breadcrumb" }, [
+          _c("li", { staticClass: "breadcrumb-item" }, [
+            _c("a", { attrs: { href: "javascript:void(0)" } }, [_vm._v("Home")])
+          ]),
+          _vm._v(" "),
+          _c("li", { staticClass: "breadcrumb-item active" }, [
+            _vm._v("Dashboard")
+          ])
+        ])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-md-7 col-4 align-self-center" }, [
+        _c("div", { staticClass: "d-flex m-t-10 justify-content-end" }, [
+          _c("div", { staticClass: "d-flex m-r-20 m-l-10 hidden-md-down" }, [
+            _c("div", { staticClass: "chart-text m-r-10" }, [
+              _c("h6", { staticClass: "m-b-0" }, [
+                _c("small", [_vm._v("THIS MONTH")])
               ]),
               _vm._v(" "),
-              _c("li", { staticClass: "breadcrumb-item active" }, [
-                _vm._v("Dashboard")
-              ])
+              _c("h4", { staticClass: "m-t-0 text-info" }, [_vm._v("$58,356")])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "spark-chart" }, [
+              _c("div", { attrs: { id: "monthchart" } })
             ])
           ]),
           _vm._v(" "),
-          _c("div", { staticClass: "col-md-7 col-4 align-self-center" }, [
-            _c("div", { staticClass: "d-flex m-t-10 justify-content-end" }, [
-              _c(
-                "div",
-                { staticClass: "d-flex m-r-20 m-l-10 hidden-md-down" },
-                [
-                  _c("div", { staticClass: "chart-text m-r-10" }, [
-                    _c("h6", { staticClass: "m-b-0" }, [
-                      _c("small", [_vm._v("THIS MONTH")])
-                    ]),
-                    _vm._v(" "),
-                    _c("h4", { staticClass: "m-t-0 text-info" }, [
-                      _vm._v("$58,356")
-                    ])
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "spark-chart" }, [
-                    _c("div", { attrs: { id: "monthchart" } })
-                  ])
-                ]
-              ),
+          _c("div", { staticClass: "d-flex m-r-20 m-l-10 hidden-md-down" }, [
+            _c("div", { staticClass: "chart-text m-r-10" }, [
+              _c("h6", { staticClass: "m-b-0" }, [
+                _c("small", [_vm._v("LAST MONTH")])
+              ]),
               _vm._v(" "),
-              _c(
-                "div",
-                { staticClass: "d-flex m-r-20 m-l-10 hidden-md-down" },
-                [
-                  _c("div", { staticClass: "chart-text m-r-10" }, [
-                    _c("h6", { staticClass: "m-b-0" }, [
-                      _c("small", [_vm._v("LAST MONTH")])
-                    ]),
-                    _vm._v(" "),
-                    _c("h4", { staticClass: "m-t-0 text-primary" }, [
-                      _vm._v("$48,356")
-                    ])
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "spark-chart" }, [
-                    _c("div", { attrs: { id: "lastmonthchart" } })
-                  ])
-                ]
-              ),
-              _vm._v(" "),
-              _c("div", {}, [
-                _c(
-                  "button",
-                  {
-                    staticClass:
-                      "right-side-toggle waves-effect waves-light btn-success btn btn-circle btn-sm pull-right m-l-10"
-                  },
-                  [_c("i", { staticClass: "ti-settings text-white" })]
-                )
+              _c("h4", { staticClass: "m-t-0 text-primary" }, [
+                _vm._v("$48,356")
               ])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "spark-chart" }, [
+              _c("div", { attrs: { id: "lastmonthchart" } })
             ])
+          ]),
+          _vm._v(" "),
+          _c("div", {}, [
+            _c(
+              "button",
+              {
+                staticClass:
+                  "right-side-toggle waves-effect waves-light btn-success btn btn-circle btn-sm pull-right m-l-10"
+              },
+              [_c("i", { staticClass: "ti-settings text-white" })]
+            )
           ])
         ])
       ])
