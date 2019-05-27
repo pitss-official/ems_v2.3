@@ -13,6 +13,8 @@ Vue.use(VueRouter)
 let routes=[
     {path:'/home',component: require('./components/Personal/Dashboard').default},
     {path:'/test',component: require('./components/test1').default},
+    {path:'/MyAccount/Settings',component: require('./components/Personal/Settings').default},
+    {path:'*',component: require('./components/Global/404Error').default},
 ]
 const router =new VueRouter({
     mode:'history',
@@ -31,6 +33,10 @@ const router =new VueRouter({
 
 Vue.component('naiveLinkController', require('./components/Personal/Navigation').default);
 Vue.component('naiveBreadcrumb', require('./components/Personal/Breadcumb').default);
+Vue.component('naiveRightSideBar', require('./components/Personal/SideBar').default);
+Vue.component('naiveQueues', require('./components/Personal/Queues').default);
+Vue.component('naiveNotifications', require('./components/Personal/Notifications').default);
+Vue.component('naiveMessages', require('./components/Personal/Messages').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
