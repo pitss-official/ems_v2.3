@@ -4,18 +4,15 @@
  * building robust, powerful web applications using Vue and Laravel.
  */
 
-require('./bootstrap');
+//require('./bootstrap');
 
 window.Vue = require('vue');
 
 import VueRouter from 'vue-router'
 Vue.use(VueRouter)
 let routes=[
-    {path:'/home',component: require('./components/Dashboard')},
-    {path:'/forms/new/student/enrollment',component: require('./components/Forms/Enrollment')},
-    // {path:'/home',component: require('./components/Dashboard')},
-    // {path:'/home',component: require('./components/Dashboard')},
-    // {path:'/home',component: require('./components/Dashboard')},
+    {path:'/home',component: require('./components/Personal/Dashboard').default},
+    {path:'/test',component: require('./components/test1').default},
 ]
 const router =new VueRouter({
     mode:'history',

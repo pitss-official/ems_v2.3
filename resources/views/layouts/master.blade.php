@@ -556,7 +556,7 @@
                         </li>
                     </ul>
                 </nav>
-                <naive-link-controller></naive-link-controller>
+{{--                <naive-link-controller></naive-link-controller>--}}
                 <!-- End Sidebar navigation -->
             </div>
             <!-- End Sidebar scroll-->
