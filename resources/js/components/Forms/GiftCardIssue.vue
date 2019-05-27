@@ -9,7 +9,7 @@
                         </div>
                         <div class="card-body">
                             <h5 class="m-t-30 m-b-10">Select the Reciplent Group Type</h5>
-                            <select class="selectpicker"  id="group_type" data-style="form-control btn-secondary" @change="selectReciplentGroup">
+                            <select @change="selectReciplentGroup"  class="selectpicker" data-style="form-control btn-secondary" id="group_type">
                                 <option value="0">Select a Type</option>
                                 <optgroup label="From Events">
                                     <option value="11">Attendees</option>
@@ -32,7 +32,7 @@
                         <div class="card-body"><form class="form-material p-r-20" id="14_form">
                             <h3><span class="mdi mdi-trophy-award"></span>Award Gift Certificates to Students (Registration Number Based)</h3><hr><label>Enter the Comma Separated Registration Numbers</label><br><label>The Recipients are:</label>
                             <div class="form-group">
-                                <select multiple type="number" data-role="tagsinput" id="14_reg_no_csv"></select><span><button type="button" class="btn btn-danger" onClick="$('#14_reg_no_csv').tagsinput('removeAll');">Clear All</button></span>
+                                <select data-role="tagsinput" id="14_reg_no_csv" multiple type="number"></select><span><button class="btn btn-danger" onClick="$('#14_reg_no_csv').tagsinput('removeAll');" type="button">Clear All</button></span>
                             </div>
 
 
@@ -40,24 +40,24 @@
                                 <div class="col-lg-3">
                                     <div class="form-group">
                                         <label class="control-label">Amount</label>
-                                        <input id="14_csv_amt" type="text" value="0" name="tch2" class=" form-control" data-bts-button-down-class="btn btn-secondary btn-outline" data-bts-button-up-class="btn btn-secondary btn-outline" required>
+                                        <input class=" form-control" data-bts-button-down-class="btn btn-secondary btn-outline" data-bts-button-up-class="btn btn-secondary btn-outline" id="14_csv_amt" name="tch2" required type="text" value="0">
                                     </div>
                                     <small class="form-control-feedback"></small>
                                 </div><div class="col-lg-3">
                                 <div class="form-group">
                                     <label class="control-label">Validity</label>
-                                    <input id="14_gift_valid" type="text" value="0" name="tch5" class=" form-control" data-bts-button-down-class="btn btn-secondary btn-outline" data-bts-button-up-class="btn btn-secondary btn-outline" required>
+                                    <input class=" form-control" data-bts-button-down-class="btn btn-secondary btn-outline" data-bts-button-up-class="btn btn-secondary btn-outline" id="14_gift_valid" name="tch5" required type="text" value="0">
                                 </div>
                                 <small class="form-control-feedback"></small>
                             </div>
                                 <div class="col-lg-6">
                                     <div class="form-group">
                                         <label class="control-label">Gift Message</label>
-                                        <input id="14_gift_message" type="text" class="form-control" placeholder="Dear Studnet you are rewarded..." required>
+                                        <input class="form-control" id="14_gift_message" placeholder="Dear Studnet you are rewarded..." required type="text">
                                         <small class="form-control-feedback"></small> </div>
                                 </div>
                             </div>
-                            <div class="row" style="display: none" id="reciplent_list_14">
+                            <div class="row" id="reciplent_list_14" style="display: none">
                                 <div class="col-lg-12">
                                     <div class="table-responsive">
                                         <table class="table table-bordered">
@@ -87,7 +87,7 @@
                             <div class="row">
                                 <div class="col-lg-6">
                                     <div class="form-group">
-                                        <button type="button" id="14_process_it_p" class="btn btn-inverse" @click="calculateValue">Calculate</button><button id="14_process_it" type="button" class="btn btn-success" @click="processRequest">Deposit Cards</button><button id="reload_it" type="button" class="btn btn-success" onClick="location.reload();">Reset Form</button>
+                                        <button @click="calculateValue" class="btn btn-inverse" id="14_process_it_p" type="button">Calculate</button><button @click="processRequest" class="btn btn-success" id="14_process_it" type="button">Deposit Cards</button><button class="btn btn-success" id="reload_it" onClick="location.reload();" type="button">Reset Form</button>
                                     </div>
                                 </div>
                             </div>
@@ -99,7 +99,7 @@
                                 <div class="row">
                                     <div class="col-lg-12">
                                         <div class="progress m-t-30">
-                                            <div id="14_display_progress_bar" class="progress-bar bg-warning active progress-bar-striped" style="width: 0%; height:14px;" role="progressbar"></div>
+                                            <div class="progress-bar bg-warning active progress-bar-striped" id="14_display_progress_bar" role="progressbar" style="width: 0%; height:14px;"></div>
                                         </div>
                                     </div>
                                 </div>

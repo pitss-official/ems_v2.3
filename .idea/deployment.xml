@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="PublishConfigData" autoUpload="Always" serverName="polyhomesvr" overwriteAll="false" exclude=".svn;.cvs;.idea;.DS_Store;.git;.hg;*.hprof;*.pyc;.env">
+  <component name="PublishConfigData" autoUpload="Always" serverName="polyhomesvr" overwriteAll="false" uploadOnCheckin="d57a7f12-022c-4bd8-a894-d0634b2164de" exclude=".svn;.cvs;.idea;.DS_Store;.git;.hg;*.hprof;*.pyc;.env">
     <serverData>
       <paths name="ftp_back_polyhomesvr">
         <serverdata>
@@ -21,6 +21,7 @@
         </serverdata>
       </paths>
     </serverData>
+    <option name="myUploadOnCheckinName" value="ftp_back_polyhomesvr" />
     <option name="myAutoUpload" value="ALWAYS" />
   </component>
 </project>

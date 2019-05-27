@@ -1,22 +1,27 @@
-<!DOCTYPE html>  
+<!DOCTYPE html>
 <head>
-  <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
-  <script src="http://cdnjs.cloudflare.com/ajax/libs/raphael/2.1.2/raphael-min.js"></script>
-  <script src="../morris.js"></script>
-  <script src="http://cdnjs.cloudflare.com/ajax/libs/prettify/r224/prettify.min.js"></script>
-  <script src="lib/example.js"></script>
-  <link rel="stylesheet" href="lib/example.css">
-  <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/prettify/r224/prettify.min.css">
-  <link rel="stylesheet" href="../morris.css">
-  <style>
-    body { width: 100%; }
-    #graph { width: 100%; }
-  </style>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/raphael/2.1.2/raphael-min.js"></script>
+    <script src="../morris.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/prettify/r224/prettify.min.js"></script>
+    <script src="lib/example.js"></script>
+    <link href="lib/example.css" rel="stylesheet">
+    <link href="http://cdnjs.cloudflare.com/ajax/libs/prettify/r224/prettify.min.css" rel="stylesheet">
+    <link href="../morris.css" rel="stylesheet">
+    <style>
+        body {
+            width: 100%;
+        }
+
+        #graph {
+            width: 100%;
+        }
+    </style>
 </head>
 <body>
 <h1>Formatting Dates YYYY-MM-DD</h1>
 <div id="graph"></div>
-<pre id="code" class="prettyprint linenums">
+<pre class="prettyprint linenums" id="code">
 /* data stolen from http://howmanyleft.co.uk/vehicle/jaguar_'e'_type */
 var day_data = [
   {"period": "2012-10-01", "licensed": 3407, "sorned": 660},

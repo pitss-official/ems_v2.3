@@ -25,6 +25,6 @@
         deleteProggress: '{1} tételből {0} törölve, feldolgozás...',
         pageSizeChangeLabel: 'Row count', //New. Must be localized.
         gotoPageLabel: 'Go to page' //New. Must be localized.
-});
+    });
 
 })(jQuery);

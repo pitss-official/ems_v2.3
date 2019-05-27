@@ -7,7 +7,7 @@ import jshint from 'gulp-jshint';
 import getSrcFiles from '../util/getSrcFiles';
 
 export function es(src = config.scripts.src, options = {}, files = ['**/*.js', '!**/*.min.js']) {
-  return function() {
+  return function () {
     let srcFiles = getSrcFiles(src, files);
 
     options = Object.assign({
@@ -24,7 +24,7 @@ export function es(src = config.scripts.src, options = {}, files = ['**/*.js', '
 }
 
 export function js(src = config.scripts.src, files = ['**/*.js', '!**/*.min.js']) {
-  return function() {
+  return function () {
     let srcFiles = getSrcFiles(src, files);
 
     return gulp.src(srcFiles)

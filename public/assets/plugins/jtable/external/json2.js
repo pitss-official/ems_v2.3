@@ -177,19 +177,19 @@ if (typeof JSON !== 'object') {
 
             return isFinite(this.valueOf())
                 ? this.getUTCFullYear() + '-' +
-                    f(this.getUTCMonth() + 1) + '-' +
-                    f(this.getUTCDate()) + 'T' +
-                    f(this.getUTCHours()) + ':' +
-                    f(this.getUTCMinutes()) + ':' +
-                    f(this.getUTCSeconds()) + 'Z'
+                f(this.getUTCMonth() + 1) + '-' +
+                f(this.getUTCDate()) + 'T' +
+                f(this.getUTCHours()) + ':' +
+                f(this.getUTCMinutes()) + ':' +
+                f(this.getUTCSeconds()) + 'Z'
                 : null;
         };
 
         String.prototype.toJSON =
             Number.prototype.toJSON =
-            Boolean.prototype.toJSON = function (key) {
-                return this.valueOf();
-            };
+                Boolean.prototype.toJSON = function (key) {
+                    return this.valueOf();
+                };
     }
 
     var cx = /[\u0000\u00ad\u0600-\u0604\u070f\u17b4\u17b5\u200c-\u200f\u2028-\u202f\u2060-\u206f\ufeff\ufff0-\uffff]/g,
@@ -240,7 +240,7 @@ if (typeof JSON !== 'object') {
         // If the value has a toJSON method, call it to obtain a replacement value.
 
         if (value && typeof value === 'object' &&
-                typeof value.toJSON === 'function') {
+            typeof value.toJSON === 'function') {
             value = value.toJSON(key);
         }
 
@@ -272,8 +272,8 @@ if (typeof JSON !== 'object') {
 
                 return String(value);
 
-                // If the type is 'object', we might be dealing with an object or an array or
-                // null.
+            // If the type is 'object', we might be dealing with an object or an array or
+            // null.
 
             case 'object':
 
@@ -307,8 +307,8 @@ if (typeof JSON !== 'object') {
                     v = partial.length === 0
                         ? '[]'
                         : gap
-                        ? '[\n' + gap + partial.join(',\n' + gap) + '\n' + mind + ']'
-                        : '[' + partial.join(',') + ']';
+                            ? '[\n' + gap + partial.join(',\n' + gap) + '\n' + mind + ']'
+                            : '[' + partial.join(',') + ']';
                     gap = mind;
                     return v;
                 }
@@ -346,8 +346,8 @@ if (typeof JSON !== 'object') {
                 v = partial.length === 0
                     ? '{}'
                     : gap
-                    ? '{\n' + gap + partial.join(',\n' + gap) + '\n' + mind + '}'
-                    : '{' + partial.join(',') + '}';
+                        ? '{\n' + gap + partial.join(',\n' + gap) + '\n' + mind + '}'
+                        : '{' + partial.join(',') + '}';
                 gap = mind;
                 return v;
         }
@@ -387,7 +387,7 @@ if (typeof JSON !== 'object') {
 
             rep = replacer;
             if (replacer && typeof replacer !== 'function' &&
-                    (typeof replacer !== 'object' ||
+                (typeof replacer !== 'object' ||
                     typeof replacer.length !== 'number')) {
                 throw new Error('JSON.stringify');
             }
@@ -395,7 +395,7 @@ if (typeof JSON !== 'object') {
             // Make a fake root object containing our value under the key of ''.
             // Return the result of stringifying the value.
 
-            return str('', { '': value });
+            return str('', {'': value});
         };
     }
 
@@ -459,9 +459,9 @@ if (typeof JSON !== 'object') {
             // ',' or ':' or '{' or '}'. If that is so, then the text is safe for eval.
 
             if (/^[\],:{}\s]*$/
-                    .test(text.replace(/\\(?:["\\\/bfnrt]|u[0-9a-fA-F]{4})/g, '@')
-                        .replace(/"[^"\\\n\r]*"|true|false|null|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?/g, ']')
-                        .replace(/(?:^|:|,)(?:\s*\[)+/g, ''))) {
+                .test(text.replace(/\\(?:["\\\/bfnrt]|u[0-9a-fA-F]{4})/g, '@')
+                    .replace(/"[^"\\\n\r]*"|true|false|null|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?/g, ']')
+                    .replace(/(?:^|:|,)(?:\s*\[)+/g, ''))) {
 
                 // In the third stage we use the eval function to compile the text into a
                 // JavaScript structure. The '{' operator is subject to a syntactic ambiguity
@@ -474,7 +474,7 @@ if (typeof JSON !== 'object') {
                 // each name/value pair to a reviver function for possible transformation.
 
                 return typeof reviver === 'function'
-                    ? walk({ '': j }, '')
+                    ? walk({'': j}, '')
                     : j;
             }
 

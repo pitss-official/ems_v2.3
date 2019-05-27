@@ -5,7 +5,7 @@
  *         Ievgenii (@Ievgeny, ievgeny@zoomdata.com)
  */
 
-define(function(require) {
+define(function (require) {
 
     // Reference
     var number = require('./number');
@@ -128,7 +128,7 @@ define(function(require) {
      */
     function clearStaticVariables() {
         logPositive = custOpts = logMappingOffset = lnBase =
-        absMin = absMax = splitNumber = tickList = logLabelBase = logLabelMode = null;
+            absMin = absMax = splitNumber = tickList = logLabelBase = logLabelMode = null;
     }
 
     /**
@@ -142,8 +142,7 @@ define(function(require) {
             logLabelMode = 'plain';
             logLabelBase = 10;
             lnBase = LN10;
-        }
-        else {
+        } else {
             logLabelBase = +logLabelBase;
             if (logLabelBase < 1) { // log base less than 1 is not supported.
                 logLabelBase = 10;
@@ -162,14 +161,11 @@ define(function(require) {
 
         if (!isFinite(dataMin) && !isFinite(dataMax)) {
             dataMin = dataMax = 1;
-        }
-        else if (!isFinite(dataMin)) {
+        } else if (!isFinite(dataMin)) {
             dataMin = dataMax;
-        }
-        else if (!isFinite(dataMax)) {
+        } else if (!isFinite(dataMax)) {
             dataMax = dataMin;
-        }
-        else if (dataMin > dataMax) {
+        } else if (dataMin > dataMax) {
             dataMax = [dataMin, dataMin = dataMax][0]; // Exchange min, max.
         }
 
@@ -210,8 +206,7 @@ define(function(require) {
 
         if (logLabelMode === 'exponent') {
             baseAnalysis();
-        }
-        else { // logLabelMode === 'plain', we will self-adapter
+        } else { // logLabelMode === 'plain', we will self-adapter
             !(
                 spanExpon <= MIN_BASE_10_SPLIT_NUMBER
                 && splitNumber > MIN_BASE_10_SPLIT_NUMBER
@@ -268,7 +263,7 @@ define(function(require) {
             while (
                 minDecimal < endDecimal
                 && toH(minDecimal + 1) + toK(minDecimal + 1) * LN2D10 < minDataLog
-            ) {
+                ) {
                 minDecimal++;
             }
             var maxDecimal = toDecimalFrom4Hex(maxExpon, 0);
@@ -276,7 +271,7 @@ define(function(require) {
             while (
                 maxDecimal > endDecimal
                 && toH(maxDecimal - 1) + toK(maxDecimal - 1) * LN2D10 > maxDataLog
-            ) {
+                ) {
                 maxDecimal--;
             }
 
@@ -359,8 +354,7 @@ define(function(require) {
                 }
                 return sign + myLogLabelBase + makeSuperscriptExponent(mathLog(value) / myLnBase);
             };
-        }
-        else {
+        } else {
             return function (value) { // Normal style like 0.001, 10,000,0
                 if (!isFinite(parseFloat(value))) {
                     return '';
@@ -386,13 +380,11 @@ define(function(require) {
                 x = parseFloat(x); // to number
                 if (!isFinite(x)) {
                     x = EPSILON;
-                }
-                else if (myLogPositive && x < EPSILON) {
+                } else if (myLogPositive && x < EPSILON) {
                     // FIXME
                     // It is suppose to be ignore, but not be set to EPSILON. See comments above.
                     x = EPSILON;
-                }
-                else if (!myLogPositive && x > -EPSILON) {
+                } else if (!myLogPositive && x > -EPSILON) {
                     x = -EPSILON;
                 }
                 x = mathAbs(x);

@@ -4,7 +4,7 @@ import fs from 'graceful-fs';
 import minimist from 'minimist';
 
 export default {
-  getConfig: function(pkg, src, dest) {
+  getConfig: function (pkg, src, dest) {
     return {
       version: pkg.version,
       name: pkg.name,
@@ -71,8 +71,8 @@ export default {
     };
   },
 
-  init: function() {
-    const pkg = JSON.parse(fs.readFileSync('./package.json', { encoding: 'utf-8' }));
+  init: function () {
+    const pkg = JSON.parse(fs.readFileSync('./package.json', {encoding: 'utf-8'}));
 
     Object.assign(this, {
       args: minimist(process.argv.slice(2), {

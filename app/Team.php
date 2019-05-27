@@ -8,36 +8,41 @@ use Illuminate\Support\Facades\DB;
 class Team extends Model
 {
     //
-    protected $visible=['name','id'];
+    protected $visible = ['name', 'id'];
+
     public static function isNotExist($id)
     {
         return !self::isExist($id);
     }
+
     public static function isExist($id)
     {
-        if(Team::where('id',$id)->count()==1)
+        if (Team::where('id', $id)->count() == 1)
             return true;
         else return false;
     }
-    public static function maxCapacity($teamID)
-    {
-        return DB::table('teams')->where('id',$teamID)->value('availedCapacity');
-    }
+
     public static function reduceVacancyNonTransaction($teamID)
     {
-        if(DB::table('teams')->where('id',$teamID)->value('name')=='Individual')
+        if (DB::table('teams')->where('id', $teamID)->value('name') == 'Individual')
             return ['Individual'];
-        $availedCapacity=DB::table('teams')->where('id',$teamID)->value('availedCapacity');
-        if($availedCapacity<Self::maxCapacity($teamID))
-        DB::table('teams')->where('id',$teamID)->update(['availedCapacity'],$availedCapacity-1);
+        $availedCapacity = DB::table('teams')->where('id', $teamID)->value('availedCapacity');
+        if ($availedCapacity < Self::maxCapacity($teamID))
+            DB::table('teams')->where('id', $teamID)->update(['availedCapacity'], $availedCapacity - 1);
         else
-            return ['error'=>'Team Capacity Exceeded','message'=>"The following team can't accomodate a new member. Kindly Choose another team"];
+            return ['error' => 'Team Capacity Exceeded', 'message' => "The following team can't accomodate a new member. Kindly Choose another team"];
     }
+
+    public static function maxCapacity($teamID)
+    {
+        return DB::table('teams')->where('id', $teamID)->value('availedCapacity');
+    }
+
     public static function getAllEnrollable($eventID)
     {
         return Team::where([
-           ['eventID','=',$eventID],
-           ['availedCapacity','<=','maxCapacity']
+            ['eventID', '=', $eventID],
+            ['availedCapacity', '<=', 'maxCapacity']
         ])->get();
     }
 }

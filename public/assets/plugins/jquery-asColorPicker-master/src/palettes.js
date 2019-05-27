@@ -1,29 +1,30 @@
 // palettes
 
-(function($) {
+(function ($) {
     "use strict";
 
     function noop() {
         return;
     }
+
     if (!window.localStorage) {
         window.localStorage = noop;
     }
 
-    $.asColorPicker.registerComponent('palettes', function() {
+    $.asColorPicker.registerComponent('palettes', function () {
         return {
             defaults: {
-                template: function(namespace) {
+                template: function (namespace) {
                     return '<ul class="' + namespace + '-palettes"></ul>';
                 },
-                item: function(namespace, color) {
+                item: function (namespace, color) {
                     return '<li data-color="' + color + '"><span style="background-color:' + color + '" /></li>';
                 },
                 colors: ['white', 'black', 'red', 'blue', 'yellow'],
                 max: 10,
                 localStorage: true
             },
-            init: function(api, options) {
+            init: function (api, options) {
                 var self = this,
                     colors, asColor = new $.asColor();
 
@@ -45,13 +46,13 @@
                 }
 
                 var list = '';
-                $.each(this.colors, function(i, color) {
+                $.each(this.colors, function (i, color) {
                     list += self.options.item(api.namespace, color);
                 });
 
                 this.$palettes = $(this.options.template.call(this, api.namespace)).html(list).appendTo(api.$dropdown);
 
-                this.$palettes.delegate('li', 'click', function(e) {
+                this.$palettes.delegate('li', 'click', function (e) {
                     var color = $(this).data('color');
                     api.set(color);
 
@@ -59,7 +60,7 @@
                     e.stopPropagation();
                 });
 
-                api.$element.on('asColorPicker::apply', function(e, api, color) {
+                api.$element.on('asColorPicker::apply', function (e, api, color) {
                     if (typeof color.toRGBA !== 'function') {
                         color = color.get().color;
                     }
@@ -81,12 +82,12 @@
                     }
                 });
             },
-            setLocal: function(key, value) {
+            setLocal: function (key, value) {
                 var jsonValue = JSON.stringify(value);
 
                 localStorage[key] = jsonValue;
             },
-            getLocal: function(key) {
+            getLocal: function (key) {
                 var value = localStorage[key];
 
                 return value ? JSON.parse(value) : value;

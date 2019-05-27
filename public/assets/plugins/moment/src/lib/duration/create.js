@@ -12,7 +12,7 @@ var aspNetRegex = /(\-)?(?:(\d*)\.)?(\d+)\:(\d+)(?:\:(\d+)\.?(\d{3})?)?/;
 // somewhat more in line with 4.4.3.2 2004 spec, but allows decimal anywhere
 var isoRegex = /^(-)?P(?:(?:([0-9,.]*)Y)?(?:([0-9,.]*)M)?(?:([0-9,.]*)D)?(?:T(?:([0-9,.]*)H)?(?:([0-9,.]*)M)?(?:([0-9,.]*)S)?)?|([0-9,.]*)W)$/;
 
-export function createDuration (input, key) {
+export function createDuration(input, key) {
     var duration = input,
         // matching against regexp is expensive, do it on demand
         match = null,
@@ -22,9 +22,9 @@ export function createDuration (input, key) {
 
     if (isDuration(input)) {
         duration = {
-            ms : input._milliseconds,
-            d  : input._days,
-            M  : input._months
+            ms: input._milliseconds,
+            d: input._days,
+            M: input._months
         };
     } else if (typeof input === 'number') {
         duration = {};
@@ -36,23 +36,23 @@ export function createDuration (input, key) {
     } else if (!!(match = aspNetRegex.exec(input))) {
         sign = (match[1] === '-') ? -1 : 1;
         duration = {
-            y  : 0,
-            d  : toInt(match[DATE])        * sign,
-            h  : toInt(match[HOUR])        * sign,
-            m  : toInt(match[MINUTE])      * sign,
-            s  : toInt(match[SECOND])      * sign,
-            ms : toInt(match[MILLISECOND]) * sign
+            y: 0,
+            d: toInt(match[DATE]) * sign,
+            h: toInt(match[HOUR]) * sign,
+            m: toInt(match[MINUTE]) * sign,
+            s: toInt(match[SECOND]) * sign,
+            ms: toInt(match[MILLISECOND]) * sign
         };
     } else if (!!(match = isoRegex.exec(input))) {
         sign = (match[1] === '-') ? -1 : 1;
         duration = {
-            y : parseIso(match[2], sign),
-            M : parseIso(match[3], sign),
-            d : parseIso(match[4], sign),
-            h : parseIso(match[5], sign),
-            m : parseIso(match[6], sign),
-            s : parseIso(match[7], sign),
-            w : parseIso(match[8], sign)
+            y: parseIso(match[2], sign),
+            M: parseIso(match[3], sign),
+            d: parseIso(match[4], sign),
+            h: parseIso(match[5], sign),
+            m: parseIso(match[6], sign),
+            s: parseIso(match[7], sign),
+            w: parseIso(match[8], sign)
         };
     } else if (duration == null) {// checks for null or undefined
         duration = {};
@@ -75,7 +75,7 @@ export function createDuration (input, key) {
 
 createDuration.fn = Duration.prototype;
 
-function parseIso (inp, sign) {
+function parseIso(inp, sign) {
     // We'd normally use ~~inp for this, but unfortunately it also
     // converts floats to ints.
     // inp may be undefined, so careful calling replace on it.

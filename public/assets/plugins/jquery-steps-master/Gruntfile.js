@@ -1,6 +1,5 @@
 /*jshint node:true*/
-module.exports = function (grunt)
-{
+module.exports = function (grunt) {
     "use strict";
 
     /* Hint: Using grunt-strip-code to remove comments from the release file */
@@ -12,7 +11,7 @@ module.exports = function (grunt)
                 separator: '\r\n\r\n',
                 banner: '/*! <%= "\\r\\n * " + pkg.title %> v<%= pkg.version %> - <%= grunt.template.today("mm/dd/yyyy") + "\\r\\n" %>' +
                     ' * Copyright (c) <%= grunt.template.today("yyyy") %> <%= pkg.author.name %> <%= (pkg.homepage ? "(" + pkg.homepage + ")" : "") + "\\r\\n" %>' +
-                    ' * Licensed under <%= pkg.licenses[0].type + " " + pkg.licenses[0].url + "\\r\\n */\\r\\n" %>' + 
+                    ' * Licensed under <%= pkg.licenses[0].type + " " + pkg.licenses[0].url + "\\r\\n */\\r\\n" %>' +
                     ';(function ($, undefined)\r\n{\r\n',
                 footer: '\r\n})(jQuery);'
             },
@@ -52,7 +51,7 @@ module.exports = function (grunt)
                     archive: '<%= pkg.folders.dist %>/jquery.steps-<%= pkg.version %>.zip'
                 },
                 files: [
-                  { flatten: true, expand: true, src: ['<%= pkg.folders.dist %>/*.js'], dest: '/' }
+                    {flatten: true, expand: true, src: ['<%= pkg.folders.dist %>/*.js'], dest: '/'}
                 ]
             }
         },

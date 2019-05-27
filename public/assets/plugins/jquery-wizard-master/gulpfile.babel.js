@@ -90,7 +90,7 @@ gulp.task('reload', browser.reload());
 // Watch files for changes
 gulp.task('watch', () => {
   gulp.watch(config.scripts.src, gulp.series('scripts', 'reload'));
-  gulp.watch(config.styles.src,  gulp.series('styles', 'reload'));
+  gulp.watch(config.styles.src, gulp.series('styles', 'reload'));
 });
 
 // Release task

@@ -1,10 +1,10 @@
 /**
-* jQuery wizard v0.4.3
-* https://github.com/amazingSurge/jquery-wizard
-*
-* Copyright (c) amazingSurge
-* Released under the LGPL-3.0 license
-*/
+ * jQuery wizard v0.4.3
+ * https://github.com/amazingSurge/jquery-wizard
+ *
+ * Copyright (c) amazingSurge
+ * Released under the LGPL-3.0 license
+ */
 import $ from 'jquery';
 
 /*eslint no-unused-vars: "off"*/
@@ -12,13 +12,13 @@ import $ from 'jquery';
 var DEFAULTS = {
   step: '.wizard-steps > li',
 
-  getPane: function(index, step) {
+  getPane: function (index, step) {
     return this.$element.find('.wizard-content').children().eq(index);
   },
 
   buttonsAppendTo: 'this',
   templates: {
-    buttons: function() {
+    buttons: function () {
       const options = this.options;
       return `<div class="wizard-buttons"><a class="wizard-back" href="#${this.id}" data-wizard="back" role="button">${options.buttonLabels.back}</a><a class="wizard-next" href="#${this.id}" data-wizard="next" role="button">${options.buttonLabels.next}</a><a class="wizard-finish" href="#${this.id}" data-wizard="finish" role="button">${options.buttonLabels.finish}</a></div>`;
     }
@@ -57,14 +57,17 @@ var DEFAULTS = {
   },
 
   loading: {
-    show: function(step) { },
-    hide: function(step) { },
-    fail: function(step) { }
+    show: function (step) {
+    },
+    hide: function (step) {
+    },
+    fail: function (step) {
+    }
   },
 
   cacheContent: false,
 
-  validator: function(step) {
+  validator: function (step) {
     return true;
   },
 
@@ -169,8 +172,8 @@ let support = {};
   }
 })(support);
 
-function emulateTransitionEnd ($el, duration) {
-    'use strict';
+function emulateTransitionEnd($el, duration) {
+  'use strict';
   let called = false;
 
   $el.one(support.transition.end, () => {
@@ -544,6 +547,10 @@ class wizard {
     this.initialize();
   }
 
+  static setDefaults(options) {
+    $.extend(true, DEFAULTS, $.isPlainObject(options) && options);
+  }
+
   initialize() {
     this.steps = [];
     const that = this;
@@ -816,10 +823,6 @@ class wizard {
 
     this.trigger('reset');
   }
-
-  static setDefaults(options) {
-    $.extend(true, DEFAULTS, $.isPlainObject(options) && options);
-  }
 }
 
 $(document).on('click', '[data-wizard]', function (e) {
@@ -844,13 +847,13 @@ $(document).on('click', '[data-wizard]', function (e) {
 });
 
 var info = {
-  version:'0.4.3'
+  version: '0.4.3'
 };
 
 const NAMESPACE = 'wizard';
 const OtherWizard = $.fn.wizard;
 
-const jQueryWizard = function(options, ...args) {
+const jQueryWizard = function (options, ...args) {
   if (typeof options === 'string') {
     const method = options;
 
@@ -862,7 +865,7 @@ const jQueryWizard = function(options, ...args) {
         return instance[method](...args);
       }
     } else {
-      return this.each(function() {
+      return this.each(function () {
         const instance = $.data(this, NAMESPACE);
         if (instance && typeof instance[method] === 'function') {
           instance[method](...args);
@@ -871,7 +874,7 @@ const jQueryWizard = function(options, ...args) {
     }
   }
 
-  return this.each(function() {
+  return this.each(function () {
     if (!$(this).data(NAMESPACE)) {
       $(this).data(NAMESPACE, new wizard(this, options));
     }
@@ -882,7 +885,7 @@ $.fn.wizard = jQueryWizard;
 
 $.wizard = $.extend({
   setDefaults: wizard.setDefaults,
-  noConflict: function() {
+  noConflict: function () {
     $.fn.wizard = OtherWizard;
     return jQueryWizard;
   }

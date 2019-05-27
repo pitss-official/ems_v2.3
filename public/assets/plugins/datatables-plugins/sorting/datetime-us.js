@@ -43,8 +43,7 @@ jQuery.extend(jQuery.fn.dataTableExt.oSort, {
             if (year.length == 2) {
                 if (parseInt(year, 10) < 70) {
                     year = '20' + year;
-                }
-                else {
+                } else {
                     year = '19' + year;
                 }
             }
@@ -67,7 +66,7 @@ jQuery.extend(jQuery.fn.dataTableExt.oSort, {
     },
 
     "datetime-us-asc": function (a, b) {
-            return a - b;
+        return a - b;
     },
 
     "datetime-us-desc": function (a, b) {

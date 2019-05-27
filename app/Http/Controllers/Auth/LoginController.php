@@ -36,4 +36,9 @@ class LoginController extends Controller
     {
         $this->middleware('guest')->except('logout');
     }
+    //method that is overridng the default username method so that user can login usinf college registarion number than email
+    public function username()
+    {
+        return 'collegeUID';
+    }
 }

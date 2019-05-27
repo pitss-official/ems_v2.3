@@ -1,4 +1,4 @@
- var data = [
+var data = [
     {
         "name": "bootstrap-table",
         "stargazers_count": "526",

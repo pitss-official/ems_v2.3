@@ -6,12 +6,12 @@
                 <div class="col-lg-4 col-xlg-3 col-md-5">
                     <div class="card">
                         <div class="card-body">
-                            <center class="m-t-30"> <img src="" class="img-circle" width="150">
+                            <center class="m-t-30"> <img class="img-circle" src="" width="150">
                                 <h4 class="card-title m-t-10">Hanna Gover</h4>
                                 <h6 class="card-subtitle">Accoubts Manager Amix corp</h6>
                                 <div class="row text-center justify-content-md-center">
-                                    <div class="col-4"><a href="javascript:void(0)" class="link"><i class="icon-people"></i> <font class="font-medium">254</font></a></div>
-                                    <div class="col-4"><a href="javascript:void(0)" class="link"><i class="icon-picture"></i> <font class="font-medium">54</font></a></div>
+                                    <div class="col-4"><a class="link" href="javascript:void(0)"><i class="icon-people"></i> <font class="font-medium">254</font></a></div>
+                                    <div class="col-4"><a class="link" href="javascript:void(0)"><i class="icon-picture"></i> <font class="font-medium">54</font></a></div>
                                 </div>
                             </center>
                         </div>
@@ -22,7 +22,7 @@
                             <h6>+91 654 784 547</h6> <small class="text-muted p-t-30 db">Address</small>
                             <h6>71 Pilgrim Avenue Chevy Chase, MD 20815</h6>
                             <div class="map-box">
-                                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d470029.1604841957!2d72.29955005258641!3d23.019996818380896!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x395e848aba5bd449%3A0x4fcedd11614f6516!2sAhmedabad%2C+Gujarat!5e0!3m2!1sen!2sin!4v1493204785508" width="100%" height="150" frameborder="0" style="border:0" allowfullscreen=""></iframe>
+                                <iframe allowfullscreen="" frameborder="0" height="150" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d470029.1604841957!2d72.29955005258641!3d23.019996818380896!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x395e848aba5bd449%3A0x4fcedd11614f6516!2sAhmedabad%2C+Gujarat!5e0!3m2!1sen!2sin!4v1493204785508" style="border:0" width="100%"></iframe>
                             </div> <small class="text-muted p-t-30 db">Social Profile</small>
                             <br>
                             <button class="btn btn-circle btn-secondary"><i class="fa fa-facebook"></i></button>
@@ -37,59 +37,59 @@
                     <div class="card">
                         <!-- Nav tabs -->
                         <ul class="nav nav-tabs profile-tab" role="tablist">
-                            <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#home" role="tab" aria-expanded="false">Timeline</a> </li>
-                            <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#profile" role="tab" aria-expanded="true">Profile</a> </li>
-                            <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#settings" role="tab" aria-expanded="false">Settings</a> </li>
+                            <li class="nav-item"> <a aria-expanded="false" class="nav-link" data-toggle="tab" href="#home" role="tab">Timeline</a> </li>
+                            <li class="nav-item"> <a aria-expanded="true" class="nav-link active" data-toggle="tab" href="#profile" role="tab">Profile</a> </li>
+                            <li class="nav-item"> <a aria-expanded="false" class="nav-link" data-toggle="tab" href="#settings" role="tab">Settings</a> </li>
                         </ul>
                         <!-- Tab panes -->
                         <div class="tab-content">
-                            <div class="tab-pane" id="home" role="tabpanel" aria-expanded="false">
+                            <div aria-expanded="false" class="tab-pane" id="home" role="tabpanel">
                                 <div class="card-body">
                                     <div class="profiletimeline">
                                         <div class="sl-item">
-                                            <div class="sl-left"> <img src="" alt="user" class="img-circle"> </div>
+                                            <div class="sl-left"> <img alt="user" class="img-circle" src=""> </div>
                                             <div class="sl-right">
-                                                <div><a href="#" class="link">John Doe</a> <span class="sl-date">5 minutes ago</span>
+                                                <div><a class="link" href="#">John Doe</a> <span class="sl-date">5 minutes ago</span>
                                                     <p>assign a new task <a href="#"> Design weblayout</a></p>
                                                     <div class="row">
-                                                        <div class="col-lg-3 col-md-6 m-b-20"><img src="" class="img-responsive radius"></div>
-                                                        <div class="col-lg-3 col-md-6 m-b-20"><img src="" class="img-responsive radius"></div>
-                                                        <div class="col-lg-3 col-md-6 m-b-20"><img src="" class="img-responsive radius"></div>
-                                                        <div class="col-lg-3 col-md-6 m-b-20"><img src="" class="img-responsive radius"></div>
+                                                        <div class="col-lg-3 col-md-6 m-b-20"><img class="img-responsive radius" src=""></div>
+                                                        <div class="col-lg-3 col-md-6 m-b-20"><img class="img-responsive radius" src=""></div>
+                                                        <div class="col-lg-3 col-md-6 m-b-20"><img class="img-responsive radius" src=""></div>
+                                                        <div class="col-lg-3 col-md-6 m-b-20"><img class="img-responsive radius" src=""></div>
                                                     </div>
-                                                    <div class="like-comm"> <a href="javascript:void(0)" class="link m-r-10">2 comment</a> <a href="javascript:void(0)" class="link m-r-10"><i class="fa fa-heart text-danger"></i> 5 Love</a> </div>
+                                                    <div class="like-comm"> <a class="link m-r-10" href="javascript:void(0)">2 comment</a> <a class="link m-r-10" href="javascript:void(0)"><i class="fa fa-heart text-danger"></i> 5 Love</a> </div>
                                                 </div>
                                             </div>
                                         </div>
                                         <hr>
                                         <div class="sl-item">
-                                            <div class="sl-left"> <img src="" alt="user" class="img-circle"> </div>
+                                            <div class="sl-left"> <img alt="user" class="img-circle" src=""> </div>
                                             <div class="sl-right">
-                                                <div> <a href="#" class="link">John Doe</a> <span class="sl-date">5 minutes ago</span>
+                                                <div> <a class="link" href="#">John Doe</a> <span class="sl-date">5 minutes ago</span>
                                                     <div class="m-t-20 row">
-                                                        <div class="col-md-3 col-xs-12"><img src="" alt="user" class="img-responsive radius"></div>
+                                                        <div class="col-md-3 col-xs-12"><img alt="user" class="img-responsive radius" src=""></div>
                                                         <div class="col-md-9 col-xs-12">
-                                                            <p> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. </p> <a href="#" class="btn btn-success"> Design weblayout</a></div>
+                                                            <p> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. </p> <a class="btn btn-success" href="#"> Design weblayout</a></div>
                                                     </div>
-                                                    <div class="like-comm m-t-20"> <a href="javascript:void(0)" class="link m-r-10">2 comment</a> <a href="javascript:void(0)" class="link m-r-10"><i class="fa fa-heart text-danger"></i> 5 Love</a> </div>
+                                                    <div class="like-comm m-t-20"> <a class="link m-r-10" href="javascript:void(0)">2 comment</a> <a class="link m-r-10" href="javascript:void(0)"><i class="fa fa-heart text-danger"></i> 5 Love</a> </div>
                                                 </div>
                                             </div>
                                         </div>
                                         <hr>
                                         <div class="sl-item">
-                                            <div class="sl-left"> <img src="" alt="user" class="img-circle"> </div>
+                                            <div class="sl-left"> <img alt="user" class="img-circle" src=""> </div>
                                             <div class="sl-right">
-                                                <div><a href="#" class="link">John Doe</a> <span class="sl-date">5 minutes ago</span>
+                                                <div><a class="link" href="#">John Doe</a> <span class="sl-date">5 minutes ago</span>
                                                     <p class="m-t-10"> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet. Duis sagittis ipsum. Praesent mauris. Fusce nec tellus sed augue semper </p>
                                                 </div>
-                                                <div class="like-comm m-t-20"> <a href="javascript:void(0)" class="link m-r-10">2 comment</a> <a href="javascript:void(0)" class="link m-r-10"><i class="fa fa-heart text-danger"></i> 5 Love</a> </div>
+                                                <div class="like-comm m-t-20"> <a class="link m-r-10" href="javascript:void(0)">2 comment</a> <a class="link m-r-10" href="javascript:void(0)"><i class="fa fa-heart text-danger"></i> 5 Love</a> </div>
                                             </div>
                                         </div>
                                         <hr>
                                         <div class="sl-item">
-                                            <div class="sl-left"> <img src="" alt="user" class="img-circle"> </div>
+                                            <div class="sl-left"> <img alt="user" class="img-circle" src=""> </div>
                                             <div class="sl-right">
-                                                <div><a href="#" class="link">John Doe</a> <span class="sl-date">5 minutes ago</span>
+                                                <div><a class="link" href="#">John Doe</a> <span class="sl-date">5 minutes ago</span>
                                                     <blockquote class="m-t-10">
                                                         Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt
                                                     </blockquote>
@@ -100,7 +100,7 @@
                                 </div>
                             </div>
                             <!--second tab-->
-                            <div class="tab-pane active" id="profile" role="tabpanel" aria-expanded="true">
+                            <div aria-expanded="true" class="tab-pane active" id="profile" role="tabpanel">
                                 <div class="card-body">
                                     <div class="row">
                                         <div class="col-md-3 col-xs-6 b-r"> <strong>Full Name</strong>
@@ -128,53 +128,53 @@
                                     <hr>
                                     <h5 class="m-t-30">Wordpress <span class="pull-right">80%</span></h5>
                                     <div class="progress">
-                                        <div class="progress-bar bg-success" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style="width:80%; height:6px;"> <span class="sr-only">50% Complete</span> </div>
+                                        <div aria-valuemax="100" aria-valuemin="0" aria-valuenow="80" class="progress-bar bg-success" role="progressbar" style="width:80%; height:6px;"> <span class="sr-only">50% Complete</span> </div>
                                     </div>
                                     <h5 class="m-t-30">HTML 5 <span class="pull-right">90%</span></h5>
                                     <div class="progress">
-                                        <div class="progress-bar bg-info" role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100" style="width:90%; height:6px;"> <span class="sr-only">50% Complete</span> </div>
+                                        <div aria-valuemax="100" aria-valuemin="0" aria-valuenow="90" class="progress-bar bg-info" role="progressbar" style="width:90%; height:6px;"> <span class="sr-only">50% Complete</span> </div>
                                     </div>
                                     <h5 class="m-t-30">jQuery <span class="pull-right">50%</span></h5>
                                     <div class="progress">
-                                        <div class="progress-bar bg-danger" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width:50%; height:6px;"> <span class="sr-only">50% Complete</span> </div>
+                                        <div aria-valuemax="100" aria-valuemin="0" aria-valuenow="50" class="progress-bar bg-danger" role="progressbar" style="width:50%; height:6px;"> <span class="sr-only">50% Complete</span> </div>
                                     </div>
                                     <h5 class="m-t-30">Photoshop <span class="pull-right">70%</span></h5>
                                     <div class="progress">
-                                        <div class="progress-bar bg-warning" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width:70%; height:6px;"> <span class="sr-only">50% Complete</span> </div>
+                                        <div aria-valuemax="100" aria-valuemin="0" aria-valuenow="70" class="progress-bar bg-warning" role="progressbar" style="width:70%; height:6px;"> <span class="sr-only">50% Complete</span> </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="tab-pane" id="settings" role="tabpanel" aria-expanded="false">
+                            <div aria-expanded="false" class="tab-pane" id="settings" role="tabpanel">
                                 <div class="card-body">
                                     <form class="form-horizontal form-material">
                                         <div class="form-group">
                                             <label class="col-md-12">Full Name</label>
                                             <div class="col-md-12">
-                                                <input type="text" placeholder="Johnathan Doe" class="form-control form-control-line">
+                                                <input class="form-control form-control-line" placeholder="Johnathan Doe" type="text">
                                             </div>
                                         </div>
                                         <div class="form-group">
-                                            <label for="example-email" class="col-md-12">Email</label>
+                                            <label class="col-md-12" for="example-email">Email</label>
                                             <div class="col-md-12">
-                                                <input type="email" placeholder="johnathan@admin.com" class="form-control form-control-line" name="example-email" id="example-email">
+                                                <input class="form-control form-control-line" id="example-email" name="example-email" placeholder="johnathan@admin.com" type="email">
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <label class="col-md-12">Password</label>
                                             <div class="col-md-12">
-                                                <input type="password" value="password" class="form-control form-control-line">
+                                                <input class="form-control form-control-line" type="password" value="password">
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <label class="col-md-12">Phone No</label>
                                             <div class="col-md-12">
-                                                <input type="text" placeholder="123 456 7890" class="form-control form-control-line">
+                                                <input class="form-control form-control-line" placeholder="123 456 7890" type="text">
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <label class="col-md-12">Message</label>
                                             <div class="col-md-12">
-                                                <textarea rows="5" class="form-control form-control-line"></textarea>
+                                                <textarea class="form-control form-control-line" rows="5"></textarea>
                                             </div>
                                         </div>
                                         <div class="form-group">

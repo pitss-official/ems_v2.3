@@ -17,4 +17,4 @@ import './year';
 
 import {normalizeUnits} from './aliases';
 
-export { normalizeUnits };
+export {normalizeUnits};

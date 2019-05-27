@@ -1,11 +1,11 @@
 /**
-* jQuery wizard v0.4.3
-* https://github.com/amazingSurge/jquery-wizard
-*
-* Copyright (c) amazingSurge
-* Released under the LGPL-3.0 license
-*/
-(function(global, factory) {
+ * jQuery wizard v0.4.3
+ * https://github.com/amazingSurge/jquery-wizard
+ *
+ * Copyright (c) amazingSurge
+ * Released under the LGPL-3.0 license
+ */
+(function (global, factory) {
   if (typeof define === "function" && define.amd) {
     define(['jquery'], factory);
   } else if (typeof exports !== "undefined") {
@@ -19,7 +19,7 @@
   }
 })(this,
 
-  function(_jquery) {
+  function (_jquery) {
     'use strict';
 
     var _jquery2 = _interopRequireDefault(_jquery);
@@ -46,12 +46,12 @@
 
     var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ?
 
-      function(obj) {
+      function (obj) {
         return typeof obj;
       }
       :
 
-      function(obj) {
+      function (obj) {
         return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj;
       };
 
@@ -61,7 +61,7 @@
       }
     }
 
-    var _createClass = function() {
+    var _createClass = function () {
       function defineProperties(target, props) {
         for (var i = 0; i < props.length; i++) {
           var descriptor = props[i];
@@ -74,7 +74,7 @@
         }
       }
 
-      return function(Constructor, protoProps, staticProps) {
+      return function (Constructor, protoProps, staticProps) {
         if (protoProps)
           defineProperties(Constructor.prototype, protoProps);
 
@@ -136,9 +136,12 @@
       },
 
       loading: {
-        show: function show(step) {},
-        hide: function hide(step) {},
-        fail: function fail(step) {}
+        show: function show(step) {
+        },
+        hide: function hide(step) {
+        },
+        fail: function fail(step) {
+        }
       },
 
       cacheContent: false,
@@ -172,7 +175,7 @@
      **/
     var support = {};
 
-    (function(support) {
+    (function (support) {
       /**
        * Borrowed from Owl carousel
        **/
@@ -216,7 +219,7 @@
         if (!result) {
           _jquery2.default.each(prefixes,
 
-            function(i, prefix) {
+            function (i, prefix) {
               if (style[prefix + upper] !== undefined) {
                 result = '-' + prefix.toLowerCase() + '-' + upper;
 
@@ -265,7 +268,7 @@
 
       $el.one(support.transition.end,
 
-        function() {
+        function () {
           called = true;
         }
       );
@@ -277,7 +280,7 @@
       setTimeout(callback, duration);
     }
 
-    var Step = function() {
+    var Step = function () {
       function Step(element, wizard, index) {
         _classCallCheck(this, Step);
 
@@ -484,15 +487,13 @@
             that.wizard.options.loading.show.call(that.wizard, that);
 
             _jquery2.default.ajax(loader.url, loader.settings || {}).done(
-
-              function(data) {
+              function (data) {
                 setContent(data);
 
                 that.wizard.options.loading.hide.call(that.wizard, that);
               }
             ).fail(
-
-              function() {
+              function () {
                 that.wizard.options.loading.fail.call(that.wizard, that);
               }
             );
@@ -600,7 +601,7 @@
           if (_jquery2.default.isFunction(handler) && _jquery2.default.isArray(this.events[event])) {
             _jquery2.default.each(this.events[event],
 
-              function(i, f) {
+              function (i, f) {
                 /*eslint consistent-return: "off"*/
 
                 if (f === handler) {
@@ -665,7 +666,7 @@
     var counter = 0;
     var NAMESPACE$1 = 'wizard';
 
-    var wizard = function() {
+    var wizard = function () {
       function wizard(element) {
         var options = arguments.length <= 1 || arguments[1] === undefined ? {} : arguments[1];
 
@@ -696,8 +697,7 @@
           var that = this;
 
           this.$steps.each(
-
-            function(index) {
+            function (index) {
               that.steps.push(new Step(this, that, index));
             }
           );
@@ -707,7 +707,7 @@
 
           _jquery2.default.each(this.steps,
 
-            function(i, step) {
+            function (i, step) {
               step.setup();
             }
           );
@@ -716,7 +716,7 @@
 
           this.$element.on('click', this.options.step,
 
-            function(e) {
+            function (e) {
               var index = (0, _jquery2.default)(this).data('wizard-index');
 
               if (!that.get(index).is('disabled')) {
@@ -782,7 +782,7 @@
 
           _jquery2.default.each(this.steps,
 
-            function(i, step) {
+            function (i, step) {
               if (i > _this._current) {
                 step.leave('error');
                 step.leave('active');
@@ -832,7 +832,7 @@
           // callback
           eventType = eventType.replace(/\b\w+\b/g,
 
-            function(word) {
+            function (word) {
               return word.substring(0, 1).toUpperCase() + word.substring(1);
             }
           );
@@ -897,8 +897,7 @@
 
             current.hide();
             to.show(
-
-              function() {
+              function () {
                 that._current = index;
                 that.transitioning = false;
                 this.leave('disabled');
@@ -927,8 +926,7 @@
 
           if (to.loader) {
             to.load(
-
-              function() {
+              function () {
                 process();
               }
             );
@@ -964,13 +962,13 @@
           var _this2 = this;
 
           if (this._current < this.lastIndex()) {
-            (function() {
+            (function () {
               var from = _this2._current,
                 to = _this2._current + 1;
 
               _this2.goTo(to,
 
-                function() {
+                function () {
                   this.trigger('next', this.get(from), this.get(to));
                 }
               );
@@ -985,13 +983,13 @@
           var _this3 = this;
 
           if (this._current > 0) {
-            (function() {
+            (function () {
               var from = _this3._current,
                 to = _this3._current - 1;
 
               _this3.goTo(to,
 
-                function() {
+                function () {
                   this.trigger('back', this.get(from), this.get(to));
                 }
               );
@@ -1027,7 +1025,7 @@
 
           _jquery2.default.each(this.steps,
 
-            function(i, step) {
+            function (i, step) {
               step.reset();
             }
           );
@@ -1046,7 +1044,7 @@
 
     (0, _jquery2.default)(document).on('click', '[data-wizard]',
 
-      function(e) {
+      function (e) {
         'use strict';
 
         var href = void 0;
@@ -1085,7 +1083,7 @@
       }
 
       if (typeof options === 'string') {
-        var _ret3 = function() {
+        var _ret3 = function () {
           var method = options;
 
           if (/^_/.test(method)) {
@@ -1106,8 +1104,7 @@
 
             return {
               v: _this4.each(
-
-                function() {
+                function () {
                   var instance = _jquery2.default.data(this, NAMESPACE);
 
                   if (instance && typeof instance[method] === 'function') {
@@ -1125,8 +1122,7 @@
       }
 
       return this.each(
-
-        function() {
+        function () {
           if (!(0, _jquery2.default)(this).data(NAMESPACE)) {
             (0, _jquery2.default)(this).data(NAMESPACE, new wizard(this, options));
           }

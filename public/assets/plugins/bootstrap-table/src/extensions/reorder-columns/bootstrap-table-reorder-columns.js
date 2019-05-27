@@ -88,11 +88,12 @@
         var that = this;
         try {
             $(this.$el).dragtable('destroy');
-        } catch (e) {}
+        } catch (e) {
+        }
         $(this.$el).dragtable({
             maxMovingRows: that.options.maxMovingRows,
-            clickDelay:200,
-            beforeStop: function() {
+            clickDelay: 200,
+            beforeStop: function () {
                 var ths = [],
                     columns = [],
                     columnIndex = -1;
@@ -100,7 +101,7 @@
                     ths.push($(this).data('field'));
                 });
 
-                for (var i = 0; i < ths.length; i++ ) {
+                for (var i = 0; i < ths.length; i++) {
                     columnIndex = getFieldIndex(that.options.columns, ths[i]);
                     if (columnIndex !== -1) {
                         columns.push(that.options.columns[columnIndex]);

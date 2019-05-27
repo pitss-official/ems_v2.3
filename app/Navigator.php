@@ -7,6 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 class Navigator extends Model
 {
     //
-    protected $table='user_navigation';
+    protected $table = 'user_navigation';
 
 }

@@ -1,14 +1,14 @@
 var gulp = require('gulp'),
-    $    = require('gulp-load-plugins')(),
+    $ = require('gulp-load-plugins')(),
     meta = require('./package.json');
 
 var argv = require('minimist')(process.argv.slice(2));
 
-var jsDir     = 'src/js/',
-    sassDir   = 'src/sass/',
-    fontsDir  = 'src/fonts/',
-    distDir   = 'dist',
-    banner    = [
+var jsDir = 'src/js/',
+    sassDir = 'src/sass/',
+    fontsDir = 'src/fonts/',
+    distDir = 'dist',
+    banner = [
         '/*!',
         ' * =============================================================',
         ' * <%= name %> v<%= version %> - <%= description %>',
@@ -19,7 +19,7 @@ var jsDir     = 'src/js/',
         ' */\n\n'
     ].join('\n'),
     umdDeps = {
-        dependencies: function() {
+        dependencies: function () {
             return [
                 {
                     name: '$',
@@ -38,14 +38,14 @@ var onError = function (err) {
     this.emit('end');
 };
 
-gulp.task('fonts', function() {
+gulp.task('fonts', function () {
     return gulp.src(fontsDir + '**/*')
         .pipe(gulp.dest(distDir + "/fonts"));
 });
 
-gulp.task('sass', function() {
+gulp.task('sass', function () {
     return gulp.src(sassDir + '*.scss')
-        .pipe($.plumber({ errorHandler: onError }))
+        .pipe($.plumber({errorHandler: onError}))
         .pipe($.sass())
         .pipe($.autoprefixer())
 
@@ -57,9 +57,9 @@ gulp.task('sass', function() {
         .pipe($.if(!argv.dev, gulp.dest(distDir + "/css")));
 });
 
-gulp.task('scripts', function() {
+gulp.task('scripts', function () {
     return gulp.src([jsDir + '*.js'])
-        .pipe($.plumber({ errorHandler: onError }))
+        .pipe($.plumber({errorHandler: onError}))
         .pipe(gulp.dest(distDir + "/js"))
         .pipe($.umd(umdDeps))
 
@@ -74,7 +74,7 @@ gulp.task('scripts', function() {
 });
 
 
-gulp.task('default', ['sass', 'scripts', 'fonts'], function() {
+gulp.task('default', ['sass', 'scripts', 'fonts'], function () {
     gulp.watch(jsDir + '**/*.js', ['scripts']);
     gulp.watch(sassDir + '**/*.scss', ['sass']);
 });

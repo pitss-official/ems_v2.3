@@ -13,7 +13,7 @@
                                     Look like you're lost
                                 </h3>
                                 <p>the page you are looking for not available!</p>
-                                <a href="/home" class="link_404">Go to Home</a>
+                                <a class="link_404" href="/home">Go to Home</a>
                             </div>
                         </div>
                     </div>

@@ -65,22 +65,22 @@
 
         cookieName = that.options.cookieIdTable + '.' + cookieName;
 
-        switch(that.options.cookieStorage) {
+        switch (that.options.cookieStorage) {
             case 'cookieStorage':
                 document.cookie = [
-                        cookieName, '=', cookieValue,
-                        '; expires=' + that.options.cookieExpire,
-                        that.options.cookiePath ? '; path=' + that.options.cookiePath : '',
-                        that.options.cookieDomain ? '; domain=' + that.options.cookieDomain : '',
-                        that.options.cookieSecure ? '; secure' : ''
-                    ].join('');
-            break;
+                    cookieName, '=', cookieValue,
+                    '; expires=' + that.options.cookieExpire,
+                    that.options.cookiePath ? '; path=' + that.options.cookiePath : '',
+                    that.options.cookieDomain ? '; domain=' + that.options.cookieDomain : '',
+                    that.options.cookieSecure ? '; secure' : ''
+                ].join('');
+                break;
             case 'localStorage':
                 localStorage.setItem(cookieName, cookieValue);
-            break;
+                break;
             case 'sessionStorage':
                 sessionStorage.setItem(cookieName, cookieValue);
-            break;
+                break;
             default:
                 return false;
         }
@@ -99,7 +99,7 @@
 
         cookieName = tableName + '.' + cookieName;
 
-        switch(that.options.cookieStorage) {
+        switch (that.options.cookieStorage) {
             case 'cookieStorage':
                 return decodeURIComponent(document.cookie.replace(new RegExp('(?:(?:^|.*;)\\s*' + encodeURIComponent(cookieName).replace(/[\-\.\+\*]/g, '\\$&') + '\\s*\\=\\s*([^;]*).*$)|^.*$'), '$1')) || null;
             case 'localStorage':
@@ -113,28 +113,28 @@
 
     var deleteCookie = function (that, tableName, cookieName) {
         cookieName = tableName + '.' + cookieName;
-        
-        switch(that.options.cookieStorage) {
+
+        switch (that.options.cookieStorage) {
             case 'cookieStorage':
                 document.cookie = [
-                        encodeURIComponent(cookieName), '=',
-                        '; expires=Thu, 01 Jan 1970 00:00:00 GMT',
-                        that.options.cookiePath ? '; path=' + that.options.cookiePath : '',
-                        that.options.cookieDomain ? '; domain=' + that.options.cookieDomain : '',
-                    ].join('');
+                    encodeURIComponent(cookieName), '=',
+                    '; expires=Thu, 01 Jan 1970 00:00:00 GMT',
+                    that.options.cookiePath ? '; path=' + that.options.cookiePath : '',
+                    that.options.cookieDomain ? '; domain=' + that.options.cookieDomain : '',
+                ].join('');
                 break;
             case 'localStorage':
                 localStorage.removeItem(cookieName);
-            break;
+                break;
             case 'sessionStorage':
                 sessionStorage.removeItem(cookieName);
-            break;
+                break;
 
         }
         return true;
     };
 
-    var calculateExpiration = function(cookieExpire) {
+    var calculateExpiration = function (cookieExpire) {
         var time = cookieExpire.replace(/[0-9]*/, ''); //s,mi,h,d,m,y
         cookieExpire = cookieExpire.replace(/[A-Za-z]{1,2}}/, ''); //number
 
@@ -247,7 +247,7 @@
         this.options.cookiesEnabled = typeof this.options.cookiesEnabled === 'string' ?
             this.options.cookiesEnabled.replace('[', '').replace(']', '')
                 .replace(/ /g, '').toLowerCase().split(',') :
-                this.options.cookiesEnabled;
+            this.options.cookiesEnabled;
 
         if (this.options.filterControl) {
             var that = this;
@@ -286,12 +286,12 @@
                 return column.filterData && column.filterData !== 'column';
             },
 
-            cookiesPresent = function() {
+            cookiesPresent = function () {
                 var cookie = JSON.parse(getCookie(bootstrapTable, bootstrapTable.options.cookieIdTable, cookieIds.filterControl));
                 return bootstrapTable.options.cookie && cookie;
             };
 
-        selectsWithoutDefaults = $.grep(bootstrapTable.columns, function(column) {
+        selectsWithoutDefaults = $.grep(bootstrapTable.columns, function (column) {
             return columnHasSelectControl(column) && !columnHasDefaultSelectValues(column);
         });
 
@@ -408,14 +408,14 @@
         _onSearch.apply(this, target);
 
         if ($(target[0].currentTarget).parent().hasClass('search')) {
-          setCookie(this, cookieIds.searchText, this.searchText);
+            setCookie(this, cookieIds.searchText, this.searchText);
         }
     };
 
     BootstrapTable.prototype.getCookies = function () {
         var bootstrapTable = this;
         var cookies = {};
-        $.each(cookieIds, function(key, value) {
+        $.each(cookieIds, function (key, value) {
             cookies[key] = getCookie(bootstrapTable, bootstrapTable.options.cookieIdTable, value);
             if (key === 'columns') {
                 cookies[key] = JSON.parse(cookies[key]);

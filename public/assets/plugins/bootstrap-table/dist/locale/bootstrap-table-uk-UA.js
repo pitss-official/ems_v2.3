@@ -2,9 +2,9 @@
  * Bootstrap Table Ukrainian translation
  * Author: Vitaliy Timchenko <vitaliy.timchenko@gmail.com>
  */
- (function ($) {
+(function ($) {
     'use strict';
-    
+
     $.fn.bootstrapTable.locales['uk-UA'] = {
         formatLoadingMessage: function () {
             return 'Завантаження, будь ласка, зачекайте...';

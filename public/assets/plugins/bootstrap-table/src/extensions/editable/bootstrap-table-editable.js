@@ -68,14 +68,14 @@
 
             that.$body.find('a[data-name="' + column.field + '"]').editable(column.editable)
                 .off('save').on('save', function (e, params) {
-                    var data = that.getData(),
-                        index = $(this).parents('tr[data-index]').data('index'),
-                        row = data[index],
-                        oldValue = row[column.field];
+                var data = that.getData(),
+                    index = $(this).parents('tr[data-index]').data('index'),
+                    row = data[index],
+                    oldValue = row[column.field];
 
-                    row[column.field] = params.submitValue;
-                    that.trigger('editable-save', column.field, row, oldValue, $(this));
-                });
+                row[column.field] = params.submitValue;
+                that.trigger('editable-save', column.field, row, oldValue, $(this));
+            });
         });
         this.trigger('editable-init');
     };

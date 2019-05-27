@@ -18,7 +18,7 @@ class CreateCouponsTable extends Migration
             //The coupon is intended for 0 will indicate for all persons
             $table->unsignedInteger('intendedUID');
             $table->unsignedInteger('issuedBy');
-            $table->float('amount', 16,4);
+            $table->float('amount', 16, 4);
             $table->timestamps();
         });
     }

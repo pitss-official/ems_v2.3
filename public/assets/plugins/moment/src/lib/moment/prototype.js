@@ -56,62 +56,62 @@ import {deprecate} from '../utils/deprecate';
 
 var proto = Moment.prototype;
 
-proto.add          = add;
-proto.calendar     = calendar;
-proto.clone        = clone;
-proto.diff         = diff;
-proto.endOf        = endOf;
-proto.format       = format;
-proto.from         = from;
-proto.fromNow      = fromNow;
-proto.to           = to;
-proto.toNow        = toNow;
-proto.get          = getSet;
-proto.invalidAt    = invalidAt;
-proto.isAfter      = isAfter;
-proto.isBefore     = isBefore;
-proto.isBetween    = isBetween;
-proto.isSame       = isSame;
-proto.isValid      = isValid;
-proto.lang         = lang;
-proto.locale       = locale;
-proto.localeData   = localeData;
-proto.max          = prototypeMax;
-proto.min          = prototypeMin;
+proto.add = add;
+proto.calendar = calendar;
+proto.clone = clone;
+proto.diff = diff;
+proto.endOf = endOf;
+proto.format = format;
+proto.from = from;
+proto.fromNow = fromNow;
+proto.to = to;
+proto.toNow = toNow;
+proto.get = getSet;
+proto.invalidAt = invalidAt;
+proto.isAfter = isAfter;
+proto.isBefore = isBefore;
+proto.isBetween = isBetween;
+proto.isSame = isSame;
+proto.isValid = isValid;
+proto.lang = lang;
+proto.locale = locale;
+proto.localeData = localeData;
+proto.max = prototypeMax;
+proto.min = prototypeMin;
 proto.parsingFlags = parsingFlags;
-proto.set          = getSet;
-proto.startOf      = startOf;
-proto.subtract     = subtract;
-proto.toArray      = toArray;
-proto.toObject     = toObject;
-proto.toDate       = toDate;
-proto.toISOString  = toISOString;
-proto.toJSON       = toISOString;
-proto.toString     = toString;
-proto.unix         = unix;
-proto.valueOf      = valueOf;
+proto.set = getSet;
+proto.startOf = startOf;
+proto.subtract = subtract;
+proto.toArray = toArray;
+proto.toObject = toObject;
+proto.toDate = toDate;
+proto.toISOString = toISOString;
+proto.toJSON = toISOString;
+proto.toString = toString;
+proto.unix = unix;
+proto.valueOf = valueOf;
 
-proto.year       = getSetYear;
+proto.year = getSetYear;
 proto.isLeapYear = getIsLeapYear;
 
-proto.weekYear    = getSetWeekYear;
+proto.weekYear = getSetWeekYear;
 proto.isoWeekYear = getSetISOWeekYear;
 
 proto.quarter = proto.quarters = getSetQuarter;
 
-proto.month       = getSetMonth;
+proto.month = getSetMonth;
 proto.daysInMonth = getDaysInMonth;
 
-proto.week           = proto.weeks        = getSetWeek;
-proto.isoWeek        = proto.isoWeeks     = getSetISOWeek;
-proto.weeksInYear    = getWeeksInYear;
+proto.week = proto.weeks = getSetWeek;
+proto.isoWeek = proto.isoWeeks = getSetISOWeek;
+proto.weeksInYear = getWeeksInYear;
 proto.isoWeeksInYear = getISOWeeksInYear;
 
-proto.date       = getSetDayOfMonth;
-proto.day        = proto.days             = getSetDayOfWeek;
-proto.weekday    = getSetLocaleDayOfWeek;
+proto.date = getSetDayOfMonth;
+proto.day = proto.days = getSetDayOfWeek;
+proto.weekday = getSetLocaleDayOfWeek;
 proto.isoWeekday = getSetISODayOfWeek;
-proto.dayOfYear  = getSetDayOfYear;
+proto.dayOfYear = getSetDayOfYear;
 
 proto.hour = proto.hours = getSetHour;
 
@@ -121,24 +121,24 @@ proto.second = proto.seconds = getSetSecond;
 
 proto.millisecond = proto.milliseconds = getSetMillisecond;
 
-proto.utcOffset            = getSetOffset;
-proto.utc                  = setOffsetToUTC;
-proto.local                = setOffsetToLocal;
-proto.parseZone            = setOffsetToParsedOffset;
+proto.utcOffset = getSetOffset;
+proto.utc = setOffsetToUTC;
+proto.local = setOffsetToLocal;
+proto.parseZone = setOffsetToParsedOffset;
 proto.hasAlignedHourOffset = hasAlignedHourOffset;
-proto.isDST                = isDaylightSavingTime;
-proto.isDSTShifted         = isDaylightSavingTimeShifted;
-proto.isLocal              = isLocal;
-proto.isUtcOffset          = isUtcOffset;
-proto.isUtc                = isUtc;
-proto.isUTC                = isUtc;
+proto.isDST = isDaylightSavingTime;
+proto.isDSTShifted = isDaylightSavingTimeShifted;
+proto.isLocal = isLocal;
+proto.isUtcOffset = isUtcOffset;
+proto.isUtc = isUtc;
+proto.isUTC = isUtc;
 
 proto.zoneAbbr = getZoneAbbr;
 proto.zoneName = getZoneName;
 
-proto.dates  = deprecate('dates accessor is deprecated. Use date instead.', getSetDayOfMonth);
+proto.dates = deprecate('dates accessor is deprecated. Use date instead.', getSetDayOfMonth);
 proto.months = deprecate('months accessor is deprecated. Use month instead', getSetMonth);
-proto.years  = deprecate('years accessor is deprecated. Use year instead', getSetYear);
-proto.zone   = deprecate('moment().zone is deprecated, use moment().utcOffset instead. https://github.com/moment/moment/issues/1779', getSetZone);
+proto.years = deprecate('years accessor is deprecated. Use year instead', getSetYear);
+proto.zone = deprecate('moment().zone is deprecated, use moment().utcOffset instead. https://github.com/moment/moment/issues/1779', getSetZone);
 
 export default proto;

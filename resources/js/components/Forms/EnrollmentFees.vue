@@ -17,7 +17,7 @@
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label class="control-label">Registration Number</label>
-                                                <input v-model="student.collegeUID" v-validate="'required|numeric|digits:8'" type="number" @tab="find" @change="find" name="RegistrationNumber" id="regNo" autofocus class="form-control" placeholder=""  required>
+                                                <input @change="find" @tab="find" autofocus class="form-control" id="regNo" name="RegistrationNumber" placeholder="" required type="number" v-model="student.collegeUID"  v-validate="'required|numeric|digits:8'">
                                                 <small class="form-control-feedback">Press TAB to fetch name</small> </div>
                                         </div>
                                         <!--/span-->
@@ -25,8 +25,8 @@
                                             <div class="form-group">
                                                 <label class="control-label">Name</label>
                                                 <!--				form-group has-danger/has-success									form-control-danger-->
-                                                <input type="text" id="name" class="form-control" placeholder="Enter Registration Number to Fetch" readonly v-model="student.name">
-                                                <small class="form-control-feedback"><div v-show="student.balance" class="label label-light-danger"><p style="font-size: 140% !important;" v-text="student.balance"></p></div></small></div>
+                                                <input class="form-control" id="name" placeholder="Enter Registration Number to Fetch" readonly type="text" v-model="student.name">
+                                                <small class="form-control-feedback"><div class="label label-light-danger" v-show="student.balance"><p style="font-size: 140% !important;" v-text="student.balance"></p></div></small></div>
                                         </div>
                                         <!--/span-->
                                     </div>
@@ -37,19 +37,19 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label class="control-label">Mobile Number (Optional)</label>
-                                            <input type="text" id="mobile" class="form-control" placeholder="" v-model="student.mobile">
+                                            <input class="form-control" id="mobile" placeholder="" type="text" v-model="student.mobile">
                                             <small class="form-control-feedback">Registered Mobile</small> </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label class="control-label">Amount</label>
-                                            <input v-validate="'required|min:1'" onChange='$("#sub").focus()' type="number" id="amount" class="form-control" placeholder="₹" required value="0.00" v-model="student.amount">
+                                            <input class="form-control" id="amount" onChange='$("#sub").focus()' placeholder="₹" required type="number" v-model="student.amount" v-validate="'required|min:1'" value="0.00">
                                             <small class="form-control-feedback">Currently Supported ₹,$</small> </div>
                                     </div>
                                 </div>
                                 <div class="form-actions">
-                                    <button class="btn waves btn-success" type="submit" id="sub"> <i class="fa fa-check"></i> Create Request</button>
-                                    <button type="reset" class="btn btn-danger">Cancel</button>
+                                    <button class="btn waves btn-success" id="sub" type="submit"> <i class="fa fa-check"></i> Create Request</button>
+                                    <button class="btn btn-danger" type="reset">Cancel</button>
                                 </div>
                             </form>
                         </div>

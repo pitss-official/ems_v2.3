@@ -41,14 +41,15 @@ function loadLocale(name) {
     var oldLocale = null;
     // TODO: Find a better way to register and load all the locales in Node
     if (!locales[name] && typeof module !== 'undefined' &&
-            module && module.exports) {
+        module && module.exports) {
         try {
             oldLocale = globalLocale._abbr;
             require('./locale/' + name);
             // because defineLocale currently also sets the global locale, we
             // want to undo that for lazy loaded locales
             getSetGlobalLocale(oldLocale);
-        } catch (e) { }
+        } catch (e) {
+        }
     }
     return locales[name];
 }
@@ -56,13 +57,12 @@ function loadLocale(name) {
 // This function will load locale and then set the global locale.  If
 // no arguments are passed in, it will simply return the current global
 // locale key.
-export function getSetGlobalLocale (key, values) {
+export function getSetGlobalLocale(key, values) {
     var data;
     if (key) {
         if (typeof values === 'undefined') {
             data = getLocale(key);
-        }
-        else {
+        } else {
             data = defineLocale(key, values);
         }
 
@@ -75,7 +75,7 @@ export function getSetGlobalLocale (key, values) {
     return globalLocale._abbr;
 }
 
-export function defineLocale (name, values) {
+export function defineLocale(name, values) {
     if (values !== null) {
         values.abbr = name;
         locales[name] = locales[name] || new Locale();
@@ -93,7 +93,7 @@ export function defineLocale (name, values) {
 }
 
 // returns locale data
-export function getLocale (key) {
+export function getLocale(key) {
     var locale;
 
     if (key && key._locale && key._locale._abbr) {

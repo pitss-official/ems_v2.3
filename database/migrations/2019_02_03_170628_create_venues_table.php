@@ -18,14 +18,14 @@ class CreateVenuesTable extends Migration
             $table->unsignedInteger('registeredBy');
             $table->unsignedInteger('type')->default(1);
             //block address
-            $table->string('primaryAddressLine',100);
-            $table->string('name',100);
-            $table->string('secondaryAddressLine',100)->nullable();
-            $table->string('tertiaryAddressLine',100)->nullable();
-            $table->string('shortAddress',60);
+            $table->string('primaryAddressLine', 100);
+            $table->string('name', 100);
+            $table->string('secondaryAddressLine', 100)->nullable();
+            $table->string('tertiaryAddressLine', 100)->nullable();
+            $table->string('shortAddress', 60);
             $table->unsignedInteger('coordinatorsRequired')->default(1);
             $table->unsignedInteger('capacity');
-            $table->float('price',10,2)->default(0);
+            $table->float('price', 10, 2)->default(0);
             $table->timestamps();
         });
     }

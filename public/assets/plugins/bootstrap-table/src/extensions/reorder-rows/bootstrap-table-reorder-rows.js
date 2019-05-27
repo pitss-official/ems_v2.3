@@ -30,7 +30,7 @@
             return false;
         },
         onReorderRow: function (newData) {
-             return false;
+            return false;
         }
     });
 

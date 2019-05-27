@@ -28,9 +28,9 @@
         return flag ? str : '';
     };
 
-    var groupBy = function (array , f) {
+    var groupBy = function (array, f) {
         var groups = {};
-        array.forEach(function(o) {
+        array.forEach(function (o) {
             var group = f(o);
             groups[group] = groups[group] || [];
             groups[group].push(o);
@@ -58,7 +58,7 @@
         if ((this.options.groupBy) && (this.options.groupByField !== '')) {
 
             if ((this.options.sortName != this.options.groupByField)) {
-                this.data.sort(function(a, b) {
+                this.data.sort(function (a, b) {
                     return a[that.options.groupByField].localeCompare(b[that.options.groupByField]);
                 });
             }
@@ -69,13 +69,13 @@
             });
 
             var index = 0;
-            $.each(groups, function(key, value) {
+            $.each(groups, function (key, value) {
                 tableGroups.push({
                     id: index,
                     name: key
                 });
 
-                value.forEach(function(item) {
+                value.forEach(function (item) {
                     if (!item._data) {
                         item._data = {};
                     }
@@ -98,7 +98,7 @@
                 checkBox = false,
                 visibleColumns = 0;
 
-            this.columns.forEach(function(column) {
+            this.columns.forEach(function (column) {
                 if (column.checkbox) {
                     checkBox = true;
                 } else {
@@ -112,7 +112,7 @@
                 visibleColumns += 1;
             }
 
-            tableGroups.forEach(function(item){
+            tableGroups.forEach(function (item) {
                 var html = [];
 
                 html.push(sprintf('<tr class="info groupBy expanded" data-group-index="%s">', item.id));
@@ -135,26 +135,26 @@
 
                 html.push('</tr>');
 
-                that.$body.find('tr[data-parent-index='+item.id+']:first').before($(html.join('')));
+                that.$body.find('tr[data-parent-index=' + item.id + ']:first').before($(html.join('')));
             });
 
             this.$selectGroup = [];
-            this.$body.find('[name="btSelectGroup"]').each(function() {
+            this.$body.find('[name="btSelectGroup"]').each(function () {
                 var self = $(this);
 
                 that.$selectGroup.push({
                     group: self,
                     item: that.$selectItem.filter(function () {
                         return ($(this).closest('tr').data('parent-index') ===
-                        self.closest('tr').data('group-index'));
+                            self.closest('tr').data('group-index'));
                     })
                 });
             });
 
             this.$container.off('click', '.groupBy')
-                .on('click', '.groupBy', function() {
+                .on('click', '.groupBy', function () {
                     $(this).toggleClass('expanded');
-                    that.$body.find('tr[data-parent-index='+$(this).closest('tr').data('group-index')+']').toggleClass('hidden');
+                    that.$body.find('tr[data-parent-index=' + $(this).closest('tr').data('group-index') + ']').toggleClass('hidden');
                 });
 
             this.$container.off('click', '[name="btSelectGroup"]')
@@ -204,7 +204,7 @@
 
     BootstrapTable.prototype.checkGroup_ = function (index, checked) {
         var rows;
-        var filter = function() {
+        var filter = function () {
             return ($(this).closest('tr').data('parent-index') === index);
         };
 

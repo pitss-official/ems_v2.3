@@ -8,7 +8,7 @@
                             <h4 class="m-b-0 text-white">Add New Event</h4>
                         </div>
                         <div class="card-body">
-                            <form method="post" action="javascript:addEvent();">
+                            <form action="javascript:addEvent();" method="post">
                                 <div class="form-body">
                                     <h3 class="card-title">Basic Information</h3>
                                     <hr>
@@ -16,7 +16,7 @@
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label class="control-label">Name</label>
-                                                <input type="text" id="eventName" class="form-control" placeholder="XYZ Event" required>
+                                                <input class="form-control" id="eventName" placeholder="XYZ Event" required type="text">
                                                 <small class="form-control-feedback">Proposed Name of the Event</small> </div>
                                         </div>
                                         <!--/span-->
@@ -24,7 +24,7 @@
                                             <div class="form-group" >
                                                 <label class="control-label">Start Date</label>
                                                 <!--				form-group has-danger/has-success									form-control-danger-->
-                                                <div class="input-daterange input-group" id="date-range"><input type="datetime" id="start_date" class="form-control" name="start" required><span class="input-group-addon bg-info b-0 text-white">to</span><input class="form-control" id="end_date" name="end"></div>
+                                                <div class="input-daterange input-group" id="date-range"><input class="form-control" id="start_date" name="start" required type="datetime"><span class="input-group-addon bg-info b-0 text-white">to</span><input class="form-control" id="end_date" name="end"></div>
                                                 <small class="form-control-feedback">Proposed Span of the Event</small> </div>
                                         </div>
                                         <!--/span-->
@@ -34,14 +34,14 @@
                                         <div class="col-md-6">
                                             <div class="form-group ">
                                                 <label class="control-label">Seats</label>
-                                                <input type="number" id="maxseats" class="form-control" required placeholder="100" value="100">
+                                                <input class="form-control" id="maxseats" placeholder="100" required type="number" value="100">
                                                 <small class="form-control-feedback"> Define maximum seats for the event </small> </div>
                                         </div>
                                         <!--/span-->
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label class="control-label">Ticket Price</label>
-                                                <div class="input-group bootstrap-touchspin"><span class="input-group-addon bootstrap-touchspin-prefix">₹</span><input id="tch2" type="text" class="form-control" required  ></div>
+                                                <div class="input-group bootstrap-touchspin"><span class="input-group-addon bootstrap-touchspin-prefix">₹</span><input class="form-control" id="tch2" required type="text"  ></div>
                                                 <small class="form-control-feedback"></small> </div>
                                         </div>
                                     </div>
@@ -52,7 +52,7 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label class="control-label">Support Mobile Number</label>
-                                            <input type="text" id="mobile" class="form-control" placeholder="" required>
+                                            <input class="form-control" id="mobile" placeholder="" required type="text">
                                             <small class="form-control-feedback">It will be sent to the participants for queries</small> </div>
                                     </div>
                                     <div class="col-md-6">
@@ -72,14 +72,14 @@
                                             <label>Approval Filling</label>
                                             <div class="switch">
                                                 <label>Check if the Proposal is filed in the approval department
-                                                    <input type="checkbox" checked="" id="approverFillingStatus"><span class="lever"></span>Done</label>
+                                                    <input checked="" id="approverFillingStatus" type="checkbox"><span class="lever"></span>Done</label>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-md-6 ">
                                         <div class="form-group">
                                             <label>Approval Date</label>
-                                            <input type="text" id="date-format" class="form-control bootstrapMaterialDatePicker">
+                                            <input class="form-control bootstrapMaterialDatePicker" id="date-format" type="text">
                                         </div>
                                     </div>
                                 </div>
@@ -87,7 +87,7 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label>Name</label>
-                                            <input type="number" class="form-control" id="approverName">
+                                            <input class="form-control" id="approverName" type="number">
                                             <small class="form-control-feedback"> Name of Approving Authority </small>
 
                                         </div>
@@ -96,7 +96,7 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label>Mobile Number</label>
-                                            <input type="number" id="approverMobile" class="form-control" >
+                                            <input class="form-control" id="approverMobile" type="number" >
                                             <small class="form-control-feedback"> Mobile Number of Approving Authority required in case of any problem during event </small>
                                         </div>
                                     </div>
@@ -105,14 +105,14 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label>Email</label>
-                                        <input type="email" class="form-control" id="approverEmail">
+                                        <input class="form-control" id="approverEmail" type="email">
                                     </div>
                                 </div>
                                 <!--/span-->
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label>Address</label>
-                                        <input type="textarea" class="form-control" id="approverAddress">
+                                        <input class="form-control" id="approverAddress" type="textarea">
                                     </div>
                                 </div>
                                 <!--/span-->
@@ -122,7 +122,7 @@
                                 <hr>
                                 <div id="date_list"></div>
                                 <div class="row">
-                                    <div class="col-md-12"><button type="button" class="btn btn-info" id="genrate_dates_button" onClick="genrate_dates()">Fetch Dates for Scheduling</button></div>
+                                    <div class="col-md-12"><button class="btn btn-info" id="genrate_dates_button" onClick="genrate_dates()" type="button">Fetch Dates for Scheduling</button></div>
 
                                 </div>
 
@@ -131,15 +131,15 @@
                                 <div class="row">
                                     <div class="col-md-12">
                                         <div class="form-group">
-                                            <textarea rows="10" class="form-control" id="description"></textarea>
+                                            <textarea class="form-control" id="description" rows="10"></textarea>
                                         </div>
                                     </div>
                                     <!--/span-->
                                 </div>
 
                                 <div class="form-actions">
-                                    <button type="submit" class="btn btn-success"> <i class="fa fa-check"></i> Save</button>
-                                    <button type="reset" class="btn btn-inverse">Cancel</button>
+                                    <button class="btn btn-success" type="submit"> <i class="fa fa-check"></i> Save</button>
+                                    <button class="btn btn-inverse" type="reset">Cancel</button>
                                 </div>
                             </form>
                         </div>

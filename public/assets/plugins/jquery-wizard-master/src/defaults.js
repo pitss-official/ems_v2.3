@@ -3,13 +3,13 @@
 export default {
   step: '.wizard-steps > li',
 
-  getPane: function(index, step) {
+  getPane: function (index, step) {
     return this.$element.find('.wizard-content').children().eq(index);
   },
 
   buttonsAppendTo: 'this',
   templates: {
-    buttons: function() {
+    buttons: function () {
       const options = this.options;
       return `<div class="wizard-buttons"><a class="wizard-back" href="#${this.id}" data-wizard="back" role="button">${options.buttonLabels.back}</a><a class="wizard-next" href="#${this.id}" data-wizard="next" role="button">${options.buttonLabels.next}</a><a class="wizard-finish" href="#${this.id}" data-wizard="finish" role="button">${options.buttonLabels.finish}</a></div>`;
     }
@@ -48,14 +48,17 @@ export default {
   },
 
   loading: {
-    show: function(step) { },
-    hide: function(step) { },
-    fail: function(step) { }
+    show: function (step) {
+    },
+    hide: function (step) {
+    },
+    fail: function (step) {
+    }
   },
 
   cacheContent: false,
 
-  validator: function(step) {
+  validator: function (step) {
     return true;
   },
 

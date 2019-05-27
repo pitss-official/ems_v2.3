@@ -40,20 +40,20 @@
     };
 
     var sortSelectControl = function (selectControl) {
-            var $opts = selectControl.find('option:gt(0)');
-            $opts.sort(function (a, b) {
-                a = $(a).text().toLowerCase();
-                b = $(b).text().toLowerCase();
-                if ($.isNumeric(a) && $.isNumeric(b)) {
-                    // Convert numerical values from string to float.
-                    a = parseFloat(a);
-                    b = parseFloat(b);
-                }
-                return a > b ? 1 : a < b ? -1 : 0;
-            });
+        var $opts = selectControl.find('option:gt(0)');
+        $opts.sort(function (a, b) {
+            a = $(a).text().toLowerCase();
+            b = $(b).text().toLowerCase();
+            if ($.isNumeric(a) && $.isNumeric(b)) {
+                // Convert numerical values from string to float.
+                a = parseFloat(a);
+                b = parseFloat(b);
+            }
+            return a > b ? 1 : a < b ? -1 : 0;
+        });
 
-            selectControl.find('option:gt(0)').remove();
-            selectControl.append($opts);
+        selectControl.find('option:gt(0)').remove();
+        selectControl.append($opts);
     };
 
     var existOptionInSelectControl = function (selectControl, value) {
@@ -91,7 +91,7 @@
         return searchControls;
     };
 
-    var getCursorPosition = function(el) {
+    var getCursorPosition = function (el) {
         if ($.fn.bootstrapTable.utils.isIEBrowser()) {
             if ($(el).is('input')) {
                 var pos = 0;
@@ -115,7 +115,7 @@
 
     var setCursorPosition = function (el, index) {
         if ($.fn.bootstrapTable.utils.isIEBrowser()) {
-            if(el.setSelectionRange !== undefined) {
+            if (el.setSelectionRange !== undefined) {
                 el.setSelectionRange(index, index);
             } else {
                 $(el).val(el.value);
@@ -139,7 +139,7 @@
         });
     };
 
-    var setValues = function(that) {
+    var setValues = function (that) {
         var field = null,
             result = [],
             header = getCurrentHeader(that),
@@ -230,8 +230,8 @@
         });
     };
 
-    var escapeID = function(id) {
-       return String(id).replace( /(:|\.|\[|\]|,)/g, "\\$1" );
+    var escapeID = function (id) {
+        return String(id).replace(/(:|\.|\[|\]|,)/g, "\\$1");
     };
 
     var createControls = function (that, header) {
@@ -332,13 +332,13 @@
 
             header.off('mouseup', 'input').on('mouseup', 'input', function (event) {
                 var $input = $(this),
-                oldValue = $input.val();
+                    oldValue = $input.val();
 
                 if (oldValue === "") {
                     return;
                 }
 
-                setTimeout(function(){
+                setTimeout(function () {
                     var newValue = $input.val();
 
                     if (newValue === "") {
@@ -403,7 +403,7 @@
                     }
                 });
             },
-            'json':function (filterDataSource, selectControl) {
+            'json': function (filterDataSource, selectControl) {
                 var variableValues = JSON.parse(filterDataSource);
                 for (var key in variableValues) {
                     addOptionToSelectControl(selectControl, key, variableValues[key]);
@@ -507,7 +507,7 @@
                 if (that.options.height) {
                     fixHeaderCSS(that);
                 }
-            }).on('column-switch.bs.table', function() {
+            }).on('column-switch.bs.table', function () {
                 setValues(that);
             });
         }
@@ -571,8 +571,8 @@
                 // Fix #142: search use formated data
                 if (thisColumn && thisColumn.searchFormatter) {
                     value = $.fn.bootstrapTable.utils.calculateObjectValue(that.header,
-                    that.header.formatters[$.inArray(key, that.header.fields)],
-                    [value, item, i], value);
+                        that.header.formatters[$.inArray(key, that.header.fields)],
+                        [value, item, i], value);
                 }
 
                 if (thisColumn.filterStrictSearch) {
@@ -582,11 +582,11 @@
                         return false;
                     }
                 } else if (thisColumn.filterStartsWithSearch) {
-                  if (!($.inArray(key, that.header.fields) !== -1 &&
-                      (typeof value === 'string' || typeof value === 'number') &&
-                      (value + '').toLowerCase().indexOf(fval) === 0)) {
-                      return false;
-                  }
+                    if (!($.inArray(key, that.header.fields) !== -1 &&
+                        (typeof value === 'string' || typeof value === 'number') &&
+                        (value + '').toLowerCase().indexOf(fval) === 0)) {
+                        return false;
+                    }
                 } else {
                     if (!($.inArray(key, that.header.fields) !== -1 &&
                         (typeof value === 'string' || typeof value === 'number') &&
@@ -599,7 +599,7 @@
         }) : this.data;
     };
 
-    BootstrapTable.prototype.initColumnSearch = function(filterColumnsDefaults) {
+    BootstrapTable.prototype.initColumnSearch = function (filterColumnsDefaults) {
         copyValues(this);
 
         if (filterColumnsDefaults) {
@@ -607,7 +607,7 @@
             this.updatePagination();
 
             for (var filter in filterColumnsDefaults) {
-              this.trigger('column-search', filter, filterColumnsDefaults[filter]);
+                this.trigger('column-search', filter, filterColumnsDefaults[filter]);
             }
         }
     };

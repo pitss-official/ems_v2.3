@@ -1,12 +1,12 @@
 <template>
-    <li class="nav-item dropdown mega-dropdown"> <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="mdi mdi-view-grid"></i></a>
+    <li class="nav-item dropdown mega-dropdown"> <a aria-expanded="false" aria-haspopup="true" class="nav-link dropdown-toggle text-muted waves-effect waves-dark" data-toggle="dropdown" href=""><i class="mdi mdi-view-grid"></i></a>
         <div class="dropdown-menu scale-up-left">
             <ul class="mega-dropdown-menu row">
                 <li class="col-lg-12 m-b-30">
                     <h4 class="card-title">Pending Actions (Queue)</h4>
                     <h6 class="card-subtitle">You are equally responsible for carrying out actions listed in queue approved by you.</h6>
                     <div class="table-responsive" id="queues">
-                        <table id="queue-table" class="table toggle-circle table-hover" data-page-size="10">
+                        <table class="table toggle-circle table-hover" data-page-size="10" id="queue-table">
                             <thead>
                             <tr>
                                 <th data-toggle="true">ID</th>
@@ -20,7 +20,7 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr v-for="queue in queues" v-bind:value="queue.id">
+                            <tr v-bind:value="queue.id" v-for="queue in queues">
                                 <td>{{queue.id}}</td>
                                 <td>{{queue.requestedBy}}</td>
                                 <td>{{queue.requesterRemarks}}</td>
@@ -41,7 +41,7 @@
                                             </div>
                                         </div>
                                         <div class="col-sm">
-                                            <button type="button" class="btn btn-info btn-rounded" data-toggle="modal" data-target="#add-contact">View All</button>
+                                            <button class="btn btn-info btn-rounded" data-target="#add-contact" data-toggle="modal" type="button">View All</button>
 
                                         </div>
                                     </div>

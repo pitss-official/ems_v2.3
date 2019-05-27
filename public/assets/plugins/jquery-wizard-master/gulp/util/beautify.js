@@ -5,7 +5,7 @@ import esformatter from 'esformatter';
 import through from 'through2';
 import fs from 'graceful-fs';
 
-export default function(options){
+export default function (options) {
   return through.obj(function (file, enc, cb) {
     if (file.isNull()) {
       cb(null, file);

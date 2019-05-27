@@ -126,7 +126,9 @@ THE SOFTWARE.
             var e,
                 a = /\+/g,
                 r = /([^&=]+)=?([^&]*)/g,
-                d = function (s) { return decodeURIComponent(s.replace(a, " ")); };
+                d = function (s) {
+                    return decodeURIComponent(s.replace(a, " "));
+                };
 
             while (e = r.exec(queryString)) {
                 jsonObj[d(e[1])] = d(e[2]);

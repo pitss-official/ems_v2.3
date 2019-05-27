@@ -2,7 +2,7 @@ import {isMoment} from './constructor';
 import {normalizeUnits} from '../units/aliases';
 import {createLocal} from '../create/local';
 
-export function isAfter (input, units) {
+export function isAfter(input, units) {
     var inputMs;
     units = normalizeUnits(typeof units !== 'undefined' ? units : 'millisecond');
     if (units === 'millisecond') {
@@ -14,7 +14,7 @@ export function isAfter (input, units) {
     }
 }
 
-export function isBefore (input, units) {
+export function isBefore(input, units) {
     var inputMs;
     units = normalizeUnits(typeof units !== 'undefined' ? units : 'millisecond');
     if (units === 'millisecond') {
@@ -26,11 +26,11 @@ export function isBefore (input, units) {
     }
 }
 
-export function isBetween (from, to, units) {
+export function isBetween(from, to, units) {
     return this.isAfter(from, units) && this.isBefore(to, units);
 }
 
-export function isSame (input, units) {
+export function isSame(input, units) {
     var inputMs;
     units = normalizeUnits(units || 'millisecond');
     if (units === 'millisecond') {

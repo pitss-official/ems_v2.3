@@ -17,17 +17,17 @@
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label class="control-label">Registration Number</label>
-                                                <input id="regNo" v-validate="'required|numeric|digits:8'" v-model="student.collegeUID" @change="find" @tab="find" type="number" required placeholder="" name="RegistrationNumber" autofocus class="form-control" :class="{ 'form-has-error': student.errors.has('collegeUID') }">
+                                                <input :class="{ 'form-has-error': student.errors.has('collegeUID') }" @change="find" @tab="find" autofocus class="form-control" id="regNo" name="RegistrationNumber" placeholder="" required type="number" v-model="student.collegeUID" v-validate="'required|numeric|digits:8'">
 
                                                 <small class="form-control-feedback"><span v-show="!errors.has('RegistrationNumber')">Press TAB to check if the student is already enrolled</span>
                                                 <span class="form-has-error-span" v-if="errors.first('RegistrationNumber')">{{ errors.first('RegistrationNumber') }}</span>
-                                                </small><has-error class="form-has-error-span" :form="student" field="collegeUID"></has-error></div>
+                                                </small><has-error :form="student" class="form-has-error-span" field="collegeUID"></has-error></div>
                                         </div>
                                         <!--/span-->
                                         <div class="col-md-2">
                                             <div class="form-group">
                                                 <label class="control-label">First Name</label>
-                                                <input ref="firstName" :disabled="naive.filled" :readonly="naive.filled" :class="{ 'is-invalid': student.errors.has('firstName') }" type="text" v-model="student.firstName" name="firstName" class="form-control" required>
+                                                <input :class="{ 'is-invalid': student.errors.has('firstName') }" :disabled="naive.filled" :readonly="naive.filled" class="form-control" name="firstName" ref="firstName" required type="text" v-model="student.firstName">
                                                 <small class="form-control-feedback"></small>
                                                 <has-error :form="student" field="firstName"></has-error>
                                             </div>
@@ -35,13 +35,13 @@
                                         <div class="col-md-2">
                                             <div class="form-group">
                                                 <label class="control-label">Middle Name</label>
-                                                <input :disabled="naive.filled" :readonly="naive.filled" type="text" name="middleName" v-model="student.middleName" class="form-control">
+                                                <input :disabled="naive.filled" :readonly="naive.filled" class="form-control" name="middleName" type="text" v-model="student.middleName">
                                                 <small class="form-control-feedback"></small> </div>
                                         </div>
                                         <div class="col-md-2">
                                             <div class="form-group">
                                                 <label class="control-label">Last Name</label>
-                                                <input :disabled="naive.filled" :readonly="naive.filled" type="text" name="lastName" v-model="student.lastName" class="form-control">
+                                                <input :disabled="naive.filled" :readonly="naive.filled" class="form-control" name="lastName" type="text" v-model="student.lastName">
                                                 <small class="form-control-feedback"></small> </div>
                                         </div>
                                         <!--/span-->
@@ -51,8 +51,8 @@
                                         <div class="col-md-6">
                                             <div class="form-group ">
                                                 <label class="control-label">Gender</label>
-                                                <select :disabled="naive.filled" :readonly="naive.filled" :class="{ 'is-invalid': student.errors.has('gender') }" v-model="student.gender" name="gender" class="form-control custom-select" required>
-                                                    <option value="1" selected>Male</option>
+                                                <select :class="{ 'is-invalid': student.errors.has('gender') }" :disabled="naive.filled" :readonly="naive.filled" class="form-control custom-select" name="gender" required v-model="student.gender">
+                                                    <option selected value="1">Male</option>
                                                     <option value="2">Female</option>
                                                     <option value="0">Others or Not Defined</option>
                                                 </select>
@@ -65,7 +65,7 @@
                                             <div class="form-group">
                                                 <label class="control-label">Email</label>
                                                 <!--				form-group has-danger/has-success									form-control-danger-->
-                                                <input :disabled="naive.filled" :readonly="naive.filled" v-model="student.email" :class="{ 'is-invalid': student.errors.has('email') }" type="email" name="email" class="form-control" required placeholder="abc@xyz.com">
+                                                <input :class="{ 'is-invalid': student.errors.has('email') }" :disabled="naive.filled" :readonly="naive.filled" class="form-control" name="email" placeholder="abc@xyz.com" required type="email" v-model="student.email">
                                                 <small class="form-control-feedback"></small>
                                                 <has-error :form="student" field="email"></has-error>
                                             </div>
@@ -78,14 +78,14 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label class="control-label">Mobile Number</label>
-                                            <input :disabled="naive.filled" :readonly="naive.filled" type="number" v-model="student.mobile" :class="{ 'is-invalid': student.errors.has('collegeUID') }" name="mobile" class="form-control" placeholder="" required data-mask="9999999999">
+                                            <input :class="{ 'is-invalid': student.errors.has('collegeUID') }" :disabled="naive.filled" :readonly="naive.filled" class="form-control" data-mask="9999999999" name="mobile" placeholder="" required type="number" v-model="student.mobile">
                                             <small class="form-control-feedback">Confirmation of Seat and Pass details will be sent on this number</small> </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label class="control-label">Event Selection</label>
-                                            <select :disabled="naive.filled" @change="readyData(student.teamID)" :readonly="naive.filled" :class="{ 'is-invalid': student.errors.has('collegeUID') }" v-model="student.eventID" id="eventID" class="form-control custom-select" required>
-                                                <option v-for="event in events" v-bind:value="event.id">
+                                            <select :class="{ 'is-invalid': student.errors.has('collegeUID') }" :disabled="naive.filled" :readonly="naive.filled" @change="readyData(student.teamID)" class="form-control custom-select" id="eventID" required v-model="student.eventID">
+                                                <option v-bind:value="event.id" v-for="event in events">
                                                     {{ event.name }}
                                                 </option>
                                             </select>
@@ -99,14 +99,14 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label>Father's Name</label>
-                                            <input :disabled="naive.filled" :readonly="naive.filled" type="text" name="fathersName" v-model="student.fathersName" class="form-control">
+                                            <input :disabled="naive.filled" :readonly="naive.filled" class="form-control" name="fathersName" type="text" v-model="student.fathersName">
                                         </div>
                                     </div>
                                     <!--/span-->
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label>Birthday</label>
-                                            <input :disabled="naive.filled" :readonly="naive.filled" type="date" v-model="student.birthday" class="form-control">
+                                            <input :disabled="naive.filled" :readonly="naive.filled" class="form-control" type="date" v-model="student.birthday">
                                         </div>
                                     </div>
                                     <!--/span-->
@@ -114,13 +114,13 @@
                                     <div class="col-md-3">
                                         <div class="form-group">
                                             <label>Blood Group</label>
-                                            <input :disabled="naive.filled" :readonly="naive.filled" type="text" v-model="student.bloodGroup" class="form-control">
+                                            <input :disabled="naive.filled" :readonly="naive.filled" class="form-control" type="text" v-model="student.bloodGroup">
                                         </div>
                                     </div><div class="col-md-3">
                                         <div class="form-group">
                                             <label>Nationality</label>
-                                            <select type="text" v-model="student.nationality" class="form-control">
-                                                <option value="IN" selected>Indian</option>
+                                            <select class="form-control" type="text" v-model="student.nationality">
+                                                <option selected value="IN">Indian</option>
                                                 </select>
                                         </div>
                                     </div>
@@ -128,8 +128,8 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label>Team ID</label>
-                                            <select type="number" v-model="student.team" class="form-control">
-                                                <option v-for="team in teams" v-bind:value="team.id">{{ team.name }}</option>
+                                            <select class="form-control" type="number" v-model="student.team">
+                                                <option v-bind:value="team.id" v-for="team in teams">{{ team.name }}</option>
                                             </select>
                                         </div>
                                     </div>
@@ -139,7 +139,7 @@
                                     <div class="col-md-12 ">
                                         <div class="form-group">
                                             <label>Address</label>
-                                            <textarea :disabled="naive.filled" :readonly="naive.filled" v-model="student.address" id="address" rows="5" class="form-control"></textarea>
+                                            <textarea :disabled="naive.filled" :readonly="naive.filled" class="form-control" id="address" rows="5" v-model="student.address"></textarea>
                                         </div>
                                     </div>
                                 </div>
@@ -147,14 +147,14 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label>Alternate Mobile</label>
-                                            <input :disabled="naive.filled" :readonly="naive.filled" v-model="student.altMobile" type="text" id="alt-mobile" class="form-control" data-mask="9999999999">
+                                            <input :disabled="naive.filled" :readonly="naive.filled" class="form-control" data-mask="9999999999" id="alt-mobile" type="text" v-model="student.altMobile">
                                         </div>
                                     </div>
                                     <!--/span-->
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label>Group ID</label>
-                                            <input :disabled="naive.filled" :readonly="naive.filled" readonly type="number" id="group" class="form-control" value="">
+                                            <input :disabled="naive.filled" :readonly="naive.filled" class="form-control" id="group" readonly type="number" value="">
                                         </div>
                                     </div>
                                     <!--/span-->
@@ -163,9 +163,9 @@
 
 
                                 <div class="form-actions">
-                                    <button type="submit" :disabled="student.busy" @click="enrollWithFullPayment" id="btn-fullpay" class="btn btn-primary"> <i class="fa fa-check"></i> Enroll and Pay Now</button>
-                                    <button type="button" :disabled="student.busy" @click="partialPay" id="btn-partpay" class="btn btn-info"> <i class="fa fa-check"></i> Enroll and Paritial Pay Now</button>
-                                    <button type="button" class="btn btn-danger" onClick="reset()">Cancel</button>
+                                    <button :disabled="student.busy" @click="enrollWithFullPayment" class="btn btn-primary" id="btn-fullpay" type="submit"> <i class="fa fa-check"></i> Enroll and Pay Now</button>
+                                    <button :disabled="student.busy" @click="partialPay" class="btn btn-info" id="btn-partpay" type="button"> <i class="fa fa-check"></i> Enroll and Paritial Pay Now</button>
+                                    <button class="btn btn-danger" onClick="reset()" type="button">Cancel</button>
                                 </div>
                             </form>
                         </div>

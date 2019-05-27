@@ -1,7 +1,7 @@
 /*! asColorPicker - v0.3.1 - 2014-11-04
 * https://github.com/amazingSurge/jquery-asColorPicker
 * Copyright (c) 2014 amazingSurge; Licensed GPL */
-(function(window, document, $, Color, undefined) {
+(function (window, document, $, Color, undefined) {
     "use strict";
 
     var id = 0;
@@ -12,7 +12,7 @@
     }
 
     // Constructor
-    var AsColorInput = $.asColorPicker = function(element, options) {
+    var AsColorInput = $.asColorPicker = function (element, options) {
         this.element = element;
         this.$element = $(element);
 
@@ -54,7 +54,7 @@
     AsColorInput.prototype = {
         constructor: AsColorInput,
         _components: {},
-        init: function() {
+        init: function () {
             this.color = new Color(this.element.value, this.options.color);
 
             this._create();
@@ -74,7 +74,7 @@
             this._trigger('ready');
         },
 
-        _create: function() {
+        _create: function () {
             var self = this;
 
             this.$dropdown = $('<div class="' + this.classes.dropdown + '" data-mode="' + this.options.mode + '"></div>');
@@ -86,7 +86,7 @@
             this.$dropdown.data('asColorPicker', this);
 
             var component;
-            $.each(this.components, function(key, options) {
+            $.each(this.components, function (key, options) {
                 if (options === true) {
                     options = {};
                 }
@@ -101,16 +101,16 @@
 
             this._trigger('create');
         },
-        _bindEvent: function() {
+        _bindEvent: function () {
             var self = this;
             this.$element.on({
-                'click.asColorPicker': function() {
+                'click.asColorPicker': function () {
                     if (!self.opened) {
                         self.open();
                     }
                     return false;
                 },
-                'keydown.asColorPicker': function(e) {
+                'keydown.asColorPicker': function (e) {
                     if (e.keyCode === 9) {
                         self.close();
                     } else if (e.keyCode === 13) {
@@ -118,7 +118,7 @@
                         self.close();
                     }
                 },
-                'keyup.asColorPicker': function() {
+                'keyup.asColorPicker': function () {
                     if (self.color.matchString(self.element.value)) {
                         self.val(self.element.value);
                     }
@@ -126,7 +126,7 @@
                 }
             });
         },
-        _trigger: function(eventType) {
+        _trigger: function (eventType) {
             var method_arguments = Array.prototype.slice.call(arguments, 1),
                 data = [this].concat(method_arguments);
 
@@ -134,7 +134,7 @@
             this.$element.trigger('asColorPicker::' + eventType, data);
 
             // callback
-            eventType = eventType.replace(/\b\w+\b/g, function(word) {
+            eventType = eventType.replace(/\b\w+\b/g, function (word) {
                 return word.substring(0, 1).toUpperCase() + word.substring(1);
             });
             var onFunction = 'on' + eventType;
@@ -142,14 +142,14 @@
                 this.options[onFunction].apply(this, method_arguments);
             }
         },
-        opacity: function(v) {
+        opacity: function (v) {
             if (v) {
                 this.color.alpha(v);
             } else {
                 return this.color.alpha();
             }
         },
-        position: function() {
+        position: function () {
             var hidden = !this.$element.is(':visible'),
                 offset = hidden ? this.$trigger.offset() : this.$element.offset(),
                 height = hidden ? this.$trigger.outerHeight() : this.$element.outerHeight(),
@@ -176,7 +176,7 @@
                 left: left
             });
         },
-        open: function() {
+        open: function () {
             if (this.disabled) {
                 return;
             }
@@ -218,13 +218,13 @@
             this._setup();
             this._trigger('open');
         },
-        createMask: function() {
+        createMask: function () {
             this.$mask = $(document.createElement("div"));
             this.$mask.attr("class", this.classes.mask);
             this.$mask.hide();
             this.$mask.appendTo(this.$body);
 
-            this.$mask.on("mousedown touchstart click", function(e) {
+            this.$mask.on("mousedown touchstart click", function (e) {
                 var $dropdown = $("#asColorPicker-dropdown"),
                     self;
                 if ($dropdown.length > 0) {
@@ -242,7 +242,7 @@
                 }
             });
         },
-        close: function() {
+        close: function () {
             this.opened = false;
             this.$element.blur();
             this.$mask.hide();
@@ -253,30 +253,30 @@
 
             this._trigger('close');
         },
-        clear: function() {
+        clear: function () {
             this.val('');
         },
-        cancel: function() {
+        cancel: function () {
             this.close();
 
             this.set(this.originValue);
         },
-        apply: function() {
+        apply: function () {
             this._trigger('apply', this.color);
             this.close();
         },
-        val: function(value) {
+        val: function (value) {
             if (typeof value === 'undefined') {
                 return this.color.toString();
             }
 
             this.set(value);
         },
-        _update: function() {
+        _update: function () {
             this._trigger('update', this.color);
             this._updateInput();
         },
-        _updateInput: function() {
+        _updateInput: function () {
             var value = this.color.toString();
             if (this.isEmpty) {
                 value = '';
@@ -284,7 +284,7 @@
             this._trigger('change', value, this.options.name, 'asColorPicker');
             this.$element.val(value);
         },
-        set: function(value) {
+        set: function (value) {
             if (value !== '') {
                 this.isEmpty = false;
             } else {
@@ -292,7 +292,7 @@
             }
             return this._set(value);
         },
-        _set: function(value) {
+        _set: function (value) {
             if (typeof value === 'string') {
                 this.color.val(value);
             } else {
@@ -301,28 +301,28 @@
 
             this._update();
         },
-        _setup: function() {
+        _setup: function () {
             this._trigger('setup', this.color);
         },
-        get: function() {
+        get: function () {
             return this.color;
         },
-        enable: function() {
+        enable: function () {
             this.disabled = false;
             this.$parent.addClass(this.classes.disabled);
             return this;
         },
-        disable: function() {
+        disable: function () {
             this.disabled = true;
             this.$parent.removeClass(this.classes.disabled);
             return this;
         },
-        destroy: function() {
+        destroy: function () {
 
         }
     };
 
-    AsColorInput.registerComponent = function(component, method) {
+    AsColorInput.registerComponent = function (component, method) {
         AsColorInput.prototype._components[component] = method;
     };
 
@@ -397,7 +397,7 @@
     };
 
     // Collection method.
-    $.fn.asColorPicker = function(options) {
+    $.fn.asColorPicker = function (options) {
         if (typeof options === 'string') {
             var method = options;
             var method_arguments = Array.prototype.slice.call(arguments, 1);
@@ -410,7 +410,7 @@
                     return api[method].apply(api, method_arguments);
                 }
             } else {
-                return this.each(function() {
+                return this.each(function () {
                     var api = $.data(this, 'asColorPicker');
                     if (api && typeof api[method] === 'function') {
                         api[method].apply(api, method_arguments);
@@ -418,14 +418,14 @@
                 });
             }
         } else {
-            return this.each(function() {
+            return this.each(function () {
                 if (!$.data(this, 'asColorPicker')) {
                     $.data(this, 'asColorPicker', new AsColorInput(this, options));
                 }
             });
         }
     };
-}(window, document, jQuery, (function($) {
+}(window, document, jQuery, (function ($) {
     if ($.asColor === undefined) {
         // console.info('lost dependency lib of $.asColor , please load it first !');
         return false;
@@ -436,23 +436,23 @@
 
 // trigger
 
-(function($) {
+(function ($) {
     "use strict";
 
-    $.asColorPicker.registerComponent('trigger', function() {
+    $.asColorPicker.registerComponent('trigger', function () {
         return {
             defaults: {
-                template: function(namespace) {
+                template: function (namespace) {
                     return '<div class="' + namespace + '-trigger"><span></span></div>';
                 }
             },
-            init: function(api, options) {
+            init: function (api, options) {
                 this.options = $.extend(this.defaults, options),
                     api.$trigger = $(this.options.template.call(this, api.namespace));
                 this.$trigger_inner = api.$trigger.children('span');
 
                 api.$trigger.insertAfter(api.$element);
-                api.$trigger.on('click', function() {
+                api.$trigger.on('click', function () {
                     if (!api.opened) {
                         api.open();
                     } else {
@@ -461,7 +461,7 @@
                     return false;
                 });
                 var self = this;
-                api.$element.on('asColorPicker::update', function(e, api, color, gradient) {
+                api.$element.on('asColorPicker::update', function (e, api, color, gradient) {
                     if (typeof gradient === 'undefined') {
                         gradient = false;
                     }
@@ -470,14 +470,14 @@
 
                 this.update(api.color);
             },
-            update: function(color, gradient) {
+            update: function (color, gradient) {
                 if (gradient) {
                     this.$trigger_inner.css('background', gradient.toString(true));
                 } else {
                     this.$trigger_inner.css('background', color.toRGBA());
                 }
             },
-            destroy: function(api) {
+            destroy: function (api) {
                 api.$trigger.remove();
             }
         };
@@ -486,24 +486,24 @@
 
 // clear
 
-(function($) {
+(function ($) {
     "use strict";
 
-    $.asColorPicker.registerComponent('clear', function() {
+    $.asColorPicker.registerComponent('clear', function () {
         return {
             defaults: {
-                template: function(namespace) {
+                template: function (namespace) {
                     return '<a href="#" class="' + namespace + '-clear"></a>';
                 }
             },
-            init: function(api, options) {
+            init: function (api, options) {
                 if (api.options.hideInput) {
                     return;
                 }
                 this.options = $.extend(this.defaults, options);
                 this.$clear = $(this.options.template.call(this, api.namespace)).insertAfter(api.$element);
 
-                this.$clear.on('click', function() {
+                this.$clear.on('click', function () {
                     api.clear();
                     return false;
                 });
@@ -513,7 +513,7 @@
 })(jQuery);
 
 // keyboard
-(function(window, document, $, undefined) {
+(function (window, document, $, undefined) {
     "use strict";
 
     var $doc = $(document);
@@ -530,14 +530,14 @@
         },
         map: {},
         bound: false,
-        press: function(e) {
+        press: function (e) {
             var key = e.keyCode || e.which;
             if (key in keyboard.map && typeof keyboard.map[key] === 'function') {
                 keyboard.map[key](e);
             }
             return false;
         },
-        attach: function(map) {
+        attach: function (map) {
             var key, up;
             for (key in map) {
                 if (map.hasOwnProperty(key)) {
@@ -554,13 +554,13 @@
                 $doc.bind('keydown', keyboard.press);
             }
         },
-        detach: function() {
+        detach: function () {
             keyboard.bound = false;
             keyboard.map = {};
             $doc.unbind('keydown', keyboard.press);
         }
     };
-    $doc.on('asColorPicker::init', function(event, instance) {
+    $doc.on('asColorPicker::init', function (event, instance) {
         if (instance.options.keyboard === true) {
             instance._keyboard = keyboard;
         }
@@ -569,20 +569,20 @@
 
 // alpha
 
-(function($) {
+(function ($) {
     "use strict";
 
-    $.asColorPicker.registerComponent('alpha', function() {
+    $.asColorPicker.registerComponent('alpha', function () {
         return {
             size: 150,
             defaults: {
                 direction: 'vertical', // horizontal
-                template: function(namespace) {
+                template: function (namespace) {
                     return '<div class="' + namespace + '-alpha ' + namespace + '-alpha-' + this.direction + '"><i></i></div>';
                 }
             },
             data: {},
-            init: function(api, options) {
+            init: function (api, options) {
                 var self = this;
 
                 this.options = $.extend(this.defaults, options);
@@ -592,7 +592,7 @@
                 this.$alpha = $(this.options.template.call(self, api.namespace)).appendTo(api.$dropdown);
                 this.$handle = this.$alpha.find('i');
 
-                api.$element.on('asColorPicker::firstOpen', function() {
+                api.$element.on('asColorPicker::firstOpen', function () {
                     // init variable
                     if (self.direction === 'vertical') {
                         self.size = self.$alpha.height();
@@ -606,13 +606,13 @@
                     self.keyboard();
                 });
 
-                api.$element.on('asColorPicker::update asColorPicker::setup', function(e, api, color) {
+                api.$element.on('asColorPicker::update asColorPicker::setup', function (e, api, color) {
                     self.update(color);
                 });
             },
-            bindEvents: function() {
+            bindEvents: function () {
                 var self = this;
-                this.$alpha.on('mousedown.asColorPicker', function(e) {
+                this.$alpha.on('mousedown.asColorPicker', function (e) {
                     var rightclick = (e.which) ? (e.which === 3) : (e.button === 2);
                     if (rightclick) {
                         return false;
@@ -620,7 +620,7 @@
                     $.proxy(self.mousedown, self)(e);
                 });
             },
-            mousedown: function(e) {
+            mousedown: function (e) {
                 var offset = this.$alpha.offset();
                 if (this.direction === 'vertical') {
                     this.data.startY = e.pageY;
@@ -632,7 +632,7 @@
                     this.move(this.data.left);
                 }
 
-                this.mousemove = function(e) {
+                this.mousemove = function (e) {
                     var position;
                     if (this.direction === 'vertical') {
                         position = this.data.top + (e.pageY || this.data.startY) - this.data.startY;
@@ -644,7 +644,7 @@
                     return false;
                 };
 
-                this.mouseup = function() {
+                this.mouseup = function () {
                     $(document).off({
                         mousemove: this.mousemove,
                         mouseup: this.mouseup
@@ -664,7 +664,7 @@
                 });
                 return false;
             },
-            move: function(position, alpha, update) {
+            move: function (position, alpha, update) {
                 position = Math.max(0, Math.min(this.size, position));
                 this.data.cach = position;
                 if (typeof alpha === 'undefined') {
@@ -687,31 +687,31 @@
                     });
                 }
             },
-            moveLeft: function() {
+            moveLeft: function () {
                 var step = this.step,
                     data = this.data;
                 data.left = Math.max(0, Math.min(this.width, data.left - step));
                 this.move(data.left);
             },
-            moveRight: function() {
+            moveRight: function () {
                 var step = this.step,
                     data = this.data;
                 data.left = Math.max(0, Math.min(this.width, data.left + step));
                 this.move(data.left);
             },
-            moveUp: function() {
+            moveUp: function () {
                 var step = this.step,
                     data = this.data;
                 data.top = Math.max(0, Math.min(this.width, data.top - step));
                 this.move(data.top);
             },
-            moveDown: function() {
+            moveDown: function () {
                 var step = this.step,
                     data = this.data;
                 data.top = Math.max(0, Math.min(this.width, data.top + step));
                 this.move(data.top);
             },
-            keyboard: function() {
+            keyboard: function () {
                 var keyboard, self = this;
                 if (this.api._keyboard) {
                     keyboard = $.extend(true, {}, this.api._keyboard);
@@ -719,38 +719,38 @@
                     return false;
                 }
 
-                this.$alpha.attr('tabindex', '0').on('focus', function() {
+                this.$alpha.attr('tabindex', '0').on('focus', function () {
                     if (this.direction === 'vertical') {
                         keyboard.attach({
-                            up: function() {
+                            up: function () {
                                 self.moveUp();
                             },
-                            down: function() {
+                            down: function () {
                                 self.moveDown();
                             }
                         });
                     } else {
                         keyboard.attach({
-                            left: function() {
+                            left: function () {
                                 self.moveLeft();
                             },
-                            right: function() {
+                            right: function () {
                                 self.moveRight();
                             }
                         });
                     }
                     return false;
-                }).on('blur', function() {
+                }).on('blur', function () {
                     keyboard.detach();
                 });
             },
-            update: function(color) {
+            update: function (color) {
                 var position = this.size * (1 - color.value.a);
                 this.$alpha.css('backgroundColor', color.toHEX());
 
                 this.move(position, color.value.a, false);
             },
-            destroy: function() {
+            destroy: function () {
                 $(document).off({
                     mousemove: this.mousemove,
                     mouseup: this.mouseup
@@ -761,42 +761,42 @@
 })(jQuery);
 
 // buttons
-(function($) {
+(function ($) {
     "use strict";
 
-    $.asColorPicker.registerComponent('buttons', function() {
+    $.asColorPicker.registerComponent('buttons', function () {
         return {
             defaults: {
                 apply: false,
                 cancel: true,
                 applyText: 'apply',
                 cancelText: 'cancel',
-                template: function(namespace) {
+                template: function (namespace) {
                     return '<div class="' + namespace + '-buttons"></div>';
                 },
-                applyTemplate: function(namespace) {
+                applyTemplate: function (namespace) {
                     return '<a href="#" alt="' + this.options.applyText + '" class="' + namespace + '-buttons-apply">' + this.options.applyText + '</a>';
                 },
-                cancelTemplate: function(namespace) {
+                cancelTemplate: function (namespace) {
                     return '<a href="#" alt="' + this.options.cancelText + '" class="' + namespace + '-buttons-apply">' + this.options.cancelText + '</a>';
                 }
             },
-            init: function(api, options) {
+            init: function (api, options) {
                 var self = this;
 
                 this.options = $.extend(this.defaults, options);
                 this.$buttons = $(this.options.template.call(this, api.namespace)).appendTo(api.$dropdown);
 
-                api.$element.on('asColorPicker::firstOpen', function() {
+                api.$element.on('asColorPicker::firstOpen', function () {
                     if (self.options.apply) {
-                        self.$apply = $(self.options.applyTemplate.call(self, api.namespace)).appendTo(self.$buttons).on('click', function() {
+                        self.$apply = $(self.options.applyTemplate.call(self, api.namespace)).appendTo(self.$buttons).on('click', function () {
                             api.apply();
                             return false;
                         });
                     }
 
                     if (self.options.cancel) {
-                        self.$cancel = $(self.options.cancelTemplate.call(self, api.namespace)).appendTo(self.$buttons).on('click', function() {
+                        self.$cancel = $(self.options.cancelTemplate.call(self, api.namespace)).appendTo(self.$buttons).on('click', function () {
                             api.cancel();
                             return false;
                         });
@@ -809,25 +809,25 @@
 
 // hex
 
-(function($) {
+(function ($) {
     "use strict";
 
-    $.asColorPicker.registerComponent('hex', function() {
+    $.asColorPicker.registerComponent('hex', function () {
         return {
-            init: function(api) {
+            init: function (api) {
                 var template = '<input type="text" class="' + api.namespace + '-hex" />';
                 this.$hex = $(template).appendTo(api.$dropdown);
 
-                this.$hex.on('change', function() {
+                this.$hex.on('change', function () {
                     api.set(this.value);
                 });
 
                 var self = this;
-                api.$element.on('asColorPicker::update asColorPicker::setup', function(e, api, color) {
+                api.$element.on('asColorPicker::update asColorPicker::setup', function (e, api, color) {
                     self.update(color);
                 });
             },
-            update: function(color) {
+            update: function (color) {
                 this.$hex.val(color.toHEX());
             }
         };
@@ -835,21 +835,21 @@
 })(jQuery);
 
 // hue
-(function($) {
+(function ($) {
     "use strict";
 
-    $.asColorPicker.registerComponent('hue', function() {
+    $.asColorPicker.registerComponent('hue', function () {
         return {
             size: 150,
             defaults: {
                 direction: 'vertical', // horizontal
-                template: function() {
+                template: function () {
                     var namespace = this.api.namespace;
                     return '<div class="' + namespace + '-hue ' + namespace + '-hue-' + this.direction + '"><i></i></div>';
                 }
             },
             data: {},
-            init: function(api, options) {
+            init: function (api, options) {
                 var self = this;
 
                 this.options = $.extend(this.defaults, options);
@@ -859,7 +859,7 @@
                 this.$hue = $(this.options.template.call(self)).appendTo(api.$dropdown);
                 this.$handle = this.$hue.find('i');
 
-                api.$element.on('asColorPicker::firstOpen', function() {
+                api.$element.on('asColorPicker::firstOpen', function () {
                     // init variable
                     if (self.direction === 'vertical') {
                         self.size = self.$hue.height();
@@ -873,13 +873,13 @@
                     self.keyboard(api);
                 });
 
-                api.$element.on('asColorPicker::update asColorPicker::setup', function(e, api, color) {
+                api.$element.on('asColorPicker::update asColorPicker::setup', function (e, api, color) {
                     self.update(color);
                 });
             },
-            bindEvents: function() {
+            bindEvents: function () {
                 var self = this;
-                this.$hue.on('mousedown.asColorPicker', function(e) {
+                this.$hue.on('mousedown.asColorPicker', function (e) {
                     var rightclick = (e.which) ? (e.which === 3) : (e.button === 2);
                     if (rightclick) {
                         return false;
@@ -887,7 +887,7 @@
                     $.proxy(self.mousedown, self)(e);
                 });
             },
-            mousedown: function(e) {
+            mousedown: function (e) {
                 var offset = this.$hue.offset();
                 if (this.direction === 'vertical') {
                     this.data.startY = e.pageY;
@@ -899,7 +899,7 @@
                     this.move(this.data.left);
                 }
 
-                this.mousemove = function(e) {
+                this.mousemove = function (e) {
                     var position;
                     if (this.direction === 'vertical') {
                         position = this.data.top + (e.pageY || this.data.startY) - this.data.startY;
@@ -911,7 +911,7 @@
                     return false;
                 };
 
-                this.mouseup = function() {
+                this.mouseup = function () {
                     $(document).off({
                         mousemove: this.mousemove,
                         mouseup: this.mouseup
@@ -932,7 +932,7 @@
 
                 return false;
             },
-            move: function(position, hub, update) {
+            move: function (position, hub, update) {
                 position = Math.max(0, Math.min(this.size, position));
                 this.data.cach = position;
                 if (typeof hub === 'undefined') {
@@ -954,31 +954,31 @@
                     });
                 }
             },
-            moveLeft: function() {
+            moveLeft: function () {
                 var step = this.step,
                     data = this.data;
                 data.left = Math.max(0, Math.min(this.width, data.left - step));
                 this.move(data.left);
             },
-            moveRight: function() {
+            moveRight: function () {
                 var step = this.step,
                     data = this.data;
                 data.left = Math.max(0, Math.min(this.width, data.left + step));
                 this.move(data.left);
             },
-            moveUp: function() {
+            moveUp: function () {
                 var step = this.step,
                     data = this.data;
                 data.top = Math.max(0, Math.min(this.width, data.top - step));
                 this.move(data.top);
             },
-            moveDown: function() {
+            moveDown: function () {
                 var step = this.step,
                     data = this.data;
                 data.top = Math.max(0, Math.min(this.width, data.top + step));
                 this.move(data.top);
             },
-            keyboard: function() {
+            keyboard: function () {
                 var keyboard, self = this;
                 if (this.api._keyboard) {
                     keyboard = $.extend(true, {}, this.api._keyboard);
@@ -986,36 +986,36 @@
                     return false;
                 }
 
-                this.$hue.attr('tabindex', '0').on('focus', function() {
+                this.$hue.attr('tabindex', '0').on('focus', function () {
                     if (this.direction === 'vertical') {
                         keyboard.attach({
-                            up: function() {
+                            up: function () {
                                 self.moveUp();
                             },
-                            down: function() {
+                            down: function () {
                                 self.moveDown();
                             }
                         });
                     } else {
                         keyboard.attach({
-                            left: function() {
+                            left: function () {
                                 self.moveLeft();
                             },
-                            right: function() {
+                            right: function () {
                                 self.moveRight();
                             }
                         });
                     }
                     return false;
-                }).on('blur', function() {
+                }).on('blur', function () {
                     keyboard.detach();
                 });
             },
-            update: function(color) {
+            update: function (color) {
                 var position = (color.value.h === 0) ? 0 : this.size * (1 - color.value.h / 360);
                 this.move(position, color.value.h, false);
             },
-            destroy: function() {
+            destroy: function () {
                 $(document).off({
                     mousemove: this.mousemove,
                     mouseup: this.mouseup
@@ -1027,13 +1027,13 @@
 
 // info
 
-(function($) {
+(function ($) {
     "use strict";
 
-    $.asColorPicker.registerComponent('info', function() {
+    $.asColorPicker.registerComponent('info', function () {
         return {
             color: ['white', 'black', 'transparent'],
-            init: function(api) {
+            init: function (api) {
                 var template = '<ul class="' + api.namespace + '-info">' + '<li><label>R:<input type="text" data-type="r"/></label></li>' + '<li><label>G:<input type="text" data-type="g"/></label></li>' + '<li><label>B:<input type="text" data-type="b"/></label></li>' + '<li><label>A:<input type="text" data-type="a"/></label></li>' + '</ul>';
                 this.$info = $(template).appendTo(api.$dropdown);
                 this.$r = this.$info.find('[data-type="r"]');
@@ -1041,7 +1041,7 @@
                 this.$b = this.$info.find('[data-type="b"]');
                 this.$a = this.$info.find('[data-type="a"]');
 
-                this.$info.delegate('input', 'keyup update change', function(e) {
+                this.$info.delegate('input', 'keyup update change', function (e) {
                     var val;
                     var type = $(e.target).data('type');
                     switch (type) {
@@ -1073,11 +1073,11 @@
                 });
 
                 var self = this;
-                api.$element.on('asColorPicker::update asColorPicker::setup', function(e, color) {
+                api.$element.on('asColorPicker::update asColorPicker::setup', function (e, color) {
                     self.update(color);
                 });
             },
-            update: function(color) {
+            update: function (color) {
                 this.$r.val(color.value.r);
                 this.$g.val(color.value.g);
                 this.$b.val(color.value.b);
@@ -1089,30 +1089,31 @@
 
 // palettes
 
-(function($) {
+(function ($) {
     "use strict";
 
     function noop() {
         return;
     }
+
     if (!window.localStorage) {
         window.localStorage = noop;
     }
 
-    $.asColorPicker.registerComponent('palettes', function() {
+    $.asColorPicker.registerComponent('palettes', function () {
         return {
             defaults: {
-                template: function(namespace) {
+                template: function (namespace) {
                     return '<ul class="' + namespace + '-palettes"></ul>';
                 },
-                item: function(namespace, color) {
+                item: function (namespace, color) {
                     return '<li data-color="' + color + '"><span style="background-color:' + color + '" /></li>';
                 },
                 colors: ['white', 'black', 'red', 'blue', 'yellow'],
                 max: 10,
                 localStorage: true
             },
-            init: function(api, options) {
+            init: function (api, options) {
                 var self = this,
                     colors, asColor = new $.asColor();
 
@@ -1134,13 +1135,13 @@
                 }
 
                 var list = '';
-                $.each(this.colors, function(i, color) {
+                $.each(this.colors, function (i, color) {
                     list += self.options.item(api.namespace, color);
                 });
 
                 this.$palettes = $(this.options.template.call(this, api.namespace)).html(list).appendTo(api.$dropdown);
 
-                this.$palettes.delegate('li', 'click', function(e) {
+                this.$palettes.delegate('li', 'click', function (e) {
                     var color = $(this).data('color');
                     api.set(color);
 
@@ -1148,7 +1149,7 @@
                     e.stopPropagation();
                 });
 
-                api.$element.on('asColorPicker::apply', function(e, api, color) {
+                api.$element.on('asColorPicker::apply', function (e, api, color) {
                     if (typeof color.toRGBA !== 'function') {
                         color = color.get().color;
                     }
@@ -1170,12 +1171,12 @@
                     }
                 });
             },
-            setLocal: function(key, value) {
+            setLocal: function (key, value) {
                 var jsonValue = JSON.stringify(value);
 
                 localStorage[key] = jsonValue;
             },
-            getLocal: function(key) {
+            getLocal: function (key) {
                 var value = localStorage[key];
 
                 return value ? JSON.parse(value) : value;
@@ -1186,42 +1187,42 @@
 
 // preview
 
-(function($) {
+(function ($) {
     "use strict";
 
-    $.asColorPicker.registerComponent('preview', function() {
+    $.asColorPicker.registerComponent('preview', function () {
         return {
             defaults: {
-                template: function(namespace) {
+                template: function (namespace) {
                     return '<ul class="' + namespace + '-preview"><li class="' + namespace + '-preview-current"><span /></li><li class="' + namespace + '-preview-previous"><span /></li></ul>';
                 }
             },
-            init: function(api, options) {
+            init: function (api, options) {
                 var self = this;
                 this.options = $.extend(this.defaults, options);
                 this.$preview = $(this.options.template.call(self, api.namespace)).appendTo(api.$dropdown);
                 this.$current = this.$preview.find('.' + api.namespace + '-preview-current span');
                 this.$previous = this.$preview.find('.' + api.namespace + '-preview-previous span');
 
-                api.$element.on('asColorPicker::firstOpen', function() {
-                    self.$previous.on('click', function() {
+                api.$element.on('asColorPicker::firstOpen', function () {
+                    self.$previous.on('click', function () {
                         api.set($(this).data('color'));
                         return false;
                     });
                 });
 
-                api.$element.on('asColorPicker::setup', function(e, api, color) {
+                api.$element.on('asColorPicker::setup', function (e, api, color) {
                     self.updateCurrent(color);
                     self.updatePreview(color);
                 });
-                api.$element.on('asColorPicker::update', function(e, api, color) {
+                api.$element.on('asColorPicker::update', function (e, api, color) {
                     self.updateCurrent(color);
                 });
             },
-            updateCurrent: function(color) {
+            updateCurrent: function (color) {
                 this.$current.css('backgroundColor', color.toRGBA());
             },
-            updatePreview: function(color) {
+            updatePreview: function (color) {
                 this.$previous.css('backgroundColor', color.toRGBA());
                 this.$previous.data('color', {
                     r: color.value.r,
@@ -1236,13 +1237,13 @@
 
 // saturation
 
-(function($) {
+(function ($) {
     "use strict";
 
-    $.asColorPicker.registerComponent('saturation', function() {
+    $.asColorPicker.registerComponent('saturation', function () {
         return {
             defaults: {
-                template: function(namespace) {
+                template: function (namespace) {
                     return '<div class="' + namespace + '-saturation"><i><b></b></i></div>';
                 }
             },
@@ -1250,7 +1251,7 @@
             height: 0,
             size: 6,
             data: {},
-            init: function(api, options) {
+            init: function (api, options) {
                 var self = this;
                 this.options = $.extend(this.defaults, options),
                     this.api = api;
@@ -1259,7 +1260,7 @@
                 this.$saturation = $(this.options.template.call(self, api.namespace)).appendTo(api.$dropdown);
                 this.$handle = this.$saturation.find('i');
 
-                api.$element.on('asColorPicker::firstOpen', function() {
+                api.$element.on('asColorPicker::firstOpen', function () {
                     // init variable
                     self.width = self.$saturation.width();
                     self.height = self.$saturation.height();
@@ -1274,15 +1275,15 @@
                     self.keyboard(api);
                 });
 
-                api.$element.on('asColorPicker::update asColorPicker::setup', function(e, api, color) {
+                api.$element.on('asColorPicker::update asColorPicker::setup', function (e, api, color) {
                     self.update(color);
                 });
 
             },
-            bindEvents: function() {
+            bindEvents: function () {
                 var self = this;
 
-                this.$saturation.on('mousedown.asColorPicker', function(e) {
+                this.$saturation.on('mousedown.asColorPicker', function (e) {
                     var rightclick = (e.which) ? (e.which === 3) : (e.button === 2);
                     if (rightclick) {
                         return false;
@@ -1290,7 +1291,7 @@
                     self.mousedown(e);
                 });
             },
-            mousedown: function(e) {
+            mousedown: function (e) {
                 var offset = this.$saturation.offset();
 
                 this.data.startY = e.pageY;
@@ -1301,14 +1302,14 @@
 
                 this.move(this.data.left, this.data.top);
 
-                this.mousemove = function(e) {
+                this.mousemove = function (e) {
                     var x = this.data.left + (e.pageX || this.data.startX) - this.data.startX;
                     var y = this.data.top + (e.pageY || this.data.startY) - this.data.startY;
                     this.move(x, y);
                     return false;
                 };
 
-                this.mouseup = function() {
+                this.mouseup = function () {
                     $(document).off({
                         mousemove: this.mousemove,
                         mouseup: this.mouseup
@@ -1326,7 +1327,7 @@
 
                 return false;
             },
-            move: function(x, y, update) {
+            move: function (x, y, update) {
                 y = Math.max(0, Math.min(this.height, y));
                 x = Math.max(0, Math.min(this.width, x));
 
@@ -1348,7 +1349,7 @@
                     });
                 }
             },
-            update: function(color) {
+            update: function (color) {
                 if (color.value.h === undefined) {
                     color.value.h = 0;
                 }
@@ -1363,31 +1364,31 @@
 
                 this.move(x, y, false);
             },
-            moveLeft: function() {
+            moveLeft: function () {
                 var step = this.step.left,
                     data = this.data;
                 data.left = Math.max(0, Math.min(this.width, data.left - step));
                 this.move(data.left, data.top);
             },
-            moveRight: function() {
+            moveRight: function () {
                 var step = this.step.left,
                     data = this.data;
                 data.left = Math.max(0, Math.min(this.width, data.left + step));
                 this.move(data.left, data.top);
             },
-            moveUp: function() {
+            moveUp: function () {
                 var step = this.step.top,
                     data = this.data;
                 data.top = Math.max(0, Math.min(this.width, data.top - step));
                 this.move(data.left, data.top);
             },
-            moveDown: function() {
+            moveDown: function () {
                 var step = this.step.top,
                     data = this.data;
                 data.top = Math.max(0, Math.min(this.width, data.top + step));
                 this.move(data.left, data.top);
             },
-            keyboard: function() {
+            keyboard: function () {
                 var keyboard, self = this;
                 if (this.api._keyboard) {
                     keyboard = $.extend(true, {}, this.api._keyboard);
@@ -1395,27 +1396,27 @@
                     return false;
                 }
 
-                this.$saturation.attr('tabindex', '0').on('focus', function() {
+                this.$saturation.attr('tabindex', '0').on('focus', function () {
                     keyboard.attach({
-                        left: function() {
+                        left: function () {
                             self.moveLeft();
                         },
-                        right: function() {
+                        right: function () {
                             self.moveRight();
                         },
-                        up: function() {
+                        up: function () {
                             self.moveUp();
                         },
-                        down: function() {
+                        down: function () {
                             self.moveDown();
                         }
                     });
                     return false;
-                }).on('blur', function() {
+                }).on('blur', function () {
                     keyboard.detach();
                 });
             },
-            destroy: function() {
+            destroy: function () {
                 $(document).off({
                     mousemove: this.mousemove,
                     mouseup: this.mouseup
@@ -1427,8 +1428,8 @@
 
 // gradient
 
-(function($, asGradient) {
-    $.asColorPicker.registerComponent('gradient', function() {
+(function ($, asGradient) {
+    $.asColorPicker.registerComponent('gradient', function () {
         return {
             defaults: {
                 switchable: true,
@@ -1442,7 +1443,7 @@
                     cleanPosition: false,
                     forceColorFormat: 'rgb', // rgb, rgba, hsl, hsla, hex
                 },
-                template: function() {
+                template: function () {
                     var namespace = this.api.namespace;
                     var control = '<div class="' + namespace + '-gradient-control">';
                     if (this.options.switchable) {
@@ -1463,10 +1464,10 @@
                         '</div>';
                 }
             },
-            init: function(api, options) {
+            init: function (api, options) {
                 var self = this;
 
-                api.$element.on('asColorPicker::ready', function(event, instance) {
+                api.$element.on('asColorPicker::ready', function (event, instance) {
                     if (instance.options.mode !== 'gradient') {
                         return;
                     }
@@ -1489,7 +1490,7 @@
         return n * 100 + '%';
     }
 
-    var Gradient = function(api, options) {
+    var Gradient = function (api, options) {
         this.api = api;
         this.options = options;
         this.classes = {
@@ -1506,7 +1507,7 @@
 
         var self = this;
         $.extend(self, {
-            init: function() {
+            init: function () {
                 self.$wrap = $(self.options.template.call(self)).appendTo(api.$dropdown);
 
                 self.$gradient = self.$wrap.filter('.' + api.namespace + '-gradient');
@@ -1527,10 +1528,10 @@
                 }
                 this.initialized = true;
             },
-            bind: function() {
+            bind: function () {
                 var namespace = api.namespace;
 
-                self.$gradient.on('update', function() {
+                self.$gradient.on('update', function () {
                     var current = self.value.getById(self.current);
 
                     if (current) {
@@ -1551,7 +1552,7 @@
                 // });
 
                 if (self.options.switchable) {
-                    self.$wrap.on('click', '.' + namespace + '-gradient-switch', function() {
+                    self.$wrap.on('click', '.' + namespace + '-gradient-switch', function () {
                         if (self.isEnabled) {
                             self.disable();
                         } else {
@@ -1562,7 +1563,7 @@
                     });
                 }
 
-                self.$wrap.on('click', '.' + namespace + '-gradient-cancel', function() {
+                self.$wrap.on('click', '.' + namespace + '-gradient-cancel', function () {
                     if (self.options.switchable === false || asGradient.matchString(api.originValue)) {
                         self.overrideCore();
                     }
@@ -1572,8 +1573,8 @@
                     return false;
                 });
             },
-            overrideCore: function() {
-                api.set = function(value) {
+            overrideCore: function () {
+                api.set = function (value) {
                     if (value !== '') {
                         api.isEmpty = false;
                     } else {
@@ -1607,28 +1608,28 @@
                     }
                 };
 
-                api._setup = function() {
+                api._setup = function () {
                     var current = self.value.getById(self.current);
 
                     api._trigger('setup', current.color);
                 };
             },
-            revertCore: function() {
+            revertCore: function () {
                 api.set = $.proxy(api._set, api);
-                api._setup = function() {
+                api._setup = function () {
                     api._trigger('setup', api.color);
                 };
             },
             preview: {
-                init: function() {
+                init: function () {
                     var that = this;
                     self.$preview = self.$gradient.find('.' + api.namespace + '-gradient-preview');
 
-                    self.$gradient.on('add del update empty', function() {
+                    self.$gradient.on('add del update empty', function () {
                         that.render();
                     });
                 },
-                render: function() {
+                render: function () {
                     self.$preview.css({
                         'background-image': self.value.toStringWithAngle('to right', true),
                     });
@@ -1639,33 +1640,33 @@
             },
             markers: {
                 width: 160,
-                init: function() {
+                init: function () {
                     self.$markers = self.$gradient.find('.' + api.namespace + '-gradient-markers').attr('tabindex', 0);
                     var that = this;
 
-                    self.$gradient.on('add', function(e, data) {
+                    self.$gradient.on('add', function (e, data) {
                         that.add(data.stop);
                     });
 
-                    self.$gradient.on('active', function(e, data) {
+                    self.$gradient.on('active', function (e, data) {
                         that.active(data.id);
                     });
 
-                    self.$gradient.on('del', function(e, data) {
+                    self.$gradient.on('del', function (e, data) {
                         that.del(data.id);
                     });
 
-                    self.$gradient.on('update', function(e, data) {
+                    self.$gradient.on('update', function (e, data) {
                         if (data.stop) {
                             that.update(data.stop.id, data.stop.color);
                         }
                     });
 
-                    self.$gradient.on('empty', function() {
+                    self.$gradient.on('empty', function () {
                         that.empty();
                     });
 
-                    self.$markers.on('mousedown.asColorPicker', function(e) {
+                    self.$markers.on('mousedown.asColorPicker', function (e) {
                         var rightclick = (e.which) ? (e.which === 3) : (e.button === 2);
                         if (rightclick) {
                             return false;
@@ -1676,7 +1677,7 @@
                         return false;
                     });
 
-                    self.$markers.on('mousedown.asColorPicker', 'li', function(e) {
+                    self.$markers.on('mousedown.asColorPicker', 'li', function (e) {
                         var rightclick = (e.which) ? (e.which === 3) : (e.button === 2);
                         if (rightclick) {
                             return false;
@@ -1685,7 +1686,7 @@
                         return false;
                     });
 
-                    self.$doc.on('keydown.asColorPicker', function(e) {
+                    self.$doc.on('keydown.asColorPicker', function (e) {
                         if (self.api.opened && self.$markers.is('.' + self.classes.focus)) {
 
                             var key = e.keyCode || e.which;
@@ -1701,32 +1702,32 @@
                         }
                     });
 
-                    self.$markers.on('focus.asColorPicker', function() {
+                    self.$markers.on('focus.asColorPicker', function () {
                         self.$markers.addClass(self.classes.focus);
-                    }).on('blur.asColorPicker', function() {
+                    }).on('blur.asColorPicker', function () {
                         self.$markers.removeClass(self.classes.focus);
                     });
 
-                    self.$markers.on('click', 'li', function() {
+                    self.$markers.on('click', 'li', function () {
                         var id = $(this).data('id');
                         self.active(id);
                     });
                 },
-                getMarker: function(id) {
+                getMarker: function (id) {
                     return self.$markers.find('[data-id="' + id + '"]');
                 },
-                update: function(id, color) {
+                update: function (id, color) {
                     var $marker = this.getMarker(id);
                     $marker.find('span').css('background-color', color.toHEX());
                     $marker.find('i').css('background-color', color.toHEX());
                 },
-                add: function(stop) {
+                add: function (stop) {
                     $('<li data-id="' + stop.id + '" style="left:' + conventToPercentage(stop.position) + '" class="' + self.classes.marker + '"><span style="background-color: ' + stop.color.toHEX() + '"></span><i style="background-color: ' + stop.color.toHEX() + '"></i></li>').appendTo(self.$markers);
                 },
-                empty: function() {
+                empty: function () {
                     self.$markers.html('');
                 },
-                del: function(id) {
+                del: function (id) {
                     var $marker = this.getMarker(id);
                     var $to = $marker.prev();
                     if ($to.length === 0) {
@@ -1736,7 +1737,7 @@
                     self.active($to.data('id'));
                     $marker.remove();
                 },
-                active: function(id) {
+                active: function (id) {
                     self.$markers.children().removeClass(self.classes.active);
 
                     var $marker = this.getMarker(id);
@@ -1745,21 +1746,21 @@
                     self.$markers.focus();
                     // self.api._trigger('apply', self.value.getById(id).color);
                 },
-                mousedown: function(marker, e) {
+                mousedown: function (marker, e) {
                     var that = this,
                         id = $(marker).data('id'),
                         first = $(marker).position().left,
                         start = e.pageX,
                         end;
 
-                    this.mousemove = function(e) {
+                    this.mousemove = function (e) {
                         end = e.pageX || start;
                         var position = (first + end - start) / this.width;
                         that.move(marker, position, id);
                         return false;
                     };
 
-                    this.mouseup = function() {
+                    this.mouseup = function () {
                         $(document).off({
                             mousemove: this.mousemove,
                             mouseup: this.mouseup
@@ -1775,7 +1776,7 @@
                     self.active(id);
                     return false;
                 },
-                move: function(marker, position, id) {
+                move: function (marker, position, id) {
                     self.api.isEmpty = false;
                     position = Math.max(0, Math.min(1, position));
                     $(marker).css({
@@ -1794,18 +1795,18 @@
                 },
             },
             wheel: {
-                init: function() {
+                init: function () {
                     var that = this;
                     self.$wheel = self.$gradient.find('.' + api.namespace + '-gradient-wheel');
                     self.$pointer = self.$wheel.find('i');
 
-                    self.$gradient.on('update', function(e, data) {
+                    self.$gradient.on('update', function (e, data) {
                         if (typeof data.angle !== 'undefined') {
                             that.position(data.angle);
                         }
                     });
 
-                    self.$wheel.on('mousedown.asColorPicker', function(e) {
+                    self.$wheel.on('mousedown.asColorPicker', function (e) {
                         var rightclick = (e.which) ? (e.which === 3) : (e.button === 2);
                         if (rightclick) {
                             return false;
@@ -1814,7 +1815,7 @@
                         return false;
                     });
                 },
-                mousedown: function(e, self) {
+                mousedown: function (e, self) {
                     var offset = self.$wheel.offset();
                     var r = self.$wheel.width() / 2;
                     var startX = offset.left + r;
@@ -1824,7 +1825,7 @@
 
                     this.r = r;
 
-                    this.wheelMove = function(e) {
+                    this.wheelMove = function (e) {
                         var x = e.pageX - startX;
                         var y = startY - e.pageY;
 
@@ -1833,7 +1834,7 @@
                         self.api.isEmpty = false;
                         self.setAngle(angle);
                     };
-                    this.wheelMouseup = function() {
+                    this.wheelMouseup = function () {
                         $doc.off({
                             mousemove: this.wheelMove,
                             mouseup: this.wheelMouseup
@@ -1847,7 +1848,7 @@
 
                     this.wheelMove(e);
                 },
-                getPosition: function(a, b) {
+                getPosition: function (a, b) {
                     var r = this.r;
                     var x = a / Math.sqrt(a * a + b * b) * r;
                     var y = b / Math.sqrt(a * a + b * b) * r;
@@ -1856,7 +1857,7 @@
                         y: y
                     };
                 },
-                calAngle: function(x, y) {
+                calAngle: function (x, y) {
                     var deg = Math.round(Math.atan(Math.abs(x / y)) * (180 / Math.PI));
                     if (x < 0 && y > 0) {
                         return 360 - deg;
@@ -1871,13 +1872,13 @@
                         return deg;
                     }
                 },
-                set: function(value) {
+                set: function (value) {
                     self.value.angle(value);
                     self.$gradient.trigger('update', {
                         angle: value
                     });
                 },
-                position: function(angle) {
+                position: function (angle) {
                     var r = this.r || self.$wheel.width() / 2;
                     var pos = this.calPointer(angle, r);
                     self.$pointer.css({
@@ -1885,7 +1886,7 @@
                         top: pos.y
                     });
                 },
-                calPointer: function(angle, r) {
+                calPointer: function (angle, r) {
                     var x = Math.sin(angle * Math.PI / 180) * r;
                     var y = Math.cos(angle * Math.PI / 180) * r;
                     return {
@@ -1895,13 +1896,13 @@
                 }
             },
             angle: {
-                init: function() {
+                init: function () {
                     self.$angle = self.$gradient.find('.' + api.namespace + '-gradient-angle');
 
-                    self.$angle.on('blur.asColorPicker', function() {
+                    self.$angle.on('blur.asColorPicker', function () {
                         self.setAngle(this.value);
                         return false;
-                    }).on('keydown.asColorPicker', function(e) {
+                    }).on('keydown.asColorPicker', function (e) {
                         var key = e.keyCode || e.which;
                         if (key === 13) {
                             self.api.isEmpty = false;
@@ -1910,13 +1911,13 @@
                         }
                     });
 
-                    self.$gradient.on('update', function(e, data) {
+                    self.$gradient.on('update', function (e, data) {
                         if (typeof data.angle !== 'undefined') {
                             self.$angle.val(data.angle);
                         }
                     });
                 },
-                set: function(value) {
+                set: function (value) {
                     self.value.angle(value);
                     self.$gradient.trigger('update', {
                         angle: value
@@ -1931,13 +1932,12 @@
     Gradient.prototype = {
         constructor: Gradient,
 
-        enable: function(value) {
+        enable: function (value) {
             if (this.isEnabled === true) {
                 return;
             }
             this.isEnabled = true;
             this.overrideCore();
-
 
 
             this.$gradient.addClass(this.classes.enable);
@@ -1966,7 +1966,7 @@
                 this.api.position();
             }
         },
-        val: function(string) {
+        val: function (string) {
             if (string !== '' && this.value.toString() === string) {
                 return;
             }
@@ -2001,7 +2001,7 @@
 
             this.active(stop.id);
         },
-        disable: function() {
+        disable: function () {
             if (this.isEnabled === false) {
                 return;
             }
@@ -2017,7 +2017,7 @@
                 this.api.position();
             }
         },
-        active: function(id) {
+        active: function (id) {
             if (this.current !== id) {
                 this.current = id;
                 this.value.setCurrentById(id);
@@ -2027,11 +2027,11 @@
                 });
             }
         },
-        empty: function() {
+        empty: function () {
             this.value.empty();
             this.$gradient.trigger('empty');
         },
-        add: function(color, position) {
+        add: function (color, position) {
             var stop = this.value.insert(color, position);
             this.api.isEmpty = false;
             this.value.reorder();
@@ -2047,7 +2047,7 @@
             });
             return stop;
         },
-        del: function(id) {
+        del: function (id) {
             if (this.value.length <= 2) {
                 return;
             }
@@ -2059,14 +2059,14 @@
 
             this.$gradient.trigger('update', {});
         },
-        setAngle: function(value) {
+        setAngle: function (value) {
             this.value.angle(value);
             this.$gradient.trigger('update', {
                 angle: value
             });
         }
     };
-})(jQuery, (function($) {
+})(jQuery, (function ($) {
     if ($.asGradient === undefined) {
         // console.info('lost dependency lib of $.asGradient , please load it first !');
         return false;

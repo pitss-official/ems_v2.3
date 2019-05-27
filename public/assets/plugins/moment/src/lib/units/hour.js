@@ -14,7 +14,7 @@ addFormatToken('h', ['hh', 2], 0, function () {
     return this.hours() % 12 || 12;
 });
 
-function meridiem (token, lowercase) {
+function meridiem(token, lowercase) {
     addFormatToken(token, 0, 0, function () {
         return this.localeData().meridiem(this.hours(), this.minutes(), lowercase);
     });
@@ -29,14 +29,14 @@ addUnitAlias('hour', 'h');
 
 // PARSING
 
-function matchMeridiem (isStrict, locale) {
+function matchMeridiem(isStrict, locale) {
     return locale._meridiemParse;
 }
 
-addRegexToken('a',  matchMeridiem);
-addRegexToken('A',  matchMeridiem);
-addRegexToken('H',  match1to2);
-addRegexToken('h',  match1to2);
+addRegexToken('a', matchMeridiem);
+addRegexToken('A', matchMeridiem);
+addRegexToken('H', match1to2);
+addRegexToken('h', match1to2);
 addRegexToken('HH', match1to2, match2);
 addRegexToken('hh', match1to2, match2);
 
@@ -52,14 +52,15 @@ addParseToken(['h', 'hh'], function (input, array, config) {
 
 // LOCALES
 
-export function localeIsPM (input) {
+export function localeIsPM(input) {
     // IE8 Quirks Mode & IE7 Standards Mode do not allow accessing strings like arrays
     // Using charAt should be more compatible.
     return ((input + '').toLowerCase().charAt(0) === 'p');
 }
 
 export var defaultLocaleMeridiemParse = /[ap]\.?m?\.?/i;
-export function localeMeridiem (hours, minutes, isLower) {
+
+export function localeMeridiem(hours, minutes, isLower) {
     if (hours > 11) {
         return isLower ? 'pm' : 'PM';
     } else {

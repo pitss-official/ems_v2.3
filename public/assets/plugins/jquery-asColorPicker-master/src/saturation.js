@@ -1,12 +1,12 @@
 // saturation
 
-(function($) {
+(function ($) {
     "use strict";
 
-    $.asColorPicker.registerComponent('saturation', function() {
+    $.asColorPicker.registerComponent('saturation', function () {
         return {
             defaults: {
-                template: function(namespace) {
+                template: function (namespace) {
                     return '<div class="' + namespace + '-saturation"><i><b></b></i></div>';
                 }
             },
@@ -14,7 +14,7 @@
             height: 0,
             size: 6,
             data: {},
-            init: function(api, options) {
+            init: function (api, options) {
                 var self = this;
                 this.options = $.extend(this.defaults, options),
                     this.api = api;
@@ -23,7 +23,7 @@
                 this.$saturation = $(this.options.template.call(self, api.namespace)).appendTo(api.$dropdown);
                 this.$handle = this.$saturation.find('i');
 
-                api.$element.on('asColorPicker::firstOpen', function() {
+                api.$element.on('asColorPicker::firstOpen', function () {
                     // init variable
                     self.width = self.$saturation.width();
                     self.height = self.$saturation.height();
@@ -38,15 +38,15 @@
                     self.keyboard(api);
                 });
 
-                api.$element.on('asColorPicker::update asColorPicker::setup', function(e, api, color) {
+                api.$element.on('asColorPicker::update asColorPicker::setup', function (e, api, color) {
                     self.update(color);
                 });
 
             },
-            bindEvents: function() {
+            bindEvents: function () {
                 var self = this;
 
-                this.$saturation.on('mousedown.asColorPicker', function(e) {
+                this.$saturation.on('mousedown.asColorPicker', function (e) {
                     var rightclick = (e.which) ? (e.which === 3) : (e.button === 2);
                     if (rightclick) {
                         return false;
@@ -54,7 +54,7 @@
                     self.mousedown(e);
                 });
             },
-            mousedown: function(e) {
+            mousedown: function (e) {
                 var offset = this.$saturation.offset();
 
                 this.data.startY = e.pageY;
@@ -65,14 +65,14 @@
 
                 this.move(this.data.left, this.data.top);
 
-                this.mousemove = function(e) {
+                this.mousemove = function (e) {
                     var x = this.data.left + (e.pageX || this.data.startX) - this.data.startX;
                     var y = this.data.top + (e.pageY || this.data.startY) - this.data.startY;
                     this.move(x, y);
                     return false;
                 };
 
-                this.mouseup = function() {
+                this.mouseup = function () {
                     $(document).off({
                         mousemove: this.mousemove,
                         mouseup: this.mouseup
@@ -90,7 +90,7 @@
 
                 return false;
             },
-            move: function(x, y, update) {
+            move: function (x, y, update) {
                 y = Math.max(0, Math.min(this.height, y));
                 x = Math.max(0, Math.min(this.width, x));
 
@@ -112,7 +112,7 @@
                     });
                 }
             },
-            update: function(color) {
+            update: function (color) {
                 if (color.value.h === undefined) {
                     color.value.h = 0;
                 }
@@ -127,31 +127,31 @@
 
                 this.move(x, y, false);
             },
-            moveLeft: function() {
+            moveLeft: function () {
                 var step = this.step.left,
                     data = this.data;
                 data.left = Math.max(0, Math.min(this.width, data.left - step));
                 this.move(data.left, data.top);
             },
-            moveRight: function() {
+            moveRight: function () {
                 var step = this.step.left,
                     data = this.data;
                 data.left = Math.max(0, Math.min(this.width, data.left + step));
                 this.move(data.left, data.top);
             },
-            moveUp: function() {
+            moveUp: function () {
                 var step = this.step.top,
                     data = this.data;
                 data.top = Math.max(0, Math.min(this.width, data.top - step));
                 this.move(data.left, data.top);
             },
-            moveDown: function() {
+            moveDown: function () {
                 var step = this.step.top,
                     data = this.data;
                 data.top = Math.max(0, Math.min(this.width, data.top + step));
                 this.move(data.left, data.top);
             },
-            keyboard: function() {
+            keyboard: function () {
                 var keyboard, self = this;
                 if (this.api._keyboard) {
                     keyboard = $.extend(true, {}, this.api._keyboard);
@@ -159,27 +159,27 @@
                     return false;
                 }
 
-                this.$saturation.attr('tabindex', '0').on('focus', function() {
+                this.$saturation.attr('tabindex', '0').on('focus', function () {
                     keyboard.attach({
-                        left: function() {
+                        left: function () {
                             self.moveLeft();
                         },
-                        right: function() {
+                        right: function () {
                             self.moveRight();
                         },
-                        up: function() {
+                        up: function () {
                             self.moveUp();
                         },
-                        down: function() {
+                        down: function () {
                             self.moveDown();
                         }
                     });
                     return false;
-                }).on('blur', function() {
+                }).on('blur', function () {
                     keyboard.detach();
                 });
             },
-            destroy: function() {
+            destroy: function () {
                 $(document).off({
                     mousemove: this.mousemove,
                     mouseup: this.mouseup

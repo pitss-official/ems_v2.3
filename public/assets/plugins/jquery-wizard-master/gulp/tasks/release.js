@@ -45,7 +45,7 @@ argv.option([
 export default function release() {
   let args = argv.run();
 
-  return function(done) {
+  return function (done) {
     releaseIt.execute(args.options).catch(handleErrors).finally(done);
   }
 }

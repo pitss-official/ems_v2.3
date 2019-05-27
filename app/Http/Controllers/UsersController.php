@@ -14,7 +14,7 @@ class UsersController extends Controller
      */
     public function index()
     {
-        
+
     }
 
     /**
@@ -30,7 +30,7 @@ class UsersController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -41,7 +41,7 @@ class UsersController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\User  $user
+     * @param \App\User $user
      * @return \Illuminate\Http\Response
      */
     public function show(User $user)
@@ -53,7 +53,7 @@ class UsersController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\User  $user
+     * @param \App\User $user
      * @return \Illuminate\Http\Response
      */
     public function edit(User $user)
@@ -64,8 +64,8 @@ class UsersController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\User  $user
+     * @param \Illuminate\Http\Request $request
+     * @param \App\User $user
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, User $user)
@@ -76,19 +76,21 @@ class UsersController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\User  $user
+     * @param \App\User $user
      * @return \Illuminate\Http\Response
      */
     public function destroy(User $user)
     {
         //
     }
+
     public function getUserName($collegeUID)
     {
-        $count= \App\User:: all()->where('collegeUID', '=', $collegeUID)->count();
-        if($count)
-            return \App\User:: all()->where('collegeUID', '=', $collegeUID)->first()->setVisible(['firstName','lastName','middleName']);
+        $count = \App\User:: all()->where('collegeUID', '=', $collegeUID)->count();
+        if ($count)
+            return \App\User:: all()->where('collegeUID', '=', $collegeUID)->first()->setVisible(['firstName', 'lastName', 'middleName']);
     }
+
     public function getAllCoordinators()
     {
         return User::getAllCoordinators();

@@ -11,6 +11,7 @@ class Award extends Model
     {
         return $this->belongsTo('App\Event');
     }
+
     public function receiver()
     {
         return $this->hasOne('App\User');

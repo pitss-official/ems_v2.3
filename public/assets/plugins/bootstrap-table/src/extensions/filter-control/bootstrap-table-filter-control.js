@@ -151,7 +151,8 @@
                             selectControl.append($("<option></option>")
                                 .attr("value", key)
                                 .text(variableValues[key]));
-                        };
+                        }
+                        ;
                         break;
                 }
             }
@@ -195,13 +196,13 @@
 
                 if ((!column.checkbox) || (!column.radio)) {
                     if (column.filterControl !== undefined && column.filterControl.toLowerCase() === 'select'
-                            && column.searchable) {
+                        && column.searchable) {
 
                         if (column.filterData === undefined || column.filterData.toLowerCase() === 'column') {
                             var selectControl = $('.' + column.field),
-                                    iOpt = 0,
-                                    exitsOpt = false,
-                                    options;
+                                iOpt = 0,
+                                exitsOpt = false,
+                                options;
                             if (selectControl !== undefined) {
                                 options = selectControl.get(0).options;
 

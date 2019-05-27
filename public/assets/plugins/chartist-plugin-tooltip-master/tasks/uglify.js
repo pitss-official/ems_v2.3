@@ -10,16 +10,16 @@
 'use strict';
 
 module.exports = function (grunt) {
-  return {
-    dist: {
-      options: {
-        banner: '<%= pkg.config.banner %>',
-        sourceMap: true,
-        sourceMapIncludeSources: true
-      },
-      files: {
-        '<%= pkg.config.dist %>/<%= pkg.config.src_name %>.min.js': ['<%= pkg.config.dist %>/<%= pkg.config.src_name %>.js']
-      }
-    }
-  };
+    return {
+        dist: {
+            options: {
+                banner: '<%= pkg.config.banner %>',
+                sourceMap: true,
+                sourceMapIncludeSources: true
+            },
+            files: {
+                '<%= pkg.config.dist %>/<%= pkg.config.src_name %>.min.js': ['<%= pkg.config.dist %>/<%= pkg.config.src_name %>.js']
+            }
+        }
+    };
 };

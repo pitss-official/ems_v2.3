@@ -3,7 +3,7 @@ layout: default
 title: Select2 4.0.0 Released
 slug: announcements-4.0
 ---
-<section id="pre-release" class="jumbotron">
+<section class="jumbotron" id="pre-release">
   <div class="container">
     <h1>Announcing Select2 4.0.0</h1>
   </div>
@@ -153,7 +153,7 @@ slug: announcements-4.0
         </p>
 
 {% highlight html linenos %}
-<input type="hidden" name="select-boxes" value="1,2,4,6" />
+<input name="select-boxes" type="hidden" value="1,2,4,6" />
 {% endhighlight %}
 
         <p>
@@ -163,11 +163,11 @@ slug: announcements-4.0
         </p>
 
 {% highlight html linenos %}
-<select name="select-boxes" multiple="multiple">
-  <option value="1" selected="selected">Select2</option>
-  <option value="2" selected="selected">Chosen</option>
-  <option value="4" selected="selected">selectize.js</option>
-  <option value="6" selected="selected">typeahead.js</option>
+<select multiple="multiple" name="select-boxes">
+  <option selected="selected" value="1">Select2</option>
+  <option selected="selected" value="2">Chosen</option>
+  <option selected="selected" value="4">selectize.js</option>
+  <option selected="selected" value="6">typeahead.js</option>
 </select>
 {% endhighlight %}
 
@@ -282,7 +282,7 @@ $.fn.select2.amd.require(['select2/compat/matcher'], function (oldMatcher) {
 
 {% highlight html linenos %}
 <select>
-  <option value="-1" selected="selected">Select an option</option>
+  <option selected="selected" value="-1">Select an option</option>
   <option value="1">Something else</option>
 </select>
 {% endhighlight %}

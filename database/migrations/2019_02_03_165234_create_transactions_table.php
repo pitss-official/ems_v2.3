@@ -17,9 +17,9 @@ class CreateTransactionsTable extends Migration
             $table->increments('id');
             $table->unsignedInteger('receiver');
             $table->unsignedInteger('sender');
-            $table->string('description',150);
+            $table->string('description', 150);
             $table->boolean('wasQueued')->default(0);
-            $table->float('amount',16,4);
+            $table->float('amount', 16, 4);
             $table->unsignedTinyInteger('visibility')->default(1);
             $table->unsignedInteger('initBy');
             $table->unsignedInteger('queueID')->nullable()->default('');

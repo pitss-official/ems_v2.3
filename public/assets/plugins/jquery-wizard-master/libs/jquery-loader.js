@@ -1,4 +1,4 @@
-(function() {
+(function () {
   // Default to the local version.
   var path = '../libs/jquery/jquery.js';
   // Get any jquery=___ param from the query string.

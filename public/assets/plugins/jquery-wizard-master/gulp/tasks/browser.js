@@ -19,7 +19,7 @@ export function init(options = {}, message = 'Browser starting') {
     }
   });
 
-  return function() {
+  return function () {
     browser.init(options, () => {
       notifier.notify({
         title: config.notify.title,
@@ -30,7 +30,7 @@ export function init(options = {}, message = 'Browser starting') {
 }
 
 export function reload(message = 'Browser reloaded') {
-  return function(done) {
+  return function (done) {
     browser.reload();
     done();
 

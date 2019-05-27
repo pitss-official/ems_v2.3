@@ -21,7 +21,7 @@ import getSrcFiles from '../util/getSrcFiles';
 export default function (src = config.styles.src, dest = config.styles.dest, files = config.styles.files, message = 'Styles task complete') {
   const createSourcemap = config.deploy || config.styles.prodSourcemap;
 
-  return function() {
+  return function () {
     let srcFiles = getSrcFiles(src, files);
 
     return gulp.src(srcFiles)

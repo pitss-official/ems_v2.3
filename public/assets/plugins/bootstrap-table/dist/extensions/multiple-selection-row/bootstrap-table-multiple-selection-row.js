@@ -8,7 +8,7 @@
 
     'use strict';
 
-    document.onselectstart = function() {
+    document.onselectstart = function () {
         return false;
     };
 
@@ -52,32 +52,32 @@
             row = $(row);
             that.bootstrapTable("getOptions").multipleSelectRowLastSelectedRow = undefined;
             row.removeClass(that.bootstrapTable("getOptions").multipleSelectRowCssClass);
-            that.bootstrapTable("uncheck", row.data("index"));    
+            that.bootstrapTable("uncheck", row.data("index"));
         } else {
             that.bootstrapTable("getOptions").multipleSelectRowLastSelectedRow = row;
             row = $(row);
             if (useShift) {
                 row.addClass(that.bootstrapTable("getOptions").multipleSelectRowCssClass);
-                that.bootstrapTable("check", row.data("index"));  
+                that.bootstrapTable("check", row.data("index"));
             } else {
-                if(row.hasClass(that.bootstrapTable("getOptions").multipleSelectRowCssClass)) {
+                if (row.hasClass(that.bootstrapTable("getOptions").multipleSelectRowCssClass)) {
                     row.removeClass(that.bootstrapTable("getOptions").multipleSelectRowCssClass)
-                    that.bootstrapTable("uncheck", row.data("index"));  
+                    that.bootstrapTable("uncheck", row.data("index"));
                 } else {
                     row.addClass(that.bootstrapTable("getOptions").multipleSelectRowCssClass);
-                    that.bootstrapTable("check", row.data("index"));  
+                    that.bootstrapTable("check", row.data("index"));
                 }
             }
         }
     };
 
     var selectRowsBetweenIndexes = function (indexes, that) {
-        indexes.sort(function(a, b) {
+        indexes.sort(function (a, b) {
             return a - b;
         });
 
         for (var i = indexes[0]; i <= indexes[1]; i++) {
-            toggleRow(that.bootstrapTable("getOptions").multipleSelectRowRows[i-1], that, false, true);
+            toggleRow(that.bootstrapTable("getOptions").multipleSelectRowRows[i - 1], that, false, true);
         }
     };
 
@@ -86,7 +86,7 @@
             toggleRow(that.bootstrapTable("getOptions").multipleSelectRowRows[i], that, true, false);
         }
     };
-    
+
     $.extend($.fn.bootstrapTable.defaults, {
         multipleSelectRow: false,
         multipleSelectRowCssClass: 'multiple-select-row-selected',
@@ -106,7 +106,7 @@
             //Make sure that the internal variables have the correct value
             this.options.multipleSelectRowLastSelectedRow = undefined;
             this.options.multipleSelectRowRows = [];
-            
+
             this.$el.on("post-body.bs.table", function (e) {
                 setTimeout(function () {
                     that.options.multipleSelectRowRows = that.$body.children();

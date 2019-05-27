@@ -1,4 +1,4 @@
-define(function (){
+define(function () {
     function kwargs(func, defaults) {
         /*jshint maxlen : 200*/
         var removeComments = new RegExp('(\\/\\*[\\w\\\'\\,\\(\\)\\s\\r\\n\\*]*\\*\\/)|(\\/\\/[\\w\\s\\\'][^\\n\\r]*$)|(<![\\-\\-\\s\\w\\>\\/]*>)', 'gim');
@@ -6,13 +6,13 @@ define(function (){
         var matchSignature = new RegExp('function.*?\\((.*?)\\)', 'i');
         // get the argument names from function source
         var names = func.toString()
-                        .replace(removeComments, '')
-                        .replace(removeWhitespc, '')
-                        .match(matchSignature)[1]
-                        .split(',');
+            .replace(removeComments, '')
+            .replace(removeWhitespc, '')
+            .match(matchSignature)[1]
+            .split(',');
 
         // Check the existance of default, if not create an object
-        if(defaults !== Object(defaults)){
+        if (defaults !== Object(defaults)) {
             defaults = {};
         }
 
@@ -23,8 +23,7 @@ define(function (){
             // Check the existance of the kwargs
             if (kwargs && kwargs.constructor === Object) {
                 args.pop();
-            }
-            else{
+            } else {
                 kwargs = {};
             }
 
@@ -33,8 +32,7 @@ define(function (){
                 var name = names[i];
                 if (name in kwargs) {
                     args[i] = kwargs[name];
-                }
-                else if(name in defaults && args[i] == null){
+                } else if (name in defaults && args[i] == null) {
                     args[i] = defaults[name];
                 }
             }
@@ -42,6 +40,7 @@ define(function (){
             return func.apply(this, args);
         };
     }
+
     // As function prototype
     // Function.prototype.kwargs = kwargs;
     return kwargs;

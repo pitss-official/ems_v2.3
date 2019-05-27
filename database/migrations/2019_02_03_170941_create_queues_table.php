@@ -18,11 +18,11 @@ class CreateQueuesTable extends Migration
             $table->increments('id');
 
             //remarks by the requester who is putting task into queue
-            $table->string('requesterRemarks',200)->nullable();
+            $table->string('requesterRemarks', 200)->nullable();
             //parameters
-            $table->string('parameters',200)->nullable();
+            $table->string('parameters', 200)->nullable();
             //remarks by the approver at the time of authorizing the action
-            $table->string('approveTimeRemarks',200)->nullable();
+            $table->string('approveTimeRemarks', 200)->nullable();
             //requester UID
             $table->unsignedInteger('requestedBy');
 

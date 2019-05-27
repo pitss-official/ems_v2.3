@@ -3,7 +3,7 @@ function icheckfirstinit() {
         return;
     }
 
-    $('.check').each(function() {
+    $('.check').each(function () {
         var ck = $(this).attr('data-checkbox') ? $(this).attr('data-checkbox') : 'icheckbox_minimal-red';
         var rd = $(this).attr('data-radio') ? $(this).attr('data-radio') : 'iradio_minimal-red';
 
@@ -34,10 +34,10 @@ function icheckfirstinit() {
 
 var iCheckcontrol = function () {
     return {
-        
-        init: function () {  
 
-            $('.icolors li').click(function() {
+        init: function () {
+
+            $('.icolors li').click(function () {
                 var self = $(this);
 
                 if (!self.hasClass('active')) {
@@ -48,7 +48,7 @@ var iCheckcontrol = function () {
                         ct = skin.data('color') ? '-' + skin.data('color') : '-red',
                         ct = (ct === '-black' ? '' : ct);
 
-                        checkbox_default = 'icheckbox_minimal',
+                    checkbox_default = 'icheckbox_minimal',
                         radio_default = 'iradio_minimal',
                         checkbox = 'icheckbox_minimal' + ct,
                         radio = 'iradio_minimal' + ct;
@@ -57,24 +57,27 @@ var iCheckcontrol = function () {
                         checkbox_default = 'icheckbox_square';
                         radio_default = 'iradio_square';
                         checkbox = 'icheckbox_square' + ct;
-                        radio = 'iradio_square'  + ct;
-                    };
+                        radio = 'iradio_square' + ct;
+                    }
+                    ;
 
                     if (skin.hasClass('skin-flat')) {
                         checkbox_default = 'icheckbox_flat';
                         radio_default = 'iradio_flat';
                         checkbox = 'icheckbox_flat' + ct;
-                        radio = 'iradio_flat'  + ct;
-                    };
+                        radio = 'iradio_flat' + ct;
+                    }
+                    ;
 
                     if (skin.hasClass('skin-line')) {
                         checkbox_default = 'icheckbox_line';
                         radio_default = 'iradio_line';
                         checkbox = 'icheckbox_line' + ct;
-                        radio = 'iradio_line'  + ct;
-                    };
+                        radio = 'iradio_line' + ct;
+                    }
+                    ;
 
-                    skin.find('.check').each(function() {
+                    skin.find('.check').each(function () {
                         var e = $(this).hasClass('state') ? $(this) : $(this).parent();
                         var e_c = e.attr('class').replace(checkbox, checkbox_default + c).replace(radio, radio_default + c);
                         e.attr('class', e_c);
@@ -82,13 +85,14 @@ var iCheckcontrol = function () {
 
                     skin.data('color', self.attr('class') ? self.attr('class') : 'black');
                     self.addClass('active');
-                };
+                }
+                ;
             });
         }
     };
-}();  
+}();
 
-$(document).ready(function() {
+$(document).ready(function () {
     icheckfirstinit();
     iCheckcontrol.init();
 });

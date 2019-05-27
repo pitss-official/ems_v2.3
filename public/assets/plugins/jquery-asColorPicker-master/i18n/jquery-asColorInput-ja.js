@@ -1,7 +1,7 @@
 // asColorPicker
 // Japanese (ja) localization
 
-(function($) {
+(function ($) {
     var localization = $.asColorPicker.localization["ja"] = {
         cancelText: "中止",
         applyText: "選択"

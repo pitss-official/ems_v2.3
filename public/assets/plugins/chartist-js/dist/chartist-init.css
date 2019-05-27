@@ -16,7 +16,7 @@
 .ct-animation-chart .ct-series-a .ct-point,
 .ct-svg-chart .ct-series-a .ct-line,
 .user-analytics .ct-series-a .ct-line,
-.user-analytics .ct-series-a .ct-point{
+.user-analytics .ct-series-a .ct-point {
     stroke: #009efb;
 }
 
@@ -58,47 +58,55 @@
 .ct-svg-chart .ct-series-a .ct-area {
     fill: #009efb;
 }
-.user-analytics .ct-series-a .ct-area{
-    fill:none;
+
+.user-analytics .ct-series-a .ct-area {
+    fill: none;
 }
 
 /*Android vs ios chart*/
 .andvios .ct-series-a .ct-line,
-.andvios .ct-series-b .ct-line
-{
+.andvios .ct-series-b .ct-line {
     stroke: transparent;
-   
+
 }
-.andvios .ct-series-a .ct-point, .andvios .ct-series-b .ct-point{
-    stroke-width:3px;
-    stroke:#26c6da;
+
+.andvios .ct-series-a .ct-point, .andvios .ct-series-b .ct-point {
+    stroke-width: 3px;
+    stroke: #26c6da;
 }
-.andvios .ct-series-a .ct-area{
-    fill:#1eacbe;
-    fill-opacity:0.3;
+
+.andvios .ct-series-a .ct-area {
+    fill: #1eacbe;
+    fill-opacity: 0.3;
 }
-.andvios .ct-series-b .ct-area{
-    fill:#26c6da;
-    fill-opacity:0.7;
+
+.andvios .ct-series-b .ct-area {
+    fill: #26c6da;
+    fill-opacity: 0.7;
 }
+
 /*Bandwidth data usege*/
-.usage .ct-series-a .ct-line{
-    stroke:#fff;
+.usage .ct-series-a .ct-line {
+    stroke: #fff;
 }
-.usage .ct-series-a .ct-point{
-    stroke-width:0px;
+
+.usage .ct-series-a .ct-point {
+    stroke-width: 0px;
 }
-.usage .ct-series-a .ct-area{
-    fill-opacity:0;
+
+.usage .ct-series-a .ct-area {
+    fill-opacity: 0;
 }
 
 /*Download stats */
-.download-state .ct-series-b .ct-bar, .download-state .ct-series-a .ct-bar{
-     stroke-width:3px;
+.download-state .ct-series-b .ct-bar, .download-state .ct-series-a .ct-bar {
+    stroke-width: 3px;
 }
-.download-state .ct-series-b .ct-bar{
-    stroke:#26c6da;
+
+.download-state .ct-series-b .ct-bar {
+    stroke: #26c6da;
 }
-.download-state .ct-series-a .ct-bar{
-    stroke:#7460ee;
+
+.download-state .ct-series-a .ct-bar {
+    stroke: #7460ee;
 }

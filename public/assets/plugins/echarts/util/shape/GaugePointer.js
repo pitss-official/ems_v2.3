@@ -5,7 +5,7 @@
  *
  * shape类：仪表盘指针
  * 可配图形属性：
-   {
+ {
        // 基础属性
        shape  : 'gauge-pointer',       // 必须，shape类标识，需要显式指定
        id     : {string},       // 必须，图形唯一标识，可通过'zrender/tool/guid'方法生成
@@ -35,14 +35,14 @@ define(function (require) {
         Base.call(this, options);
     }
 
-    GaugePointer.prototype =  {
+    GaugePointer.prototype = {
         type: 'gauge-pointer',
         /**
          * 创建矩形路径
          * @param {Context2D} ctx Canvas 2D上下文
          * @param {Object} style 样式
          */
-        buildPath : function (ctx, style) {
+        buildPath: function (ctx, style) {
             var r = style.r;
             var width = style.width;
             var angle = style.angle;
@@ -71,7 +71,7 @@ define(function (require) {
          * 返回矩形区域，用于局部刷新和文字定位
          * @param {Object} style
          */
-        getRect : function(style) {
+        getRect: function (style) {
             if (style.__rect) {
                 return style.__rect;
             }
@@ -83,15 +83,15 @@ define(function (require) {
             var yEnd = yStart - Math.sin(style.angle) * style.r;
 
             style.__rect = {
-                x : Math.min(xStart, xEnd) - width,
-                y : Math.min(yStart, yEnd) - width,
-                width : Math.abs(xStart - xEnd) + width,
-                height : Math.abs(yStart - yEnd) + width
+                x: Math.min(xStart, xEnd) - width,
+                y: Math.min(yStart, yEnd) - width,
+                width: Math.abs(xStart - xEnd) + width,
+                height: Math.abs(yStart - yEnd) + width
             };
             return style.__rect;
         },
 
-        isCover : require('./normalIsCover')
+        isCover: require('./normalIsCover')
     };
 
     zrUtil.inherits(GaugePointer, Base);

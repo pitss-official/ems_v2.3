@@ -6,7 +6,7 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="table-responsive m-t-40">
-                                <table id="transactions-table" class="display nowrap table table-hover table-striped table-bordered" cellspacing="0" width="100%" >
+                                <table cellspacing="0" class="display nowrap table table-hover table-striped table-bordered" id="transactions-table" width="100%" >
                                     <thead>
                                     <tr>
                                         <th>Serial</th>

@@ -7,9 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 class Role extends Model
 {
     //
-    protected $fillable= [
+    protected $fillable = [
         'name',
         'authorityLevel',
         'creatorUID',
-        ];
+    ];
 }

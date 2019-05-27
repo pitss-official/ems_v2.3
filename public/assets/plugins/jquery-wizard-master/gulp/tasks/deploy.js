@@ -21,13 +21,13 @@ export function prompt(done) {
     name: 'version',
     message: `What version are we moving to? (Current version is ${CURRENT_VERSION})`,
     validate: function (input) {
-      if(input === '') {
+      if (input === '') {
         input = CURRENT_VERSION;
       }
       return /^\d*[\d.]*\d*$/.test(input);
     }
   }]).then((answers) => {
-    if(answers.version === '') {
+    if (answers.version === '') {
       NEXT_VERSION = CURRENT_VERSION;
     } else {
       NEXT_VERSION = answers.version;
@@ -43,13 +43,13 @@ export function message(done) {
     name: 'message',
     message: `What message are we going to commit?`,
     validate: function (input) {
-      if(input === '' && NEXT_VERSION === CURRENT_VERSION) {
+      if (input === '' && NEXT_VERSION === CURRENT_VERSION) {
         return false;
       }
       return true;
     }
   }]).then((answers) => {
-    if(answers.message !== ''){
+    if (answers.message !== '') {
       NEXT_MESSAGE = answers.message;
     }
     done();
@@ -58,8 +58,8 @@ export function message(done) {
 
 // Bumps the version number in any file that has one
 export function version() {
-  return gulp.src(VERSIONED_FILES, { base: process.cwd() })
-    //.pipe(replace(CURRENT_VERSION, NEXT_VERSION))
+  return gulp.src(VERSIONED_FILES, {base: process.cwd()})
+  //.pipe(replace(CURRENT_VERSION, NEXT_VERSION))
     .pipe(replace(/("|')version\1\s*:\s*("|')([\d.]+)\2/, `$1version$1:$2${NEXT_VERSION}$2`))
     .pipe(gulp.dest('.'));
 }
@@ -75,7 +75,7 @@ export function init(done) {
 export function commit(done) {
   let message = `Bump to version ${NEXT_VERSION}`;
 
-  if(NEXT_VERSION === CURRENT_VERSION) {
+  if (NEXT_VERSION === CURRENT_VERSION) {
     message = NEXT_MESSAGE;
   } else {
     message = `${message}; ${NEXT_MESSAGE}`;

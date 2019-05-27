@@ -16,7 +16,7 @@ argv.option([
 
 function getPackage() {
   let args = argv.run();
-  if(args.options.package){
+  if (args.options.package) {
     return args.options.package;
   }
   return null;
@@ -30,12 +30,12 @@ export function copy(options = config.assets, message = 'Assets task complete') 
     let pkgName = getPackage();
     const manager = new AssetsManager('manifest.json', options);
 
-    if(pkgName) {
-      manager.copyPackage(pkgName).then(()=>{
+    if (pkgName) {
+      manager.copyPackage(pkgName).then(() => {
         done();
       });
     } else {
-      manager.copyPackages().then(()=>{
+      manager.copyPackages().then(() => {
         done();
       });
     }
@@ -47,12 +47,12 @@ export function clean(options = config.assets, message = 'Assets clean task comp
     let pkgName = getPackage();
     const manager = new AssetsManager('manifest.json', options);
 
-    if(pkgName) {
-      manager.cleanPackage(pkgName).then(()=>{
+    if (pkgName) {
+      manager.cleanPackage(pkgName).then(() => {
         done();
       });
     } else {
-      manager.cleanPackages().then(()=>{
+      manager.cleanPackages().then(() => {
         done();
       });
     }

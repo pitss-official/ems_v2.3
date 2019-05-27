@@ -22,7 +22,7 @@ class CreateAwardsTable extends Migration
             //$table->foreign('itemID')->references('id')->on('stock_items');
             $table->foreign('eventID')->references('id')->on('events');
 //            $table->foreign('teamID')->references('id')->on('teams');
-            $table->string('title',100);
+            $table->string('title', 100);
             $table->timestamps();
             $table->foreign('collegeUID')->references('collegeUID')->on('users');
         });

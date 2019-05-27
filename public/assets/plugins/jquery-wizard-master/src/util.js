@@ -1,7 +1,7 @@
 import Support from './support';
 
-export function emulateTransitionEnd ($el, duration) {
-    'use strict';
+export function emulateTransitionEnd($el, duration) {
+  'use strict';
   let called = false;
 
   $el.one(Support.transition.end, () => {

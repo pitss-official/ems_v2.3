@@ -4,7 +4,7 @@
  * @version: v1.0.0
  */
 
-! function ($) {
+!function ($) {
 
     'use strict';
 
@@ -127,4 +127,4 @@
         return _initRow.apply(that, Array.prototype.slice.apply(arguments));
     };
 
-} (jQuery);
+}(jQuery);

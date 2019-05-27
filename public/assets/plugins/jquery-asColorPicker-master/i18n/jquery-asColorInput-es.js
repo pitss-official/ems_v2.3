@@ -1,7 +1,7 @@
 // asColorPicker
 // Spanish (es) localization
 
-(function($) {
+(function ($) {
     var localization = $.asColorPicker.localization["es"] = {
         cancelText: "Cancelar",
         applyText: "Elegir"

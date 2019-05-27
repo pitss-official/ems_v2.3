@@ -5,7 +5,7 @@
  *
  * shape类：支持半平滑的polygon，折线面积图使用
  * 可配图形属性：
-   {
+ {
        // 基础属性
        shape  : 'halfSmoothPolygon',      // 必须，shape类标识，需要显式指定
        id     : {string},       // 必须，图形唯一标识，可通过'zrender/tool/guid'方法生成
@@ -26,8 +26,8 @@
 
        // 事件属性，详见shape.Base
    }
-         例子：
-   {
+ 例子：
+ {
        shape  : 'halfSmoothPolygon',
        id     : '123456',
        zlevel : 1,
@@ -48,19 +48,19 @@ define(function (require) {
     var Base = require('zrender/shape/Base');
     var smoothBezier = require('zrender/shape/util/smoothBezier');
     var zrUtil = require('zrender/tool/util');
-    
+
     function HalfSmoothPolygon(options) {
         Base.call(this, options);
     }
 
     HalfSmoothPolygon.prototype = {
-        type : 'half-smooth-polygon',
+        type: 'half-smooth-polygon',
         /**
          * 创建多边形路径
          * @param {Context2D} ctx Canvas 2D上下文
          * @param {Object} style 样式
          */
-        buildPath : function (ctx, style) {
+        buildPath: function (ctx, style) {
             var pointList = style.pointList;
             if (pointList.length < 2) {
                 // 少于2个点就不画了~
@@ -87,8 +87,7 @@ define(function (require) {
                 ctx.lineTo(pointList[l - 2][0], pointList[l - 2][1]);
                 ctx.lineTo(pointList[l - 1][0], pointList[l - 1][1]);
                 ctx.lineTo(pointList[0][0], pointList[0][1]);
-            } 
-            else {
+            } else {
                 require('zrender/shape/Polygon').prototype.buildPath(
                     ctx, style
                 );
@@ -98,6 +97,6 @@ define(function (require) {
     };
 
     zrUtil.inherits(HalfSmoothPolygon, Base);
-    
+
     return HalfSmoothPolygon;
 });

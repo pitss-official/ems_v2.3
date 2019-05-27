@@ -5,7 +5,7 @@ import info from './info';
 const NAMESPACE = 'wizard';
 const OtherWizard = $.fn.wizard;
 
-const jQueryWizard = function(options, ...args) {
+const jQueryWizard = function (options, ...args) {
   if (typeof options === 'string') {
     const method = options;
 
@@ -17,7 +17,7 @@ const jQueryWizard = function(options, ...args) {
         return instance[method](...args);
       }
     } else {
-      return this.each(function() {
+      return this.each(function () {
         const instance = $.data(this, NAMESPACE);
         if (instance && typeof instance[method] === 'function') {
           instance[method](...args);
@@ -26,7 +26,7 @@ const jQueryWizard = function(options, ...args) {
     }
   }
 
-  return this.each(function() {
+  return this.each(function () {
     if (!$(this).data(NAMESPACE)) {
       $(this).data(NAMESPACE, new wizard(this, options));
     }
@@ -37,7 +37,7 @@ $.fn.wizard = jQueryWizard;
 
 $.wizard = $.extend({
   setDefaults: wizard.setDefaults,
-  noConflict: function() {
+  noConflict: function () {
     $.fn.wizard = OtherWizard;
     return jQueryWizard;
   }

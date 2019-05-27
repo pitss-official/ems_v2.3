@@ -5,7 +5,7 @@
  *
  * shape类：十字准星
  * 可配图形属性：
-   {
+ {
        // 基础属性
        shape  : 'cross',       // 必须，shape类标识，需要显式指定
        id     : {string},       // 必须，图形唯一标识，可通过'zrender/tool/guid'方法生成
@@ -38,15 +38,15 @@ define(function (require) {
         Base.call(this, options);
     }
 
-    Cross.prototype =  {
-        type : 'cross',
+    Cross.prototype = {
+        type: 'cross',
 
         /**
          * 创建矩形路径
          * @param {Context2D} ctx Canvas 2D上下文
          * @param {Object} style 样式
          */
-        buildPath : function (ctx, style) {
+        buildPath: function (ctx, style) {
             var rect = style.rect;
             style.xStart = rect.x;
             style.xEnd = rect.x + rect.width;
@@ -62,11 +62,11 @@ define(function (require) {
          * 返回矩形区域，用于局部刷新和文字定位
          * @param {Object} style
          */
-        getRect : function (style) {
+        getRect: function (style) {
             return style.rect;
         },
 
-        isCover : require('./normalIsCover')
+        isCover: require('./normalIsCover')
     };
 
     zrUtil.inherits(Cross, Base);

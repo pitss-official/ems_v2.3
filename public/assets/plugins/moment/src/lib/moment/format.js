@@ -3,11 +3,11 @@ import {hooks} from '../utils/hooks';
 
 hooks.defaultFormat = 'YYYY-MM-DDTHH:mm:ssZ';
 
-export function toString () {
+export function toString() {
     return this.clone().locale('en').format('ddd MMM DD YYYY HH:mm:ss [GMT]ZZ');
 }
 
-export function toISOString () {
+export function toISOString() {
     var m = this.clone().utc();
     if (0 < m.year() && m.year() <= 9999) {
         if ('function' === typeof Date.prototype.toISOString) {
@@ -21,7 +21,7 @@ export function toISOString () {
     }
 }
 
-export function format (inputString) {
+export function format(inputString) {
     var output = formatMoment(this, inputString || hooks.defaultFormat);
     return this.localeData().postformat(output);
 }

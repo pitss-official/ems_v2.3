@@ -5,7 +5,7 @@
  * Copyright (c) 2014 AmazingSurge
  * Licensed under the GPL license.
  */
-(function(window, document, $, Color, undefined) {
+(function (window, document, $, Color, undefined) {
     "use strict";
 
     var id = 0;
@@ -16,7 +16,7 @@
     }
 
     // Constructor
-    var AsColorInput = $.asColorPicker = function(element, options) {
+    var AsColorInput = $.asColorPicker = function (element, options) {
         this.element = element;
         this.$element = $(element);
 
@@ -58,7 +58,7 @@
     AsColorInput.prototype = {
         constructor: AsColorInput,
         _components: {},
-        init: function() {
+        init: function () {
             this.color = new Color(this.element.value, this.options.color);
 
             this._create();
@@ -78,7 +78,7 @@
             this._trigger('ready');
         },
 
-        _create: function() {
+        _create: function () {
             var self = this;
 
             this.$dropdown = $('<div class="' + this.classes.dropdown + '" data-mode="' + this.options.mode + '"></div>');
@@ -90,7 +90,7 @@
             this.$dropdown.data('asColorPicker', this);
 
             var component;
-            $.each(this.components, function(key, options) {
+            $.each(this.components, function (key, options) {
                 if (options === true) {
                     options = {};
                 }
@@ -105,16 +105,16 @@
 
             this._trigger('create');
         },
-        _bindEvent: function() {
+        _bindEvent: function () {
             var self = this;
             this.$element.on({
-                'click.asColorPicker': function() {
+                'click.asColorPicker': function () {
                     if (!self.opened) {
                         self.open();
                     }
                     return false;
                 },
-                'keydown.asColorPicker': function(e) {
+                'keydown.asColorPicker': function (e) {
                     if (e.keyCode === 9) {
                         self.close();
                     } else if (e.keyCode === 13) {
@@ -122,7 +122,7 @@
                         self.close();
                     }
                 },
-                'keyup.asColorPicker': function() {
+                'keyup.asColorPicker': function () {
                     if (self.color.matchString(self.element.value)) {
                         self.val(self.element.value);
                     }
@@ -130,7 +130,7 @@
                 }
             });
         },
-        _trigger: function(eventType) {
+        _trigger: function (eventType) {
             var method_arguments = Array.prototype.slice.call(arguments, 1),
                 data = [this].concat(method_arguments);
 
@@ -138,7 +138,7 @@
             this.$element.trigger('asColorPicker::' + eventType, data);
 
             // callback
-            eventType = eventType.replace(/\b\w+\b/g, function(word) {
+            eventType = eventType.replace(/\b\w+\b/g, function (word) {
                 return word.substring(0, 1).toUpperCase() + word.substring(1);
             });
             var onFunction = 'on' + eventType;
@@ -146,14 +146,14 @@
                 this.options[onFunction].apply(this, method_arguments);
             }
         },
-        opacity: function(v) {
+        opacity: function (v) {
             if (v) {
                 this.color.alpha(v);
             } else {
                 return this.color.alpha();
             }
         },
-        position: function() {
+        position: function () {
             var hidden = !this.$element.is(':visible'),
                 offset = hidden ? this.$trigger.offset() : this.$element.offset(),
                 height = hidden ? this.$trigger.outerHeight() : this.$element.outerHeight(),
@@ -180,7 +180,7 @@
                 left: left
             });
         },
-        open: function() {
+        open: function () {
             if (this.disabled) {
                 return;
             }
@@ -222,13 +222,13 @@
             this._setup();
             this._trigger('open');
         },
-        createMask: function() {
+        createMask: function () {
             this.$mask = $(document.createElement("div"));
             this.$mask.attr("class", this.classes.mask);
             this.$mask.hide();
             this.$mask.appendTo(this.$body);
 
-            this.$mask.on("mousedown touchstart click", function(e) {
+            this.$mask.on("mousedown touchstart click", function (e) {
                 var $dropdown = $("#asColorPicker-dropdown"),
                     self;
                 if ($dropdown.length > 0) {
@@ -246,7 +246,7 @@
                 }
             });
         },
-        close: function() {
+        close: function () {
             this.opened = false;
             this.$element.blur();
             this.$mask.hide();
@@ -257,30 +257,30 @@
 
             this._trigger('close');
         },
-        clear: function() {
+        clear: function () {
             this.val('');
         },
-        cancel: function() {
+        cancel: function () {
             this.close();
 
             this.set(this.originValue);
         },
-        apply: function() {
+        apply: function () {
             this._trigger('apply', this.color);
             this.close();
         },
-        val: function(value) {
+        val: function (value) {
             if (typeof value === 'undefined') {
                 return this.color.toString();
             }
 
             this.set(value);
         },
-        _update: function() {
+        _update: function () {
             this._trigger('update', this.color);
             this._updateInput();
         },
-        _updateInput: function() {
+        _updateInput: function () {
             var value = this.color.toString();
             if (this.isEmpty) {
                 value = '';
@@ -288,7 +288,7 @@
             this._trigger('change', value, this.options.name, 'asColorPicker');
             this.$element.val(value);
         },
-        set: function(value) {
+        set: function (value) {
             if (value !== '') {
                 this.isEmpty = false;
             } else {
@@ -296,7 +296,7 @@
             }
             return this._set(value);
         },
-        _set: function(value) {
+        _set: function (value) {
             if (typeof value === 'string') {
                 this.color.val(value);
             } else {
@@ -305,28 +305,28 @@
 
             this._update();
         },
-        _setup: function() {
+        _setup: function () {
             this._trigger('setup', this.color);
         },
-        get: function() {
+        get: function () {
             return this.color;
         },
-        enable: function() {
+        enable: function () {
             this.disabled = false;
             this.$parent.addClass(this.classes.disabled);
             return this;
         },
-        disable: function() {
+        disable: function () {
             this.disabled = true;
             this.$parent.removeClass(this.classes.disabled);
             return this;
         },
-        destroy: function() {
+        destroy: function () {
 
         }
     };
 
-    AsColorInput.registerComponent = function(component, method) {
+    AsColorInput.registerComponent = function (component, method) {
         AsColorInput.prototype._components[component] = method;
     };
 
@@ -401,7 +401,7 @@
     };
 
     // Collection method.
-    $.fn.asColorPicker = function(options) {
+    $.fn.asColorPicker = function (options) {
         if (typeof options === 'string') {
             var method = options;
             var method_arguments = Array.prototype.slice.call(arguments, 1);
@@ -414,7 +414,7 @@
                     return api[method].apply(api, method_arguments);
                 }
             } else {
-                return this.each(function() {
+                return this.each(function () {
                     var api = $.data(this, 'asColorPicker');
                     if (api && typeof api[method] === 'function') {
                         api[method].apply(api, method_arguments);
@@ -422,14 +422,14 @@
                 });
             }
         } else {
-            return this.each(function() {
+            return this.each(function () {
                 if (!$.data(this, 'asColorPicker')) {
                     $.data(this, 'asColorPicker', new AsColorInput(this, options));
                 }
             });
         }
     };
-}(window, document, jQuery, (function($) {
+}(window, document, jQuery, (function ($) {
     if ($.asColor === undefined) {
         // console.info('lost dependency lib of $.asColor , please load it first !');
         return false;

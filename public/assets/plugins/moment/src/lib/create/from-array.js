@@ -19,7 +19,7 @@ function currentDateArray(config) {
 // the array should mirror the parameters below
 // note: all values past the year are optional and will default to the lowest possible value.
 // [year, month, day , hour, minute, second, millisecond]
-export function configFromArray (config) {
+export function configFromArray(config) {
     var i, date, input = [], currentDate, yearToUse;
 
     if (config._d) {
@@ -62,9 +62,9 @@ export function configFromArray (config) {
 
     // Check for 24:00:00.000
     if (config._a[HOUR] === 24 &&
-            config._a[MINUTE] === 0 &&
-            config._a[SECOND] === 0 &&
-            config._a[MILLISECOND] === 0) {
+        config._a[MINUTE] === 0 &&
+        config._a[SECOND] === 0 &&
+        config._a[MILLISECOND] === 0) {
         config._nextDay = true;
         config._a[HOUR] = 0;
     }

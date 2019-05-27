@@ -10,8 +10,8 @@
 'use strict';
 
 module.exports = function (grunt) {
-  return {
-    tmp: '<%= pkg.config.tmp %>',
-    dist: '<%= pkg.config.dist %>'
-  };
+    return {
+        tmp: '<%= pkg.config.tmp %>',
+        dist: '<%= pkg.config.dist %>'
+    };
 };

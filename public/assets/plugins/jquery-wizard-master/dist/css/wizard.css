@@ -17,11 +17,13 @@
   -webkit-transition: opacity .2s ease;
   transition: opacity .2s ease;
 }
+
 .wizard-pane.active {
   position: relative;
   visibility: visible;
   opacity: 1;
 }
+
 .wizard-pane.activing {
   visibility: visible;
 }
@@ -62,12 +64,14 @@
   margin: 0;
   list-style: none;
 }
+
 .wizard-steps > li {
   display: inline-block;
   padding: 5px 10px;
   color: #666;
   cursor: pointer;
 }
+
 .wizard-steps > li:hover {
   color: #333;
 }
@@ -75,12 +79,14 @@
 .wizard-buttons {
   margin-top: 10px;
 }
+
 .wizard-buttons > a {
   padding: 5px 10px;
   margin-right: 5px;
   border: 1px solid #aaa;
   border-radius: 20px;
 }
+
 .wizard-buttons > a.disabled {
   color: #aaa;
   border-color: #aaa;

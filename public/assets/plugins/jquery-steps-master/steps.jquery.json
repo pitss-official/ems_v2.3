@@ -21,7 +21,10 @@
         "url": "http://www.rafaelstaib.com"
     },
     "licenses": [
-        { "type": "MIT", "url": "http://www.opensource.org/licenses/MIT" }
+        {
+            "type": "MIT",
+            "url": "http://www.opensource.org/licenses/MIT"
+        }
     ],
     "bugs": "https://github.com/rstaib/jquery-steps/issues",
     "homepage": "http://www.jquery-steps.com",

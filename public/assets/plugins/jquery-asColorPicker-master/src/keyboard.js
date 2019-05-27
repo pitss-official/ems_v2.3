@@ -1,5 +1,5 @@
 // keyboard
-(function(window, document, $, undefined) {
+(function (window, document, $, undefined) {
     "use strict";
 
     var $doc = $(document);
@@ -16,14 +16,14 @@
         },
         map: {},
         bound: false,
-        press: function(e) {
+        press: function (e) {
             var key = e.keyCode || e.which;
             if (key in keyboard.map && typeof keyboard.map[key] === 'function') {
                 keyboard.map[key](e);
             }
             return false;
         },
-        attach: function(map) {
+        attach: function (map) {
             var key, up;
             for (key in map) {
                 if (map.hasOwnProperty(key)) {
@@ -40,13 +40,13 @@
                 $doc.bind('keydown', keyboard.press);
             }
         },
-        detach: function() {
+        detach: function () {
             keyboard.bound = false;
             keyboard.map = {};
             $doc.unbind('keydown', keyboard.press);
         }
     };
-    $doc.on('asColorPicker::init', function(event, instance) {
+    $doc.on('asColorPicker::init', function (event, instance) {
         if (instance.options.keyboard === true) {
             instance._keyboard = keyboard;
         }

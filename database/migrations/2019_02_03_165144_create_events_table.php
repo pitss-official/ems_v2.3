@@ -15,7 +15,7 @@ class CreateEventsTable extends Migration
     {
         Schema::create('events', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name',150);
+            $table->string('name', 150);
             $table->unsignedInteger('requesterID');
             $table->unsignedInteger('approvalID')->default(0);
             $table->unsignedInteger('ticketPrice');
@@ -25,7 +25,7 @@ class CreateEventsTable extends Migration
             //is this a team event
             $table->boolean('teaming')->default(0);
 
-            $table->float('maxIncentiveRate',5,2);
+            $table->float('maxIncentiveRate', 5, 2);
 
             //supportContacts
             $table->string('supportMail')->nullable();

@@ -8,7 +8,7 @@ import stylelint from 'gulp-stylelint';
 import getSrcFiles from '../util/getSrcFiles';
 
 export function css(src = config.styles.dest, files = ['**/*.css', '!**/*.min.css']) {
-  return function() {
+  return function () {
     let srcFiles = getSrcFiles(src, files);
 
     return gulp.src(srcFiles)
@@ -18,7 +18,7 @@ export function css(src = config.styles.dest, files = ['**/*.css', '!**/*.min.cs
 }
 
 export function scss(src = config.styles.src, files = '**/*.scss') {
-  return function() {
+  return function () {
     let srcFiles = getSrcFiles(src, files);
 
     return gulp.src(srcFiles)
@@ -29,7 +29,7 @@ export function scss(src = config.styles.src, files = '**/*.scss') {
 }
 
 export function style(src = config.styles.src, files = '**/*.scss') {
-  return function() {
+  return function () {
     let srcFiles = getSrcFiles(src, files);
 
     return gulp.src(srcFiles)

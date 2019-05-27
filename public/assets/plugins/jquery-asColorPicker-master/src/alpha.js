@@ -1,19 +1,19 @@
 // alpha
 
-(function($) {
+(function ($) {
     "use strict";
 
-    $.asColorPicker.registerComponent('alpha', function() {
+    $.asColorPicker.registerComponent('alpha', function () {
         return {
             size: 150,
             defaults: {
                 direction: 'vertical', // horizontal
-                template: function(namespace) {
+                template: function (namespace) {
                     return '<div class="' + namespace + '-alpha ' + namespace + '-alpha-' + this.direction + '"><i></i></div>';
                 }
             },
             data: {},
-            init: function(api, options) {
+            init: function (api, options) {
                 var self = this;
 
                 this.options = $.extend(this.defaults, options);
@@ -23,7 +23,7 @@
                 this.$alpha = $(this.options.template.call(self, api.namespace)).appendTo(api.$dropdown);
                 this.$handle = this.$alpha.find('i');
 
-                api.$element.on('asColorPicker::firstOpen', function() {
+                api.$element.on('asColorPicker::firstOpen', function () {
                     // init variable
                     if (self.direction === 'vertical') {
                         self.size = self.$alpha.height();
@@ -37,13 +37,13 @@
                     self.keyboard();
                 });
 
-                api.$element.on('asColorPicker::update asColorPicker::setup', function(e, api, color) {
+                api.$element.on('asColorPicker::update asColorPicker::setup', function (e, api, color) {
                     self.update(color);
                 });
             },
-            bindEvents: function() {
+            bindEvents: function () {
                 var self = this;
-                this.$alpha.on('mousedown.asColorPicker', function(e) {
+                this.$alpha.on('mousedown.asColorPicker', function (e) {
                     var rightclick = (e.which) ? (e.which === 3) : (e.button === 2);
                     if (rightclick) {
                         return false;
@@ -51,7 +51,7 @@
                     $.proxy(self.mousedown, self)(e);
                 });
             },
-            mousedown: function(e) {
+            mousedown: function (e) {
                 var offset = this.$alpha.offset();
                 if (this.direction === 'vertical') {
                     this.data.startY = e.pageY;
@@ -63,7 +63,7 @@
                     this.move(this.data.left);
                 }
 
-                this.mousemove = function(e) {
+                this.mousemove = function (e) {
                     var position;
                     if (this.direction === 'vertical') {
                         position = this.data.top + (e.pageY || this.data.startY) - this.data.startY;
@@ -75,7 +75,7 @@
                     return false;
                 };
 
-                this.mouseup = function() {
+                this.mouseup = function () {
                     $(document).off({
                         mousemove: this.mousemove,
                         mouseup: this.mouseup
@@ -95,7 +95,7 @@
                 });
                 return false;
             },
-            move: function(position, alpha, update) {
+            move: function (position, alpha, update) {
                 position = Math.max(0, Math.min(this.size, position));
                 this.data.cach = position;
                 if (typeof alpha === 'undefined') {
@@ -118,31 +118,31 @@
                     });
                 }
             },
-            moveLeft: function() {
+            moveLeft: function () {
                 var step = this.step,
                     data = this.data;
                 data.left = Math.max(0, Math.min(this.width, data.left - step));
                 this.move(data.left);
             },
-            moveRight: function() {
+            moveRight: function () {
                 var step = this.step,
                     data = this.data;
                 data.left = Math.max(0, Math.min(this.width, data.left + step));
                 this.move(data.left);
             },
-            moveUp: function() {
+            moveUp: function () {
                 var step = this.step,
                     data = this.data;
                 data.top = Math.max(0, Math.min(this.width, data.top - step));
                 this.move(data.top);
             },
-            moveDown: function() {
+            moveDown: function () {
                 var step = this.step,
                     data = this.data;
                 data.top = Math.max(0, Math.min(this.width, data.top + step));
                 this.move(data.top);
             },
-            keyboard: function() {
+            keyboard: function () {
                 var keyboard, self = this;
                 if (this.api._keyboard) {
                     keyboard = $.extend(true, {}, this.api._keyboard);
@@ -150,38 +150,38 @@
                     return false;
                 }
 
-                this.$alpha.attr('tabindex', '0').on('focus', function() {
+                this.$alpha.attr('tabindex', '0').on('focus', function () {
                     if (this.direction === 'vertical') {
                         keyboard.attach({
-                            up: function() {
+                            up: function () {
                                 self.moveUp();
                             },
-                            down: function() {
+                            down: function () {
                                 self.moveDown();
                             }
                         });
                     } else {
                         keyboard.attach({
-                            left: function() {
+                            left: function () {
                                 self.moveLeft();
                             },
-                            right: function() {
+                            right: function () {
                                 self.moveRight();
                             }
                         });
                     }
                     return false;
-                }).on('blur', function() {
+                }).on('blur', function () {
                     keyboard.detach();
                 });
             },
-            update: function(color) {
+            update: function (color) {
                 var position = this.size * (1 - color.value.a);
                 this.$alpha.css('backgroundColor', color.toHEX());
 
                 this.move(position, color.value.a, false);
             },
-            destroy: function() {
+            destroy: function () {
                 $(document).off({
                     mousemove: this.mousemove,
                     mouseup: this.mouseup

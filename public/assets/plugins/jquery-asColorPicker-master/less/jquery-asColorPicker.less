@@ -1,5 +1,3 @@
-
-
 @trigger-width: 18px;
 @trigger-height: 20px;
 @saturation-size: 175px;
@@ -9,389 +7,395 @@
 
 @active-color: #41a9e5;
 
-@wheel-size : 20px;
+@wheel-size: 20px;
 @wheel-pointer-size: 3px;
 @inner-border-color: rgba(0, 0, 0, 0.05);
 
 
 // core
 .asColorPicker {
-	&-wrap {
-		position: relative;
-		display: inline-block;
-	}
+    &-wrap {
+        position: relative;
+        display: inline-block;
+    }
 
-	&_hideInput {
-		display: none;
-	}
+    &_hideInput {
+        display: none;
+    }
 
-	&_hideInput &-clear {
-		display: none;
-	}
-	
-	&-dropdown {
-		user-select: none;
-		display: none;
-		position: absolute;
-		z-index: 9999;
-		* {
-			margin: 0;
-			padding: 0;
-		}
-	}
+    &_hideInput &-clear {
+        display: none;
+    }
 
-	&_open {
-		display: block;
-	}
+    &-dropdown {
+        user-select: none;
+        display: none;
+        position: absolute;
+        z-index: 9999;
 
-	&-mask {
-		position: fixed;
-		top: 0;
-		left: 0;
-		width: 100%;
-		height: 100%;
-		z-index: 9998;
-	}
+        * {
+            margin: 0;
+            padding: 0;
+        }
+    }
 
-	&-trigger {
-		display: inline-block;
-		position: relative;
-	}
+    &_open {
+        display: block;
+    }
 
-	&-trigger {
-		cursor: pointer;
-		width: @trigger-width;
-		height: @trigger-height;
-		background-image: url('../images/transparent.png');
+    &-mask {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 9998;
+    }
 
-		span {
-			width: 100%;
-			height: 100%;
-			display: inline-block;
-		}
-	}
+    &-trigger {
+        display: inline-block;
+        position: relative;
+    }
 
-	&-input, &-trigger {
-		vertical-align: middle;
-	}
+    &-trigger {
+        cursor: pointer;
+        width: @trigger-width;
+        height: @trigger-height;
+        background-image: url('../images/transparent.png');
 
-	&-clear {
-		display: none;
-		position: absolute;
-		top: 0;
-		right: 26px;
-		color: #777;
-		text-decoration: none;
+        span {
+            width: 100%;
+            height: 100%;
+            display: inline-block;
+        }
+    }
 
-		&:after{
-			content: 'x';
-		}
-	}
+    &-input, &-trigger {
+        vertical-align: middle;
+    }
 
-	&-wrap:hover &-clear {
-		display: inline-block;
-	}
+    &-clear {
+        display: none;
+        position: absolute;
+        top: 0;
+        right: 26px;
+        color: #777;
+        text-decoration: none;
 
-	&-preview {
-		float: left;
-		list-style: none;
+        &:after {
+            content: 'x';
+        }
+    }
 
-		li {
-			span {
-				height: 100%;
-				display: block;
-			}
-			background-image: url('../images/transparent.png');
-			vertical-align: top;
-			display: inline-block;
-			*display: inline;
-			*zoom: 1;
-		}
+    &-wrap:hover &-clear {
+        display: inline-block;
+    }
 
-		&-previous {
-			cursor: pointer;
-		}
+    &-preview {
+        float: left;
+        list-style: none;
 
-	}
+        li {
+            span {
+                height: 100%;
+                display: block;
+            }
 
-	&-palettes {
-		ul {
-			display: block;
+            background-image: url('../images/transparent.png');
+            vertical-align: top;
+            display: inline-block;
+            *display: inline;
+            *zoom: 1;
+        }
 
-			&:before, &:after {
-				content: "";
-				display: table;
-			}
-			&:after {
-				clear: both;
-			}
-		}
+        &-previous {
+            cursor: pointer;
+        }
 
-		li {
-			span {
-				height: 100%;
-				display: block;
-			}
+    }
 
-			background-image: url('../images/transparent.png');
-			display: block;
-			float: left;
+    &-palettes {
+        ul {
+            display: block;
 
-			text-indent: 100%;
-			white-space: nowrap;
-			overflow: hidden;
-			cursor: pointer;
+            &:before, &:after {
+                content: "";
+                display: table;
+            }
 
-		}
-	}
+            &:after {
+                clear: both;
+            }
+        }
 
-	&-saturation {
-		clear: both;
-		//cursor: crosshair;
-		position: relative;
-		display: inline-block;
-		*display: inline;
-		*zoom: 1;
+        li {
+            span {
+                height: 100%;
+                display: block;
+            }
 
-		width: @saturation-size;
-		height: @saturation-size;
+            background-image: url('../images/transparent.png');
+            display: block;
+            float: left;
 
-		background-image: url("../images/saturation.png");
+            text-indent: 100%;
+            white-space: nowrap;
+            overflow: hidden;
+            cursor: pointer;
 
-		i {
-			position: absolute;
-		}
-	}
+        }
+    }
 
-	&-hue, &-alpha {
-		cursor: pointer;
-		position: relative;
-		display: inline-block;
+    &-saturation {
+        clear: both;
+        //cursor: crosshair;
+        position: relative;
+        display: inline-block;
+        *display: inline;
+        *zoom: 1;
 
-		*display: inline;
-		*zoom: 1;
-		width: @hue-alpha-width;
-		height: @hue-alpha-height;
+        width: @saturation-size;
+        height: @saturation-size;
 
-		i {
-			position: absolute;
-			cursor: row-resize;
-		}
-	}
+        background-image: url("../images/saturation.png");
 
-	&-hue {
-		background-image: url('../images/hue.png');
-	}
+        i {
+            position: absolute;
+        }
+    }
 
-	&-alpha {
-		background-image: url('../images/alpha.png');
-	}
+    &-hue, &-alpha {
+        cursor: pointer;
+        position: relative;
+        display: inline-block;
 
-	&-buttons, &-gradient-control {
-		a {
-			text-decoration: none;
-			cursor: pointer;
-		}
-	}
+        *display: inline;
+        *zoom: 1;
+        width: @hue-alpha-width;
+        height: @hue-alpha-height;
 
-	&-gradient {
-		display: none;
+        i {
+            position: absolute;
+            cursor: row-resize;
+        }
+    }
 
-		&_enable {
-			display: block;
-		}
-		&-preview {
-			float: left;
-			height: 20px;
-		}
+    &-hue {
+        background-image: url('../images/hue.png');
+    }
 
-		&-markers {
-			position: relative;
-			width: 100%;
-		}
+    &-alpha {
+        background-image: url('../images/alpha.png');
+    }
 
-		&-marker {
-			position: absolute;
-			outline: none;
-		}
+    &-buttons, &-gradient-control {
+        a {
+            text-decoration: none;
+            cursor: pointer;
+        }
+    }
 
-		&-wheel {
-			float: left;
+    &-gradient {
+        display: none;
 
-			position: relative;
-			border: 1px solid @line-color;
-			border-radius: 100%;
-			width: @wheel-size;
-			height: @wheel-size;
+        &_enable {
+            display: block;
+        }
 
-			i {
-				width: @wheel-pointer-size;
-				height: @wheel-pointer-size;
+        &-preview {
+            float: left;
+            height: 20px;
+        }
 
-				position: absolute;
-				border-radius: 100%;
-			}
-		}
-		&-angle {
-			float: left;
-		}
-	}
+        &-markers {
+            position: relative;
+            width: 100%;
+        }
+
+        &-marker {
+            position: absolute;
+            outline: none;
+        }
+
+        &-wheel {
+            float: left;
+
+            position: relative;
+            border: 1px solid @line-color;
+            border-radius: 100%;
+            width: @wheel-size;
+            height: @wheel-size;
+
+            i {
+                width: @wheel-pointer-size;
+                height: @wheel-pointer-size;
+
+                position: absolute;
+                border-radius: 100%;
+            }
+        }
+
+        &-angle {
+            float: left;
+        }
+    }
 }
 
 // skin
 .asColorPicker {
-	&-dropdown {
-		background: #fefefe;
-		padding: 10px;
-		border: 1px solid @line-color;
+    &-dropdown {
+        background: #fefefe;
+        padding: 10px;
+        border: 1px solid @line-color;
 
-		min-width: 205px;
-		max-width: 235px;
+        min-width: 205px;
+        max-width: 235px;
 
-		[data-mode="palettes"] & {
-			min-width: auto;
-			max-width: auto;
-		}
-	}
+        [data-mode="palettes"] & {
+            min-width: auto;
+            max-width: auto;
+        }
+    }
 
-	&-trigger {
-		border: 1px solid @line-color;
-	}
+    &-trigger {
+        border: 1px solid @line-color;
+    }
 
-	&-saturation {
-		i {
-			width: 5px;
-			height:5px;
-			margin-left: -2px;
-			margin-top: -2px;
-			border-radius: 100%;
-			border: 2px
-			solid #fff;
-		}
+    &-saturation {
+        i {
+            width: 5px;
+            height: 5px;
+            margin-left: -2px;
+            margin-top: -2px;
+            border-radius: 100%;
+            border: 2px solid #fff;
+        }
 
-		box-shadow: inset 0 0 0 1px @inner-border-color;
-	}
+        box-shadow: inset 0 0 0 1px @inner-border-color;
+    }
 
-	&-hue, &-alpha {
-		margin-left: 10px;
-		i {
-			width: 20px;
-			height: 2px;
-			margin-top: -2px;
-			left:-2px;
-			border: 2px solid #fff;
-		}
+    &-hue, &-alpha {
+        margin-left: 10px;
 
-		box-shadow: inset 0 0 0 1px @inner-border-color;
-	}
+        i {
+            width: 20px;
+            height: 2px;
+            margin-top: -2px;
+            left: -2px;
+            border: 2px solid #fff;
+        }
 
-	&-preview {
-		position: relative;
-		&:after {
-			position: absolute;
-			top: 0;
-			left: 0;
-			width: 100%;
-			height: 100%;
-			box-shadow: inset 0 0 0 1px @inner-border-color;
-			content: '';
-			pointer-events: none;
-		}
-		
-		height: 33px;
-		margin-bottom: 10px;
-		margin-right: 10px;
+        box-shadow: inset 0 0 0 1px @inner-border-color;
+    }
 
-		li {
-			width: 48px;
-			height: 33px;
-		}
-	}
+    &-preview {
+        position: relative;
 
-	&-hex {
-		width: 100px;
+        &:after {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            box-shadow: inset 0 0 0 1px @inner-border-color;
+            content: '';
+            pointer-events: none;
+        }
 
-		border-color: @inner-border-color;
-	}
+        height: 33px;
+        margin-bottom: 10px;
+        margin-right: 10px;
 
-	&-palettes {
-		li {
-			width: 21px;
-			height: 15px;
-			margin-right: 6px;
-			margin-bottom: 3px;
+        li {
+            width: 48px;
+            height: 33px;
+        }
+    }
 
-			span {
-				box-sizing: border-box;
-				border: 1px solid @inner-border-color;
-			}
+    &-hex {
+        width: 100px;
 
-			&:nth-child(5n) {
-				margin-right: 0;
+        border-color: @inner-border-color;
+    }
 
-				[data-mode="palettes"] & {
-					margin-right: 6px;
-				}
-			}
-		}
-	}
+    &-palettes {
+        li {
+            width: 21px;
+            height: 15px;
+            margin-right: 6px;
+            margin-bottom: 3px;
 
-	&-buttons, &-gradient-control {
-		float: right;
+            span {
+                box-sizing: border-box;
+                border: 1px solid @inner-border-color;
+            }
 
-		a {
-			margin-left: 5px;
-		}
-	}
+            &:nth-child(5n) {
+                margin-right: 0;
 
-	&-gradient {
-		margin-top: 10px;
-		padding-top: 20px;
-		border-top: 1px solid @inner-border-color;
+                [data-mode="palettes"] & {
+                    margin-right: 6px;
+                }
+            }
+        }
+    }
 
-		&-preview {
-			position: relative;
-			width: 160px;
+    &-buttons, &-gradient-control {
+        float: right;
 
-			border: 1px solid @inner-border-color;
+        a {
+            margin-left: 5px;
+        }
+    }
 
-			&:after {
-				position: absolute;
-				top: 0;
-				left: 0;
-				width: 100%;
-				height: 100%;
-				background-image: url('../images/transparent.png');
-				content: '';
-				z-index: -1;
-			}
-		}
+    &-gradient {
+        margin-top: 10px;
+        padding-top: 20px;
+        border-top: 1px solid @inner-border-color;
 
-		&-markers {
-			top: -16px;
+        &-preview {
+            position: relative;
+            width: 160px;
+
+            border: 1px solid @inner-border-color;
+
+            &:after {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background-image: url('../images/transparent.png');
+                content: '';
+                z-index: -1;
+            }
+        }
+
+        &-markers {
+            top: -16px;
             width: 160px;
             height: 16px;
             display: block;
             list-style: none;
             margin: 0;
             padding: 0;
-		}
+        }
 
-		&-marker {
-			width: 10px;
-			height: 10px;
+        &-marker {
+            width: 10px;
+            height: 10px;
 
-			margin-left: -6px;
-			border: 1px solid @line-color;
-			background: #fff;
+            margin-left: -6px;
+            border: 1px solid @line-color;
+            background: #fff;
 
-			span {
-				display: block;
-				width: 100%;
-				height: 100%;
-				
-			}
-			
+            span {
+                display: block;
+                width: 100%;
+                height: 100%;
+
+            }
+
             i {
                 position: absolute;
                 left: 2px;
@@ -404,8 +408,8 @@
                 border-bottom-color: @inner-border-color;
                 background: #fff;
                 -webkit-transform: rotate(45deg);
-                   -moz-transform: rotate(45deg);
-                        transform: rotate(45deg);
+                -moz-transform: rotate(45deg);
+                transform: rotate(45deg);
             }
 
             &_active {
@@ -413,25 +417,25 @@
                 z-index: 1;
 
                 i {
-                	left: 1px;
-                	border: 2px solid transparent;
-                	border-right-color: @active-color;
-                	border-bottom-color: @active-color;
+                    left: 1px;
+                    border: 2px solid transparent;
+                    border-right-color: @active-color;
+                    border-bottom-color: @active-color;
                 }
             }
-		}
+        }
 
-		&-wheel {
-			margin-left: 10px;
+        &-wheel {
+            margin-left: 10px;
 
-			i {
-				background-color: darken(@line-color, 20%);
-			}
-		}
+            i {
+                background-color: darken(@line-color, 20%);
+            }
+        }
 
-		&-angle {
-			margin-left: 10px;
-			width: 24px;
-		}
-	}
+        &-angle {
+            margin-left: 10px;
+            width: 24px;
+        }
+    }
 }

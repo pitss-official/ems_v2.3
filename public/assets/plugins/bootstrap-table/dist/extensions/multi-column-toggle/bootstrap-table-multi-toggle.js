@@ -3,7 +3,7 @@
  * @version: v1.0.0
  */
 
- !function ($) {
+!function ($) {
     "use strict";
 
     var sprintf = $.fn.bootstrapTable.utils.sprintf;
@@ -42,13 +42,15 @@
 
             $btnGroup.append(showbtn + hidebtn);
 
-            $btnGroup.find('#showAllBtn').click(function () { that.showAllColumns(); 
+            $btnGroup.find('#showAllBtn').click(function () {
+                that.showAllColumns();
                 $btnGroup.find('#hideAllBtn').toggleClass('hidden');
-                $btnGroup.find('#showAllBtn').toggleClass('hidden');  
+                $btnGroup.find('#showAllBtn').toggleClass('hidden');
             });
-            $btnGroup.find('#hideAllBtn').click(function () { that.hideAllColumns(); 
+            $btnGroup.find('#hideAllBtn').click(function () {
+                that.hideAllColumns();
                 $btnGroup.find('#hideAllBtn').toggleClass('hidden');
-                $btnGroup.find('#showAllBtn').toggleClass('hidden');  
+                $btnGroup.find('#showAllBtn').toggleClass('hidden');
             });
         }
     };
@@ -84,5 +86,5 @@
 
         that.toggleColumn(0, that.columns[0].visible, false);
     };
-    
+
 }(jQuery);

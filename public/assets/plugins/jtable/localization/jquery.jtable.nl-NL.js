@@ -25,6 +25,6 @@
         deleteProggress: 'Gegevens {0} van {1} wissen...',
         pageSizeChangeLabel: 'Row count', //New. Must be localized.
         gotoPageLabel: 'Go to page' //New. Must be localized.
-});
+    });
 
 })(jQuery);

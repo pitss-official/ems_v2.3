@@ -63,7 +63,7 @@
         return true;
     };
 
-    var calculateExpiration = function(vEnd) {
+    var calculateExpiration = function (vEnd) {
         var time = vEnd.replace(/[0-9]/, ''); //s,mi,h,d,m,y
         vEnd = vEnd.replace(/[A-Za-z]/, ''); //number
 
@@ -151,7 +151,7 @@
 
         if (pageListStateSave) {
             this.options.pageSize = pageListStateSave ===
-                this.options.formatAllRows() ? pageListStateSave : +pageListStateSave;
+            this.options.formatAllRows() ? pageListStateSave : +pageListStateSave;
         }
 
         if (columnsStateSave) {

@@ -33,11 +33,11 @@ addUnitAlias('isoWeekday', 'E');
 
 // PARSING
 
-addRegexToken('d',    match1to2);
-addRegexToken('e',    match1to2);
-addRegexToken('E',    match1to2);
-addRegexToken('dd',   matchWord);
-addRegexToken('ddd',  matchWord);
+addRegexToken('d', match1to2);
+addRegexToken('e', match1to2);
+addRegexToken('E', match1to2);
+addRegexToken('dd', matchWord);
+addRegexToken('ddd', matchWord);
 addRegexToken('dddd', matchWord);
 
 addWeekParseToken(['dd', 'ddd', 'dddd'], function (input, week, config) {
@@ -76,21 +76,24 @@ function parseWeekday(input, locale) {
 // LOCALES
 
 export var defaultLocaleWeekdays = 'Sunday_Monday_Tuesday_Wednesday_Thursday_Friday_Saturday'.split('_');
-export function localeWeekdays (m) {
+
+export function localeWeekdays(m) {
     return this._weekdays[m.day()];
 }
 
 export var defaultLocaleWeekdaysShort = 'Sun_Mon_Tue_Wed_Thu_Fri_Sat'.split('_');
-export function localeWeekdaysShort (m) {
+
+export function localeWeekdaysShort(m) {
     return this._weekdaysShort[m.day()];
 }
 
 export var defaultLocaleWeekdaysMin = 'Su_Mo_Tu_We_Th_Fr_Sa'.split('_');
-export function localeWeekdaysMin (m) {
+
+export function localeWeekdaysMin(m) {
     return this._weekdaysMin[m.day()];
 }
 
-export function localeWeekdaysParse (weekdayName) {
+export function localeWeekdaysParse(weekdayName) {
     var i, mom, regex;
 
     this._weekdaysParse = this._weekdaysParse || [];
@@ -111,7 +114,7 @@ export function localeWeekdaysParse (weekdayName) {
 
 // MOMENTS
 
-export function getSetDayOfWeek (input) {
+export function getSetDayOfWeek(input) {
     var day = this._isUTC ? this._d.getUTCDay() : this._d.getDay();
     if (input != null) {
         input = parseWeekday(input, this.localeData());
@@ -121,12 +124,12 @@ export function getSetDayOfWeek (input) {
     }
 }
 
-export function getSetLocaleDayOfWeek (input) {
+export function getSetLocaleDayOfWeek(input) {
     var weekday = (this.day() + 7 - this.localeData()._week.dow) % 7;
     return input == null ? weekday : this.add(input - weekday, 'd');
 }
 
-export function getSetISODayOfWeek (input) {
+export function getSetISODayOfWeek(input) {
     // behaves the same as moment#day except
     // as a getter, returns 7 instead of 0 (1-7 range instead of 0-6)
     // as a setter, sunday should belong to the previous week.

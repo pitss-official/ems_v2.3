@@ -1,7 +1,7 @@
 // asColorPicker
 // Turkish (tr) localization
 
-(function($) {
+(function ($) {
     var localization = $.asColorPicker.localization["tr"] = {
         cancelText: "Avbryt",
         applyText: "Välj"

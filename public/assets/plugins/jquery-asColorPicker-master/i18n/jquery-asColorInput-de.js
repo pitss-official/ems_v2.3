@@ -1,7 +1,7 @@
 // asColorPicker
 // German (de) localization
 
-(function($) {
+(function ($) {
     var localization = $.asColorPicker.localization["de"] = {
         cancelText: "Abbrechen",
         applyText: "Wählen"

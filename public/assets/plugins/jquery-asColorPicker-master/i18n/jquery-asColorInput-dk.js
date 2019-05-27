@@ -1,7 +1,7 @@
 // asColorPicker
 // Danish (dk) localization
 
-(function($) {
+(function ($) {
     var localization = $.asColorPicker.localization["dk"] = {
         cancelText: "annuller",
         applyText: "Vælg"

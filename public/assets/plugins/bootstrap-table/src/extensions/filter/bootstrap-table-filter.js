@@ -3,7 +3,7 @@
  * extensions: https://github.com/lukaskral/bootstrap-table-filter
  */
 
-!function($) {
+!function ($) {
 
     'use strict';
 

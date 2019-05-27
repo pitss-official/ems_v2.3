@@ -12,10 +12,12 @@ class EventController extends Controller
     {
         return Event::getAllEnrollable();
     }
+
     public function todaysEvents()
     {
         return Event::getTodayEvent();
     }
+
     /**
      * Display a listing of the resource.
      *
@@ -24,19 +26,19 @@ class EventController extends Controller
     public function index()
     {
 
-        $ac= \App\User::find(1)->account();
-        return ;
+        $ac = \App\User::find(1)->account();
+        return;
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
-        $validatedData=$request->validate([
+        $validatedData = $request->validate([
 
         ]);
     }
@@ -44,7 +46,7 @@ class EventController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
@@ -55,8 +57,8 @@ class EventController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param \Illuminate\Http\Request $request
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
@@ -67,7 +69,7 @@ class EventController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)

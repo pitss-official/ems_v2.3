@@ -13,16 +13,16 @@
     var cellHeight = 37, // update css if changed
         cachedWidth = null,
         arrowAsc = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABMAAAATCAYAAAByUDbMAAAAZ' +
-        '0lEQVQ4y2NgGLKgquEuFxBPAGI2ahhWCsS/gDibUoO0gPgxEP8H4ttArEyuQYxAPBd' +
-        'qEAxPBImTY5gjEL9DM+wTENuQahAvEO9DMwiGdwAxOymGJQLxTyD+jgWDxCMZRsEoGAVo' +
-        'AADeemwtPcZI2wAAAABJRU5ErkJggg==',
+            '0lEQVQ4y2NgGLKgquEuFxBPAGI2ahhWCsS/gDibUoO0gPgxEP8H4ttArEyuQYxAPBd' +
+            'qEAxPBImTY5gjEL9DM+wTENuQahAvEO9DMwiGdwAxOymGJQLxTyD+jgWDxCMZRsEoGAVo' +
+            'AADeemwtPcZI2wAAAABJRU5ErkJggg==',
         arrowBoth = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABMAAAATCAQAAADYWf5HAAAAkElEQVQoz7X' +
-        'QMQ5AQBCF4dWQSJxC5wwax1Cq1e7BAdxD5SL+Tq/QCM1oNiJidwox0355mXnG/DrEtIQ6azio' +
-        'NZQxI0ykPhTQIwhCR+BmBYtlK7kLJYwWCcJA9M4qdrZrd8pPjZWPtOqdRQy320YSV17OatFC4eut' +
-        's6z39GYMKRPCTKY9UnPQ6P+GtMRfGtPnBCiqhAeJPmkqAAAAAElFTkSuQmCC',
+            'QMQ5AQBCF4dWQSJxC5wwax1Cq1e7BAdxD5SL+Tq/QCM1oNiJidwox0355mXnG/DrEtIQ6azio' +
+            'NZQxI0ykPhTQIwhCR+BmBYtlK7kLJYwWCcJA9M4qdrZrd8pPjZWPtOqdRQy320YSV17OatFC4eut' +
+            's6z39GYMKRPCTKY9UnPQ6P+GtMRfGtPnBCiqhAeJPmkqAAAAAElFTkSuQmCC',
         arrowDesc = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABMAAAATCAYAAAByUDbMAAAAZUlEQVQ4y2NgGAWj' +
-        'YBSggaqGu5FA/BOIv2PBIPFEUgxjB+IdQPwfC94HxLykus4GiD+hGfQOiB3J8SojEE9EM2wuSJ' +
-        'zcsFMG4ttQgx4DsRalkZENxL+AuJQaMcsGxBOAmGvopk8AVz1sLZgg0bsAAAAASUVORK5CYII= ';
+            'YBSggaqGu5FA/BOIv2PBIPFEUgxjB+IdQPwfC94HxLykus4GiD+hGfQOiB3J8SojEE9EM2wuSJ' +
+            'zcsFMG4ttQgx4DsRalkZENxL+AuJQaMcsGxBOAmGvopk8AVz1sLZgg0bsAAAAASUVORK5CYII= ';
 
     // it only does '%s', and return '' when arguments are undefined
     var sprintf = function (str) {
@@ -278,10 +278,10 @@
         onUncheckAll: function (rows) {
             return false;
         },
-        onCheckSome: function(rows){
+        onCheckSome: function (rows) {
             return false;
         },
-        onUncheckSome: function(rows){
+        onUncheckSome: function (rows) {
             return false;
         },
         onLoadSuccess: function (data) {
@@ -869,8 +869,8 @@
         if (this.options.showToggle) {
             this.$toolbar.find('button[name="toggle"]')
                 .off('click').on('click', function () {
-                    that.toggleView();
-                });
+                that.toggleView();
+            });
         }
 
         if (this.options.showColumns) {
@@ -1340,15 +1340,15 @@
                     text = [that.options.cardView ?
                         '<div class="card-view">' : '<td class="bs-checkbox">',
                         '<input' +
-                            sprintf(' data-index="%s"', i) +
-                            sprintf(' name="%s"', that.options.selectItemName) +
-                            sprintf(' type="%s"', type) +
-                            sprintf(' value="%s"', item[that.options.idField]) +
-                            sprintf(' checked="%s"', value === true ||
-                                (value && value.checked) ? 'checked' : undefined) +
-                            sprintf(' disabled="%s"', !column.checkboxEnabled ||
-                                (value && value.disabled) ? 'disabled' : undefined) +
-                            ' />',
+                        sprintf(' data-index="%s"', i) +
+                        sprintf(' name="%s"', that.options.selectItemName) +
+                        sprintf(' type="%s"', type) +
+                        sprintf(' value="%s"', item[that.options.idField]) +
+                        sprintf(' checked="%s"', value === true ||
+                        (value && value.checked) ? 'checked' : undefined) +
+                        sprintf(' disabled="%s"', !column.checkboxEnabled ||
+                        (value && value.disabled) ? 'disabled' : undefined) +
+                        ' />',
                         that.options.cardView ? '</div>' : '</td>'].join('');
 
                     item[that.header.stateField] = value === true || (value && value.checked);
@@ -1590,7 +1590,7 @@
             if ($(th).data('field') === that.options.sortName) {
                 $(th).find('.sortable').css('background-image', 'url(' + (that.options.sortOrder === 'desc' ? arrowDesc : arrowAsc) + ')');
             } else {
-                $(th).find('.sortable').css('background-image', 'url(' + arrowBoth +')');
+                $(th).find('.sortable').css('background-image', 'url(' + arrowBoth + ')');
             }
         });
     };
@@ -1654,7 +1654,7 @@
         fixedBody = this.$tableBody.get(0);
 
         scrollWidth = fixedBody.scrollWidth > fixedBody.clientWidth &&
-            fixedBody.scrollHeight > fixedBody.clientHeight + this.$header.height() ?
+        fixedBody.scrollHeight > fixedBody.clientHeight + this.$header.height() ?
             getScrollBarWidth() : 0;
 
         this.$el.css('margin-top', -this.$header.height());
@@ -1835,7 +1835,7 @@
         return (this.searchText
             || !$.isEmptyObject(this.filterColumns)
             || !$.isEmptyObject(this.filterColumnsPartial)) ?
-            (useCurrentPage ? this.data.slice(this.pageFrom -1, this.pageTo)
+            (useCurrentPage ? this.data.slice(this.pageFrom - 1, this.pageTo)
                 : this.data) :
             (useCurrentPage ? this.options.data.slice(this.pageFrom - 1, this.pageTo)
                 : this.options.data);
@@ -2365,7 +2365,7 @@
         return true;
     };
 
-    var calculateExpiration = function(vEnd) {
+    var calculateExpiration = function (vEnd) {
         var time = vEnd.replace(/[0-9]/, ''); //s,mi,h,d,m,y
         vEnd = vEnd.replace(/[A-Za-z]/, ''); //number
 
@@ -2453,7 +2453,7 @@
 
         if (pageListStateSave) {
             this.options.pageSize = pageListStateSave ===
-                this.options.formatAllRows() ? pageListStateSave : +pageListStateSave;
+            this.options.formatAllRows() ? pageListStateSave : +pageListStateSave;
         }
 
         if (columnsStateSave) {
@@ -2605,14 +2605,14 @@
 
             that.$body.find('a[data-name="' + column.field + '"]').editable(column.editable)
                 .off('save').on('save', function (e, params) {
-                    var data = that.getData(),
-                        index = $(this).parents('tr[data-index]').data('index'),
-                        row = data[index],
-                        oldValue = row[column.field];
+                var data = that.getData(),
+                    index = $(this).parents('tr[data-index]').data('index'),
+                    row = data[index],
+                    oldValue = row[column.field];
 
-                    row[column.field] = params.submitValue;
-                    that.trigger('editable-save', column.field, row, oldValue, $(this));
-                });
+                row[column.field] = params.submitValue;
+                that.trigger('editable-save', column.field, row, oldValue, $(this));
+            });
         });
         this.trigger('editable-init');
     };
@@ -2663,13 +2663,13 @@
             if (!$export.length) {
                 $export = $([
                     '<div class="export btn-group">',
-                        '<button class="btn btn-default dropdown-toggle" ' +
-                            'data-toggle="dropdown" type="button">',
-                            '<i class="glyphicon glyphicon-export icon-share"></i> ',
-                            '<span class="caret"></span>',
-                        '</button>',
-                        '<ul class="dropdown-menu" role="menu">',
-                        '</ul>',
+                    '<button class="btn btn-default dropdown-toggle" ' +
+                    'data-toggle="dropdown" type="button">',
+                    '<i class="glyphicon glyphicon-export icon-share"></i> ',
+                    '<span class="caret"></span>',
+                    '</button>',
+                    '<ul class="dropdown-menu" role="menu">',
+                    '</ul>',
                     '</div>'].join('')).appendTo($btnGroup);
 
                 var $menu = $export.find('.dropdown-menu'),
@@ -2686,9 +2686,9 @@
                 $.each(exportTypes, function (i, type) {
                     if (TYPE_NAME.hasOwnProperty(type)) {
                         $menu.append(['<li data-type="' + type + '">',
-                                '<a href="javascript:void(0)">',
-                                    TYPE_NAME[type],
-                                '</a>',
+                            '<a href="javascript:void(0)">',
+                            TYPE_NAME[type],
+                            '</a>',
                             '</li>'].join(''));
                     }
                 });
@@ -2857,7 +2857,8 @@
                             selectControl.append($("<option></option>")
                                 .attr("value", key)
                                 .text(variableValues[key]));
-                        };
+                        }
+                        ;
                         break;
                 }
             }
@@ -2901,13 +2902,13 @@
 
                 if ((!column.checkbox) || (!column.radio)) {
                     if (column.filterControl !== undefined && column.filterControl.toLowerCase() === 'select'
-                            && column.searchable) {
+                        && column.searchable) {
 
                         if (column.filterData === undefined || column.filterData.toLowerCase() === 'column') {
                             var selectControl = $('.' + column.field),
-                                    iOpt = 0,
-                                    exitsOpt = false,
-                                    options;
+                                iOpt = 0,
+                                exitsOpt = false,
+                                options;
                             if (selectControl !== undefined) {
                                 options = selectControl.get(0).options;
 
@@ -2993,7 +2994,7 @@
  * extensions: https://github.com/lukaskral/bootstrap-table-filter
  */
 
-!function($) {
+!function ($) {
 
     'use strict';
 
@@ -3073,7 +3074,7 @@
         _initData = BootstrapTable.prototype.initData;
 
     BootstrapTable.prototype.initData = function (data, type) {
-        if( this.options.flat ){
+        if (this.options.flat) {
             data = data === undefined ? this.options.data : data;
             data = sd.flatHelper(data);
         }
@@ -3302,7 +3303,7 @@
  * https://github.com/dimbslmh/bootstrap-table/tree/master/src/extensions/multiple-sort/bootstrap-table-multiple-sort.js
  */
 
-(function($) {
+(function ($) {
     'use strict';
 
     var isSingleSort = false;
@@ -3312,14 +3313,14 @@
             desc: 'Descending'
         },
         arrowAsc = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABMAAAATCAYAAAByUDbMAAAAZ' +
-        '0lEQVQ4y2NgGLKgquEuFxBPAGI2ahhWCsS/gDibUoO0gPgxEP8H4ttArEyuQYxAPBd' +
-        'qEAxPBImTY5gjEL9DM+wTENuQahAvEO9DMwiGdwAxOymGJQLxTyD+jgWDxCMZRsEoGAVo' +
-        'AADeemwtPcZI2wAAAABJRU5ErkJggg==',
+            '0lEQVQ4y2NgGLKgquEuFxBPAGI2ahhWCsS/gDibUoO0gPgxEP8H4ttArEyuQYxAPBd' +
+            'qEAxPBImTY5gjEL9DM+wTENuQahAvEO9DMwiGdwAxOymGJQLxTyD+jgWDxCMZRsEoGAVo' +
+            'AADeemwtPcZI2wAAAABJRU5ErkJggg==',
         arrowDesc = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABMAAAATCAYAAAByUDbMAAAAZUlEQVQ4y2NgGAWj' +
-        'YBSggaqGu5FA/BOIv2PBIPFEUgxjB+IdQPwfC94HxLykus4GiD+hGfQOiB3J8SojEE9EM2wuSJ' +
-        'zcsFMG4ttQgx4DsRalkZENxL+AuJQaMcsGxBOAmGvopk8AVz1sLZgg0bsAAAAASUVORK5CYII= ';
+            'YBSggaqGu5FA/BOIv2PBIPFEUgxjB+IdQPwfC94HxLykus4GiD+hGfQOiB3J8SojEE9EM2wuSJ' +
+            'zcsFMG4ttQgx4DsRalkZENxL+AuJQaMcsGxBOAmGvopk8AVz1sLZgg0bsAAAAASUVORK5CYII= ';
 
-    var showSortModal = function(that) {
+    var showSortModal = function (that) {
         if (!$("#sortModal").hasClass("modal")) {
             var sModal = '  <div class="modal fade" id="sortModal" tabindex="-1" role="dialog" aria-labelledby="sortModalLabel" aria-hidden="true">';
             sModal += '         <div class="modal-dialog">';
@@ -3365,7 +3366,7 @@
             var $sortModal = $('#sortModal'),
                 $rows = $sortModal.find("tbody > tr");
 
-            $sortModal.off('click', '#add').on('click', '#add', function() {
+            $sortModal.off('click', '#add').on('click', '#add', function () {
                 var total = $sortModal.find('.multi-sort-name:first option').length,
                     current = $sortModal.find('tbody tr').length;
 
@@ -3376,7 +3377,7 @@
                 }
             });
 
-            $sortModal.off('click', '#delete').on('click', '#delete', function() {
+            $sortModal.off('click', '#delete').on('click', '#delete', function () {
                 var total = $sortModal.find('.multi-sort-name:first option').length,
                     current = $sortModal.find('tbody tr').length;
 
@@ -3387,14 +3388,14 @@
                 }
             });
 
-            $sortModal.off('click', '.btn-primary').on('click', '.btn-primary', function() {
+            $sortModal.off('click', '.btn-primary').on('click', '.btn-primary', function () {
                 var $rows = $sortModal.find("tbody > tr"),
                     $alert = $sortModal.find('div.alert'),
                     fields = [],
                     results = [];
 
 
-                that.options.sortPriority = $.map($rows, function(row) {
+                that.options.sortPriority = $.map($rows, function (row) {
                     var $row = $(row),
                         name = $row.find('.multi-sort-name').val(),
                         order = $row.find('.multi-sort-order').val();
@@ -3439,7 +3440,7 @@
                     }];
                 }
             }
-            
+
             if (that.options.sortPriority !== null) {
                 if ($rows.length < that.options.sortPriority.length && typeof that.options.sortPriority === 'object') {
                     for (var i = 0; i < that.options.sortPriority.length; i++) {
@@ -3457,7 +3458,7 @@
     $.extend($.fn.bootstrapTable.defaults, {
         showMultiSort: false,
         sortPriority: null,
-        onMultipleSort: function() {
+        onMultipleSort: function () {
             return false;
         }
     });
@@ -3473,37 +3474,37 @@
     });
 
     $.extend($.fn.bootstrapTable.locales, {
-        formatMultipleSort: function() {
+        formatMultipleSort: function () {
             return 'Multiple Sort';
         },
-        formatAddLevel: function() {
+        formatAddLevel: function () {
             return "Add Level";
         },
-        formatDeleteLevel: function() {
+        formatDeleteLevel: function () {
             return "Delete Level";
         },
-        formatColumn: function() {
+        formatColumn: function () {
             return "Column";
         },
-        formatOrder: function() {
+        formatOrder: function () {
             return "Order";
         },
-        formatSortBy: function() {
+        formatSortBy: function () {
             return "Sort by";
         },
-        formatThenBy: function() {
+        formatThenBy: function () {
             return "Then by";
         },
-        formatSort: function() {
+        formatSort: function () {
             return "Sort";
         },
-        formatCancel: function() {
+        formatCancel: function () {
             return "Cancel";
         },
-        formatDuplicateAlertTitle: function() {
+        formatDuplicateAlertTitle: function () {
             return "Duplicate(s) detected!";
         },
-        formatDuplicateAlertDescription: function() {
+        formatDuplicateAlertDescription: function () {
             return "Please remove or change any duplicate column.";
         }
     });
@@ -3513,7 +3514,7 @@
     var BootstrapTable = $.fn.bootstrapTable.Constructor,
         _initToolbar = BootstrapTable.prototype.initToolbar;
 
-    BootstrapTable.prototype.initToolbar = function() {
+    BootstrapTable.prototype.initToolbar = function () {
         this.showToolbar = true;
         var that = this;
 
@@ -3533,21 +3534,21 @@
                 showSortModal(that);
             }
 
-            this.$el.one('sort.bs.table', function() {
+            this.$el.one('sort.bs.table', function () {
                 isSingleSort = true;
             });
 
-            this.$el.on('multiple-sort.bs.table', function() {
+            this.$el.on('multiple-sort.bs.table', function () {
                 isSingleSort = false;
             });
 
-            this.$el.on('load-success.bs.table', function() {
+            this.$el.on('load-success.bs.table', function () {
                 if (!isSingleSort && that.options.sortPriority !== null && typeof that.options.sortPriority === 'object') {
                     that.onMultipleSort();
                 }
             });
 
-            this.$el.on('column-switch.bs.table', function() {
+            this.$el.on('column-switch.bs.table', function () {
                 that.options.sortPriority = null;
                 $('#sortModal').remove();
                 showSortModal(that);
@@ -3555,14 +3556,14 @@
         }
     };
 
-    BootstrapTable.prototype.onMultipleSort = function() {
+    BootstrapTable.prototype.onMultipleSort = function () {
         var that = this;
-        
-        var cmp = function(x, y) {
+
+        var cmp = function (x, y) {
             return x > y ? 1 : x < y ? -1 : 0;
         };
 
-        var arrayCmp = function(a, b) {
+        var arrayCmp = function (a, b) {
             var arr1 = [],
                 arr2 = [];
 
@@ -3594,7 +3595,7 @@
             return cmp(arr1, arr2);
         };
 
-        this.data.sort(function(a, b) {
+        this.data.sort(function (a, b) {
             return arrayCmp(a, b);
         });
 
@@ -3603,7 +3604,7 @@
         this.trigger('multiple-sort');
     };
 
-    BootstrapTable.prototype.addLevel = function(index, sortPriority) {
+    BootstrapTable.prototype.addLevel = function (index, sortPriority) {
         var $sortModal = $("#sortModal"),
             text = index === 0 ? this.options.formatSortBy() : this.options.formatThenBy();
 
@@ -3617,14 +3618,14 @@
         var $multiSortName = $sortModal.find('.multi-sort-name').last(),
             $multiSortOrder = $sortModal.find('.multi-sort-order').last();
 
-        this.options.columns.forEach(function(column) {
+        this.options.columns.forEach(function (column) {
             if (column.sortable === false || column.visible === false) {
                 return true;
             }
             $multiSortName.append('<option value="' + column.field + '">' + column.title + '</option>');
         });
 
-        $.each(sort_order, function(value, order) {
+        $.each(sort_order, function (value, order) {
             $multiSortOrder.append('<option value="' + value + '">' + order + '</option>');
         });
 
@@ -3634,7 +3635,7 @@
         }
     };
 
-    BootstrapTable.prototype.assignSortableArrows = function() {
+    BootstrapTable.prototype.assignSortableArrows = function () {
         var that = this,
             headers = that.$header.find('th');
 
@@ -3647,7 +3648,7 @@
         }
     };
 
-    BootstrapTable.prototype.setButtonStates = function() {
+    BootstrapTable.prototype.setButtonStates = function () {
         var $sortModal = $('#sortModal'),
             total = $sortModal.find('.multi-sort-name:first option').length,
             current = $sortModal.find('tbody tr').length;
@@ -3678,42 +3679,43 @@
  */
 
 function alphanum(a, b) {
-  function chunkify(t) {
-    var tz = [],
-        x = 0,
-        y = -1,
-        n = 0,
-        i,
-        j;
+    function chunkify(t) {
+        var tz = [],
+            x = 0,
+            y = -1,
+            n = 0,
+            i,
+            j;
 
-    while (i = (j = t.charAt(x++)).charCodeAt(0)) {
-      var m = (i === 46 || (i >= 48 && i <= 57));
-      if (m !== n) {
-        tz[++y] = "";
-        n = m;
-      }
-      tz[y] += j;
+        while (i = (j = t.charAt(x++)).charCodeAt(0)) {
+            var m = (i === 46 || (i >= 48 && i <= 57));
+            if (m !== n) {
+                tz[++y] = "";
+                n = m;
+            }
+            tz[y] += j;
+        }
+        return tz;
     }
-    return tz;
-  }
 
-  var aa = chunkify(a);
-  var bb = chunkify(b);
+    var aa = chunkify(a);
+    var bb = chunkify(b);
 
-  for (x = 0; aa[x] && bb[x]; x++) {
-    if (aa[x] !== bb[x]) {
-      var c = Number(aa[x]),
-          d = Number(bb[x]);
+    for (x = 0; aa[x] && bb[x]; x++) {
+        if (aa[x] !== bb[x]) {
+            var c = Number(aa[x]),
+                d = Number(bb[x]);
 
-      if (c == aa[x] && d == bb[x]) {
-        return c - d;
-      } else {
-          return (aa[x] > bb[x]) ? 1 : -1;
-      }
+            if (c == aa[x] && d == bb[x]) {
+                return c - d;
+            } else {
+                return (aa[x] > bb[x]) ? 1 : -1;
+            }
+        }
     }
-  }
-  return aa.length - bb.length;
+    return aa.length - bb.length;
 }
+
 /**
  * @author: Dennis Hernández
  * @webSite: http://djhvscf.github.io/Blog
@@ -3804,11 +3806,12 @@ function alphanum(a, b) {
         var that = this;
         try {
             $(this.$el).dragtable('destroy');
-        } catch (e) {}
+        } catch (e) {
+        }
         $(this.$el).dragtable({
             maxMovingRows: that.options.maxMovingRows,
-            clickDelay:200,
-            beforeStop: function() {
+            clickDelay: 200,
+            beforeStop: function () {
                 var ths = [],
                     columns = [],
                     columnIndex = -1;
@@ -3816,7 +3819,7 @@ function alphanum(a, b) {
                     ths.push($(this).data('field'));
                 });
 
-                for (var i = 0; i < ths.length; i++ ) {
+                for (var i = 0; i < ths.length; i++) {
                     columnIndex = getFieldIndex(that.options.columns, ths[i]);
                     if (columnIndex !== -1) {
                         columns.push(that.options.columns[columnIndex]);
@@ -3864,7 +3867,7 @@ function alphanum(a, b) {
             return false;
         },
         onReorderRow: function (newData) {
-             return false;
+            return false;
         }
     });
 
@@ -4029,17 +4032,17 @@ function alphanum(a, b) {
  * @update Dennis Hernández <http://djhvscf.github.io/Blog>
  */
 
-!function($) {
+!function ($) {
     'use strict';
 
     var firstLoad = false;
 
-    var sprintf = function(str) {
+    var sprintf = function (str) {
         var args = arguments,
             flag = true,
             i = 1;
 
-        str = str.replace(/%s/g, function() {
+        str = str.replace(/%s/g, function () {
             var arg = args[i++];
 
             if (typeof arg === 'undefined') {
@@ -4074,7 +4077,7 @@ function alphanum(a, b) {
         return defaultValue;
     };
 
-    var showAvdSearch = function(pColumns, searchTitle, searchText, that) {
+    var showAvdSearch = function (pColumns, searchTitle, searchText, that) {
         if (!$("#avdSearchModal").hasClass("modal")) {
             var vModal = "<div id=\"avdSearchModal\" class=\"modal fade\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"mySmallModalLabel\" aria-hidden=\"true\">";
             vModal += "<div class=\"modal-dialog modal-xs\">";
@@ -4094,7 +4097,8 @@ function alphanum(a, b) {
             $("body").append($(vModal));
 
             var vFormAvd = createFormAvd(pColumns, searchText, that),
-                timeoutId = 0;;
+                timeoutId = 0;
+            ;
 
             $('#avdSearchModalContent').append(vFormAvd.join(''));
 
@@ -4105,7 +4109,7 @@ function alphanum(a, b) {
                 }, that.options.searchTimeOut);
             });
 
-            $("#btnCloseAvd").click(function() {
+            $("#btnCloseAvd").click(function () {
                 $("#avdSearchModal").modal('hide');
             });
 
@@ -4115,7 +4119,7 @@ function alphanum(a, b) {
         }
     };
 
-    var createFormAvd = function(pColumns, searchText, that) {
+    var createFormAvd = function (pColumns, searchText, that) {
         var htmlForm = [];
         htmlForm.push(sprintf('<form class="form-horizontal" id="%s" action="%s" >', that.options.idForm, that.options.actionForm));
         for (var i in pColumns) {
@@ -4159,10 +4163,10 @@ function alphanum(a, b) {
     });
 
     $.extend($.fn.bootstrapTable.locales, {
-        formatAdvancedSearch: function() {
+        formatAdvancedSearch: function () {
             return 'Advanced search';
         },
-        formatAdvancedCloseButton: function() {
+        formatAdvancedCloseButton: function () {
             return "Close";
         }
     });
@@ -4170,11 +4174,11 @@ function alphanum(a, b) {
     $.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales);
 
     var BootstrapTable = $.fn.bootstrapTable.Constructor,
-        _initToolbar = BootstrapTable.prototype.initToolbar,        
+        _initToolbar = BootstrapTable.prototype.initToolbar,
         _load = BootstrapTable.prototype.load,
         _initSearch = BootstrapTable.prototype.initSearch;
 
-    BootstrapTable.prototype.initToolbar = function() {
+    BootstrapTable.prototype.initToolbar = function () {
         _initToolbar.apply(this, Array.prototype.slice.apply(arguments));
 
         if (!this.options.search) {
@@ -4196,12 +4200,12 @@ function alphanum(a, b) {
         that.$toolbar.prepend(html.join(''));
 
         that.$toolbar.find('button[name="advancedSearch"]')
-            .off('click').on('click', function() {
-                showAvdSearch(that.options.columns, that.options.formatAdvancedSearch(), that.options.formatAdvancedCloseButton(), that);
-            });
+            .off('click').on('click', function () {
+            showAvdSearch(that.options.columns, that.options.formatAdvancedSearch(), that.options.formatAdvancedCloseButton(), that);
+        });
     };
 
-    BootstrapTable.prototype.load = function(data) {
+    BootstrapTable.prototype.load = function (data) {
         _load.apply(this, Array.prototype.slice.apply(arguments));
 
         if (typeof this.options.idTable === 'undefined') {

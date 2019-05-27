@@ -13,7 +13,7 @@ export default moment.defineLocale('cy', {
     // time formats are the same as en-gb
     longDateFormat: {
         LT: 'HH:mm',
-        LTS : 'HH:mm:ss',
+        LTS: 'HH:mm:ss',
         L: 'DD/MM/YYYY',
         LL: 'D MMMM YYYY',
         LLL: 'D MMMM YYYY HH:mm',
@@ -62,9 +62,9 @@ export default moment.defineLocale('cy', {
         }
         return number + output;
     },
-    week : {
-        dow : 1, // Monday is the first day of the week.
-        doy : 4  // The week that contains Jan 4th is the first week of the year.
+    week: {
+        dow: 1, // Monday is the first day of the week.
+        doy: 4  // The week that contains Jan 4th is the first week of the year.
     }
 });
 

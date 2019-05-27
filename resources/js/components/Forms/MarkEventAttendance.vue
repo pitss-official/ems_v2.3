@@ -1,5 +1,5 @@
 <template>
-    <div id="eventAttendance" class="studentAttendanceView">
+    <div class="studentAttendanceView" id="eventAttendance">
         <div class="row">
             <div class="col-lg-12">
                 <div class="card card-outline-info" id="mains">
@@ -13,15 +13,15 @@
                 <div class="pull-right">
                     <div><b>Select Event</b>
                     </div>
-                <select name="selectEvent" id="eventSelect" @change="findMembers" v-model="selectedEvent" >
-                    <option v-for="event in events" v-bind:value="event.id">
+                <select @change="findMembers" id="eventSelect" name="selectEvent" v-model="selectedEvent" >
+                    <option v-bind:value="event.id" v-for="event in events">
                         {{ event.name }}
                     </option>
                 </select>
                 </div>
             </div>
         </div>
-                        <table id="students-table" class="display nowrap table table-hover table-striped table-bordered" cellspacing="0" width="100%">
+                        <table cellspacing="0" class="display nowrap table table-hover table-striped table-bordered" id="students-table" width="100%">
                         </table>
     </div>
                 </div>

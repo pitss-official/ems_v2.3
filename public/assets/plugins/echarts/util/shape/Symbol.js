@@ -5,7 +5,7 @@
  *
  * shape类：大规模散点图图形
  * 可配图形属性：
-   {
+ {
        // 基础属性
        shape  : 'symbol',       // 必须，shape类标识，需要显式指定
        id     : {string},       // 必须，图形唯一标识，可通过'zrender/tool/guid'方法生成
@@ -41,14 +41,14 @@ define(function (require) {
         Base.call(this, options);
     }
 
-    Symbol.prototype =  {
-        type : 'symbol',
+    Symbol.prototype = {
+        type: 'symbol',
         /**
          * 创建矩形路径
          * @param {Context2D} ctx Canvas 2D上下文
          * @param {Object} style 样式
          */
-        buildPath : function (ctx, style) {
+        buildPath: function (ctx, style) {
             var pointList = style.pointList;
             var len = pointList.length;
             if (len === 0) {
@@ -81,16 +81,14 @@ define(function (require) {
                     if (isArray) {
                         x = pointList[i][0];
                         y = pointList[i][1];
-                    }
-                    else {
+                    } else {
                         x = pointList[i].x;
                         y = pointList[i].y;
                     }
                     if (curSize < 3) {
                         // 小于3像素视觉误差
                         ctx.rect(x - halfSize, y - halfSize, curSize, curSize);
-                    }
-                    else {
+                    } else {
                         // 大于3像素才考虑图形
                         switch (style.iconType) {
                             case 'circle' :
@@ -176,11 +174,11 @@ define(function (require) {
          * 返回矩形区域，用于局部刷新和文字定位
          * @param {Object} style
          */
-        getRect : function (style) {
+        getRect: function (style) {
             return style.__rect || polygonInstance.getRect(style);
         },
 
-        isCover : require('./normalIsCover')
+        isCover: require('./normalIsCover')
     };
 
     zrUtil.inherits(Symbol, Base);

@@ -1,7 +1,7 @@
 /*! asColor - v0.2.1 - 2014-08-27
 * https://github.com/amazingSurge/asColor
 * Copyright (c) 2014 amazingSurge; Licensed GPL */
-(function(window, document, $, undefined) {
+(function (window, document, $, undefined) {
     'use strict';
 
     function expandHex(hex) {
@@ -48,7 +48,7 @@
         return flipped;
     }
 
-    var CssColorStrings = (function() {
+    var CssColorStrings = (function () {
         var CSS_INTEGER = '[-\\+]?\\d+%?';
         var CSS_NUMBER = '[-\\+]?\\d*\\.\\d+%?';
         var CSS_UNIT = '(?:' + CSS_NUMBER + ')|(?:' + CSS_INTEGER + ')';
@@ -58,8 +58,8 @@
 
         return {
             RGB: {
-                match: new RegExp('^rgb' + PERMISSIVE_MATCH3 +'$', 'i'),
-                parse: function(result) {
+                match: new RegExp('^rgb' + PERMISSIVE_MATCH3 + '$', 'i'),
+                parse: function (result) {
                     return {
                         r: isPercentage(result[1]) ? conventPercentageToRgb(result[1]) : parseInt(result[1], 10),
                         g: isPercentage(result[2]) ? conventPercentageToRgb(result[2]) : parseInt(result[2], 10),
@@ -67,13 +67,13 @@
                         a: 1
                     };
                 },
-                to: function(color) {
+                to: function (color) {
                     return 'rgb(' + color.r + ', ' + color.g + ', ' + color.b + ')';
                 }
             },
             RGBA: {
-                match: new RegExp('^rgba' + PERMISSIVE_MATCH4 +'$', 'i'),
-                parse: function(result) {
+                match: new RegExp('^rgba' + PERMISSIVE_MATCH4 + '$', 'i'),
+                parse: function (result) {
                     return {
                         r: isPercentage(result[1]) ? conventPercentageToRgb(result[1]) : parseInt(result[1], 10),
                         g: isPercentage(result[2]) ? conventPercentageToRgb(result[2]) : parseInt(result[2], 10),
@@ -81,13 +81,13 @@
                         a: parseFloat(result[4])
                     };
                 },
-                to: function(color) {
+                to: function (color) {
                     return 'rgba(' + color.r + ', ' + color.g + ', ' + color.b + ', ' + color.a + ')';
                 }
             },
             HSL: {
-                match: new RegExp('^hsl' + PERMISSIVE_MATCH3 +'$', 'i'),
-                parse: function(result) {
+                match: new RegExp('^hsl' + PERMISSIVE_MATCH3 + '$', 'i'),
+                parse: function (result) {
                     var hsl = {
                         h: ((result[1] % 360) + 360) % 360,
                         s: isPercentage(result[2]) ? convertPercentageToFloat(result[2]) : parseFloat(result[2], 10),
@@ -97,14 +97,14 @@
 
                     return AsColor.HSLToRGB(hsl);
                 },
-                to: function(color) {
+                to: function (color) {
                     var hsl = AsColor.RGBToHSL(color);
                     return 'hsl(' + parseInt(hsl.h, 10) + ', ' + Math.round(hsl.s * 100) + '%, ' + Math.round(hsl.l * 100) + '%)';
                 }
             },
             HSLA: {
-                match: new RegExp('^hsla' + PERMISSIVE_MATCH4 +'$', 'i'),
-                parse: function(result) {
+                match: new RegExp('^hsla' + PERMISSIVE_MATCH4 + '$', 'i'),
+                parse: function (result) {
                     var hsla = {
                         h: ((result[1] % 360) + 360) % 360,
                         s: isPercentage(result[2]) ? convertPercentageToFloat(result[2]) : parseFloat(result[2], 10),
@@ -114,14 +114,14 @@
 
                     return AsColor.HSLToRGB(hsla);
                 },
-                to: function(color) {
+                to: function (color) {
                     var hsl = AsColor.RGBToHSL(color);
                     return 'hsla(' + parseInt(hsl.h, 10) + ', ' + Math.round(hsl.s * 100) + '%, ' + Math.round(hsl.l * 100) + '%, ' + color.a + ')';
                 }
             },
             HEX: {
                 match: /^#([a-f0-9]{6}|[a-f0-9]{3})$/i,
-                parse: function(result) {
+                parse: function (result) {
                     var hex = result[1], rgb = AsColor.HEXtoRGB(hex);
                     return {
                         r: rgb.r,
@@ -130,9 +130,9 @@
                         a: 1
                     };
                 },
-                to: function(color, instance) {
+                to: function (color, instance) {
                     var hex = [color.r.toString(16), color.g.toString(16), color.b.toString(16)];
-                    $.each(hex, function(nr, val) {
+                    $.each(hex, function (nr, val) {
                         if (val.length === 1) {
                             hex[nr] = '0' + val;
                         }
@@ -154,7 +154,7 @@
             },
             TRANSPARENT: {
                 match: /^transparent$/i,
-                parse: function() {
+                parse: function () {
                     return {
                         r: 0,
                         g: 0,
@@ -162,15 +162,15 @@
                         a: 0
                     };
                 },
-                to: function() {
+                to: function () {
                     return 'transparent';
                 }
             },
             NAME: {
                 match: /^\w+$/i,
-                parse: function(result) {
+                parse: function (result) {
                     var rgb = AsColor.NAMEtoRGB(result[0]);
-                    if(rgb) {
+                    if (rgb) {
                         return {
                             r: rgb.r,
                             g: rgb.g,
@@ -179,19 +179,19 @@
                         };
                     }
                 },
-                to: function(color, instance) {
+                to: function (color, instance) {
                     return AsColor.RGBtoNAME(color, instance ? instance.options.nameDegradation : undefined);
                 }
             }
         };
     })();
 
-    var AsColor = $.asColor = function(string, options) {
+    var AsColor = $.asColor = function (string, options) {
         if (typeof string === 'object' && typeof options === 'undefined') {
             options = string;
             string = undefined;
         }
-        if(typeof options === 'string'){
+        if (typeof options === 'string') {
             options = {
                 format: options
             };
@@ -215,14 +215,14 @@
 
     AsColor.prototype = {
         constructor: AsColor,
-        init: function(string) {
-            this.format(this.options.format);         
+        init: function (string) {
+            this.format(this.options.format);
             this.fromString(string);
         },
-        isValid: function() {
+        isValid: function () {
             return this._valid;
         },
-        val: function(value) {
+        val: function (value) {
             if (typeof value === 'undefined') {
                 return this.toString();
             } else {
@@ -230,7 +230,7 @@
                 return this;
             }
         },
-        alpha: function(value) {
+        alpha: function (value) {
             if (typeof value === 'undefined' || isNaN(value)) {
                 return this.value.a;
             } else {
@@ -244,10 +244,10 @@
                 this.value.a = value;
             }
         },
-        matchString: function(string){
+        matchString: function (string) {
             return AsColor.matchString(string);
         },
-        fromString: function(string, updateFormat) {
+        fromString: function (string, updateFormat) {
             if (typeof string === 'string') {
                 string = $.trim(string);
                 var matched = null,
@@ -259,7 +259,7 @@
 
                         if (rgb) {
                             this.set(rgb);
-                            if(i === 'TRANSPARENT'){
+                            if (i === 'TRANSPARENT') {
                                 i = 'HEX';
                             }
                             this._matchFormat = i;
@@ -274,48 +274,48 @@
                 this.set(string);
             }
         },
-        format: function(format) {
+        format: function (format) {
             if (typeof format === 'string' && (format = format.toUpperCase()) && typeof CssColorStrings[format] !== 'undefined') {
                 if (format !== 'TRANSPARENT') {
                     this._format = format;
                 } else {
                     this._format = 'HEX';
                 }
-            } else if(format === false) {
+            } else if (format === false) {
                 this._format = false;
             } else {
-                if(this._format === false){
+                if (this._format === false) {
                     return this._matchFormat;
                 } else {
                     return this._format;
                 }
             }
         },
-        toRGBA: function() {
+        toRGBA: function () {
             return CssColorStrings.RGBA.to(this.value, this);
         },
-        toRGB: function() {
+        toRGB: function () {
             return CssColorStrings.RGB.to(this.value, this);
         },
-        toHSLA: function() {
+        toHSLA: function () {
             return CssColorStrings.HSLA.to(this.value, this);
         },
-        toHSL: function() {
+        toHSL: function () {
             return CssColorStrings.HSL.to(this.value, this);
         },
-        toHEX: function() {
+        toHEX: function () {
             return CssColorStrings.HEX.to(this.value, this);
         },
-        toNAME: function() {
+        toNAME: function () {
             return CssColorStrings.NAME.to(this.value, this);
         },
-        to: function(format) {
+        to: function (format) {
             if (typeof format === 'string' && (format = format.toUpperCase()) && typeof CssColorStrings[format] !== 'undefined') {
                 return CssColorStrings[format].to(this.value, this);
             }
             return this.toString();
         },
-        toString: function() {
+        toString: function () {
             var value = this.value;
             if (!this._valid) {
                 value = this.options.invalidValue;
@@ -330,7 +330,7 @@
             }
 
             var format;
-            if(this._format === false){
+            if (this._format === false) {
                 format = this._matchFormat;
             } else {
                 format = this._format;
@@ -347,20 +347,20 @@
                 }
             }
 
-            if (value.a !== 1 && format!=='RGBA' && format !=='HSLA' && this.options.alphaConvert){
-                if(typeof this.options.alphaConvert === 'string'){
+            if (value.a !== 1 && format !== 'RGBA' && format !== 'HSLA' && this.options.alphaConvert) {
+                if (typeof this.options.alphaConvert === 'string') {
                     format = this.options.alphaConvert;
                 }
-                if(typeof this.options.alphaConvert[format] !== 'undefined'){
+                if (typeof this.options.alphaConvert[format] !== 'undefined') {
                     format = this.options.alphaConvert[format];
                 }
             }
             return CssColorStrings[format].to(value, this);
         },
-        get: function() {
+        get: function () {
             return this.value;
         },
-        set: function(color) {
+        set: function (color) {
             this._valid = true;
             var fromRgb = 0,
                 fromHsv = 0,
@@ -396,7 +396,7 @@
             }
         }
     };
-    AsColor.HSLToRGB = function(hsl) {
+    AsColor.HSLToRGB = function (hsl) {
         var h = hsl.h / 360,
             s = hsl.s,
             l = hsl.l,
@@ -420,7 +420,7 @@
         }
         return rgb;
     };
-    AsColor.hueToRGB = function(m1, m2, h) {
+    AsColor.hueToRGB = function (m1, m2, h) {
         var v;
         if (h < 0) {
             h = h + 1;
@@ -438,7 +438,7 @@
         }
         return Math.round(v * 255);
     };
-    AsColor.RGBToHSL = function(rgb) {
+    AsColor.RGBToHSL = function (rgb) {
         var r = rgb.r / 255,
             g = rgb.g / 255,
             b = rgb.b / 255,
@@ -472,18 +472,18 @@
             l: l
         };
     };
-    AsColor.RGBToHEX = function(rgb) {
+    AsColor.RGBToHEX = function (rgb) {
         return CssColorStrings.HEX.to(rgb);
     };
-    AsColor.HSLToHEX = function(hsl) {
+    AsColor.HSLToHEX = function (hsl) {
         var rgb = AsColor.HSLToRGB(hsl);
         return CssColorStrings.HEX.to(rgb);
     };
-    AsColor.HSVtoHEX = function(hsv) {
+    AsColor.HSVtoHEX = function (hsv) {
         var rgb = AsColor.HSVtoRGB(hsv);
         return CssColorStrings.HEX.to(rgb);
     };
-    AsColor.RGBtoHSV = function(rgb) {
+    AsColor.RGBtoHSV = function (rgb) {
         var r = rgb.r / 255,
             g = rgb.g / 255,
             b = rgb.b / 255,
@@ -515,7 +515,7 @@
             v: v
         };
     };
-    AsColor.HSVtoRGB = function(hsv) {
+    AsColor.HSVtoRGB = function (hsv) {
         var r, g, b, h = (hsv.h % 360) / 60,
             s = hsv.s,
             v = hsv.v,
@@ -535,7 +535,7 @@
             b: Math.round(b * 255)
         };
     };
-    AsColor.HEXtoRGB = function(hex) {
+    AsColor.HEXtoRGB = function (hex) {
         if (hex.indexOf('#') === 0) {
             hex = hex.substr(1);
         }
@@ -548,25 +548,25 @@
             b: parseIntFromHex(hex.substr(4, 2))
         };
     };
-    AsColor.isNAME = function(string) {
+    AsColor.isNAME = function (string) {
         if (AsColor.names.hasOwnProperty(string)) {
             return true;
         } else {
             return false;
         }
     };
-    AsColor.NAMEtoHEX = function(name) {
+    AsColor.NAMEtoHEX = function (name) {
         if (AsColor.names.hasOwnProperty(name)) {
             return '#' + AsColor.names[name];
         }
     };
-    AsColor.NAMEtoRGB = function(name) {
+    AsColor.NAMEtoRGB = function (name) {
         var hex = AsColor.NAMEtoHEX(name);
         if (hex) {
             return AsColor.HEXtoRGB(hex);
         }
     };
-    AsColor.hasNAME = function(rgb) {
+    AsColor.hasNAME = function (rgb) {
         var hex = AsColor.RGBToHEX(rgb);
 
         if (hex.indexOf('#') === 0) {
@@ -580,19 +580,19 @@
             return false;
         }
     },
-    AsColor.RGBtoNAME = function(rgb, degradation) {
-        var hasName = AsColor.hasNAME(rgb);
-        if (hasName) {
-            return hasName;
-        } else {
-            if (typeof degradation === 'undefined') {
-                degradation = AsColor.defaults.nameDegradation;
+        AsColor.RGBtoNAME = function (rgb, degradation) {
+            var hasName = AsColor.hasNAME(rgb);
+            if (hasName) {
+                return hasName;
+            } else {
+                if (typeof degradation === 'undefined') {
+                    degradation = AsColor.defaults.nameDegradation;
+                }
+                return CssColorStrings[degradation.toUpperCase()].to(rgb);
             }
-            return CssColorStrings[degradation.toUpperCase()].to(rgb);
-        }
-    };
+        };
 
-    AsColor.matchString = function(string){
+    AsColor.matchString = function (string) {
         if (typeof string === 'string') {
             string = $.trim(string);
             var matched = null,

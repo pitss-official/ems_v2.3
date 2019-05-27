@@ -5,21 +5,21 @@
                 <div class="slimscrollright">
                     <div class="rpanel-title"> Service Panel <span><i class="ti-close right-side-toggle"></i></span> </div>
                     <div class="r-panel-body">
-                        <ul id="themecolors" class="m-t-20">
+                        <ul class="m-t-20" id="themecolors">
                             <li><b>With Light sidebar</b></li>
-                            <li><a href="javascript:void(0)" data-theme="default" class="default-theme">1</a></li>
-                            <li><a href="javascript:void(0)" data-theme="green" class="green-theme">2</a></li>
-                            <li><a href="javascript:void(0)" data-theme="red" class="red-theme">3</a></li>
-                            <li><a href="javascript:void(0)" data-theme="blue" class="blue-theme working">4</a></li>
-                            <li><a href="javascript:void(0)" data-theme="purple" class="purple-theme">5</a></li>
-                            <li><a href="javascript:void(0)" data-theme="megna" class="megna-theme">6</a></li>
+                            <li><a class="default-theme" data-theme="default" href="javascript:void(0)">1</a></li>
+                            <li><a class="green-theme" data-theme="green" href="javascript:void(0)">2</a></li>
+                            <li><a class="red-theme" data-theme="red" href="javascript:void(0)">3</a></li>
+                            <li><a class="blue-theme working" data-theme="blue" href="javascript:void(0)">4</a></li>
+                            <li><a class="purple-theme" data-theme="purple" href="javascript:void(0)">5</a></li>
+                            <li><a class="megna-theme" data-theme="megna" href="javascript:void(0)">6</a></li>
                             <li class="d-block m-t-30"><b>With Dark sidebar</b></li>
-                            <li><a href="javascript:void(0)" data-theme="default-dark" class="default-dark-theme">7</a></li>
-                            <li><a href="javascript:void(0)" data-theme="green-dark" class="green-dark-theme">8</a></li>
-                            <li><a href="javascript:void(0)" data-theme="red-dark" class="red-dark-theme">9</a></li>
-                            <li><a href="javascript:void(0)" data-theme="blue-dark" class="blue-dark-theme">10</a></li>
-                            <li><a href="javascript:void(0)" data-theme="purple-dark" class="purple-dark-theme">11</a></li>
-                            <li><a href="javascript:void(0)" data-theme="megna-dark" class="megna-dark-theme ">12</a></li>
+                            <li><a class="default-dark-theme" data-theme="default-dark" href="javascript:void(0)">7</a></li>
+                            <li><a class="green-dark-theme" data-theme="green-dark" href="javascript:void(0)">8</a></li>
+                            <li><a class="red-dark-theme" data-theme="red-dark" href="javascript:void(0)">9</a></li>
+                            <li><a class="blue-dark-theme" data-theme="blue-dark" href="javascript:void(0)">10</a></li>
+                            <li><a class="purple-dark-theme" data-theme="purple-dark" href="javascript:void(0)">11</a></li>
+                            <li><a class="megna-dark-theme " data-theme="megna-dark" href="javascript:void(0)">12</a></li>
                         </ul>
                         <ul class="m-t-20 chatonline">
                             <li><b>Chat option</b></li>

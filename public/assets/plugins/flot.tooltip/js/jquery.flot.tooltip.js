@@ -8,7 +8,7 @@
  * 
  * build on 2015-05-11
  * released under MIT License, 2012
-*/ 
+*/
 (function ($) {
     // plugin options, default values
     var defaultOptions = {
@@ -37,7 +37,8 @@
             lines: false,
 
             // callbacks
-            onHover: function (flotItem, $tooltipEl) {},
+            onHover: function (flotItem, $tooltipEl) {
+            },
 
             $compat: false
         }
@@ -74,7 +75,7 @@
             that.plotOptions = plot.getOptions();
 
             // for legacy (<0.8.5) implementations
-            if (typeof(that.plotOptions.tooltip) === 'boolean') {
+            if (typeof (that.plotOptions.tooltip) === 'boolean') {
                 that.plotOptions.tooltipOpts.show = that.plotOptions.tooltip;
                 that.plotOptions.tooltip = that.plotOptions.tooltipOpts;
                 delete that.plotOptions.tooltipOpts;
@@ -98,17 +99,17 @@
             var $tip = that.getDomElement();
 
             // bind event
-            $( plot.getPlaceholder() ).bind("plothover", plothover);
+            $(plot.getPlaceholder()).bind("plothover", plothover);
 
             $(eventHolder).bind('mousemove', mouseMove);
         });
 
-        plot.hooks.shutdown.push(function (plot, eventHolder){
+        plot.hooks.shutdown.push(function (plot, eventHolder) {
             $(plot.getPlaceholder()).unbind("plothover", plothover);
             $(eventHolder).unbind("mousemove", mouseMove);
         });
 
-        function mouseMove(e){
+        function mouseMove(e) {
             var pos = {};
             pos.x = e.pageX;
             pos.y = e.pageY;
@@ -125,8 +126,8 @@
             var dotLineLength = function (x, y, x0, y0, x1, y1, o) {
                 if (o && !(o =
                     function (x, y, x0, y0, x1, y1) {
-                        if (typeof x0 !== 'undefined') return { x: x0, y: y };
-                        else if (typeof y0 !== 'undefined') return { x: x, y: y0 };
+                        if (typeof x0 !== 'undefined') return {x: x0, y: y};
+                        else if (typeof y0 !== 'undefined') return {x: x, y: y0};
 
                         var left,
                             tg = -1 / ((y1 - y0) / (x1 - x0));
@@ -135,8 +136,8 @@
                             x: left = (x1 * (x * tg - y + y0) + x0 * (x * -tg + y - y1)) / (tg * (x1 - x0) + y0 - y1),
                             y: tg * left - tg * x + y
                         };
-                    } (x, y, x0, y0, x1, y1),
-                    o.x >= Math.min(x0, x1) && o.x <= Math.max(x0, x1) && o.y >= Math.min(y0, y1) && o.y <= Math.max(y0, y1))
+                    }(x, y, x0, y0, x1, y1),
+                o.x >= Math.min(x0, x1) && o.x <= Math.max(x0, x1) && o.y >= Math.min(y0, y1) && o.y <= Math.max(y0, y1))
                 ) {
                     var l1 = lineDistance(x, y, x0, y0), l2 = lineDistance(x, y, x1, y1);
                     return l1 > l2 ? l2 : l1;
@@ -173,8 +174,8 @@
                         return;
                     }
 
-                    var pointPrev = { x: series.data[xBeforeIndex][0], y: series.data[xBeforeIndex][1] },
-                        pointNext = { x: series.data[xAfterIndex][0], y: series.data[xAfterIndex][1] };
+                    var pointPrev = {x: series.data[xBeforeIndex][0], y: series.data[xBeforeIndex][1]},
+                        pointNext = {x: series.data[xAfterIndex][0], y: series.data[xAfterIndex][1]};
 
                     var distToLine = dotLineLength(series.xaxis.p2c(pos.x), series.yaxis.p2c(pos.y), series.xaxis.p2c(pointPrev.x),
                         series.yaxis.p2c(pointPrev.y), series.xaxis.p2c(pointNext.x), series.yaxis.p2c(pointNext.y), false);
@@ -182,7 +183,7 @@
                     if (distToLine < closestTrace.distance) {
 
                         var closestIndex = lineDistance(pointPrev.x, pointPrev.y, pos.x, pos.y) <
-                            lineDistance(pos.x, pos.y, pointNext.x, pointNext.y) ? xBeforeIndex : xAfterIndex;
+                        lineDistance(pos.x, pos.y, pointNext.x, pointNext.y) ? xBeforeIndex : xAfterIndex;
 
                         var pointSize = series.datapoints.pointsize;
 
@@ -238,10 +239,10 @@
             // convert tooltip content template to real tipText
             var tipText = that.stringFormat(that.tooltipOptions.content, target);
             if (tipText === '')
-            	return;
+                return;
 
             $tip.html(tipText);
-            plot.setTooltipPosition({ x: position.pageX, y: position.pageY });
+            plot.setTooltipPosition({x: position.pageX, y: position.pageY});
             $tip.css({
                 left: that.tipPosition.x + that.tooltipOptions.shifts.x,
                 top: that.tipPosition.y + that.tooltipOptions.shifts.y
@@ -266,11 +267,11 @@
     FlotTooltip.prototype.getDomElement = function () {
         var $tip = $('.' + this.tooltipOptions.cssClass);
 
-        if( $tip.length === 0 ){
+        if ($tip.length === 0) {
             $tip = $('<div />').addClass(this.tooltipOptions.cssClass);
             $tip.appendTo('body').hide().css({position: 'absolute'});
 
-            if(this.tooltipOptions.defaultTheme) {
+            if (this.tooltipOptions.defaultTheme) {
                 $tip.css({
                     'background': '#fff',
                     'z-index': '1040',
@@ -330,12 +331,12 @@
         }
 
         // if it is a function callback get the content string
-        if (typeof(content) === 'function') {
+        if (typeof (content) === 'function') {
             content = content(item.series.label, x, y, item);
         }
 
         // the case where the passed content is equal to false
-        if (typeof(content) === 'boolean' && !content) {
+        if (typeof (content) === 'boolean' && !content) {
             return '';
         }
 
@@ -344,21 +345,21 @@
             p = item.series.percent;
         } else if (typeof (item.series.percents) !== 'undefined') {
             p = item.series.percents[item.dataIndex];
-        }        
+        }
         if (typeof p === 'number') {
             content = this.adjustValPrecision(percentPattern, content, p);
         }
 
         // series match
-        if (typeof(item.series.label) !== 'undefined') {
+        if (typeof (item.series.label) !== 'undefined') {
             content = content.replace(seriesPattern, item.series.label);
         } else {
             //remove %s if label is undefined
             content = content.replace(seriesPattern, "");
         }
-        
+
         // color match
-        if (typeof(item.series.color) !== 'undefined') {
+        if (typeof (item.series.color) !== 'undefined') {
             content = content.replace(colorPattern, item.series.color);
         } else {
             //remove %s if color is undefined
@@ -477,8 +478,8 @@
 
         var precision;
         var matchResult = content.match(pattern);
-        if( matchResult !== null ) {
-            if(RegExp.$1 !== '') {
+        if (matchResult !== null) {
+            if (RegExp.$1 !== '') {
                 precision = RegExp.$1;
                 value = value.toFixed(precision);
 
@@ -503,7 +504,7 @@
 
     //
     var init = function (plot) {
-      new FlotTooltip(plot);
+        new FlotTooltip(plot);
     };
 
     // define Flot plugin

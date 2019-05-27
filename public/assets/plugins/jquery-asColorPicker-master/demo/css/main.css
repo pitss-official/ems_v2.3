@@ -136,6 +136,7 @@ textarea {
 #wrapper {
     margin: 0 20px 0 170px;
 }
+
 code, pre {
     font-size: 12px;
 }
@@ -148,36 +149,33 @@ code, pre {
 }
 
 
-
 /* positons */
-.position_tooltip,.show {
+.position_tooltip, .show {
     margin: 0.5em;
     background: #ddddff;
     padding: 10px;
     cursor: default;
-    float:left;
+    float: left;
     width: 100px;
     text-align: center;
 }
+
 .show {
     width: auto;
 }
+
 .trace {
     width: 200px;
     height: 100px;
 }
+
 .positon_wrap {
     overflow: hidden;
 }
-.position_tooltip:nth-child(3n+1){
-    clear:left;
+
+.position_tooltip:nth-child(3n+1) {
+    clear: left;
 }
-
-
-
-
-
-
 
 
 /* ==========================================================================
@@ -291,8 +289,7 @@ code, pre {
     /* Style adjustments for viewports that meet the condition */
 }
 
-@media only screen and (-webkit-min-device-pixel-ratio: 1.5),
-       only screen and (min-resolution: 144dpi) {
+@media only screen and (-webkit-min-device-pixel-ratio: 1.5), only screen and (min-resolution: 144dpi) {
     /* Style adjustments for high resolution devices */
 }
 
@@ -305,7 +302,7 @@ code, pre {
     * {
         background: transparent !important;
         color: #000 !important; /* Black prints faster: h5bp.com/s */
-        box-shadow:none !important;
+        box-shadow: none !important;
         text-shadow: none !important;
     }
 
@@ -325,7 +322,6 @@ code, pre {
     /*
      * Don't show links for images, or javascript/internal links
      */
-
     .ir a:after,
     a[href^="javascript:"]:after,
     a[href^="#"]:after {

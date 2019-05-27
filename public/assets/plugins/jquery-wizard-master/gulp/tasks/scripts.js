@@ -105,7 +105,7 @@ export function scripts(src = config.scripts.src, dest = config.scripts.dest, en
 }
 
 export function version(src = config.scripts.src, file = config.scripts.version) {
-  return function() {
+  return function () {
     return gulp.src(path.join(src, file), {base: "./"})
       .pipe(replace(/("{0,1}|'{0,1})version\1\s*:\s*("|')([\d.]+)\2/, `$1version$1:$2${config.version}$2`))
       .pipe(gulp.dest("./", {overwrite: true}));

@@ -1,7 +1,7 @@
 // asColorPicker
 // Finnish (fi) localization
 
-(function($) {
+(function ($) {
     var localization = $.asColorPicker.localization["fi"] = {
         cancelText: "Kumoa",
         applyText: "Valitse"

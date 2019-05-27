@@ -10,7 +10,7 @@
 
     $.extend($.fn.bootstrapTable.defaults, {
         multipleSearch: false,
-	    delimeter: " "
+        delimeter: " "
     });
 
     var BootstrapTable = $.fn.bootstrapTable.Constructor,

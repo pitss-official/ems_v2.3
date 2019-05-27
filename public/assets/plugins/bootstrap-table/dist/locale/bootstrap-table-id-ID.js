@@ -1,6 +1,6 @@
 /**
  * Bootstrap Table Indonesian translation
- * Author: Andre Gardiner<andre@sirdre.com> 
+ * Author: Andre Gardiner<andre@sirdre.com>
  */
 (function ($) {
     'use strict';
@@ -14,7 +14,7 @@
         },
         formatShowingRows: function (pageFrom, pageTo, totalRows) {
             return 'Menampilkan ' + pageFrom + ' sampai ' + pageTo + ' dari ' + totalRows + ' baris';
-        }, 
+        },
         formatSearch: function () {
             return 'Pencarian';
         },

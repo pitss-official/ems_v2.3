@@ -1,7 +1,7 @@
 // asColorPicker
 // French (fr) localization
 
-(function($) {
+(function ($) {
     var localization = $.asColorPicker.localization["fr"] = {
         cancelText: "Annuler",
         applyText: "Valider"

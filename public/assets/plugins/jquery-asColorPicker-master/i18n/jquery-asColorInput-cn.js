@@ -1,7 +1,7 @@
 // asColorPicker
 // Chinese (cn) localization
 
-(function($) {
+(function ($) {
     var localization = $.asColorPicker.localization["cn"] = {
         cancelText: "取消",
         applyText: "应用"

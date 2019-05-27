@@ -5,17 +5,17 @@
  * @update Dennis Hernández <http://djhvscf.github.io/Blog>
  */
 
-!function($) {
+!function ($) {
     'use strict';
 
     var firstLoad = false;
 
-    var sprintf = function(str) {
+    var sprintf = function (str) {
         var args = arguments,
             flag = true,
             i = 1;
 
-        str = str.replace(/%s/g, function() {
+        str = str.replace(/%s/g, function () {
             var arg = args[i++];
 
             if (typeof arg === 'undefined') {
@@ -50,7 +50,7 @@
         return defaultValue;
     };
 
-    var showAvdSearch = function(pColumns, searchTitle, searchText, that) {
+    var showAvdSearch = function (pColumns, searchTitle, searchText, that) {
         if (!$("#avdSearchModal").hasClass("modal")) {
             var vModal = "<div id=\"avdSearchModal\" class=\"modal fade\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"mySmallModalLabel\" aria-hidden=\"true\">";
             vModal += "<div class=\"modal-dialog modal-xs\">";
@@ -70,7 +70,8 @@
             $("body").append($(vModal));
 
             var vFormAvd = createFormAvd(pColumns, searchText, that),
-                timeoutId = 0;;
+                timeoutId = 0;
+            ;
 
             $('#avdSearchModalContent').append(vFormAvd.join(''));
 
@@ -81,7 +82,7 @@
                 }, that.options.searchTimeOut);
             });
 
-            $("#btnCloseAvd").click(function() {
+            $("#btnCloseAvd").click(function () {
                 $("#avdSearchModal").modal('hide');
             });
 
@@ -91,7 +92,7 @@
         }
     };
 
-    var createFormAvd = function(pColumns, searchText, that) {
+    var createFormAvd = function (pColumns, searchText, that) {
         var htmlForm = [];
         htmlForm.push(sprintf('<form class="form-horizontal" id="%s" action="%s" >', that.options.idForm, that.options.actionForm));
         for (var i in pColumns) {
@@ -135,10 +136,10 @@
     });
 
     $.extend($.fn.bootstrapTable.locales, {
-        formatAdvancedSearch: function() {
+        formatAdvancedSearch: function () {
             return 'Advanced search';
         },
-        formatAdvancedCloseButton: function() {
+        formatAdvancedCloseButton: function () {
             return "Close";
         }
     });
@@ -146,11 +147,11 @@
     $.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales);
 
     var BootstrapTable = $.fn.bootstrapTable.Constructor,
-        _initToolbar = BootstrapTable.prototype.initToolbar,        
+        _initToolbar = BootstrapTable.prototype.initToolbar,
         _load = BootstrapTable.prototype.load,
         _initSearch = BootstrapTable.prototype.initSearch;
 
-    BootstrapTable.prototype.initToolbar = function() {
+    BootstrapTable.prototype.initToolbar = function () {
         _initToolbar.apply(this, Array.prototype.slice.apply(arguments));
 
         if (!this.options.search) {
@@ -172,12 +173,12 @@
         that.$toolbar.prepend(html.join(''));
 
         that.$toolbar.find('button[name="advancedSearch"]')
-            .off('click').on('click', function() {
-                showAvdSearch(that.options.columns, that.options.formatAdvancedSearch(), that.options.formatAdvancedCloseButton(), that);
-            });
+            .off('click').on('click', function () {
+            showAvdSearch(that.options.columns, that.options.formatAdvancedSearch(), that.options.formatAdvancedCloseButton(), that);
+        });
     };
 
-    BootstrapTable.prototype.load = function(data) {
+    BootstrapTable.prototype.load = function (data) {
         _load.apply(this, Array.prototype.slice.apply(arguments));
 
         if (typeof this.options.idTable === 'undefined') {

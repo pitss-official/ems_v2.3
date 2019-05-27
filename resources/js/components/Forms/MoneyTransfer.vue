@@ -16,14 +16,14 @@
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label class="control-label">Registration Number</label>
-                                                <input ref="regNo" v-validate="'required|numeric|digits:8'" v-model="student.collegeUID" @change="find" @tab="find" type="number" name="RegistrationNumber" autofocus class="form-control" placeholder="" required>
+                                                <input @change="find" @tab="find" autofocus class="form-control" name="RegistrationNumber" placeholder="" ref="regNo" required type="number" v-model="student.collegeUID" v-validate="'required|numeric|digits:8'">
                                                 <small class="form-control-feedback">Press TAB to fetch name</small> </div>
                                         </div>
                                         <!--/span-->
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label class="control-label">Name</label>
-                                                <input v-model="student.name" type="text" name="name" class="form-control" placeholder="Enter Registration Number to Fetch" readonly disabled>
+                                                <input class="form-control" disabled name="name" placeholder="Enter Registration Number to Fetch" readonly type="text" v-model="student.name">
                                                 <small class="form-control-feedback"></small> </div>
                                         </div>
                                         <!--/span-->
@@ -35,20 +35,20 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label class="control-label">Mobile Number (Optional)</label>
-                                            <input type="text" name="mobile" class="form-control" placeholder="">
+                                            <input class="form-control" name="mobile" placeholder="" type="text">
                                             <small class="form-control-feedback">Registered Mobile</small> </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label class="control-label">Amount</label>
-                                            <input onChange='$("#sub").focus()' type="number" name="amount" class="form-control" placeholder="₹" required value="0.00">
+                                            <input class="form-control" name="amount" onChange='$("#sub").focus()' placeholder="₹" required type="number" value="0.00">
                                             <small class="form-control-feedback">Currently Supported ₹,$</small> </div>
                                     </div>
                                 </div>
                                 <div class="form-actions">
-                                    <button class="btn btn-success" type="submit" id="sub"> <i class="fa fa-check"></i> Create Request</button>
-                                    <button type="button" class="btn btn-inverse" onClick="location.reload()">Retry Token</button>
-                                    <button type="reset" class="btn btn-danger">Cancel</button>
+                                    <button class="btn btn-success" id="sub" type="submit"> <i class="fa fa-check"></i> Create Request</button>
+                                    <button class="btn btn-inverse" onClick="location.reload()" type="button">Retry Token</button>
+                                    <button class="btn btn-danger" type="reset">Cancel</button>
                                 </div>
                             </form>
                         </div>

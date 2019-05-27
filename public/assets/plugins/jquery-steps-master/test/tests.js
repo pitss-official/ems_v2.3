@@ -3,11 +3,16 @@
 
 module("general");
 
-test("contentMode", 5, function ()
-{
-    throws(function() { $("#contentModeWithEmptyStringArgument").steps(); }, /The enum key/, "Empty string argument");
-    throws(function() { $("#contentModeWithWrongNumberArgument").steps(); }, /Invalid enum value/, "Invalid number argument");
-    throws(function() { $("#contentModeWithWrongStringArgument").steps(); }, /The enum key/, "Invalid string argument");
+test("contentMode", 5, function () {
+    throws(function () {
+        $("#contentModeWithEmptyStringArgument").steps();
+    }, /The enum key/, "Empty string argument");
+    throws(function () {
+        $("#contentModeWithWrongNumberArgument").steps();
+    }, /Invalid enum value/, "Invalid number argument");
+    throws(function () {
+        $("#contentModeWithWrongStringArgument").steps();
+    }, /The enum key/, "Invalid string argument");
 
     var contentModeWithNumberArgument = $("#contentModeWithNumberArgument").steps();
     equal(contentModeWithNumberArgument.steps("getCurrentStep").contentMode, 0, "Valid number argument");
@@ -17,47 +22,38 @@ test("contentMode", 5, function ()
 });
 
 module("visualization", {
-    setup: function ()
-    {
+    setup: function () {
         $("#qunit-fixture").append($("<div id=\"vis\">" +
-                "<h1>First</h1>" +
-                "<div>Content 1</div>" +
-                "<h1>Second</h1>" +
-                "<div>Content 2</div>" +
-                "<h1>Third</h1>" +
-                "<div>Content 3</div>" +
+            "<h1>First</h1>" +
+            "<div>Content 1</div>" +
+            "<h1>Second</h1>" +
+            "<div>Content 2</div>" +
+            "<h1>Third</h1>" +
+            "<div>Content 3</div>" +
             "</div>"));
 
         $("#vis").steps();
     },
-    teardown: function ()
-    {
+    teardown: function () {
         $("#vis").remove();
     }
 });
 
-test("stepClassFirstAndLast", 12, function ()
-{
-    function checkOnlyFirstItemHasClass()
-    {
+test("stepClassFirstAndLast", 12, function () {
+    function checkOnlyFirstItemHasClass() {
         var steps = $("#vis li[role=tab]");
-        for (var i = 0; i < steps.length; i++)
-        {
-            if (i > 0 && steps.eq(i).hasClass("first"))
-            {
+        for (var i = 0; i < steps.length; i++) {
+            if (i > 0 && steps.eq(i).hasClass("first")) {
                 return false;
             }
         }
         return steps.first().hasClass("first");
     }
 
-    function checkOnlyLastItemHasClass()
-    {
+    function checkOnlyLastItemHasClass() {
         var steps = $("#vis li[role=tab]");
-        for (var i = 0; i < steps.length; i++)
-        {
-            if (i < (steps.length - 1) && steps.eq(i).hasClass("last"))
-            {
+        for (var i = 0; i < steps.length; i++) {
+            if (i < (steps.length - 1) && steps.eq(i).hasClass("last")) {
                 return false;
             }
         }
@@ -94,15 +90,11 @@ test("stepClassFirstAndLast", 12, function ()
     ok(checkOnlyLastItemHasClass(), "Valid after previous (last)!");
 });
 
-test("stepClassCurrent", 6, function ()
-{
-    function checkOnlyItemOnPositionHasClass(index)
-    {
+test("stepClassCurrent", 6, function () {
+    function checkOnlyItemOnPositionHasClass(index) {
         var steps = $("#vis li[role=tab]");
-        for (var i = 0; i < steps.length; i++)
-        {
-            if (i !== index && steps.eq(i).hasClass("current"))
-            {
+        for (var i = 0; i < steps.length; i++) {
+            if (i !== index && steps.eq(i).hasClass("current")) {
                 return false;
             }
         }
@@ -133,28 +125,21 @@ test("stepClassCurrent", 6, function ()
     ok(checkOnlyItemOnPositionHasClass(0), "Valid after previous!");
 });
 
-test("stepClassDisabledAndDone", 12, function ()
-{
-    function checkOnlyItemAfterPositionHasClass(index)
-    {
+test("stepClassDisabledAndDone", 12, function () {
+    function checkOnlyItemAfterPositionHasClass(index) {
         var steps = $("#vis li[role=tab]");
-        for (var i = 0; i < steps.length; i++)
-        {
-            if (i <= index && steps.eq(i).hasClass("disabled"))
-            {
+        for (var i = 0; i < steps.length; i++) {
+            if (i <= index && steps.eq(i).hasClass("disabled")) {
                 return false;
             }
         }
         return (index > (steps.length - 1)) ? $("#vis li[role=tab]:gt(" + index + ")").hasClass("disabled") : true;
     }
 
-    function checkOnlyItemBeforePositionHasClass(index)
-    {
+    function checkOnlyItemBeforePositionHasClass(index) {
         var steps = $("#vis li[role=tab]");
-        for (var i = 0; i < steps.length; i++)
-        {
-            if (i >= index && steps.eq(i).hasClass("done"))
-            {
+        for (var i = 0; i < steps.length; i++) {
+            if (i >= index && steps.eq(i).hasClass("done")) {
                 return false;
             }
         }
@@ -196,26 +181,23 @@ test("stepClassDisabledAndDone", 12, function ()
 });
 
 module("internal", {
-    setup: function ()
-    {
+    setup: function () {
         $("#qunit-fixture").append($("<div id=\"internal\"></div>"));
         $("#internal").steps();
     },
-    teardown: function ()
-    {
+    teardown: function () {
         $("#internal").steps("destroy").remove();
     }
 });
 
-test("stepCache", 4, function ()
-{
+test("stepCache", 4, function () {
     var wizard = $("#internal"),
         steps = getSteps(wizard);
 
-    addStepToCache(wizard, $.extend({}, stepModel, { title: "add" }));
+    addStepToCache(wizard, $.extend({}, stepModel, {title: "add"}));
     equal(steps.length, 1, "Valid count after add step to cache!");
 
-    insertStepToCache(wizard, 0, $.extend({}, stepModel, { title: "insert" }));
+    insertStepToCache(wizard, 0, $.extend({}, stepModel, {title: "insert"}));
     equal(getStep(wizard, 0).title, "insert", "Valid position after insert step to cache!");
     equal(steps.length, 2, "Valid count after insert step to cache!");
 
@@ -223,15 +205,14 @@ test("stepCache", 4, function ()
     equal(steps.length, 1, "Valid count after remove step to cache!");
 });
 
-test("uniqueId", 5, function ()
-{
+test("uniqueId", 5, function () {
     // Custom Id Test
     var wizard = $("#internal");
 
     var wizardId = getUniqueId(wizard);
     equal(wizardId, "internal", "Valid id after initialization!");
 
-    wizard.steps("add", { title: "add" });
+    wizard.steps("add", {title: "add"});
     equal($("#" + wizardId + "-t-0").text(), "current step: 1. add", "Valid step id!");
     equal($("#" + wizardId + "-h-0").text(), "add", "Valid title id!");
     equal($("#" + wizardId + "-p-0").length, 1, "Valid panel id!");

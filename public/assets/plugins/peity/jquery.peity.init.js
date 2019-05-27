@@ -1,24 +1,23 @@
-        //pie
-            $("span.pie").peity("pie",{
-                width: 50,
-                height: 50 
-            });
-        
-        //donut
+//pie
+$("span.pie").peity("pie", {
+    width: 50,
+    height: 50
+});
 
-          $("span.donut").peity("donut",{
-                width: 50,
-                height: 50 
-            });
+//donut
 
-         // line
-         $('.peity-line').each(function() {
-            $(this).peity("line", $(this).data());
-         });
+$("span.donut").peity("donut", {
+    width: 50,
+    height: 50
+});
 
-         // bar
-          $('.peity-bar').each(function() {
-            $(this).peity("bar", $(this).data());
-         });
+// line
+$('.peity-line').each(function () {
+    $(this).peity("line", $(this).data());
+});
+
+// bar
+$('.peity-bar').each(function () {
+    $(this).peity("bar", $(this).data());
+});
          
-   

@@ -4,7 +4,7 @@
  * https://github.com/dimbslmh/bootstrap-table/tree/master/src/extensions/multiple-sort/bootstrap-table-multiple-sort.js
  */
 
-(function($) {
+(function ($) {
     'use strict';
 
     var isSingleSort = false;
@@ -14,14 +14,14 @@
             desc: 'Descending'
         },
         arrowAsc = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABMAAAATCAYAAAByUDbMAAAAZ' +
-        '0lEQVQ4y2NgGLKgquEuFxBPAGI2ahhWCsS/gDibUoO0gPgxEP8H4ttArEyuQYxAPBd' +
-        'qEAxPBImTY5gjEL9DM+wTENuQahAvEO9DMwiGdwAxOymGJQLxTyD+jgWDxCMZRsEoGAVo' +
-        'AADeemwtPcZI2wAAAABJRU5ErkJggg==',
+            '0lEQVQ4y2NgGLKgquEuFxBPAGI2ahhWCsS/gDibUoO0gPgxEP8H4ttArEyuQYxAPBd' +
+            'qEAxPBImTY5gjEL9DM+wTENuQahAvEO9DMwiGdwAxOymGJQLxTyD+jgWDxCMZRsEoGAVo' +
+            'AADeemwtPcZI2wAAAABJRU5ErkJggg==',
         arrowDesc = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABMAAAATCAYAAAByUDbMAAAAZUlEQVQ4y2NgGAWj' +
-        'YBSggaqGu5FA/BOIv2PBIPFEUgxjB+IdQPwfC94HxLykus4GiD+hGfQOiB3J8SojEE9EM2wuSJ' +
-        'zcsFMG4ttQgx4DsRalkZENxL+AuJQaMcsGxBOAmGvopk8AVz1sLZgg0bsAAAAASUVORK5CYII= ';
+            'YBSggaqGu5FA/BOIv2PBIPFEUgxjB+IdQPwfC94HxLykus4GiD+hGfQOiB3J8SojEE9EM2wuSJ' +
+            'zcsFMG4ttQgx4DsRalkZENxL+AuJQaMcsGxBOAmGvopk8AVz1sLZgg0bsAAAAASUVORK5CYII= ';
 
-    var showSortModal = function(that) {
+    var showSortModal = function (that) {
         if (!$("#sortModal").hasClass("modal")) {
             var sModal = '  <div class="modal fade" id="sortModal" tabindex="-1" role="dialog" aria-labelledby="sortModalLabel" aria-hidden="true">';
             sModal += '         <div class="modal-dialog">';
@@ -67,7 +67,7 @@
             var $sortModal = $('#sortModal'),
                 $rows = $sortModal.find("tbody > tr");
 
-            $sortModal.off('click', '#add').on('click', '#add', function() {
+            $sortModal.off('click', '#add').on('click', '#add', function () {
                 var total = $sortModal.find('.multi-sort-name:first option').length,
                     current = $sortModal.find('tbody tr').length;
 
@@ -78,7 +78,7 @@
                 }
             });
 
-            $sortModal.off('click', '#delete').on('click', '#delete', function() {
+            $sortModal.off('click', '#delete').on('click', '#delete', function () {
                 var total = $sortModal.find('.multi-sort-name:first option').length,
                     current = $sortModal.find('tbody tr').length;
 
@@ -89,14 +89,14 @@
                 }
             });
 
-            $sortModal.off('click', '.btn-primary').on('click', '.btn-primary', function() {
+            $sortModal.off('click', '.btn-primary').on('click', '.btn-primary', function () {
                 var $rows = $sortModal.find("tbody > tr"),
                     $alert = $sortModal.find('div.alert'),
                     fields = [],
                     results = [];
 
 
-                that.options.sortPriority = $.map($rows, function(row) {
+                that.options.sortPriority = $.map($rows, function (row) {
                     var $row = $(row),
                         name = $row.find('.multi-sort-name').val(),
                         order = $row.find('.multi-sort-order').val();
@@ -141,7 +141,7 @@
                     }];
                 }
             }
-            
+
             if (that.options.sortPriority !== null) {
                 if ($rows.length < that.options.sortPriority.length && typeof that.options.sortPriority === 'object') {
                     for (var i = 0; i < that.options.sortPriority.length; i++) {
@@ -159,7 +159,7 @@
     $.extend($.fn.bootstrapTable.defaults, {
         showMultiSort: false,
         sortPriority: null,
-        onMultipleSort: function() {
+        onMultipleSort: function () {
             return false;
         }
     });
@@ -175,37 +175,37 @@
     });
 
     $.extend($.fn.bootstrapTable.locales, {
-        formatMultipleSort: function() {
+        formatMultipleSort: function () {
             return 'Multiple Sort';
         },
-        formatAddLevel: function() {
+        formatAddLevel: function () {
             return "Add Level";
         },
-        formatDeleteLevel: function() {
+        formatDeleteLevel: function () {
             return "Delete Level";
         },
-        formatColumn: function() {
+        formatColumn: function () {
             return "Column";
         },
-        formatOrder: function() {
+        formatOrder: function () {
             return "Order";
         },
-        formatSortBy: function() {
+        formatSortBy: function () {
             return "Sort by";
         },
-        formatThenBy: function() {
+        formatThenBy: function () {
             return "Then by";
         },
-        formatSort: function() {
+        formatSort: function () {
             return "Sort";
         },
-        formatCancel: function() {
+        formatCancel: function () {
             return "Cancel";
         },
-        formatDuplicateAlertTitle: function() {
+        formatDuplicateAlertTitle: function () {
             return "Duplicate(s) detected!";
         },
-        formatDuplicateAlertDescription: function() {
+        formatDuplicateAlertDescription: function () {
             return "Please remove or change any duplicate column.";
         }
     });
@@ -215,7 +215,7 @@
     var BootstrapTable = $.fn.bootstrapTable.Constructor,
         _initToolbar = BootstrapTable.prototype.initToolbar;
 
-    BootstrapTable.prototype.initToolbar = function() {
+    BootstrapTable.prototype.initToolbar = function () {
         this.showToolbar = true;
         var that = this;
 
@@ -235,21 +235,21 @@
                 showSortModal(that);
             }
 
-            this.$el.one('sort.bs.table', function() {
+            this.$el.one('sort.bs.table', function () {
                 isSingleSort = true;
             });
 
-            this.$el.on('multiple-sort.bs.table', function() {
+            this.$el.on('multiple-sort.bs.table', function () {
                 isSingleSort = false;
             });
 
-            this.$el.on('load-success.bs.table', function() {
+            this.$el.on('load-success.bs.table', function () {
                 if (!isSingleSort && that.options.sortPriority !== null && typeof that.options.sortPriority === 'object') {
                     that.onMultipleSort();
                 }
             });
 
-            this.$el.on('column-switch.bs.table', function() {
+            this.$el.on('column-switch.bs.table', function () {
                 that.options.sortPriority = null;
                 $('#sortModal').remove();
                 showSortModal(that);
@@ -257,14 +257,14 @@
         }
     };
 
-    BootstrapTable.prototype.onMultipleSort = function() {
+    BootstrapTable.prototype.onMultipleSort = function () {
         var that = this;
-        
-        var cmp = function(x, y) {
+
+        var cmp = function (x, y) {
             return x > y ? 1 : x < y ? -1 : 0;
         };
 
-        var arrayCmp = function(a, b) {
+        var arrayCmp = function (a, b) {
             var arr1 = [],
                 arr2 = [];
 
@@ -296,7 +296,7 @@
             return cmp(arr1, arr2);
         };
 
-        this.data.sort(function(a, b) {
+        this.data.sort(function (a, b) {
             return arrayCmp(a, b);
         });
 
@@ -305,7 +305,7 @@
         this.trigger('multiple-sort');
     };
 
-    BootstrapTable.prototype.addLevel = function(index, sortPriority) {
+    BootstrapTable.prototype.addLevel = function (index, sortPriority) {
         var $sortModal = $("#sortModal"),
             text = index === 0 ? this.options.formatSortBy() : this.options.formatThenBy();
 
@@ -319,14 +319,14 @@
         var $multiSortName = $sortModal.find('.multi-sort-name').last(),
             $multiSortOrder = $sortModal.find('.multi-sort-order').last();
 
-        this.options.columns.forEach(function(column) {
+        this.options.columns.forEach(function (column) {
             if (column.sortable === false || column.visible === false) {
                 return true;
             }
             $multiSortName.append('<option value="' + column.field + '">' + column.title + '</option>');
         });
 
-        $.each(sort_order, function(value, order) {
+        $.each(sort_order, function (value, order) {
             $multiSortOrder.append('<option value="' + value + '">' + order + '</option>');
         });
 
@@ -336,7 +336,7 @@
         }
     };
 
-    BootstrapTable.prototype.assignSortableArrows = function() {
+    BootstrapTable.prototype.assignSortableArrows = function () {
         var that = this,
             headers = that.$header.find('th');
 
@@ -349,7 +349,7 @@
         }
     };
 
-    BootstrapTable.prototype.setButtonStates = function() {
+    BootstrapTable.prototype.setButtonStates = function () {
         var $sortModal = $('#sortModal'),
             total = $sortModal.find('.multi-sort-name:first option').length,
             current = $sortModal.find('tbody tr').length;

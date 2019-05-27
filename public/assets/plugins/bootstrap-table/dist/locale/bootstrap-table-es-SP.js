@@ -2,9 +2,9 @@
  * Bootstrap Table Spanish (España) translation
  * Author: Antonio Pérez <anpegar@gmail.com>
  */
- (function ($) {
+(function ($) {
     'use strict';
-    
+
     $.fn.bootstrapTable.locales['es-SP'] = {
         formatLoadingMessage: function () {
             return 'Cargando, por favor espera...';

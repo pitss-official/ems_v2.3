@@ -3,7 +3,7 @@ import babel from 'rollup-plugin-babel';
 import babelrc from 'babelrc-rollup';
 import istanbul from 'rollup-plugin-istanbul';
 
-module.exports = function(config) {
+module.exports = function (config) {
   config.set({
 
     // base path that will be used to resolve all patterns (eg. files, exclude)
@@ -38,8 +38,7 @@ module.exports = function(config) {
     },
 
     // list of files to exclude
-    exclude: [
-    ],
+    exclude: [],
 
 
     // test results reporter to use
@@ -94,9 +93,9 @@ module.exports = function(config) {
       plugins: [
         babel(babelrc()),
         istanbul({
-            include: ['src/**/*.js'],
-            exclude: ['test/spec/**/*.spec.js', 'node_modules/**'],
-            // instrumenter: babel_istanbul
+          include: ['src/**/*.js'],
+          exclude: ['test/spec/**/*.spec.js', 'node_modules/**'],
+          // instrumenter: babel_istanbul
         }),
       ],
       sourceMap: 'inline'

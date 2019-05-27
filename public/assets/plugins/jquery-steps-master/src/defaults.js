@@ -128,7 +128,7 @@ var defaults = $.fn.steps.defaults = {
      */
 
     /**
-     * Sets the focus to the first wizard instance in order to enable the key navigation from the begining if `true`. 
+     * Sets the focus to the first wizard instance in order to enable the key navigation from the begining if `true`.
      *
      * @property autoFocus
      * @type Boolean
@@ -219,7 +219,7 @@ var defaults = $.fn.steps.defaults = {
     preloadContent: false,
 
     /**
-     * Shows the finish button always (on each step; right beside the next button) if `true`. 
+     * Shows the finish button always (on each step; right beside the next button) if `true`.
      * Otherwise the next button will be replaced by the finish button if the last step becomes active.
      *
      * @property showFinishButtonAlways
@@ -289,79 +289,88 @@ var defaults = $.fn.steps.defaults = {
      */
 
     /**
-     * Fires before the step changes and can be used to prevent step changing by returning `false`. 
-     * Very useful for form validation. 
+     * Fires before the step changes and can be used to prevent step changing by returning `false`.
+     * Very useful for form validation.
      *
      * @property onStepChanging
      * @type Event
      * @default function (event, currentIndex, newIndex) { return true; }
      * @for defaults
      **/
-    onStepChanging: function (event, currentIndex, newIndex) { return true; },
+    onStepChanging: function (event, currentIndex, newIndex) {
+        return true;
+    },
 
     /**
-     * Fires after the step has change. 
+     * Fires after the step has change.
      *
      * @property onStepChanged
      * @type Event
      * @default function (event, currentIndex, priorIndex) { }
      * @for defaults
      **/
-    onStepChanged: function (event, currentIndex, priorIndex) { },
+    onStepChanged: function (event, currentIndex, priorIndex) {
+    },
 
     /**
-     * Fires after cancelation. 
+     * Fires after cancelation.
      *
      * @property onCanceled
      * @type Event
      * @default function (event) { }
      * @for defaults
      **/
-    onCanceled: function (event) { },
+    onCanceled: function (event) {
+    },
 
     /**
-     * Fires before finishing and can be used to prevent completion by returning `false`. 
-     * Very useful for form validation. 
+     * Fires before finishing and can be used to prevent completion by returning `false`.
+     * Very useful for form validation.
      *
      * @property onFinishing
      * @type Event
      * @default function (event, currentIndex) { return true; }
      * @for defaults
      **/
-    onFinishing: function (event, currentIndex) { return true; },
+    onFinishing: function (event, currentIndex) {
+        return true;
+    },
 
     /**
-     * Fires after completion. 
+     * Fires after completion.
      *
      * @property onFinished
      * @type Event
      * @default function (event, currentIndex) { }
      * @for defaults
      **/
-    onFinished: function (event, currentIndex) { },
+    onFinished: function (event, currentIndex) {
+    },
 
     /**
-     * Fires after async content is loaded. 
+     * Fires after async content is loaded.
      *
      * @property onContentLoaded
      * @type Event
      * @default function (event, index) { }
      * @for defaults
      **/
-    onContentLoaded: function (event, currentIndex) { },
+    onContentLoaded: function (event, currentIndex) {
+    },
 
     /**
-     * Fires when the wizard is initialized. 
+     * Fires when the wizard is initialized.
      *
      * @property onInit
      * @type Event
      * @default function (event) { }
      * @for defaults
      **/
-    onInit: function (event, currentIndex) { },
+    onInit: function (event, currentIndex) {
+    },
 
     /**
-     * Contains all labels. 
+     * Contains all labels.
      *
      * @property labels
      * @type Object

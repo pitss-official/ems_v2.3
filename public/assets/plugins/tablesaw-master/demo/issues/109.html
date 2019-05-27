@@ -2,22 +2,22 @@
 <html lang="en">
   <head>
 	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta content="width=device-width, initial-scale=1" name="viewport">
 	<title>TableSaw Sortable Table</title>
-    <link rel="stylesheet" href="/tablesaw/dist/tablesaw.css">
+    <link href="/tablesaw/dist/tablesaw.css" rel="stylesheet">
     <script src="http://code.jquery.com/jquery-1.10.1.js"></script>
     <script src="/tablesaw/dist/tablesaw.js"></script>
     <script src="/tablesaw/dist/tablesaw-init.js"></script>
   </head>
 <body>
-<table id="table2" class="tablesaw" data-tablesaw-mode="swipe" data-tablesaw-sortable data-tablesaw-sortable-switch data-tablesaw-minimap data-tablesaw-mode-switch>
+<table class="tablesaw" data-tablesaw-minimap data-tablesaw-mode="swipe" data-tablesaw-mode-switch data-tablesaw-sortable data-tablesaw-sortable-switch id="table2">
 			<thead>
 				<tr>
-					<th scope="col" data-tablesaw-sortable-col data-tablesaw-priority="persist" data-sortable-numeric="false">Movie Title</th>
-					<th scope="col" data-tablesaw-sortable-col data-tablesaw-sortable-default-col data-tablesaw-priority="3">Rank</th>
-					<th scope="col" data-tablesaw-sortable-col data-tablesaw-priority="2">Year</th>
-					<th scope="col" data-tablesaw-sortable-col data-tablesaw-priority="1"><abbr title="Rotten Tomato Rating">Rating</abbr></th>
-					<th scope="col" data-tablesaw-sortable-col data-tablesaw-priority="4">Gross</th>
+					<th data-sortable-numeric="false" data-tablesaw-priority="persist" data-tablesaw-sortable-col scope="col">Movie Title</th>
+					<th data-tablesaw-priority="3" data-tablesaw-sortable-col data-tablesaw-sortable-default-col scope="col">Rank</th>
+					<th data-tablesaw-priority="2" data-tablesaw-sortable-col scope="col">Year</th>
+					<th data-tablesaw-priority="1" data-tablesaw-sortable-col scope="col"><abbr title="Rotten Tomato Rating">Rating</abbr></th>
+					<th data-tablesaw-priority="4" data-tablesaw-sortable-col scope="col">Gross</th>
 				</tr>
 			</thead>
 			<tbody>

@@ -1,7 +1,7 @@
 // asColorPicker
 // Russian (ru) localization
 
-(function($) {
+(function ($) {
     var localization = $.asColorPicker.localization["ru"] = {
         cancelText: "отмена",
         applyText: "выбрать"

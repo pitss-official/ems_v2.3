@@ -16,12 +16,12 @@ class CreateUserNavigationTable extends Migration
         Schema::create('user_navigation', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedBigInteger('menu_id');
-            $table->string('menu_name',255);
-            $table->string('icon',255);
+            $table->string('menu_name', 255);
+            $table->string('icon', 255);
             $table->unsignedBigInteger('parent_id');
-            $table->string('link',255);
+            $table->string('link', 255);
             $table->unsignedTinyInteger('status');
-            $table->string('title',255);
+            $table->string('title', 255);
             $table->unsignedInteger('level');
             $table->unsignedInteger('jump_id');
             $table->timestamps();

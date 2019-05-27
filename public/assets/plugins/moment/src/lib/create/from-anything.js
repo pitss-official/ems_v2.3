@@ -13,7 +13,7 @@ import {configFromString} from './from-string';
 import {configFromArray} from './from-array';
 import {configFromObject} from './from-object';
 
-function createFromConfig (config) {
+function createFromConfig(config) {
     var res = new Moment(checkOverflow(prepareConfig(config)));
     if (res._nextDay) {
         // Adding is smart enough around DST
@@ -24,7 +24,7 @@ function createFromConfig (config) {
     return res;
 }
 
-export function prepareConfig (config) {
+export function prepareConfig(config) {
     var input = config._i,
         format = config._f;
 
@@ -66,9 +66,9 @@ function configFromInput(config) {
             return parseInt(obj, 10);
         });
         configFromArray(config);
-    } else if (typeof(input) === 'object') {
+    } else if (typeof (input) === 'object') {
         configFromObject(config);
-    } else if (typeof(input) === 'number') {
+    } else if (typeof (input) === 'number') {
         // from milliseconds
         config._d = new Date(input);
     } else {
@@ -76,10 +76,10 @@ function configFromInput(config) {
     }
 }
 
-export function createLocalOrUTC (input, format, locale, strict, isUTC) {
+export function createLocalOrUTC(input, format, locale, strict, isUTC) {
     var c = {};
 
-    if (typeof(locale) === 'boolean') {
+    if (typeof (locale) === 'boolean') {
         strict = locale;
         locale = undefined;
     }

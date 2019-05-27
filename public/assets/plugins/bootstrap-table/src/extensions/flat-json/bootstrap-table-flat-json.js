@@ -16,7 +16,7 @@
         _initData = BootstrapTable.prototype.initData;
 
     BootstrapTable.prototype.initData = function (data, type) {
-        if( this.options.flat ){
+        if (this.options.flat) {
             data = data === undefined ? this.options.data : data;
             data = sd.flatHelper(data);
         }

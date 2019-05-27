@@ -12,15 +12,15 @@ end_of_line = lf
 insert_final_newline = true
 trim_trailing_whitespace = true
 
-[*.{css,less,scss}]
+[*.{css, less, scss}]
 indent_style = space
 indent_size = 2
 
-[*.{js,json}]
+[*.{js, json}]
 indent_style = space
 indent_size = 2
 
-[*.{html,hbs}]
+[*.{html, hbs}]
 indent_style = tab
 indent_size = 2
 

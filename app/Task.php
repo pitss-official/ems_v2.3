@@ -11,6 +11,7 @@ class Task extends Model
     {
         return $this->belongsToMany('App\User');
     }
+
     public function roles()
     {
         return $this->belongsToMany('App\Role');

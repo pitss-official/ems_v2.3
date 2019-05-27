@@ -24,6 +24,10 @@ class wizard {
     this.initialize();
   }
 
+  static setDefaults(options) {
+    $.extend(true, DEFAULTS, $.isPlainObject(options) && options);
+  }
+
   initialize() {
     this.steps = [];
     const that = this;
@@ -295,10 +299,6 @@ class wizard {
     });
 
     this.trigger('reset');
-  }
-
-  static setDefaults(options) {
-    $.extend(true, DEFAULTS, $.isPlainObject(options) && options);
   }
 }
 

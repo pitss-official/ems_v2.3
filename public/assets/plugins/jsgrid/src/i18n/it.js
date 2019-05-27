@@ -1,4 +1,4 @@
-(function(jsGrid) {
+(function (jsGrid) {
 
     jsGrid.locales.it = {
         grid: {
@@ -32,14 +32,14 @@
         },
 
         validators: {
-            required: { message: "Campo richiesto" },
-            rangeLength: { message: "La dimensione del valore del campo è fuori dell'intervallo definito" },
-            minLength: { message: "Il valore del campo è troppo breve" },
-            maxLength: { message: "Il valore del campo è troppo lungo" },
-            pattern: { message: "Il valore del campo non corrisponde alla configurazione definita" },
-            range: { message: "Il valore del campo è al di fuori dell'intervallo definito" },
-            min: { message: "Il valore del campo è troppo piccolo" },
-            max: { message: "Il valore del campo è troppo grande" }
+            required: {message: "Campo richiesto"},
+            rangeLength: {message: "La dimensione del valore del campo è fuori dell'intervallo definito"},
+            minLength: {message: "Il valore del campo è troppo breve"},
+            maxLength: {message: "Il valore del campo è troppo lungo"},
+            pattern: {message: "Il valore del campo non corrisponde alla configurazione definita"},
+            range: {message: "Il valore del campo è al di fuori dell'intervallo definito"},
+            min: {message: "Il valore del campo è troppo piccolo"},
+            max: {message: "Il valore del campo è troppo grande"}
         }
     };
 

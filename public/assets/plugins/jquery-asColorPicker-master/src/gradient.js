@@ -1,7 +1,7 @@
 // gradient
 
-(function($, asGradient) {
-    $.asColorPicker.registerComponent('gradient', function() {
+(function ($, asGradient) {
+    $.asColorPicker.registerComponent('gradient', function () {
         return {
             defaults: {
                 switchable: true,
@@ -15,7 +15,7 @@
                     cleanPosition: false,
                     forceColorFormat: 'rgb', // rgb, rgba, hsl, hsla, hex
                 },
-                template: function() {
+                template: function () {
                     var namespace = this.api.namespace;
                     var control = '<div class="' + namespace + '-gradient-control">';
                     if (this.options.switchable) {
@@ -36,10 +36,10 @@
                         '</div>';
                 }
             },
-            init: function(api, options) {
+            init: function (api, options) {
                 var self = this;
 
-                api.$element.on('asColorPicker::ready', function(event, instance) {
+                api.$element.on('asColorPicker::ready', function (event, instance) {
                     if (instance.options.mode !== 'gradient') {
                         return;
                     }
@@ -62,7 +62,7 @@
         return n * 100 + '%';
     }
 
-    var Gradient = function(api, options) {
+    var Gradient = function (api, options) {
         this.api = api;
         this.options = options;
         this.classes = {
@@ -79,7 +79,7 @@
 
         var self = this;
         $.extend(self, {
-            init: function() {
+            init: function () {
                 self.$wrap = $(self.options.template.call(self)).appendTo(api.$dropdown);
 
                 self.$gradient = self.$wrap.filter('.' + api.namespace + '-gradient');
@@ -100,10 +100,10 @@
                 }
                 this.initialized = true;
             },
-            bind: function() {
+            bind: function () {
                 var namespace = api.namespace;
 
-                self.$gradient.on('update', function() {
+                self.$gradient.on('update', function () {
                     var current = self.value.getById(self.current);
 
                     if (current) {
@@ -124,7 +124,7 @@
                 // });
 
                 if (self.options.switchable) {
-                    self.$wrap.on('click', '.' + namespace + '-gradient-switch', function() {
+                    self.$wrap.on('click', '.' + namespace + '-gradient-switch', function () {
                         if (self.isEnabled) {
                             self.disable();
                         } else {
@@ -135,7 +135,7 @@
                     });
                 }
 
-                self.$wrap.on('click', '.' + namespace + '-gradient-cancel', function() {
+                self.$wrap.on('click', '.' + namespace + '-gradient-cancel', function () {
                     if (self.options.switchable === false || asGradient.matchString(api.originValue)) {
                         self.overrideCore();
                     }
@@ -145,8 +145,8 @@
                     return false;
                 });
             },
-            overrideCore: function() {
-                api.set = function(value) {
+            overrideCore: function () {
+                api.set = function (value) {
                     if (value !== '') {
                         api.isEmpty = false;
                     } else {
@@ -180,28 +180,28 @@
                     }
                 };
 
-                api._setup = function() {
+                api._setup = function () {
                     var current = self.value.getById(self.current);
 
                     api._trigger('setup', current.color);
                 };
             },
-            revertCore: function() {
+            revertCore: function () {
                 api.set = $.proxy(api._set, api);
-                api._setup = function() {
+                api._setup = function () {
                     api._trigger('setup', api.color);
                 };
             },
             preview: {
-                init: function() {
+                init: function () {
                     var that = this;
                     self.$preview = self.$gradient.find('.' + api.namespace + '-gradient-preview');
 
-                    self.$gradient.on('add del update empty', function() {
+                    self.$gradient.on('add del update empty', function () {
                         that.render();
                     });
                 },
-                render: function() {
+                render: function () {
                     self.$preview.css({
                         'background-image': self.value.toStringWithAngle('to right', true),
                     });
@@ -212,33 +212,33 @@
             },
             markers: {
                 width: 160,
-                init: function() {
+                init: function () {
                     self.$markers = self.$gradient.find('.' + api.namespace + '-gradient-markers').attr('tabindex', 0);
                     var that = this;
 
-                    self.$gradient.on('add', function(e, data) {
+                    self.$gradient.on('add', function (e, data) {
                         that.add(data.stop);
                     });
 
-                    self.$gradient.on('active', function(e, data) {
+                    self.$gradient.on('active', function (e, data) {
                         that.active(data.id);
                     });
 
-                    self.$gradient.on('del', function(e, data) {
+                    self.$gradient.on('del', function (e, data) {
                         that.del(data.id);
                     });
 
-                    self.$gradient.on('update', function(e, data) {
+                    self.$gradient.on('update', function (e, data) {
                         if (data.stop) {
                             that.update(data.stop.id, data.stop.color);
                         }
                     });
 
-                    self.$gradient.on('empty', function() {
+                    self.$gradient.on('empty', function () {
                         that.empty();
                     });
 
-                    self.$markers.on('mousedown.asColorPicker', function(e) {
+                    self.$markers.on('mousedown.asColorPicker', function (e) {
                         var rightclick = (e.which) ? (e.which === 3) : (e.button === 2);
                         if (rightclick) {
                             return false;
@@ -249,7 +249,7 @@
                         return false;
                     });
 
-                    self.$markers.on('mousedown.asColorPicker', 'li', function(e) {
+                    self.$markers.on('mousedown.asColorPicker', 'li', function (e) {
                         var rightclick = (e.which) ? (e.which === 3) : (e.button === 2);
                         if (rightclick) {
                             return false;
@@ -258,7 +258,7 @@
                         return false;
                     });
 
-                    self.$doc.on('keydown.asColorPicker', function(e) {
+                    self.$doc.on('keydown.asColorPicker', function (e) {
                         if (self.api.opened && self.$markers.is('.' + self.classes.focus)) {
 
                             var key = e.keyCode || e.which;
@@ -274,32 +274,32 @@
                         }
                     });
 
-                    self.$markers.on('focus.asColorPicker', function() {
+                    self.$markers.on('focus.asColorPicker', function () {
                         self.$markers.addClass(self.classes.focus);
-                    }).on('blur.asColorPicker', function() {
+                    }).on('blur.asColorPicker', function () {
                         self.$markers.removeClass(self.classes.focus);
                     });
 
-                    self.$markers.on('click', 'li', function() {
+                    self.$markers.on('click', 'li', function () {
                         var id = $(this).data('id');
                         self.active(id);
                     });
                 },
-                getMarker: function(id) {
+                getMarker: function (id) {
                     return self.$markers.find('[data-id="' + id + '"]');
                 },
-                update: function(id, color) {
+                update: function (id, color) {
                     var $marker = this.getMarker(id);
                     $marker.find('span').css('background-color', color.toHEX());
                     $marker.find('i').css('background-color', color.toHEX());
                 },
-                add: function(stop) {
+                add: function (stop) {
                     $('<li data-id="' + stop.id + '" style="left:' + conventToPercentage(stop.position) + '" class="' + self.classes.marker + '"><span style="background-color: ' + stop.color.toHEX() + '"></span><i style="background-color: ' + stop.color.toHEX() + '"></i></li>').appendTo(self.$markers);
                 },
-                empty: function() {
+                empty: function () {
                     self.$markers.html('');
                 },
-                del: function(id) {
+                del: function (id) {
                     var $marker = this.getMarker(id);
                     var $to = $marker.prev();
                     if ($to.length === 0) {
@@ -309,7 +309,7 @@
                     self.active($to.data('id'));
                     $marker.remove();
                 },
-                active: function(id) {
+                active: function (id) {
                     self.$markers.children().removeClass(self.classes.active);
 
                     var $marker = this.getMarker(id);
@@ -318,21 +318,21 @@
                     self.$markers.focus();
                     // self.api._trigger('apply', self.value.getById(id).color);
                 },
-                mousedown: function(marker, e) {
+                mousedown: function (marker, e) {
                     var that = this,
                         id = $(marker).data('id'),
                         first = $(marker).position().left,
                         start = e.pageX,
                         end;
 
-                    this.mousemove = function(e) {
+                    this.mousemove = function (e) {
                         end = e.pageX || start;
                         var position = (first + end - start) / this.width;
                         that.move(marker, position, id);
                         return false;
                     };
 
-                    this.mouseup = function() {
+                    this.mouseup = function () {
                         $(document).off({
                             mousemove: this.mousemove,
                             mouseup: this.mouseup
@@ -348,7 +348,7 @@
                     self.active(id);
                     return false;
                 },
-                move: function(marker, position, id) {
+                move: function (marker, position, id) {
                     self.api.isEmpty = false;
                     position = Math.max(0, Math.min(1, position));
                     $(marker).css({
@@ -367,18 +367,18 @@
                 },
             },
             wheel: {
-                init: function() {
+                init: function () {
                     var that = this;
                     self.$wheel = self.$gradient.find('.' + api.namespace + '-gradient-wheel');
                     self.$pointer = self.$wheel.find('i');
 
-                    self.$gradient.on('update', function(e, data) {
+                    self.$gradient.on('update', function (e, data) {
                         if (typeof data.angle !== 'undefined') {
                             that.position(data.angle);
                         }
                     });
 
-                    self.$wheel.on('mousedown.asColorPicker', function(e) {
+                    self.$wheel.on('mousedown.asColorPicker', function (e) {
                         var rightclick = (e.which) ? (e.which === 3) : (e.button === 2);
                         if (rightclick) {
                             return false;
@@ -387,7 +387,7 @@
                         return false;
                     });
                 },
-                mousedown: function(e, self) {
+                mousedown: function (e, self) {
                     var offset = self.$wheel.offset();
                     var r = self.$wheel.width() / 2;
                     var startX = offset.left + r;
@@ -397,7 +397,7 @@
 
                     this.r = r;
 
-                    this.wheelMove = function(e) {
+                    this.wheelMove = function (e) {
                         var x = e.pageX - startX;
                         var y = startY - e.pageY;
 
@@ -406,7 +406,7 @@
                         self.api.isEmpty = false;
                         self.setAngle(angle);
                     };
-                    this.wheelMouseup = function() {
+                    this.wheelMouseup = function () {
                         $doc.off({
                             mousemove: this.wheelMove,
                             mouseup: this.wheelMouseup
@@ -420,7 +420,7 @@
 
                     this.wheelMove(e);
                 },
-                getPosition: function(a, b) {
+                getPosition: function (a, b) {
                     var r = this.r;
                     var x = a / Math.sqrt(a * a + b * b) * r;
                     var y = b / Math.sqrt(a * a + b * b) * r;
@@ -429,7 +429,7 @@
                         y: y
                     };
                 },
-                calAngle: function(x, y) {
+                calAngle: function (x, y) {
                     var deg = Math.round(Math.atan(Math.abs(x / y)) * (180 / Math.PI));
                     if (x < 0 && y > 0) {
                         return 360 - deg;
@@ -444,13 +444,13 @@
                         return deg;
                     }
                 },
-                set: function(value) {
+                set: function (value) {
                     self.value.angle(value);
                     self.$gradient.trigger('update', {
                         angle: value
                     });
                 },
-                position: function(angle) {
+                position: function (angle) {
                     var r = this.r || self.$wheel.width() / 2;
                     var pos = this.calPointer(angle, r);
                     self.$pointer.css({
@@ -458,7 +458,7 @@
                         top: pos.y
                     });
                 },
-                calPointer: function(angle, r) {
+                calPointer: function (angle, r) {
                     var x = Math.sin(angle * Math.PI / 180) * r;
                     var y = Math.cos(angle * Math.PI / 180) * r;
                     return {
@@ -468,13 +468,13 @@
                 }
             },
             angle: {
-                init: function() {
+                init: function () {
                     self.$angle = self.$gradient.find('.' + api.namespace + '-gradient-angle');
 
-                    self.$angle.on('blur.asColorPicker', function() {
+                    self.$angle.on('blur.asColorPicker', function () {
                         self.setAngle(this.value);
                         return false;
-                    }).on('keydown.asColorPicker', function(e) {
+                    }).on('keydown.asColorPicker', function (e) {
                         var key = e.keyCode || e.which;
                         if (key === 13) {
                             self.api.isEmpty = false;
@@ -483,13 +483,13 @@
                         }
                     });
 
-                    self.$gradient.on('update', function(e, data) {
+                    self.$gradient.on('update', function (e, data) {
                         if (typeof data.angle !== 'undefined') {
                             self.$angle.val(data.angle);
                         }
                     });
                 },
-                set: function(value) {
+                set: function (value) {
                     self.value.angle(value);
                     self.$gradient.trigger('update', {
                         angle: value
@@ -504,13 +504,12 @@
     Gradient.prototype = {
         constructor: Gradient,
 
-        enable: function(value) {
+        enable: function (value) {
             if (this.isEnabled === true) {
                 return;
             }
             this.isEnabled = true;
             this.overrideCore();
-
 
 
             this.$gradient.addClass(this.classes.enable);
@@ -539,7 +538,7 @@
                 this.api.position();
             }
         },
-        val: function(string) {
+        val: function (string) {
             if (string !== '' && this.value.toString() === string) {
                 return;
             }
@@ -574,7 +573,7 @@
 
             this.active(stop.id);
         },
-        disable: function() {
+        disable: function () {
             if (this.isEnabled === false) {
                 return;
             }
@@ -590,7 +589,7 @@
                 this.api.position();
             }
         },
-        active: function(id) {
+        active: function (id) {
             if (this.current !== id) {
                 this.current = id;
                 this.value.setCurrentById(id);
@@ -600,11 +599,11 @@
                 });
             }
         },
-        empty: function() {
+        empty: function () {
             this.value.empty();
             this.$gradient.trigger('empty');
         },
-        add: function(color, position) {
+        add: function (color, position) {
             var stop = this.value.insert(color, position);
             this.api.isEmpty = false;
             this.value.reorder();
@@ -620,7 +619,7 @@
             });
             return stop;
         },
-        del: function(id) {
+        del: function (id) {
             if (this.value.length <= 2) {
                 return;
             }
@@ -632,14 +631,14 @@
 
             this.$gradient.trigger('update', {});
         },
-        setAngle: function(value) {
+        setAngle: function (value) {
             this.value.angle(value);
             this.$gradient.trigger('update', {
                 angle: value
             });
         }
     };
-})(jQuery, (function($) {
+})(jQuery, (function ($) {
     if ($.asGradient === undefined) {
         // console.info('lost dependency lib of $.asGradient , please load it first !');
         return false;

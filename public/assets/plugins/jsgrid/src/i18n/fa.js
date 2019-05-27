@@ -1,4 +1,4 @@
-(function(jsGrid) {
+(function (jsGrid) {
 
     jsGrid.locales.fa = {
         grid: {
@@ -32,14 +32,14 @@
         },
 
         validators: {
-            required: { message: "فیلد اجباری است" },
-            rangeLength: { message: "طول مقدار وارد شده از حداکثر تعریف شده بیشتر است" },
-            minLength: { message: "تعداد کاراکتر وارد شده خیلی کم است" },
-            maxLength: { message: "تعداد کاراکتر وارد شده خیلی زیاداست" },
-            pattern: { message: "مقدار وارد شده با الگوی تعریف شده مطابقت ندارد" },
-            range: { message: "مقدار وارد شده خارج از بازه معتبر است" },
-            min: { message: "مقدار وارد شده خیلی کوچک است" },
-            max: { message: "مقدار وارد شده خیلی بزرگ است" }
+            required: {message: "فیلد اجباری است"},
+            rangeLength: {message: "طول مقدار وارد شده از حداکثر تعریف شده بیشتر است"},
+            minLength: {message: "تعداد کاراکتر وارد شده خیلی کم است"},
+            maxLength: {message: "تعداد کاراکتر وارد شده خیلی زیاداست"},
+            pattern: {message: "مقدار وارد شده با الگوی تعریف شده مطابقت ندارد"},
+            range: {message: "مقدار وارد شده خارج از بازه معتبر است"},
+            min: {message: "مقدار وارد شده خیلی کوچک است"},
+            max: {message: "مقدار وارد شده خیلی بزرگ است"}
         }
     };
 

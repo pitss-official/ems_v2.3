@@ -17,7 +17,7 @@ class CreateAccountsTable extends Migration
             $table->increments('number');
             $table->string('name');
             $table->unsignedInteger('collegeUID');
-            $table->float('balance',20,4);
+            $table->float('balance', 20, 4);
             $table->boolean('onHold')->default(0);
             $table->unsignedSmallInteger('type')->default(0);
             $table->unsignedInteger('queueID')->default(0);

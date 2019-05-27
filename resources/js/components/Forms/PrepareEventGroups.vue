@@ -8,7 +8,7 @@
                     </div>
                     <div class="card-body">
                         <label>Choose the coordinators to work in the event so that Groups can be formed. Assignment of the students will take place after this step.</label>
-                        <form method="post" action="javascript:prepare();" class="form-material">
+                        <form action="javascript:prepare();" class="form-material" method="post">
                             <div class="form-body">
                                 <h3 class="card-title">Coordinator Selection</h3>
                                 <hr>
@@ -19,8 +19,8 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label class="control-label">Event Selection</label>
-                                        <select onChange="fetchDays()" id="eventID" class="form-control custom-select" required data-placeholder="Choose a Category" tabindex="1">
-                                            <option value="0" selected>Select Event</option>
+                                        <select class="form-control custom-select" data-placeholder="Choose a Category" id="eventID" onChange="fetchDays()" required tabindex="1">
+                                            <option selected value="0">Select Event</option>
                                             <?php foreach($events->listUpcoming() as $event) echo "<option value=".$event->eventID.">$event->name</option>";?>
                                         </select>
                                         <small class="form-control-feedback">Select event for which you want to choose the coordinators</small>
@@ -30,7 +30,7 @@
                                     <div class="form-group">
                                         <label class="control-label">Day Selection</label>
                                         <div class="dates">
-                                            <select class="select2 m-b-10 select2-multiple form-control custom-select" style="width: 100%" multiple="multiple" data-placeholder="" id="eventdays" required tabindex="1">
+                                            <select class="select2 m-b-10 select2-multiple form-control custom-select" data-placeholder="" id="eventdays" multiple="multiple" required style="width: 100%" tabindex="1">
                                             </select>
                                         </div>
                                         <small class="form-control-feedback">Select event for which you want to choose the coordinators</small>
@@ -42,8 +42,8 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label class="control-label">Assignment Type</label>
-                                        <select onChange="" id="assType" class="form-control custom-select" required data-placeholder="Choose a Category" tabindex="1">
-                                            <option value="0" selected>Select Assignment Type</option>
+                                        <select class="form-control custom-select" data-placeholder="Choose a Category" id="assType" onChange="" required tabindex="1">
+                                            <option selected value="0">Select Assignment Type</option>
                                             <option value="1">From all Registered Coordinators</option>
                                         </select>
                                         <small class="form-control-feedback">Select event for which you want to choose the coordinators</small>
@@ -54,8 +54,8 @@
 
                             </div>
                             <div class="form-actions">
-                                <button type="submit" id="process_btn" class="btn btn-primary"> <i class="fa fa-check"></i> Prepare</button>
-                                <button type="button" class="btn btn-danger" onClick="reset()">Cancel</button>
+                                <button class="btn btn-primary" id="process_btn" type="submit"> <i class="fa fa-check"></i> Prepare</button>
+                                <button class="btn btn-danger" onClick="reset()" type="button">Cancel</button>
                             </div>
                         </form>
                     </div>

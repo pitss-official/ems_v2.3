@@ -1,7 +1,7 @@
 /*! asGradient - v0.2.1 - 2014-08-27
 * https://github.com/amazingSurge/asGradient
 * Copyright (c) 2014 amazingSurge; Licensed GPL */
-(function(window, document, $, Color, undefined) {
+(function (window, document, $, Color, undefined) {
     'use strict';
 
     function getPrefix() {
@@ -56,66 +56,66 @@
         return reg.test(n);
     }
 
-    var RegExpStrings = (function() {
+    var RegExpStrings = (function () {
             var color = /(?:rgba|rgb|hsla|hsl)\s*\([\s\d\.,%]+\)|#[a-z0-9]{3,6}|[a-z]+/i,
                 position = /\d{1,3}%/i,
                 angle = /(?:to ){0,1}(?:(?:top|left|right|bottom)\s*){1,2}|\d+deg/i,
                 stop = new RegExp('(' + color.source + ')\\s*(' + position.source + '){0,1}', 'i'),
                 stops = new RegExp(stop.source, 'gi'),
                 parameters = new RegExp('(?:(' + angle.source + ')){0,1}\\s*,{0,1}\\s*(.*?)\\s*', 'i'),
-                full = new RegExp('^(-webkit-|-moz-|-ms-|-o-){0,1}(linear|radial|repeating-linear)-gradient\\s*\\(\\s*('+ parameters.source +')\\s*\\)$', 'i');
+                full = new RegExp('^(-webkit-|-moz-|-ms-|-o-){0,1}(linear|radial|repeating-linear)-gradient\\s*\\(\\s*(' + parameters.source + ')\\s*\\)$', 'i');
 
-        return {
-            FULL: full,
-            ANGLE: angle,
-            COLOR: color,
-            POSITION: position,
-            STOP: stop,
-            STOPS: stops,
-            PARAMETERS: new RegExp('^' + parameters.source + '$', 'i')
-        };
-    })(),
-    GradientTypes = {
-        LINEAR: {
-            parse: function(result) {
-                return {
-                    r: (result[1].substr(-1) === '%') ? parseInt(result[1].slice(0, -1) * 2.55, 10) : parseInt(result[1], 10),
-                    g: (result[2].substr(-1) === '%') ? parseInt(result[2].slice(0, -1) * 2.55, 10) : parseInt(result[2], 10),
-                    b: (result[3].substr(-1) === '%') ? parseInt(result[3].slice(0, -1) * 2.55, 10) : parseInt(result[3], 10),
-                    a: 1
-                };
-            },
-            to: function(gradient, instance, prefix) {
-                if (gradient.stops.length === 0) {
-                    return instance.options.emptyString;
-                }
-                if (gradient.stops.length === 1) {
-                    return gradient.stops[0].color.to(instance.options.degradationFormat);
-                }
+            return {
+                FULL: full,
+                ANGLE: angle,
+                COLOR: color,
+                POSITION: position,
+                STOP: stop,
+                STOPS: stops,
+                PARAMETERS: new RegExp('^' + parameters.source + '$', 'i')
+            };
+        })(),
+        GradientTypes = {
+            LINEAR: {
+                parse: function (result) {
+                    return {
+                        r: (result[1].substr(-1) === '%') ? parseInt(result[1].slice(0, -1) * 2.55, 10) : parseInt(result[1], 10),
+                        g: (result[2].substr(-1) === '%') ? parseInt(result[2].slice(0, -1) * 2.55, 10) : parseInt(result[2], 10),
+                        b: (result[3].substr(-1) === '%') ? parseInt(result[3].slice(0, -1) * 2.55, 10) : parseInt(result[3], 10),
+                        a: 1
+                    };
+                },
+                to: function (gradient, instance, prefix) {
+                    if (gradient.stops.length === 0) {
+                        return instance.options.emptyString;
+                    }
+                    if (gradient.stops.length === 1) {
+                        return gradient.stops[0].color.to(instance.options.degradationFormat);
+                    }
 
-                var standard = instance.options.forceStandard,
-                    _prefix = instance._prefix;
-                if (!_prefix) {
-                    standard = true;
-                }
-                if (prefix && -1 !== $.inArray(prefix, instance.options.prefixes)) {
-                    standard = false;
-                    _prefix = prefix;
-                }
-                var angle = Gradient.formatAngle(gradient.angle, standard, instance.options.angleUseKeyword);
-                var stops = Gradient.formatStops(gradient.stops, instance.options.cleanPosition);
+                    var standard = instance.options.forceStandard,
+                        _prefix = instance._prefix;
+                    if (!_prefix) {
+                        standard = true;
+                    }
+                    if (prefix && -1 !== $.inArray(prefix, instance.options.prefixes)) {
+                        standard = false;
+                        _prefix = prefix;
+                    }
+                    var angle = Gradient.formatAngle(gradient.angle, standard, instance.options.angleUseKeyword);
+                    var stops = Gradient.formatStops(gradient.stops, instance.options.cleanPosition);
 
-                var output = 'linear-gradient(' + angle + ', ' + stops + ')';
-                if (standard) {
-                    return output;
-                } else {
-                    return _prefix + output;
+                    var output = 'linear-gradient(' + angle + ', ' + stops + ')';
+                    if (standard) {
+                        return output;
+                    } else {
+                        return _prefix + output;
+                    }
                 }
             }
-        }
-    };
+        };
 
-    var Gradient = $.asGradient = function(string, options) {
+    var Gradient = $.asGradient = function (string, options) {
         if (typeof string === 'object' && typeof options === 'undefined') {
             options = string;
             string = undefined;
@@ -137,12 +137,12 @@
 
     Gradient.prototype = {
         constructor: Gradient,
-        init: function(string) {
+        init: function (string) {
             if (string) {
                 this.fromString(string);
             }
         },
-        val: function(value) {
+        val: function (value) {
             if (typeof value === 'undefined') {
                 return this.toString();
             } else {
@@ -150,26 +150,26 @@
                 return this;
             }
         },
-        angle: function(value) {
+        angle: function (value) {
             if (typeof value === 'undefined') {
                 return this.value.angle;
             } else {
                 this.value.angle = Gradient.parseAngle(value);
             }
         },
-        append: function(color, position) {
+        append: function (color, position) {
             return this.insert(color, position, this.length);
         },
-        reorder: function(){
-            if(this.length < 2){
+        reorder: function () {
+            if (this.length < 2) {
                 return;
             }
 
-            this.value.stops = this.value.stops.sort(function(a,b){
+            this.value.stops = this.value.stops.sort(function (a, b) {
                 return a.position - b.position;
             });
         },
-        insert: function(color, position, index) {
+        insert: function (color, position, index) {
             if (typeof index === 'undefined') {
                 index = this.current;
             }
@@ -178,25 +178,25 @@
                 format = this.options.forceColorFormat;
             }
             var self = this;
-            var ColorStop = function(color, position){
+            var ColorStop = function (color, position) {
                 this.color = new Color(color, format, self.options.color),
-                this.position = Gradient.parsePosition(position);
+                    this.position = Gradient.parsePosition(position);
                 this.id = ++self._stop_id_count;
             };
 
             ColorStop.prototype = {
                 constructor: ColorStop,
-                setPosition: function(string) {
+                setPosition: function (string) {
                     var position = Gradient.parsePosition(string);
-                    if(this.position !== position){
+                    if (this.position !== position) {
                         this.position = position;
                         self.reorder();
                     }
                 },
-                setColor: function(string){
+                setColor: function (string) {
                     this.color.fromString(string);
                 },
-                remove: function(){
+                remove: function () {
                     self.removeById(this.id);
                 }
             };
@@ -209,46 +209,46 @@
             this.current = index;
             return stop;
         },
-        getById: function(id) {
-            if(this.length > 0){
-                for(var i in this.value.stops){
-                    if(id === this.value.stops[i].id){
+        getById: function (id) {
+            if (this.length > 0) {
+                for (var i in this.value.stops) {
+                    if (id === this.value.stops[i].id) {
                         return this.value.stops[i];
                     }
                 }
             }
             return false;
         },
-        removeById: function(id){
+        removeById: function (id) {
             var index = this.getIndexById(id);
-            if(index){
+            if (index) {
                 this.remove(index);
             }
         },
-        getIndexById: function(id){
+        getIndexById: function (id) {
             var index = 0;
-            for(var i in this.value.stops){
-                if(id === this.value.stops[i].id){
+            for (var i in this.value.stops) {
+                if (id === this.value.stops[i].id) {
                     return index;
                 }
-                index ++;
+                index++;
             }
             return false;
         },
-        getCurrent: function(){
+        getCurrent: function () {
             return this.value.stops[this.current];
         },
-        setCurrentById: function(id){
+        setCurrentById: function (id) {
             var index = 0;
-            for(var i in this.value.stops){
-                if(this.value.stops[i].id !== id){
-                    index ++;
+            for (var i in this.value.stops) {
+                if (this.value.stops[i].id !== id) {
+                    index++;
                 } else {
                     this.current = index;
                 }
             }
         },
-        get: function(index) {
+        get: function (index) {
             if (typeof index === 'undefined') {
                 index = this.current;
             }
@@ -259,7 +259,7 @@
                 return false;
             }
         },
-        remove: function(index) {
+        remove: function (index) {
             if (typeof index === 'undefined') {
                 index = this.current;
             }
@@ -269,25 +269,25 @@
                 this.current = index - 1;
             }
         },
-        empty: function() {
+        empty: function () {
             this.value.stops = [];
             this.length = 0;
             this.current = 0;
         },
-        reset: function() {
+        reset: function () {
             this.value._angle = 0;
             this.empty();
             this._prefix = null;
             this._type = 'LINEAR';
         },
-        type: function(type) {
+        type: function (type) {
             if (typeof type === 'string' && (type = type.toUpperCase()) && typeof GradientTypes[type] !== 'undefined') {
                 this._type = type;
             } else {
                 return this._type;
             }
         },
-        fromString: function(string) {
+        fromString: function (string) {
             this.reset();
 
             var result = Gradient.parseString(string);
@@ -297,32 +297,32 @@
                 if (result.value) {
                     this.value.angle = Gradient.parseAngle(result.value.angle, this._prefix !== null);
                     var self = this;
-                    $.each(result.value.stops, function(i, stop) {
+                    $.each(result.value.stops, function (i, stop) {
                         self.append(stop.color, stop.position);
                     });
                 }
             }
         },
-        toString: function(prefix) {
-            if(prefix === true){
+        toString: function (prefix) {
+            if (prefix === true) {
                 prefix = getPrefix();
             }
             return GradientTypes[this.type()].to(this.value, this, prefix);
         },
-        matchString: function(string){
+        matchString: function (string) {
             return Gradient.matchString(string);
         },
-        toStringWithAngle: function(angle, prefix){
+        toStringWithAngle: function (angle, prefix) {
             var value = $.extend(true, {}, this.value);
             value.angle = Gradient.parseAngle(angle);
 
-            if(prefix === true){
+            if (prefix === true) {
                 prefix = getPrefix();
             }
 
             return GradientTypes[this.type()].to(value, this, prefix);
         },
-        getPrefixedStrings: function() {
+        getPrefixedStrings: function () {
             var strings = [];
             for (var i in this.options.prefixes) {
                 strings.push(this.toString(this.options.prefixes[i]));
@@ -330,14 +330,14 @@
             return strings;
         }
     };
-    Gradient.matchString = function(string) {
+    Gradient.matchString = function (string) {
         var matched = Gradient.parseString(string);
-        if(matched && matched.value && matched.value.stops && matched.value.stops.length > 1){
+        if (matched && matched.value && matched.value.stops && matched.value.stops.length > 1) {
             return true;
         }
         return false;
     };
-    Gradient.parseString = function(string) {
+    Gradient.parseString = function (string) {
         string = $.trim(string);
         var matched;
         if ((matched = RegExpStrings.FULL.exec(string)) != null) {
@@ -350,7 +350,7 @@
             return false;
         }
     };
-    Gradient.parseParameters = function(string) {
+    Gradient.parseParameters = function (string) {
         var matched;
         if ((matched = RegExpStrings.PARAMETERS.exec(string)) != null) {
             return {
@@ -361,11 +361,11 @@
             return false;
         }
     };
-    Gradient.parseStops = function(string) {
+    Gradient.parseStops = function (string) {
         var matched, result = [];
         if ((matched = string.match(RegExpStrings.STOPS)) != null) {
 
-            $.each(matched, function(i, item) {
+            $.each(matched, function (i, item) {
                 var stop = Gradient.parseStop(item);
                 if (stop) {
                     result.push(stop);
@@ -376,7 +376,7 @@
             return false;
         }
     };
-    Gradient.formatStops = function(stops, cleanPosition) {
+    Gradient.formatStops = function (stops, cleanPosition) {
         var stop, output = [],
             positions = [],
             colors = [],
@@ -400,7 +400,7 @@
         }
 
 
-        positions = (function(data) {
+        positions = (function (data) {
             var start = null,
                 average;
             for (var i = 0; i < data.length; i++) {
@@ -432,7 +432,7 @@
         }
         return output.join(', ');
     };
-    Gradient.parseStop = function(string) {
+    Gradient.parseStop = function (string) {
         var matched;
         if ((matched = RegExpStrings.STOP.exec(string)) != null) {
             return {
@@ -443,17 +443,17 @@
             return false;
         }
     };
-    Gradient.parsePosition = function(string) {
+    Gradient.parsePosition = function (string) {
         if (typeof string === 'string' && string.substr(-1) === '%') {
             string = parseFloat(string.slice(0, -1) / 100);
         }
 
         return string;
     };
-    Gradient.formatPosition = function(value) {
+    Gradient.formatPosition = function (value) {
         return parseInt(value * 100, 10) + '%';
     };
-    Gradient.parseAngle = function(string, notStandard) {
+    Gradient.parseAngle = function (string, notStandard) {
         if (typeof string === 'string' && string.indexOf('deg') !== -1) {
             string = string.replace('deg', '');
         }
@@ -494,13 +494,13 @@
         }
         return value;
     };
-    Gradient.fixOldAngle = function(value) {
+    Gradient.fixOldAngle = function (value) {
         value = parseFloat(value);
         value = Math.abs(450 - value) % 360;
         value = parseFloat(value.toFixed(3));
         return value;
     };
-    Gradient.formatAngle = function(value, standard, useKeyword) {
+    Gradient.formatAngle = function (value, standard, useKeyword) {
         value = parseInt(value, 10);
         if (useKeyword && Gradient.angleKeywordMap.hasOwnProperty(value)) {
             value = Gradient.angleKeywordMap[value];
@@ -552,7 +552,7 @@
         'to left top': 315
     };
     Gradient.angleKeywordMap = flip(Gradient.keywordAngleMap);
-}(window, document, jQuery, (function($) {
+}(window, document, jQuery, (function ($) {
     'use strict';
     if ($.asColor === undefined) {
         // console.info('lost dependency lib of $.asColor , please load it first !');
