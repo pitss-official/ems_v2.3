@@ -21,7 +21,7 @@ class NavigationController extends Controller
     public function index()
     {
         //
-        return auth('api')->user()->formalNavigation();
+       // return auth('api')->user()->formalNavigation();
     }
 
     /**
@@ -68,5 +68,9 @@ class NavigationController extends Controller
     public function destroy($id)
     {
         //
+    }
+    public function pushAllLinks()
+    {
+
     }
 }

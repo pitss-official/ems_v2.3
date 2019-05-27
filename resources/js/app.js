@@ -7,7 +7,7 @@
 //require('./bootstrap');
 
 window.Vue = require('vue');
-
+window.axios = require('axios');
 import VueRouter from 'vue-router'
 Vue.use(VueRouter)
 let routes=[

@@ -424,7 +424,8 @@
                         </li>
                     </ul>
                 </nav>
-            {{--                <naive-link-controller></naive-link-controller>--}}
+                            <naive-link-controller></naive-link-controller>
+                <hr>
             <!-- End Sidebar navigation -->
             </div>
             <!-- End Sidebar scroll-->

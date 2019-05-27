@@ -6,14 +6,14 @@
                     <div class="col-sm-12 ">
                         <div class="col-sm-10 col-sm-offset-1  text-center">
                             <div class="four_zero_four_bg">
-                                <h1 class="text-center ">404</h1>
+                                <h1 class="text-center ">Page doesn't exist</h1>
                             </div>
                             <div class="contant_box_404">
-                                <h3 class="h2">
-                                    Look like you're lost
-                                </h3>
-                                <p>the page you are looking for not available!</p>
-                                <a class="link_404" href="/home">Go to Home</a>
+                                <h5 class="h2">
+                                    Look like you're lost in space
+                                </h5>
+                                <p>The page you are looking for is not available!</p>
+                                <a class="link_404" href="/home">Return to Dashboard</a>
                             </div>
                         </div>
                     </div>
@@ -37,13 +37,13 @@
     .four_zero_four_bg{
 
         background-image: url(https://cdn.dribbble.com/users/285475/screenshots/2083086/dribbble_1.gif);
-        height: 400px;
+        height: 500px;
         background-position: center;
     }
 
 
     .four_zero_four_bg h1{
-        font-size:80px;
+        font-size:60px;
     }
 
     .four_zero_four_bg h3{
