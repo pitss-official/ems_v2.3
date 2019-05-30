@@ -125,9 +125,25 @@
 
         methods:{
             save(){
-                this.venue.post('/api/venue').then((data)=>
+                this.venue.post('/api/forms/venues/register').then((data)=>
                 {
-                    console.log(data);
+                    axios({
+                        method: 'post',
+                        url: '/api/verify/venue/' + data.data,
+                    }).then((response)=>{
+                        if(response.data=='1')
+                        {
+                            swal.fire("New Venue Registered","You have successfully registered a new venue. <b>Venue ID: "+data.data+"</b>","success");
+                            return;
+                        }
+                        else
+                        {
+                            swal.fire("Saving Failed","Kindly contact server administrator","error");
+                        }
+                    }).catch()
+                    {
+                        // swal.fire("Error","Error creating new Venue in system","error");
+                    }
                 })
                 //()=>{}
             }

@@ -24,7 +24,8 @@
                                             <div class="form-group" >
                                                 <label class="control-label">Start Date</label>
                                                 <!--				form-group has-danger/has-success									form-control-danger-->
-                                                <div class="input-daterange input-group" id="date-range"><input class="form-control" id="start_date" name="start" required type="datetime"><span class="input-group-addon bg-info b-0 text-white">to</span><input class="form-control" id="end_date" name="end"></div>
+                                                <div class="input-daterange input-group" id="event-dates">
+                                                    <input class="form-control" id="start_date" name="start" required type="datetime-local"><span class="input-group-addon bg-info b-0 text-white">to</span><input class="form-control" id="end_date" name="end" type="datetime-local"></div>
                                                 <small class="form-control-feedback">Proposed Span of the Event</small> </div>
                                         </div>
                                         <!--/span-->
@@ -79,7 +80,7 @@
                                     <div class="col-md-6 ">
                                         <div class="form-group">
                                             <label>Approval Date</label>
-                                            <input class="form-control bootstrapMaterialDatePicker" id="date-format" type="text">
+                                            <input class="form-control bootstrapMaterialDatePicker" type="date">
                                         </div>
                                     </div>
                                 </div>
@@ -163,7 +164,8 @@
             {
 
             },
-        name: "register-event"
+        mounted() {
+        }
     }
 </script>
 

@@ -170,4 +170,8 @@ class Enrollment extends Model
                 , 5);
         }
     }
+    public function refundRequestInitiate($enrollmentID)
+    {
+
+    }
 }

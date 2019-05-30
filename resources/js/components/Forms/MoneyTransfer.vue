@@ -83,7 +83,7 @@
                     if(this._self.fields.RegistrationNumber.valid){
                         axios({
                             method: 'post',
-                            url: '/api/basic/Names/' + this.$data.student.collegeUID,
+                            url: '/api/members/find/name/' + this.$data.student.collegeUID,
                         })
                             .then((response) => {
                                 if(response.data) {
@@ -108,7 +108,7 @@
                 },
                 send()
                 {
-                    this.student.post('/api/flow/transaction')
+                    this.student.post('/forms/moneyTransfer/transaction/initiate')
                         .then(({ data }) => { console.log(data) })
                 }
             },

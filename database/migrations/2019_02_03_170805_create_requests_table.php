@@ -15,6 +15,18 @@ class CreateRequestsTable extends Migration
     {
         Schema::create('requests', function (Blueprint $table) {
             $table->increments('id');
+            $table->unsignedInteger('requesterCollegeUID');
+            $table->unsignedInteger('approverCollegeUID');
+            $table->unsignedSmallInteger('type');
+            $table->unsignedSmallInteger('levelRequired');
+            $table->text('requestReason');
+            $table->string('approvalRemarks');
+            $table->integer('transactionID')->nullable();
+            $table->integer('queueID')->nullable();
+            $table->foreign('queueID')->references('id')->on('queues');
+            $table->foreign('requesterCollegeUID')->references('collegeUID')->on('users');
+            $table->foreign('approverCollegeUID')->references('collegeUID')->on('users');
+            $table->foreign('transactionID')->references('id')->on('transactions');
             $table->timestamps();
         });
     }

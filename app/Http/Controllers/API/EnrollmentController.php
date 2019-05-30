@@ -165,6 +165,6 @@ class EnrollmentController extends Controller
     }
     public function verify($id)
     {
-        return Enrollment::isExist($id);
+        return (int)Enrollment::isExist($id);
     }
 }

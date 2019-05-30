@@ -51,9 +51,12 @@ class VenueController extends Controller
         $venue->coordinatorsRequired = $validatedData['coordinatorsRequired'];
         $venue->registeredBy = Auth::guard('api')->user()->collegeUID;
         $venue->save();
-        return $validatedData;
+        return $venue->id;
     }
-
+    public function verify($id)
+    {
+        return (int)Venue::isExist($id);
+    }
     /**
      * Display the specified resource.
      *
