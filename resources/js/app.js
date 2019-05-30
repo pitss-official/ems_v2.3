@@ -4,22 +4,29 @@
  * building robust, powerful web applications using Vue and Laravel.
  */
 
-//require('./bootstrap');
+require('./bootstrap');
 
 window.Vue = require('vue');
-window.axios = require('axios');
 import VueRouter from 'vue-router'
 import { loadProgressBar } from 'axios-progress-bar'
 import { Form, HasError, AlertError } from 'vform'
+import VeeValidate from 'vee-validate'
+import Swal from 'sweetalert2'
 Vue.component(HasError.name, HasError)
 Vue.component(AlertError.name, AlertError)
 Vue.use(VueRouter)
+window.Swal=Swal
+window.swal=Swal
 window.Form=Form
+window.linker1=0
+Vue.use(VeeValidate);
+
 let routes=[
     {path:'/home',component: require('./components/Personal/Dashboard').default},
     {path:'/test',component: require('./components/test1').default},
     {path:'/MyAccount/Settings',component: require('./components/Personal/Settings').default},
     {path:'/MyProfile/view',component: require('./components/Personal/Profile').default},
+    {path:'/serve/forms/enrollment/new',component: require('./components/Forms/Enrollment').default},
     {path:'*',component: require('./components/Global/404Error').default},
 ]
 const router =new VueRouter({

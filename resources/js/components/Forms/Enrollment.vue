@@ -179,10 +179,10 @@
 
 <script>
     // import Select from "vue-select/src/components/Select";
-    // import AlertErrors from "vform/src/components/AlertErrors";
+    import AlertErrors from "vform/src/components/AlertErrors";
 
     export default {
-        components: {AlertErrors, Select},
+        components: {AlertErrors},
         data () {
             return {
                 naive:{
@@ -218,7 +218,7 @@
                 if(this._self.fields.RegistrationNumber.valid){
                 axios({
                     method: 'post',
-                    url: '/api/basic/Names/' + this.$data.student.collegeUID,
+                    url: '/api/members/find/name/' + this.$data.student.collegeUID,
                 })
                     .then((response) => {
                         if(response.data) {
@@ -251,8 +251,7 @@ swal.fire('Error','Kindly Contact Service Administrator','error');
                     swal.fire({title:'Not Allowed',text:'This event is not allowed for reservation of seats via partial payment',type:'error',backdrop: `rgba(123,10,0,0.4)`});
                     return;
                 }
-                var Swal=swal;
-                Swal.fire({
+                swal.fire({
                     title: 'Enter Amount',
                     input: 'number',
                     type:'question',
@@ -266,7 +265,7 @@ swal.fire('Error','Kindly Contact Service Administrator','error');
                     preConfirm: (value) => {
                         console.log(value)
                         this.student.amount=value;
-                        return this.student.post('/api/enroll/student')
+                        return this.student.post('/api/forms/events/enroll/student')
                             .then(response => {
                                 return response;
                             })
@@ -293,7 +292,7 @@ swal.fire('Error','Kindly Contact Service Administrator','error');
             getEvents() {
                 axios({
                     method: 'post',
-                    url: '/api/basic/events/all',
+                    url: '/api/events/find/enrollable/',
                 })
                     .then((response) => {
                         this.$data.events = response.data
@@ -325,10 +324,9 @@ swal.fire('Error','Kindly Contact Service Administrator','error');
                 this.$validator.validateAll();
                     this.student.amount=this.selectedEvent.ticketPrice;
                     this.student.mobile=parseInt(this.student.mobile);
-                    this.student.post('/api/enroll/student')
+                    this.student.post('/api/forms/events/enroll/student')
                         .then((response) => {
                             var data=response.data;
-
                             swal.fire({
                                 title:'Enrollment ID: '+data,
                                 text:'You have successfully enrolled '+this.student.firstName,

@@ -73,7 +73,7 @@
                 {
                     axios({
                         method: 'get',
-                        url: '/api/user/actions/queue',
+                        url: '/api/fetch/user/queues/pendingActions',
                     })
                         .then((response) => {
                             this.$data.queues = response.data;

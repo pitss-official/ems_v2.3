@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Navigator;
+use App\User;
 use Illuminate\Http\Request;
 
 class NavigationController extends Controller
@@ -71,6 +73,10 @@ class NavigationController extends Controller
     }
     public function pushAllLinks()
     {
-        return "OK";
+        $currentUser= User::getCurrentAPIUser();
+        $currentUser->setVisible(['authorityLevel']);
+        $navigator=new Navigator();
+        return $navigator->getNavigationLinks($currentUser->authorityLevel);
+
     }
 }

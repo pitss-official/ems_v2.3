@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "dea87dd5fa06feeb9038c216bb7cca08",
+    "content-hash": "222decffa097b5607522733483950280",
     "packages": [
         {
             "name": "defuse/php-encryption",
@@ -900,16 +900,16 @@
         },
         {
             "name": "laravel/passport",
-            "version": "v7.2.2",
+            "version": "v7.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/passport.git",
-                "reference": "c0c3fca80d8f5af90dcbf65e62bdd1abee9ac25d"
+                "reference": "758e143052f0a353df8dff9349f84601579e457d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/passport/zipball/c0c3fca80d8f5af90dcbf65e62bdd1abee9ac25d",
-                "reference": "c0c3fca80d8f5af90dcbf65e62bdd1abee9ac25d",
+                "url": "https://api.github.com/repos/laravel/passport/zipball/758e143052f0a353df8dff9349f84601579e457d",
+                "reference": "758e143052f0a353df8dff9349f84601579e457d",
                 "shasum": ""
             },
             "require": {
@@ -966,7 +966,7 @@
                 "oauth",
                 "passport"
             ],
-            "time": "2019-03-13T14:21:06+00:00"
+            "time": "2019-05-28T16:06:20+00:00"
         },
         {
             "name": "laravel/tinker",

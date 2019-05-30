@@ -17,3 +17,8 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 Route::get('fetch/navigation','API\NavigationController@pushAllLinks');
+Route::get('fetch/user/queues/pendingActions','API\QueueController@index');
+Route::post('/members/find/name/{collegeUID}','UsersController@getUserName');
+Route::post('/events/find/enrollable/','API\EventController@listAll');
+Route::post('/events/find/enrollable/teams/{eventID}','API\TeamController@listAll');
+Route::post('/forms/events/enroll/student','API\EnrollmentController@store');
