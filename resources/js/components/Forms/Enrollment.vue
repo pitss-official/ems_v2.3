@@ -245,12 +245,12 @@ swal.fire('Error','Kindly Contact Service Administrator','error');
             },
             partialPay() {
                 var flag=0;
-                this.$validator.validateAll();
                 if(this.selectedEvent.minimumPayment==100)
                 {
                     swal.fire({title:'Not Allowed',text:'This event is not allowed for reservation of seats via partial payment',type:'error',backdrop: `rgba(123,10,0,0.4)`});
                     return;
                 }
+                this.$validator.validateAll().then(() => {
                 swal.fire({
                     title: 'Enter Amount',
                     input: 'number',
@@ -275,10 +275,15 @@ swal.fire('Error','Kindly Contact Service Administrator','error');
                                 )
                             })
                     },
-                    allowOutsideClick: () => flase
+                    allowOutsideClick: () => false
                 }).then((result) => {
                     if (result.value) {
-                        console.log(result)
+                            if(result.value.data.error)
+                            {
+                                swal.fire(result.value.data.error,result.value.data.message,"error");
+                                return;
+                            }
+
                         swal.fire({
                             title:'Enrollment ID: '+result.value.data,
                             text:'You have successfully enrolled '+this.student.firstName,
@@ -287,7 +292,10 @@ swal.fire('Error','Kindly Contact Service Administrator','error');
                         });
                         this.student.reset();
                     }
-                });
+                });}).catch()
+                {
+                    swal("Invalid Inputs","Your form has multiple errors","error");
+                }
             },
             getEvents() {
                 axios({
@@ -311,7 +319,7 @@ swal.fire('Error','Kindly Contact Service Administrator','error');
 
                 axios({
                     method: 'post',
-                    url: '/api/basic/teams/'+this.$data.student.eventID,
+                    url: '/api/events/find/enrollable/teams/'+this.$data.student.eventID,
                 })
                     .then((response) => {
                         this.$data.teams = response.data;
@@ -321,7 +329,7 @@ swal.fire('Error','Kindly Contact Service Administrator','error');
                     });
             },
             enrollWithFullPayment() {
-                this.$validator.validateAll();
+                this.$validator.validateAll().then(() => {
                     this.student.amount=this.selectedEvent.ticketPrice;
                     this.student.mobile=parseInt(this.student.mobile);
                     this.student.post('/api/forms/events/enroll/student')
@@ -335,7 +343,10 @@ swal.fire('Error','Kindly Contact Service Administrator','error');
                             });
                             this.student.reset();
                             $('#regNo').focus();
-                        });
+                        });}).catch()
+                {
+                    swal("Invalid Inputs","Your form has multiple errors","error");
+                }
             },
         },
         mounted() {

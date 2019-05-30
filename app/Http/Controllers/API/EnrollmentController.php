@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\API;
 
+use App\Account;
 use App\Enrollment;
 use App\Event;
 use App\Http\Controllers\Controller;
@@ -55,25 +56,27 @@ class EnrollmentController extends Controller
 
         //only for coordinator based enrollment
         $validatedData = $request->validate([
-            'email' => 'bail|required|email',
-            'firstName' => 'bail|required|string|min:1|max:25',
-            'middleName' => 'nullable|string|min:1|max:25',
-            'lastName' => 'nullable|string|min:1|max:25',
-            'fathersName' => 'nullable|string|min:1|max:100',
-            'mobile' => 'bail|required|numeric|digits:10',
-            'altMobile' => 'nullable|integer|digits:10|unique:users',
-            'gender' => 'bail|required|integer|digits_between:0,3',
             'eventID' => 'bail|required|integer|exists:events,id',
             'collegeUID' => 'bail|required|unique:enrollments,participantCollegeUID,eventID' . $request->eventID . '|digits:8|numeric',
-            'address' => 'nullable|string|max:250',
-            'nationality' => 'nullable|string|max:5',
-            'bloodGroup' => 'nullable|string|max:5',
-            'birthday' => 'nullable|date',
             'amount' => 'required|numeric|min:0',
             'team' => 'bail|nullable|integer|exists:teams,id,eventID,' . $request->eventID,
         ]);
         $coordinatorUID = Auth::guard('api')->user()->collegeUID;
         if (User::ifNotExist($validatedData['collegeUID'])) {
+            $request->validate([
+                'email' => 'bail|required|email',
+                'fathersName' => 'nullable|string|min:1|max:100',
+                'firstName' => 'bail|required|string|min:1|max:25',
+                'middleName' => 'nullable|string|min:1|max:25',
+                'lastName' => 'nullable|string|min:1|max:25',
+                'mobile' => 'bail|required|numeric|digits:10',
+                'altMobile' => 'nullable|integer|digits:10|unique:users',
+                'gender' => 'bail|required|integer|digits_between:0,3',
+                'address' => 'nullable|string|max:250',
+                'nationality' => 'nullable|string|max:5',
+                'bloodGroup' => 'nullable|string|max:5',
+                'birthday' => 'nullable|date',
+            ]);
             $request->validate([
                 'email' => 'unique:users,email',
                 'mobile' => 'unique:users,mobile',
@@ -100,7 +103,17 @@ class EnrollmentController extends Controller
             $user->status = 1;
             $user->referenceUID = $coordinatorUID;
             $user->save();
-            $user->openAccount();
+            try{
+                    $user->openAccount();
+            }
+            catch(\Exception $e){
+
+            }
+            finally {
+                if (Account::ifNotExist($user->collegeUID))
+                {$user->delete();
+                    throw new \Exception("Account Creation Failed, Data has been rolled back");}
+            }
         }
         $enrollment = new Enrollment();
         $enrollment->eventID = $validatedData['eventID'];

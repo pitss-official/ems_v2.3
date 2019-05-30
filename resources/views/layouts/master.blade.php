@@ -10,22 +10,22 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <!-- Favicon icon -->
-    <link rel="icon" type="image/png" sizes="16x16" href="../assets/images/favicon.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/images/favicon.png">
     <title>Material Pro Admin Template - The Most Complete & Trusted Bootstrap 4 Admin Template</title>
     <!-- Bootstrap Core CSS -->
-    <link href="../assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link href="/css/app.css" rel="stylesheet">
     <!-- chartist CSS -->
-    <link href="../assets/plugins/chartist-js/dist/chartist.min.css" rel="stylesheet">
-    <link href="../assets/plugins/chartist-js/dist/chartist-init.css" rel="stylesheet">
-    <link href="../assets/plugins/chartist-plugin-tooltip-master/dist/chartist-plugin-tooltip.css" rel="stylesheet">
-    <link href="../assets/plugins/css-chart/css-chart.css" rel="stylesheet">
+    <link href="/assets/plugins/chartist-js/dist/chartist.min.css" rel="stylesheet">
+    <link href="/assets/plugins/chartist-js/dist/chartist-init.css" rel="stylesheet">
+    <link href="/assets/plugins/chartist-plugin-tooltip-master/dist/chartist-plugin-tooltip.css" rel="stylesheet">
+    <link href="/assets/plugins/css-chart/css-chart.css" rel="stylesheet">
     <!-- Vector CSS -->
-    <link href="../assets/plugins/vectormap/jquery-jvectormap-2.0.2.css" rel="stylesheet"/>
+    <link href="/assets/plugins/vectormap/jquery-jvectormap-2.0.2.css" rel="stylesheet"/>
     <!-- Custom CSS -->
-    <link href="css/style.css" rel="stylesheet">
+    <link href="/css/style.css" rel="stylesheet">
     <!-- You can change the theme colors from here -->
-    <link href="css/colors/blue.css" id="theme" rel="stylesheet">
+    <link href="/css/colors/blue.css" id="theme" rel="stylesheet">
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -63,16 +63,16 @@
                         <!-- Logo icon --><b>
                             <!--You can put here icon as well // <i class="wi wi-sunset"></i> //-->
                             <!-- Dark Logo icon -->
-                            <img src="../assets/images/logo-icon.png" alt="homepage" class="dark-logo"/>
+                            <img src="/assets/images/logo-icon.png" alt="homepage" class="dark-logo"/>
                             <!-- Light Logo icon -->
-                            <img src="../assets/images/logo-light-icon.png" alt="homepage" class="light-logo"/>
+                            <img src="/assets/images/logo-light-icon.png" alt="homepage" class="light-logo"/>
                         </b>
                         <!--End Logo icon -->
                         <!-- Logo text --><span>
                          <!-- dark Logo text -->
-                         <img src="../assets/images/logo-text.png" alt="homepage" class="dark-logo"/>
+                         <img src="/assets/images/logo-text.png" alt="homepage" class="dark-logo"/>
                             <!-- Light Logo text -->
-                         <img src="../assets/images/logo-light-text.png" class="light-logo" alt="homepage"/></span> </a>
+                         <img src="/assets/images/logo-light-text.png" class="light-logo" alt="homepage"/></span> </a>
                 </div>
                 <!-- ============================================================== -->
                 <!-- End Logo -->
@@ -117,12 +117,12 @@
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark" href=""
                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img
-                                    src="../assets/images/users/1.jpg" alt="user" class="profile-pic"/></a>
+                                    src="/assets/images/users/1.jpg" alt="user" class="profile-pic"/></a>
                             <div class="dropdown-menu dropdown-menu-right scale-up">
                                 <ul class="dropdown-user">
                                     <li>
                                         <div class="dw-user-box" style="word-wrap: break-word;">
-                                            <div class="u-img"><img src="../assets/images/users/1.jpg" alt="user"></div>
+                                            <div class="u-img"><img src="/assets/images/users/1.jpg" alt="user"></div>
                                             <div class="u-text">
                                                 <h4 class="currentUserFullName">UserName</h4>
                                                 <p class="text-muted currentUserID"></p>
@@ -179,9 +179,9 @@
             <!-- Sidebar scroll-->
             <div class="scroll-sidebar">
                 <!-- User profile -->
-                <div class="user-profile" style="background: url(../assets/images/background/user-info.jpg) no-repeat;">
+                <div class="user-profile" style="background: url(/assets/images/background/user-info.jpg) no-repeat;">
                     <!-- User profile image -->
-                    <div class="profile-img"><img src="../assets/images/users/profile.png" alt="user"/></div>
+                    <div class="profile-img"><img src="/assets/images/users/profile.png" alt="user"/></div>
                     <!-- User profile text-->
                     <div class="profile-text"><a href="#" class="dropdown-toggle u-dropdown currentUserFullName"
                                                  data-toggle="dropdown" role="button" aria-haspopup="true"
@@ -263,37 +263,37 @@
 <!-- ============================================================== -->
 <!-- All Jquery -->
 <!-- ============================================================== -->
-<script src="../assets/plugins/jquery/jquery.min.js"></script>
+<script src="/assets/plugins/jquery/jquery.min.js"></script>
 <!-- Bootstrap tether Core JavaScript -->
-<script src="../assets/plugins/bootstrap/js/popper.min.js"></script>
-<script src="../assets/plugins/bootstrap/js/bootstrap.min.js"></script>
+<script src="/assets/plugins/bootstrap/js/popper.min.js"></script>
+<script src="/assets/plugins/bootstrap/js/bootstrap.min.js"></script>
 <!-- slimscrollbar scrollbar JavaScript -->
-<script src="js/jquery.slimscroll.js"></script>
+<script src="/js/jquery.slimscroll.js"></script>
 <!--Wave Effects -->
-<script src="js/waves.js"></script>
+<script src="/js/waves.js"></script>
 <!--Menu sidebar -->
-<script src="js/sidebarmenu.js"></script>
+<script src="/js/sidebarmenu.js"></script>
 <!--stickey kit -->
-<script src="../assets/plugins/sticky-kit-master/dist/sticky-kit.js"></script>
-<script src="../assets/plugins/sparkline/jquery.sparkline.min.js"></script>
+<script src="/assets/plugins/sticky-kit-master/dist/sticky-kit.js"></script>
+<script src="/assets/plugins/sparkline/jquery.sparkline.min.js"></script>
 <!--stickey kit -->
-<script src="../assets/plugins/sticky-kit-master/dist/sticky-kit.min.js"></script>
-<script src="../assets/plugins/sparkline/jquery.sparkline.min.js"></script>
-<script src="../assets/plugins/sparkline/jquery.sparkline.min.js"></script>
+<script src="/assets/plugins/sticky-kit-master/dist/sticky-kit.min.js"></script>
+<script src="/assets/plugins/sparkline/jquery.sparkline.min.js"></script>
+<script src="/assets/plugins/sparkline/jquery.sparkline.min.js"></script>
 <!-- ============================================================== -->
 <!-- This page plugins -->
 <!-- ============================================================== -->
 <!-- chartist chart -->
-<script src="../assets/plugins/chartist-js/dist/chartist.min.js"></script>
-<script src="../assets/plugins/chartist-plugin-tooltip-master/dist/chartist-plugin-tooltip.min.js"></script>
+<script src="/assets/plugins/chartist-js/dist/chartist.min.js"></script>
+<script src="/assets/plugins/chartist-plugin-tooltip-master/dist/chartist-plugin-tooltip.min.js"></script>
 <!-- Vector map JavaScript -->
-<script src="../assets/plugins/vectormap/jquery-jvectormap-2.0.2.min.js"></script>
-<script src="../assets/plugins/vectormap/jquery-jvectormap-us-aea-en.js"></script>
-<script src="js/dashboard3.js"></script>
+<script src="/assets/plugins/vectormap/jquery-jvectormap-2.0.2.min.js"></script>
+<script src="/assets/plugins/vectormap/jquery-jvectormap-us-aea-en.js"></script>
+<script src="/js/dashboard3.js"></script>
 <!-- ============================================================== -->
 <!-- Style switcher -->
 <!-- ============================================================== -->
-<script src="../assets/plugins/styleswitcher/jQuery.style.switcher.js"></script>
+<script src="/assets/plugins/styleswitcher/jQuery.style.switcher.js"></script>
 <script src="/js/app.js"></script>
 </body>
 <script defer>
@@ -306,5 +306,5 @@
     $(".currentUserEmail").text(currentUserEmail);
 </script>
 <!--Custom JavaScript -->
-<script src="js/custom.js" defer></script>
+<script src="/js/custom.js" defer></script>
 </html>

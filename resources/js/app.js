@@ -27,6 +27,7 @@ let routes=[
     {path:'/MyAccount/Settings',component: require('./components/Personal/Settings').default},
     {path:'/MyProfile/view',component: require('./components/Personal/Profile').default},
     {path:'/serve/forms/enrollment/new',component: require('./components/Forms/Enrollment').default},
+    {path:'/serve/forms/digitalAttendance/Scanner',component: require('./components/Digitalizers/Barcode').default},
     {path:'*',component: require('./components/Global/404Error').default},
 ]
 const router =new VueRouter({
