@@ -27,6 +27,12 @@ let routes=[
     {path:'/MyAccount/Settings',component: require('./components/Personal/Settings').default},
     {path:'/MyProfile/view',component: require('./components/Personal/Profile').default},
     {path:'/serve/forms/enrollment/new',component: require('./components/Forms/Enrollment').default},
+    {path:'/serve/forms/enrollment/collectCash',component: require('./components/Forms/EnrollmentFees').default},
+    {path:'/serve/forms/money/transfer/interMember',component: require('./components/Forms/TransferMoney').default},
+    {path:'/serve/forms/money/transfer/interMember/batch',component: require('./components/Forms/BatchTransfer').default},
+    {path:'/serve/forms/event/new',component: require('./components/Forms/RegisterEvent').default},
+    {path:'/serve/forms/venues/new',component: require('./components/Forms/AddEventVenue').default},
+    {path:'/serve/forms/event/teams/new',component: require('./components/Forms/AddTeamForEvent').default},
     {path:'/serve/forms/digitalAttendance/Scanner',component: require('./components/Digitalizers/Barcode').default},
     {path:'*',component: require('./components/Global/404Error').default},
 ]

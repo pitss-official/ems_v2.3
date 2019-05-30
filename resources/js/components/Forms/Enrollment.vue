@@ -17,17 +17,29 @@
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label class="control-label">Registration Number</label>
-                                                <input :class="{ 'form-has-error': student.errors.has('collegeUID') }" @change="find" @tab="find" autofocus class="form-control" id="regNo" name="RegistrationNumber" placeholder="" required type="number" v-model="student.collegeUID" v-validate="'required|numeric|digits:8'">
+                                                <input :class="{ 'form-has-error': student.errors.has('collegeUID') }"
+                                                       @change="find" @tab="find" autofocus class="form-control"
+                                                       id="regNo" name="RegistrationNumber" placeholder="" required
+                                                       type="number" v-model="student.collegeUID"
+                                                       v-validate="'required|numeric|digits:8'">
 
-                                                <small class="form-control-feedback"><span v-show="!errors.has('RegistrationNumber')">Press TAB to check if the student is already enrolled</span>
-                                                <span class="form-has-error-span" v-if="errors.first('RegistrationNumber')">{{ errors.first('RegistrationNumber') }}</span>
-                                                </small><has-error :form="student" class="form-has-error-span" field="collegeUID"></has-error></div>
+                                                <small class="form-control-feedback"><span
+                                                    v-show="!errors.has('RegistrationNumber')">Press TAB to check if the student is already enrolled</span>
+                                                    <span class="form-has-error-span"
+                                                          v-if="errors.first('RegistrationNumber')">{{ errors.first('RegistrationNumber') }}</span>
+                                                </small>
+                                                <has-error :form="student" class="form-has-error-span"
+                                                           field="collegeUID"></has-error>
+                                            </div>
                                         </div>
                                         <!--/span-->
                                         <div class="col-md-2">
                                             <div class="form-group">
                                                 <label class="control-label">First Name</label>
-                                                <input :class="{ 'is-invalid': student.errors.has('firstName') }" :disabled="naive.filled" :readonly="naive.filled" class="form-control" name="firstName" ref="firstName" required type="text" v-model="student.firstName">
+                                                <input :class="{ 'is-invalid': student.errors.has('firstName') }"
+                                                       :disabled="naive.filled" :readonly="naive.filled"
+                                                       class="form-control" name="firstName" ref="firstName" required
+                                                       type="text" v-model="student.firstName">
                                                 <small class="form-control-feedback"></small>
                                                 <has-error :form="student" field="firstName"></has-error>
                                             </div>
@@ -35,14 +47,20 @@
                                         <div class="col-md-2">
                                             <div class="form-group">
                                                 <label class="control-label">Middle Name</label>
-                                                <input :disabled="naive.filled" :readonly="naive.filled" class="form-control" name="middleName" type="text" v-model="student.middleName">
-                                                <small class="form-control-feedback"></small> </div>
+                                                <input :disabled="naive.filled" :readonly="naive.filled"
+                                                       class="form-control" name="middleName" type="text"
+                                                       v-model="student.middleName">
+                                                <small class="form-control-feedback"></small>
+                                            </div>
                                         </div>
                                         <div class="col-md-2">
                                             <div class="form-group">
                                                 <label class="control-label">Last Name</label>
-                                                <input :disabled="naive.filled" :readonly="naive.filled" class="form-control" name="lastName" type="text" v-model="student.lastName">
-                                                <small class="form-control-feedback"></small> </div>
+                                                <input :disabled="naive.filled" :readonly="naive.filled"
+                                                       class="form-control" name="lastName" type="text"
+                                                       v-model="student.lastName">
+                                                <small class="form-control-feedback"></small>
+                                            </div>
                                         </div>
                                         <!--/span-->
                                     </div>
@@ -51,12 +69,15 @@
                                         <div class="col-md-6">
                                             <div class="form-group ">
                                                 <label class="control-label">Gender</label>
-                                                <select :class="{ 'is-invalid': student.errors.has('gender') }" :disabled="naive.filled" :readonly="naive.filled" class="form-control custom-select" name="gender" required v-model="student.gender">
+                                                <select :class="{ 'is-invalid': student.errors.has('gender') }"
+                                                        :disabled="naive.filled" :readonly="naive.filled"
+                                                        class="form-control custom-select" name="gender" required
+                                                        v-model="student.gender">
                                                     <option selected value="1">Male</option>
                                                     <option value="2">Female</option>
                                                     <option value="0">Others or Not Defined</option>
                                                 </select>
-                                                <small class="form-control-feedback"> Select your gender </small>
+                                                <small class="form-control-feedback"> Select your gender</small>
                                                 <has-error :form="student" field="gender"></has-error>
                                             </div>
                                         </div>
@@ -65,7 +86,10 @@
                                             <div class="form-group">
                                                 <label class="control-label">Email</label>
                                                 <!--				form-group has-danger/has-success									form-control-danger-->
-                                                <input :class="{ 'is-invalid': student.errors.has('email') }" :disabled="naive.filled" :readonly="naive.filled" class="form-control" name="email" placeholder="abc@xyz.com" required type="email" v-model="student.email">
+                                                <input :class="{ 'is-invalid': student.errors.has('email') }"
+                                                       :disabled="naive.filled" :readonly="naive.filled"
+                                                       class="form-control" name="email" placeholder="abc@xyz.com"
+                                                       required type="email" v-model="student.email">
                                                 <small class="form-control-feedback"></small>
                                                 <has-error :form="student" field="email"></has-error>
                                             </div>
@@ -78,13 +102,22 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label class="control-label">Mobile Number</label>
-                                            <input :class="{ 'is-invalid': student.errors.has('collegeUID') }" :disabled="naive.filled" :readonly="naive.filled" class="form-control" data-mask="9999999999" name="mobile" placeholder="" required type="number" v-model="student.mobile">
-                                            <small class="form-control-feedback">Confirmation of Seat and Pass details will be sent on this number</small> </div>
+                                            <input :class="{ 'is-invalid': student.errors.has('collegeUID') }"
+                                                   :disabled="naive.filled" :readonly="naive.filled"
+                                                   class="form-control" data-mask="9999999999" name="mobile"
+                                                   placeholder="" required type="number" v-model="student.mobile">
+                                            <small class="form-control-feedback">Confirmation of Seat and Pass details
+                                                will be sent on this number
+                                            </small>
+                                        </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label class="control-label">Event Selection</label>
-                                            <select :class="{ 'is-invalid': student.errors.has('collegeUID') }" :disabled="naive.filled" :readonly="naive.filled" @change="readyData(student.teamID)" class="form-control custom-select" id="eventID" required v-model="student.eventID">
+                                            <select :class="{ 'is-invalid': student.errors.has('collegeUID') }"
+                                                    @change="readyData(student.teamID)"
+                                                    class="form-control custom-select" id="eventID" required
+                                                    v-model="student.eventID">
                                                 <option v-bind:value="event.id" v-for="event in events">
                                                     {{ event.name }}
                                                 </option>
@@ -99,29 +132,35 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label>Father's Name</label>
-                                            <input :disabled="naive.filled" :readonly="naive.filled" class="form-control" name="fathersName" type="text" v-model="student.fathersName">
+                                            <input :disabled="naive.filled" :readonly="naive.filled"
+                                                   class="form-control" name="fathersName" type="text"
+                                                   v-model="student.fathersName">
                                         </div>
                                     </div>
                                     <!--/span-->
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label>Birthday</label>
-                                            <input :disabled="naive.filled" :readonly="naive.filled" class="form-control" type="date" v-model="student.birthday">
+                                            <input :disabled="naive.filled" :readonly="naive.filled"
+                                                   class="form-control" type="date" v-model="student.birthday">
                                         </div>
                                     </div>
                                     <!--/span-->
-                                </div><div class="row">
+                                </div>
+                                <div class="row">
                                     <div class="col-md-3">
                                         <div class="form-group">
                                             <label>Blood Group</label>
-                                            <input :disabled="naive.filled" :readonly="naive.filled" class="form-control" type="text" v-model="student.bloodGroup">
+                                            <input :disabled="naive.filled" :readonly="naive.filled"
+                                                   class="form-control" type="text" v-model="student.bloodGroup">
                                         </div>
-                                    </div><div class="col-md-3">
+                                    </div>
+                                    <div class="col-md-3">
                                         <div class="form-group">
                                             <label>Nationality</label>
                                             <select class="form-control" type="text" v-model="student.nationality">
                                                 <option selected value="IN">Indian</option>
-                                                </select>
+                                            </select>
                                         </div>
                                     </div>
                                     <!--/span-->
@@ -129,7 +168,8 @@
                                         <div class="form-group">
                                             <label>Team ID</label>
                                             <select class="form-control" type="number" v-model="student.team">
-                                                <option v-bind:value="team.id" v-for="team in teams">{{ team.name }}</option>
+                                                <option v-bind:value="team.id" v-for="team in teams">{{ team.name }}
+                                                </option>
                                             </select>
                                         </div>
                                     </div>
@@ -139,7 +179,9 @@
                                     <div class="col-md-12 ">
                                         <div class="form-group">
                                             <label>Address</label>
-                                            <textarea :disabled="naive.filled" :readonly="naive.filled" class="form-control" id="address" rows="5" v-model="student.address"></textarea>
+                                            <textarea :disabled="naive.filled" :readonly="naive.filled"
+                                                      class="form-control" id="address" rows="5"
+                                                      v-model="student.address"></textarea>
                                         </div>
                                     </div>
                                 </div>
@@ -147,14 +189,17 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label>Alternate Mobile</label>
-                                            <input :disabled="naive.filled" :readonly="naive.filled" class="form-control" data-mask="9999999999" id="alt-mobile" type="text" v-model="student.altMobile">
+                                            <input :disabled="naive.filled" :readonly="naive.filled"
+                                                   class="form-control" data-mask="9999999999" id="alt-mobile"
+                                                   type="text" v-model="student.altMobile">
                                         </div>
                                     </div>
                                     <!--/span-->
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label>Group ID</label>
-                                            <input :disabled="naive.filled" :readonly="naive.filled" class="form-control" id="group" readonly type="number" value="">
+                                            <input :disabled="naive.filled" :readonly="naive.filled"
+                                                   class="form-control" id="group" readonly type="number" value="">
                                         </div>
                                     </div>
                                     <!--/span-->
@@ -163,8 +208,14 @@
 
 
                                 <div class="form-actions">
-                                    <button :disabled="student.busy" @click="enrollWithFullPayment" class="btn btn-primary" id="btn-fullpay" type="submit"> <i class="fa fa-check"></i> Enroll and Pay Now</button>
-                                    <button :disabled="student.busy" @click="partialPay" class="btn btn-info" id="btn-partpay" type="button"> <i class="fa fa-check"></i> Enroll and Paritial Pay Now</button>
+                                    <button :disabled="student.busy" @click="enrollWithFullPayment"
+                                            class="btn btn-primary" id="btn-fullpay" type="submit"><i
+                                        class="fa fa-check"></i> Enroll and Pay Now
+                                    </button>
+                                    <button :disabled="student.busy" @click="partialPay" class="btn btn-info"
+                                            id="btn-partpay" type="button"><i class="fa fa-check"></i> Enroll and
+                                        Paritial Pay Now
+                                    </button>
                                     <button class="btn btn-danger" onClick="reset()" type="button">Cancel</button>
                                 </div>
                             </form>
@@ -179,14 +230,15 @@
 
 <script>
     // import Select from "vue-select/src/components/Select";
-    import AlertErrors from "vform/src/components/AlertErrors";
+    import
+        AlertErrors from "vform/src/components/AlertErrors";
 
     export default {
         components: {AlertErrors},
-        data () {
+        data() {
             return {
-                naive:{
-                  filled:false,
+                naive: {
+                    filled: false,
                 },
                 // Create a new form instance
                 student: new Form({
@@ -203,98 +255,110 @@
                     eventID: null,
                     nationality: null,
                     bloodGroup: null,
-                    birthday:null,
-                    team:0,
-                    amount:0,
+                    birthday: null,
+                    team: 0,
+                    amount: 0,
                     remember: false,
                 }),
-                selectedEvent:null,
-                events:[],
-                teams:[]
+                selectedEvent: null,
+                events: [],
+                teams: []
             };
         },
         methods: {
             find() {
-                if(this._self.fields.RegistrationNumber.valid){
-                axios({
-                    method: 'post',
-                    url: '/api/members/find/name/' + this.$data.student.collegeUID,
-                })
-                    .then((response) => {
-                        if(response.data) {
-                            this.$data.student.firstName=response.data.firstName;
-                            this.$data.student.lastName=response.data.lastName;
-                            this.$data.student.middleName=response.data.middleName;
-                            this.$data.naive.filled=true;
-                        }
-                        else
-                        {
-                            this.$refs.firstName.focus();
-                                this.$data.student.firstName=null;
-                                this.$data.student.lastName=null;
-                                this.$data.student.middleName=null;
-                                this.$data.naive.filled=false;
-                        }
-
+                if (this._self.fields.RegistrationNumber.valid) {
+                    axios({
+                        method: 'post',
+                        url: '/api/members/find/name/' + this.$data.student.collegeUID,
                     })
-                    .catch((response)=> {
-swal.fire('Error','Kindly Contact Service Administrator','error');
-                    });
+                        .then((response) => {
+                            if (response.data) {
+                                this.$data.student.firstName = response.data.firstName;
+                                this.$data.student.lastName = response.data.lastName;
+                                this.$data.student.middleName = response.data.middleName;
+                                this.$data.naive.filled = true;
+                            } else {
+                                this.$refs.firstName.focus();
+                                this.$data.student.firstName = null;
+                                this.$data.student.lastName = null;
+                                this.$data.student.middleName = null;
+                                this.$data.naive.filled = false;
+                            }
+
+                        })
+                        .catch((response) => {
+                            swal.fire('Error', 'Kindly Contact Service Administrator', 'error');
+                        });
 
                 }
             },
             partialPay() {
-                var flag=0;
-                if(this.selectedEvent.minimumPayment==100)
-                {
-                    swal.fire({title:'Not Allowed',text:'This event is not allowed for reservation of seats via partial payment',type:'error',backdrop: `rgba(123,10,0,0.4)`});
+                var flag = 0;
+                if (this.selectedEvent.minimumPayment == 100) {
+                    swal.fire({
+                        title: 'Not Allowed',
+                        text: 'This event is not allowed for reservation of seats via partial payment',
+                        type: 'error',
+                        backdrop: `rgba(123, 10, 0, 0.4)`
+                    });
                     return;
                 }
                 this.$validator.validateAll().then(() => {
-                swal.fire({
-                    title: 'Enter Amount',
-                    input: 'number',
-                    type:'question',
-                    text: 'Minimum Allowed Amount for this event is Rs. '+this.selectedEvent.ticketPrice*this.selectedEvent.minimumPayment/100,
-                    inputAttributes: {
-                        autocapitalize: 'off'
-                    },
-                    showCancelButton: true,
-                    confirmButtonText: 'Book Now',
-                    showLoaderOnConfirm: true,
-                    preConfirm: (value) => {
-                        console.log(value)
-                        this.student.amount=value;
-                        return this.student.post('/api/forms/events/enroll/student')
-                            .then(response => {
-                                return response;
-                            })
-                            .catch(error => {
-                                Swal.showValidationMessage(
-                                    `You have some validation errors`
-                                )
-                            })
-                    },
-                    allowOutsideClick: () => false
-                }).then((result) => {
-                    if (result.value) {
-                            if(result.value.data.error)
-                            {
-                                swal.fire(result.value.data.error,result.value.data.message,"error");
+                    swal.fire({
+                        title: 'Enter Amount',
+                        input: 'number',
+                        type: 'question',
+                        text: 'Minimum Allowed Amount for this event is Rs. ' + this.selectedEvent.ticketPrice * this.selectedEvent.minimumPayment / 100,
+                        inputAttributes: {
+                            autocapitalize: 'off'
+                        },
+                        showCancelButton: true,
+                        confirmButtonText: 'Book Now',
+                        showLoaderOnConfirm: true,
+                        preConfirm: (value) => {
+                            console.log(value)
+                            this.student.amount = value;
+                            return this.student.post('/api/forms/events/enroll/student')
+                                .then(response => {
+                                    return response;
+                                })
+                                .catch(error => {
+                                    Swal.showValidationMessage(
+                                        `You have some validation errors`
+                                    )
+                                })
+                        },
+                        allowOutsideClick: () => false
+                    }).then((result) => {
+                        if (result.value) {
+                            if (result.value.data.error) {
+                                swal.fire(result.value.data.error, result.value.data.message, "error");
                                 return;
+                            } else {
+                                axios({
+                                    method: 'post',
+                                    url: '/api/verify/enrollment/' + result.value.data,
+                                }).then((resp) => {
+                                        console.log(resp);
+                                        swal.fire({
+                                            title: 'Enrollment ID: ' + result.value.data,
+                                            text: 'You have successfully enrolled ' + this.student.firstName,
+                                            type: 'success',
+                                            backdrop: `rgba(0, 0, 123, 0.4)`
+                                        });
+                                        this.student.reset();
+                                    }).catch()
+                                {
+                                    swal("Enrollment Failed", "Some error occurred during enrollment", "error")
+                                }
                             }
 
-                        swal.fire({
-                            title:'Enrollment ID: '+result.value.data,
-                            text:'You have successfully enrolled '+this.student.firstName,
-                            type:'success',
-                            backdrop: `rgba(0,0,123,0.4)`
-                        });
-                        this.student.reset();
-                    }
-                });}).catch()
+                        }
+                    });
+                }).catch()
                 {
-                    swal("Invalid Inputs","Your form has multiple errors","error");
+                    swal("Invalid Inputs", "Your form has multiple errors", "error");
                 }
             },
             getEvents() {
@@ -306,46 +370,45 @@ swal.fire('Error','Kindly Contact Service Administrator','error');
                         this.$data.events = response.data
                     })
                     .catch(function (response) {
-                        swal.fire( 'Server Error', 'Kindly Contact the Server Admin','error');
+                        swal.fire('Server Error', 'Kindly Contact the Server Admin', 'error');
                     });
             },
-            readyData()
-            {
-                for (var j=0;j<this.events.length;j++)
-                {
-                    if(this.student.eventID==this.events[j].id)
-                    this.selectedEvent=this.events[j];
+            readyData() {
+                for (var j = 0; j < this.events.length; j++) {
+                    if (this.student.eventID == this.events[j].id)
+                        this.selectedEvent = this.events[j];
                 }
 
                 axios({
                     method: 'post',
-                    url: '/api/events/find/enrollable/teams/'+this.$data.student.eventID,
+                    url: '/api/events/find/enrollable/teams/' + this.$data.student.eventID,
                 })
                     .then((response) => {
                         this.$data.teams = response.data;
                     })
                     .catch(function (response) {
-                        swal.fire( 'Server Error', 'Kindly Contact the Server Admin','error');
+                        swal.fire('Server Error', 'Kindly Contact the Server Admin', 'error');
                     });
             },
             enrollWithFullPayment() {
                 this.$validator.validateAll().then(() => {
-                    this.student.amount=this.selectedEvent.ticketPrice;
-                    this.student.mobile=parseInt(this.student.mobile);
+                    this.student.amount = this.selectedEvent.ticketPrice;
+                    this.student.mobile = parseInt(this.student.mobile);
                     this.student.post('/api/forms/events/enroll/student')
                         .then((response) => {
-                            var data=response.data;
+                            var data = response.data;
                             swal.fire({
-                                title:'Enrollment ID: '+data,
-                                text:'You have successfully enrolled '+this.student.firstName,
-                                type:'success',
-                                backdrop: `rgba(0,0,123,0.4)`
+                                title: 'Enrollment ID: ' + data,
+                                text: 'You have successfully enrolled ' + this.student.firstName,
+                                type: 'success',
+                                backdrop: `rgba(0, 0, 123, 0.4)`
                             });
                             this.student.reset();
                             $('#regNo').focus();
-                        });}).catch()
+                        });
+                }).catch()
                 {
-                    swal("Invalid Inputs","Your form has multiple errors","error");
+                    swal("Invalid Inputs", "Your form has multiple errors", "error");
                 }
             },
         },

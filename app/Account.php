@@ -28,7 +28,7 @@ class Account extends Model
     }
     public function newStandardAccount($collegeUID,$creatorUID=99887766)
     {
-        $holder=User::findOrFail($collegeUID);
+        $holder=User::where('collegeUID',$collegeUID);
         $holderName=$holder->fullName();
         $account= new Account();
         $account->name=$holderName." - Standard Account";

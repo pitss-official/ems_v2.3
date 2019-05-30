@@ -63,7 +63,7 @@ class EnrollmentController extends Controller
         ]);
         $coordinatorUID = Auth::guard('api')->user()->collegeUID;
         if (User::ifNotExist($validatedData['collegeUID'])) {
-            $request->validate([
+            $validatedData=array_merge($request->validate([
                 'email' => 'bail|required|email',
                 'fathersName' => 'nullable|string|min:1|max:100',
                 'firstName' => 'bail|required|string|min:1|max:25',
@@ -76,7 +76,7 @@ class EnrollmentController extends Controller
                 'nationality' => 'nullable|string|max:5',
                 'bloodGroup' => 'nullable|string|max:5',
                 'birthday' => 'nullable|date',
-            ]);
+            ]),$validatedData);
             $request->validate([
                 'email' => 'unique:users,email',
                 'mobile' => 'unique:users,mobile',
@@ -107,12 +107,14 @@ class EnrollmentController extends Controller
                     $user->openAccount();
             }
             catch(\Exception $e){
-
+                dd($e);
             }
             finally {
                 if (Account::ifNotExist($user->collegeUID))
-                {$user->delete();
-                    throw new \Exception("Account Creation Failed, Data has been rolled back");}
+                {
+                    $user->delete();
+                    throw new \Exception("Account Creation Failed, Data has been rolled back");
+                }
             }
         }
         $enrollment = new Enrollment();
@@ -160,5 +162,9 @@ class EnrollmentController extends Controller
     public function destroy($id)
     {
         //
+    }
+    public function verify($id)
+    {
+        return Enrollment::isExist($id);
     }
 }

@@ -26,6 +26,20 @@ class Enrollment extends Model
         return Enrollment::where('eventID', $eventID);
     }
 
+    public static function ifNotExist($id)
+    {
+        if (self::where('id', $id)->count() != 1)
+            return true;
+        else return false;
+    }
+
+    public static function isExist($id)
+    {
+        if (self::where('id', $id)->count() == 1)
+            return true;
+        else return false;
+    }
+
     public function transactions()
     {
         return $this->hasMany('App\Transactions');

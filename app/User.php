@@ -63,15 +63,14 @@ class User extends Authenticatable
     //this function is used to test the user is exsisting in the database or not
     public static function ifNotExist($id)
     {
-        dd(self::where('id',$id)->count());
-        if (self::where('id', $id)->count() != 1)
+        if (self::where('collegeUID', $id)->count() != 1)
             return true;
         else return false;
     }
 
     public static function isExist($id)
     {
-        if (self::where('id', $id)->count() == 1)
+        if (self::where('collegeUID', $id)->count() == 1)
             return true;
         else return false;
     }

@@ -22,3 +22,4 @@ Route::post('/members/find/name/{collegeUID}','UsersController@getUserName');
 Route::post('/events/find/enrollable/','API\EventController@listAll');
 Route::post('/events/find/enrollable/teams/{eventID}','API\TeamController@listAll');
 Route::post('/forms/events/enroll/student','API\EnrollmentController@store');
+Route::post('/verify/enrollment/{EnrollmentID}','API\EnrollmentController@verify');

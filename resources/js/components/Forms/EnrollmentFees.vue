@@ -61,12 +61,12 @@
 </template>
 
 <script>
-    import Select from "vue-select/src/components/Select";
+    //import Select from "vue-select/src/components/Select";
     import AlertErrors from "vform/src/components/AlertErrors";
 
     export default {
 
-        components: {AlertErrors, Select},
+        components: {AlertErrors},
         data () {
             return {
                 naive:{
