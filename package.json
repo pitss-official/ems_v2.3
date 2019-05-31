@@ -12,6 +12,7 @@
     "devDependencies": {
         "axios": "^0.18.0",
         "bootstrap": "^4.1.0",
+        "browser-sync-webpack-plugin": "^2.0.1",
         "cross-env": "^5.1",
         "jquery": "^3.2",
         "laravel-mix": "^4.0.7",
@@ -25,6 +26,7 @@
     },
     "dependencies": {
         "axios-progress-bar": "^1.2.0",
+        "browser-sync": "^2.26.5",
         "moment": "^2.24.0",
         "quagga": "^0.12.1",
         "sweetalert2": "^8.11.6",

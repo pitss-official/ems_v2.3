@@ -9,8 +9,8 @@ function store(val) {
         console.log(response.data.message);
         Toast.fire({
             type: 'success',
-            position: 'bottom-end',
-            title: response.data.message,
+            position: 'bottom',
+            text: response.data.message,
             showConfirmButton: true,
             // timer:10000,
         });
