@@ -14,7 +14,7 @@ class CreateCouponsTable extends Migration
     public function up()
     {
         Schema::create('coupons', function (Blueprint $table) {
-            $table->increments('id');
+            $table->unsignedBigInteger('id')->autoIncrement();
             //The coupon is intended for 0 will indicate for all persons
             $table->unsignedInteger('intendedUID');
             $table->unsignedInteger('issuedBy');

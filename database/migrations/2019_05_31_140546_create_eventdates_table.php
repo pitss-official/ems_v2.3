@@ -21,9 +21,9 @@ class CreateEventdatesTable extends Migration
             $table->time('startTime');
             $table->time('endTime');
             $table->unsignedInteger('coordinatorsRequired')->default(1);
-            $table->integer('eventID');
-            $table->foreign('eventID')->references('id')->on('events')->onDelete('cascade');
+            $table->unsignedBigInteger('eventID');
             $table->timestamps();
+            $table->foreign('eventID')->references('id')->on('events');
         });
     }
 

@@ -14,7 +14,7 @@ class CreateSmartcardsTable extends Migration
     public function up()
     {
         Schema::create('smartcards', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->unsignedBigInteger('id')->autoIncrement();
             $table->string('sIDA', '10');
             $table->string('sIDB', '10');
             $table->string('sIDC', '10');

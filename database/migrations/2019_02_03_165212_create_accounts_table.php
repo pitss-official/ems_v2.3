@@ -14,7 +14,7 @@ class CreateAccountsTable extends Migration
     public function up()
     {
         Schema::create('accounts', function (Blueprint $table) {
-            $table->increments('number');
+            $table->unsignedBigInteger('number')->autoIncrement();
             $table->string('name');
             $table->unsignedInteger('collegeUID');
             $table->float('balance', 20, 4);

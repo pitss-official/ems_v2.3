@@ -14,7 +14,7 @@ class CreateAttendenceTable extends Migration
     public function up()
     {
         Schema::create('attendance', function (Blueprint $table) {
-            $table->increments('id');
+            $table->unsignedBigInteger('id')->autoIncrement();
             $table->unsignedInteger('eventID')->nullable();
             $table->unsignedInteger('attendeeUID');
             $table->unsignedInteger('coordinatorUID');

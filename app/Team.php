@@ -10,6 +10,7 @@ class Team extends Model
     //
     protected $visible = ['name', 'id'];
 
+
     public static function isNotExist($id)
     {
         return !self::isExist($id);

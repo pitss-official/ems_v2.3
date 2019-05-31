@@ -8,7 +8,7 @@
                             <h4 class="m-b-0 text-white">Add New Event</h4>
                         </div>
                         <div class="card-body">
-                            <form  method="post" class="form-material">
+                            <form class="form-material" method="post">
                                 <div class="form-body">
                                     <h3 class="card-title">Basic Information</h3>
                                     <hr>
@@ -28,9 +28,9 @@
                                                 <!--				form-group has-danger/has-success									form-control-danger-->
                                                 <div class="input-daterange input-group" id="event-dates">
                                                     <input class="form-control" id="start_date" name="start" required
-                                                           type="datetime-local"><span
+                                                           type="date"><span
                                                     class="input-group-addon bg-info b-0 text-white">to</span><input
-                                                    class="form-control" id="end_date" name="end" type="datetime-local">
+                                                    class="form-control" id="end_date" name="end" type="date">
                                                 </div>
                                                 <small class="form-control-feedback">Proposed Span of the Event</small>
                                             </div>
@@ -149,7 +149,7 @@
                                 <div id="date_list"></div>
                                 <div class="row">
                                     <div class="col-md-12">
-                                        <button class="btn btn-info" id="genrate_dates_button" onClick="genrate_dates()"
+                                        <button class="btn btn-info" id="genrate_dates_button" @click="genrate_dates"
                                                 type="button">Fetch Dates for Scheduling
                                         </button>
                                     </div>
@@ -182,6 +182,7 @@
 </template>
 
 <script>
+    import moment from 'moment';
     export default {
         data() {
             return
@@ -191,11 +192,50 @@
         },
         methods:
             {
-
-            },
-        mounted() {
-
+                genrate_dates(){
+        if ($("#start_date").val() == "") {
+            swal.fire('Empty Event Dates', 'Please choose the event start and end dates before fetching the inbetween dates for scheduling', 'error');
+            return;
         }
+        var start = $("#start_date").getDate(),
+            end = $("#end_date").getDate(),
+            currentDate = new Date(start),
+            between = '<div class="row">', total = 0;
+        console.log(start,end);
+
+        while (currentDate <= end) {
+            total++;
+            var datee = new Date(currentDate);
+            datee = moment(datee);
+            between += '<div class="col-md-3"><div class="form-group"><input disabled readonly class="form-control" value="' + datee.format("dddd, MMMM Do YYYY") + '"><input value="' + datee.format("YYYY-MM-DD") + '" id="sc_dt_' + total + '" type="text" style="display:none" disabled readonly></div></div><div class="col-md-2"><div class="input-group clockpicker " data-placement="bottom" data-align="top" data-autoclose="true"><input placeholder="Start Time" type="text" id="sc_start_' + total + '" class="form-control"> <span class="input-group-addon"> <span class="fa fa-clock-o"></span> </span></div></div><div class="col-md-2"><div class="input-group clockpicker " data-placement="bottom" data-align="top" data-autoclose="true"><input type="text" placeholder="End Time" id="sc_end_' + total + '" class="form-control"> <span class="input-group-addon"> <span class="fa fa-clock-o"></span> </span></div></div><div class="col-md-5"><div class="form-group"><textarea rows="1" id="sc_desc_' + total + '" class="form-control" placeholder="Description of the day"></textarea></div></div>';
+            currentDate.setDate(currentDate.getDate() + 1);
+        }
+        between += '</div>';
+        $('#date_list').html(between);
+        $('input[type=text], textarea').autogrow();
+        // Clock pickers
+        $('#single-input').clockpicker({
+            placement: 'bottom',
+            align: 'left',
+            autoclose: true,
+            'default': 'now'
+        });
+        $('.clockpicker').clockpicker({
+            donetext: 'Done',
+        }).find('input').change(function () {
+            console.log(this.value);
+        });
+        $('#check-minutes').click(function (e) {
+            // Have to stop propagation here
+            e.stopPropagation();
+            input.clockpicker('show').clockpicker('toggleView', 'minutes');
+        });
+    }
+    },
+    mounted()
+    {
+
+    }
     }
 </script>
 

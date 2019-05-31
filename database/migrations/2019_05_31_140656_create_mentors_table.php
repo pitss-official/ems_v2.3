@@ -14,11 +14,11 @@ class CreateMentorsTable extends Migration
     public function up()
     {
         Schema::create('mentors', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->unsignedBigInteger('id')->autoIncrement();
             $table->unsignedBigInteger('groupID');
             $table->unsignedInteger('memberID');
             $table->foreign('memberID')->references('collegeUID')->on('users');
-            $table->integer('eventID');
+            $table->unsignedBigInteger('eventID');
             $table->foreign('eventID')->references('id')->on('events');
             $table->unsignedSmallInteger('memberType')->default(0);
             $table->unsignedBigInteger('dayID');

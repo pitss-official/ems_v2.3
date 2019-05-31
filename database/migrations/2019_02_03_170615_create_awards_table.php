@@ -14,8 +14,8 @@ class CreateAwardsTable extends Migration
     public function up()
     {
         Schema::create('awards', function (Blueprint $table) {
-            $table->increments('id');
-            $table->unsignedInteger('eventID');
+            $table->unsignedBigInteger('id')->autoIncrement();
+            $table->unsignedBigInteger('eventID');
             $table->unsignedInteger('collegeUID')->nullable();
             $table->unsignedInteger('itemID')->nullable();
             $table->unsignedInteger('teamID')->nullable();

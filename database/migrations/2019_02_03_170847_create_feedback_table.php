@@ -14,8 +14,8 @@ class CreateFeedbackTable extends Migration
     public function up()
     {
         Schema::create('feedback', function (Blueprint $table) {
-            $table->increments('id');
-            $table->unsignedInteger('eventID');
+            $table->unsignedBigInteger('id')->autoIncrement();
+            $table->unsignedBigInteger('eventID');
             $table->unsignedInteger('collegeUID');
             $table->text('feedback');
             $table->unsignedTinyInteger('rating')->default(5);

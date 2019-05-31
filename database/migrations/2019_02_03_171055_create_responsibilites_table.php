@@ -14,7 +14,7 @@ class CreateResponsibilitesTable extends Migration
     public function up()
     {
         Schema::create('responsibilites', function (Blueprint $table) {
-            $table->increments('id');
+            $table->unsignedBigInteger('id')->autoIncrement();
             $table->timestamps();
         });
     }

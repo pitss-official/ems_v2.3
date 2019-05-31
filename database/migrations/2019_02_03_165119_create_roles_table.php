@@ -14,7 +14,7 @@ class CreateRolesTable extends Migration
     public function up()
     {
         Schema::create('roles', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->unsignedBigInteger('id')->autoIncrement();
             $table->string('name');
             //this will be used to identify which menus should be openable by the user
             $table->unsignedSmallInteger('authorityGrant');

@@ -14,7 +14,7 @@ class CreateVenuesTable extends Migration
     public function up()
     {
         Schema::create('venues', function (Blueprint $table) {
-            $table->increments('id');
+            $table->unsignedBigInteger('id')->autoIncrement();
             $table->unsignedInteger('registeredBy');
             $table->unsignedInteger('type')->default(1);
             //block address

@@ -25,8 +25,8 @@ class User extends Authenticatable
      *
      * @var array
      */
-    protected $visible = [
-        'firstName','middleName','lastName','collegeUID'
+    protected $hidden = [
+
     ];
     /**
      * The attributes that should be cast to native types.

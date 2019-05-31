@@ -14,11 +14,12 @@ class CreateTeamsTable extends Migration
     public function up()
     {
         Schema::create('teams', function (Blueprint $table) {
-            $table->increments('id');
+            $table->unsignedBigInteger('id')->autoIncrement();
             $table->string('name');
             $table->unsignedTinyInteger('maxCapacity')->default(2);
             $table->unsignedTinyInteger('availedCapacity')->default(0);
-            $table->unsignedInteger('eventID');
+            $table->unsignedBigInteger('eventID');
+            $table->text('description')->nullable();
             $table->foreign('eventID')->references('id')->on('events');
             $table->timestamps();
         });

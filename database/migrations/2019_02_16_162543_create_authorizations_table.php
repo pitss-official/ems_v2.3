@@ -14,7 +14,7 @@ class CreateAuthorizationsTable extends Migration
     public function up()
     {
         Schema::create('authorizations', function (Blueprint $table) {
-            $table->increments('id');
+            $table->unsignedBigInteger('id')->autoIncrement();
             $table->timestamps();
         });
     }

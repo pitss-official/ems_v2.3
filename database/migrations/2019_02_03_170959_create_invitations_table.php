@@ -14,10 +14,13 @@ class CreateInvitationsTable extends Migration
     public function up()
     {
         Schema::create('invitations', function (Blueprint $table) {
-            $table->increments('id');
+            $table->unsignedBigInteger('id')->autoIncrement();
             $table->unsignedInteger('intendedUID');
-            $table->unsignedInteger('eventID');
+            $table->unsignedBigInteger('eventID');
             $table->unsignedInteger('invitedBy');
+            $table->foreign('intendedUID')->references('collegeUID')->on('users');
+            $table->foreign('eventID')->references('id')->on('events');
+            $table->foreign('invitedBy')->references('collegeUID')->on('users');
             $table->timestamps();
         });
     }
