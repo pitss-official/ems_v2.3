@@ -18,6 +18,9 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 Route::get('fetch/navigation','API\NavigationController@pushAllLinks');
 Route::get('fetch/user/queues/pendingActions','API\QueueController@index');
+Route::post('fetch/user/balance/currentBalance','UsersController@breadcumbBalances');
+Route::get('put/user/theme/{themeName}','UsersController@setTheme');
+
 Route::post('/members/find/name/{collegeUID}','UsersController@getUserName');
 Route::post('/events/find/enrollable/','API\EventController@listAll');
 Route::post('/events/find/enrollable/teams/{eventID}','API\TeamController@listAll');

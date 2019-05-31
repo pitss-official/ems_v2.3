@@ -2430,12 +2430,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 
 var ele = document.querySelector('#mainview');
-var Toast = swal.mixin({
-  toast: true,
-  // position: 'top-end',
-  showConfirmButton: true // timer: 3000
-
-});
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'Barcode',
   data: function data() {
@@ -3664,6 +3658,36 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return;
@@ -3760,7 +3784,30 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: "breadcumb"
+  name: "breadcumb",
+  data: function data() {
+    return {
+      thisMonthEarnings: 'Loading...',
+      currentBalance: 'Loading...',
+      url: window.location.pathname
+    };
+  },
+  methods: {},
+  beforeMount: function beforeMount() {
+    var _this = this;
+
+    setInterval(function () {
+      axios({
+        method: 'post',
+        url: '/api/fetch/user/balance/currentBalance'
+      }).then(function (response) {
+        _this.$data.thisMonthEarnings = '&#8377;' + response.data.thisMonthEarnings;
+        _this.$data.currentBalance = '&#8377;' + response.data.currentBalance;
+      })["catch"](function (error) {
+        console.log(error);
+      });
+    }, 25000);
+  }
 });
 
 /***/ }),
@@ -22478,6 +22525,7 @@ var render = function() {
               _c(
                 "form",
                 {
+                  staticClass: "form-material",
                   on: {
                     submit: function($event) {
                       $event.preventDefault()
@@ -22799,6 +22847,7 @@ var render = function() {
               _c(
                 "form",
                 {
+                  staticClass: "form-material",
                   on: {
                     submit: function($event) {
                       $event.preventDefault()
@@ -23056,12 +23105,7 @@ var staticRenderFns = [
                 _c("div", { staticClass: "card-body" }, [
                   _c(
                     "form",
-                    {
-                      attrs: {
-                        action: "javascript:addEvent();",
-                        method: "post"
-                      }
-                    },
+                    { staticClass: "form-material", attrs: { method: "post" } },
                     [
                       _c("div", { staticClass: "form-body" }, [
                         _c("h3", { staticClass: "card-title" }, [
@@ -23166,7 +23210,11 @@ var staticRenderFns = [
                               _c(
                                 "small",
                                 { staticClass: "form-control-feedback" },
-                                [_vm._v(" Define maximum seats for the event ")]
+                                [
+                                  _vm._v(
+                                    " Define maximum seats for the\n                                                event\n                                            "
+                                  )
+                                ]
                               )
                             ])
                           ]),
@@ -23232,7 +23280,7 @@ var staticRenderFns = [
                               { staticClass: "form-control-feedback" },
                               [
                                 _vm._v(
-                                  "It will be sent to the participants for queries"
+                                  "It will be sent to the participants for\n                                            queries\n                                        "
                                 )
                               ]
                             )
@@ -23335,7 +23383,7 @@ var staticRenderFns = [
                             _c(
                               "small",
                               { staticClass: "form-control-feedback" },
-                              [_vm._v(" Name of Approving Authority ")]
+                              [_vm._v(" Name of Approving Authority")]
                             )
                           ])
                         ]),
@@ -23354,13 +23402,14 @@ var staticRenderFns = [
                               { staticClass: "form-control-feedback" },
                               [
                                 _vm._v(
-                                  " Mobile Number of Approving Authority required in case of any problem during event "
+                                  " Mobile Number of Approving Authority\n                                            required in case of any problem during event\n                                        "
                                 )
                               ]
                             )
                           ])
                         ])
                       ]),
+                      _vm._v(" "),
                       _c("div", { staticClass: "row" }, [
                         _c("div", { staticClass: "col-md-6" }, [
                           _c("div", { staticClass: "form-group" }, [
@@ -23405,7 +23454,11 @@ var staticRenderFns = [
                                 type: "button"
                               }
                             },
-                            [_vm._v("Fetch Dates for Scheduling")]
+                            [
+                              _vm._v(
+                                "Fetch Dates for Scheduling\n                                    "
+                              )
+                            ]
                           )
                         ])
                       ]),
@@ -23436,7 +23489,7 @@ var staticRenderFns = [
                           },
                           [
                             _c("i", { staticClass: "fa fa-check" }),
-                            _vm._v(" Save")
+                            _vm._v(" Save\n                                ")
                           ]
                         ),
                         _vm._v(" "),
@@ -23550,72 +23603,108 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
+  return _c("div", { staticClass: "row page-titles" }, [
+    _vm._m(0),
+    _vm._v(" "),
+    _c("div", { staticClass: "col-md-7 col-4 align-self-center" }, [
+      _c("div", { staticClass: "d-flex m-t-10 justify-content-end" }, [
+        _c("div", { staticClass: "d-flex m-r-20 m-l-10 hidden-md-down" }, [
+          _c("div", { staticClass: "chart-text m-r-10" }, [
+            _vm._m(1),
+            _vm._v(" "),
+            _c("h4", {
+              staticClass: "m-t-0 text-info",
+              domProps: { innerHTML: _vm._s(_vm.thisMonthEarnings) }
+            })
+          ]),
+          _vm._v(" "),
+          _vm._m(2)
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "d-flex m-r-20 m-l-10 hidden-md-down" }, [
+          _c("div", { staticClass: "chart-text m-r-10" }, [
+            _vm._m(3),
+            _vm._v(" "),
+            _c("h4", {
+              staticClass: "m-t-0 text-primary",
+              domProps: { innerHTML: _vm._s(_vm.currentBalance) }
+            })
+          ]),
+          _vm._v(" "),
+          _vm._m(4)
+        ]),
+        _vm._v(" "),
+        _vm._m(5)
+      ])
+    ])
+  ])
 }
 var staticRenderFns = [
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "row page-titles" }, [
-      _c("div", { staticClass: "col-md-5 col-8 align-self-center" }, [
-        _c("h3", { staticClass: "text-themecolor" }, [_vm._v("Dashboard")]),
-        _vm._v(" "),
-        _c("ol", { staticClass: "breadcrumb" }, [
-          _c("li", { staticClass: "breadcrumb-item" }, [
-            _c("a", { attrs: { href: "javascript:void(0)" } }, [_vm._v("Home")])
-          ]),
-          _vm._v(" "),
-          _c("li", { staticClass: "breadcrumb-item active" }, [
-            _vm._v("Dashboard")
-          ])
-        ])
-      ]),
+    return _c("div", { staticClass: "col-md-5 col-8 align-self-center" }, [
+      _c("h3", { staticClass: "text-themecolor" }, [_vm._v("Dashboard")]),
       _vm._v(" "),
-      _c("div", { staticClass: "col-md-7 col-4 align-self-center" }, [
-        _c("div", { staticClass: "d-flex m-t-10 justify-content-end" }, [
-          _c("div", { staticClass: "d-flex m-r-20 m-l-10 hidden-md-down" }, [
-            _c("div", { staticClass: "chart-text m-r-10" }, [
-              _c("h6", { staticClass: "m-b-0" }, [
-                _c("small", [_vm._v("THIS MONTH")])
-              ]),
-              _vm._v(" "),
-              _c("h4", { staticClass: "m-t-0 text-info" }, [_vm._v("$58,356")])
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "spark-chart" }, [
-              _c("div", { attrs: { id: "monthchart" } })
-            ])
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "d-flex m-r-20 m-l-10 hidden-md-down" }, [
-            _c("div", { staticClass: "chart-text m-r-10" }, [
-              _c("h6", { staticClass: "m-b-0" }, [
-                _c("small", [_vm._v("LAST MONTH")])
-              ]),
-              _vm._v(" "),
-              _c("h4", { staticClass: "m-t-0 text-primary" }, [
-                _vm._v("$48,356")
-              ])
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "spark-chart" }, [
-              _c("div", { attrs: { id: "lastmonthchart" } })
-            ])
-          ]),
-          _vm._v(" "),
-          _c("div", {}, [
-            _c(
-              "button",
-              {
-                staticClass:
-                  "right-side-toggle waves-effect waves-light btn-success btn btn-circle btn-sm pull-right m-l-10"
-              },
-              [_c("i", { staticClass: "ti-settings text-white" })]
-            )
+      _c("ol", { staticClass: "breadcrumb" }, [
+        _c("li", { staticClass: "breadcrumb-item" }, [
+          _c("a", { attrs: { href: "javascript:window.location.url" } }, [
+            _vm._v("Home")
           ])
+        ]),
+        _vm._v(" "),
+        _c("li", { staticClass: "breadcrumb-item active" }, [
+          _vm._v("Dashboard")
         ])
       ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("h6", { staticClass: "m-b-0" }, [
+      _c("small", [_vm._v("EARNINGS")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "spark-chart" }, [
+      _c("div", { attrs: { id: "monthchart" } })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("h6", { staticClass: "m-b-0" }, [
+      _c("small", [_vm._v("BALANCE")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "spark-chart" }, [
+      _c("div", { attrs: { id: "lastmonthchart" } })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", {}, [
+      _c(
+        "button",
+        {
+          staticClass:
+            "right-side-toggle waves-effect waves-light btn-success btn btn-circle btn-sm pull-right m-l-10"
+        },
+        [_c("i", { staticClass: "ti-settings text-white" })]
+      )
     ])
   }
 ]
@@ -40191,6 +40280,12 @@ Vue.use(vue_router__WEBPACK_IMPORTED_MODULE_0__["default"]);
 window.Swal = sweetalert2__WEBPACK_IMPORTED_MODULE_4___default.a;
 window.swal = sweetalert2__WEBPACK_IMPORTED_MODULE_4___default.a;
 window.Form = vform__WEBPACK_IMPORTED_MODULE_2__["Form"];
+window.Toast = swal.mixin({
+  toast: true,
+  // position: 'top-end',
+  showConfirmButton: true // timer: 3000
+
+});
 window.linker1 = 0;
 Vue.use(vee_validate__WEBPACK_IMPORTED_MODULE_3__["default"]);
 var routes = [{

@@ -90,7 +90,7 @@ function initPage() {
     // ==============================================================
     $(function () {
         var url = window.location;
-        console.log(url);
+        // console.log(url);
         var element = $('ul#sidebarnav a').filter(function () {
             return this.href == url;
         }).addClass('active').parent().addClass('active');

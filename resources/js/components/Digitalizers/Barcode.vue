@@ -6,16 +6,7 @@
 
 <script>
     import Quagga from 'quagga';
-
     let ele=document.querySelector('#mainview');
-    const Toast = swal.mixin({
-        toast: true,
-        // position: 'top-end',
-        showConfirmButton: true,
-        // timer: 3000
-    });
-
-
     export default {
         name: 'Barcode',
         data()

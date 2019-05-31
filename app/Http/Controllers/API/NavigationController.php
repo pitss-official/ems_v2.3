@@ -74,9 +74,8 @@ class NavigationController extends Controller
     public function pushAllLinks()
     {
         $currentUser= User::getCurrentAPIUser();
-        $currentUser->setVisible(['authorityLevel']);
         $navigator=new Navigator();
-        return $navigator->getNavigationLinks($currentUser->authorityLevel);
+        return $navigator->getNavigationLinks($currentUser['authorityLevel']);
 
     }
 }

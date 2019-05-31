@@ -18,6 +18,12 @@ Vue.use(VueRouter)
 window.Swal=Swal
 window.swal=Swal
 window.Form=Form
+window.Toast = swal.mixin({
+    toast: true,
+    // position: 'top-end',
+    showConfirmButton: true,
+    // timer: 3000
+});
 window.linker1=0
 Vue.use(VeeValidate);
 

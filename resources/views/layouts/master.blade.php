@@ -25,7 +25,7 @@
     <!-- Custom CSS -->
     <link href="/css/style.css" rel="stylesheet">
     <!-- You can change the theme colors from here -->
-    <link href="/css/colors/blue.css" id="theme" rel="stylesheet">
+    <link href="/css/colors/{{Auth::user()->lastTheme()}}.css" id="theme" rel="stylesheet">
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -287,9 +287,9 @@
 <script src="/assets/plugins/chartist-js/dist/chartist.min.js"></script>
 <script src="/assets/plugins/chartist-plugin-tooltip-master/dist/chartist-plugin-tooltip.min.js"></script>
 <!-- Vector map JavaScript -->
-<script src="/assets/plugins/vectormap/jquery-jvectormap-2.0.2.min.js"></script>
-<script src="/assets/plugins/vectormap/jquery-jvectormap-us-aea-en.js"></script>
-<script src="/js/dashboard3.js"></script>
+{{--<script src="/assets/plugins/vectormap/jquery-jvectormap-2.0.2.min.js"></script>--}}
+{{--<script src="/assets/plugins/vectormap/jquery-jvectormap-us-aea-en.js"></script>--}}
+{{--<script src="/js/dashboard3.js"></script>--}}
 <!-- ============================================================== -->
 <!-- Style switcher -->
 <!-- ============================================================== -->

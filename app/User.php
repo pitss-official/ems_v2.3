@@ -2,6 +2,7 @@
 
 namespace App;
 use App\Http\Controllers\API\NavigationController;
+use Illuminate\Support\Facades\Auth;
 use Laravel\Passport\HasApiTokens;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -47,16 +48,28 @@ class User extends Authenticatable
     //this function will return the current user (api user) object
     public static function getCurrentAPIUser()
     {
-        return \Auth::user();
+        try{
+        $userObject=Auth::guard('api')->user();
+        return [
+            'collegeUID'=>$userObject->collegeUID,
+            'authorityLevel'=>$userObject->authorityLevel,
+            'firstName'=>$userObject->firstName,
+            'middleName'=>$userObject->middleName,
+            'lastName'=>$userObject->lastName,
+            ];}
+            catch (\Exception $e)
+            {
+                die("Invalid Session");
+            }
     }
-    //@showlinks is used to display the user dynamic navigation links
-    public static function showLinks()
-    {
-        $userLevel=User::getCurrentAPIUser()->authenticationLevel;
-        $navigationList=new Navigator();
-        $navigationList=$navigationList->getNavigationLinks($userLevel);
-        return $navigationList;
-    }
+//    //@showlinks is used to display the user dynamic navigation links
+//    public static function showLinks()
+//    {
+//        $userLevel=Auth::guard('api')->user()->authorityLevel;
+//        $navigationList=new Navigator();
+//        $navigationList=$navigationList->getNavigationLinks($userLevel);
+//        return $navigationList;
+//    }
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
@@ -81,16 +94,10 @@ class User extends Authenticatable
         $account->newStandardAccount($this->collegeUID);
         return $account;
         //account will now be opened through the standarad account interface in Account class
-//        $account= new Account();
-//        $account->name=$this->fullName()." - Standard Account";
-//        $account->onHold=1;
-//        $account->type=0;
-//        $account->queueID=0;
-//        $account->balance=0;
-//        $account->number=$this->collegeUID;
-//        $account->collegeUID=$this->collegeUID;
-//        $account->save();
-//        return $account->number;
     }
-
+    public function lastTheme()
+    {
+        $styles=['blue','purple','megna','red','green','default','default-dark','green-dark','red-dark','blue-dark','purple-dark','megna-dark',];
+        return $styles[$this->theme];
+    }
 }

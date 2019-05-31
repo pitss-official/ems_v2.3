@@ -8,7 +8,7 @@
                             <h4 class="m-b-0 text-white">Receive Money from Student</h4>
                         </div>
                         <div class="card-body">
-                            <form @submit.prevent="deposit">
+                            <form @submit.prevent="deposit" class="form-material">
                                 <div class="form-body">
                                     <h3 class="card-title">Enter Student Details</h3>
                                     <hr>

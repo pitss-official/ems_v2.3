@@ -8,7 +8,7 @@
                             <h4 class="m-b-0 text-white">Send Money</h4>
                         </div>
                         <div class="card-body">
-                            <form @submit.prevent="send">
+                            <form @submit.prevent="send" class="form-material">
                                 <div class="form-body">
                                     <h3 class="card-title">Enter Reciever Details</h3>
                                     <hr>

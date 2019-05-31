@@ -61,34 +61,34 @@ class Enrollment extends Model
         /*
          * Check if the clientID is Valid
          */
-        if (User::ifNotExist($enrollingStudentCollegeUID) || User::ifNotExist($coordinatorCollegeUID))
-            return ['title' => 'Invalid RoR', 'error' => 'Cannot perform a transaction since either the Recipient or the user doesnt have accounts'];
-        /*
-         * Step 1 : Create a New user with Parameters through user controller
-         * This Step should be already implemented in the system before reaching this step
-         */
-        //PROCEDURE START FROM HERE
-        /*
-         * Step 2 : Find the requested event and fetch the assoc. price
-         */
-
-        $event = Event::find($this->eventID);
-        //TRANSACTION BEGIN
-        $coordinatorAccount = DB::table('accounts')->where('number', '=', $coordinatorCollegeUID);
-        return DB::transaction(function () use ($event, $teamID, $coordinatorCollegeUID, $enrollingStudentCollegeUID) {
-            //eventCashAccount Begins with EVENTID_0_1
-            $eventCashAccount = '999' . $this->eventID . "01";
-
-            $amount = $event->ticketPrice;
-            $eventNarration = "Enrollment successful for $enrollingStudentCollegeUID by $coordinatorCollegeUID";
-            $narration = "Enrollment Fees for " . $event->name . ' transferred by ' . $coordinatorCollegeUID;
+            if (User::ifNotExist($enrollingStudentCollegeUID) || User::ifNotExist($coordinatorCollegeUID))
+                return ['title' => 'Invalid RoR', 'error' => 'Cannot perform a transaction since either the Recipient or the user doesnt have accounts'];
             /*
-             * Step 2 : Debit the coordinator account Credit to Student Account along with record in the transaction
+             * Step 1 : Create a New user with Parameters through user controller
+             * This Step should be already implemented in the system before reaching this step
              */
-            $studentCreditTransactionID = Transaction::nonDBTransactionDeQueueTranfer($coordinatorCollegeUID, $enrollingStudentCollegeUID, $amount, $narration, $coordinatorCollegeUID, 1);
+            //PROCEDURE START FROM HERE
             /*
-             * Step 3: Create a Transaction : Debit from Student Account as Registration Fees of the Event
+             * Step 2 : Find the requested event and fetch the assoc. price
              */
+
+            $event = Event::find($this->eventID);
+            //TRANSACTION BEGIN
+            $coordinatorAccount = DB::table('accounts')->where('number', '=', $coordinatorCollegeUID);
+            return DB::transaction(function () use ($event, $teamID, $coordinatorCollegeUID, $enrollingStudentCollegeUID) {
+                //eventCashAccount Begins with EVENTID_0_1
+                $eventCashAccount = '999' . $this->eventID . "01";
+
+                $amount = $event->ticketPrice;
+                $eventNarration = "Enrollment successful for $enrollingStudentCollegeUID by $coordinatorCollegeUID";
+                $narration = "Enrollment Fees for " . $event->name . ' transferred by ' . $coordinatorCollegeUID;
+                /*
+                 * Step 2 : Debit the coordinator account Credit to Student Account along with record in the transaction
+                 */
+                $studentCreditTransactionID = Transaction::nonDBTransactionDeQueueTranfer($coordinatorCollegeUID, $enrollingStudentCollegeUID, $amount, $narration, $coordinatorCollegeUID, 1);
+                /*
+                 * Step 3: Create a Transaction : Debit from Student Account as Registration Fees of the Event
+                 */
             $eventCashCreditTransactionID = Transaction::nonDBTransactionDeQueueTranfer($enrollingStudentCollegeUID, $eventCashAccount, $amount, $eventNarration, $coordinatorCollegeUID, 1);
             /*
              * Step 4: Insert a Record in Enrollments
