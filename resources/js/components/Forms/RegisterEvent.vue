@@ -146,10 +146,34 @@
                                 <!--/row-->
                                 <h3 class="box-title m-t-40">Schedule of Event</h3>
                                 <hr>
-                                <div id="date_list"></div>
+                                <div id="datePannel">
+                                <div class="row" v-for="item in dates">
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <input readonly disabled class="form-control" v-bind:value="item.date.format('dddd, MMMM Do YYYY')">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-1">
+                                        <input type="time" class="form-control">
+                                        <small class="form-control-feedback">Start Time</small>
+                                    </div>
+                                    <div class="col-md-1">
+                                        <input type="time" class="form-control">
+                                        <small class="form-control-feedback">End Time</small>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <input type="text" placeholder="" class="form-control">
+                                        <small class="form-control-feedback">Motive of the day</small>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <input type="text" placeholder="" class="form-control">
+                                        <small class="form-control-feedback">Description of the day</small>
+                                    </div>
+                                </div>
+                                </div>
                                 <div class="row">
                                     <div class="col-md-12">
-                                        <button class="btn btn-info" id="genrate_dates_button" @click="genrate_dates"
+                                        <button class="btn btn-info" id="genrate_dates_button" @click.prevent="genrate_dates"
                                                 type="button">Fetch Dates for Scheduling
                                         </button>
                                     </div>
@@ -185,51 +209,35 @@
     import moment from 'moment';
     export default {
         data() {
-            return
-            {
-
+            return{
+                dates:[]
             }
         },
         methods:
             {
                 genrate_dates(){
+                    $("#datePannel").html("");
         if ($("#start_date").val() == "") {
             swal.fire('Empty Event Dates', 'Please choose the event start and end dates before fetching the inbetween dates for scheduling', 'error');
             return;
         }
-        var start = $("#start_date").getDate(),
-            end = $("#end_date").getDate(),
-            currentDate = new Date(start),
-            between = '<div class="row">', total = 0;
-        console.log(start,end);
-
+        var start = new Date($("#start_date").val()),
+            end = new Date($("#end_date").val()),
+            currentDate = new Date(start),total=0;
         while (currentDate <= end) {
             total++;
-            var datee = new Date(currentDate);
-            datee = moment(datee);
-            between += '<div class="col-md-3"><div class="form-group"><input disabled readonly class="form-control" value="' + datee.format("dddd, MMMM Do YYYY") + '"><input value="' + datee.format("YYYY-MM-DD") + '" id="sc_dt_' + total + '" type="text" style="display:none" disabled readonly></div></div><div class="col-md-2"><div class="input-group clockpicker " data-placement="bottom" data-align="top" data-autoclose="true"><input placeholder="Start Time" type="text" id="sc_start_' + total + '" class="form-control"> <span class="input-group-addon"> <span class="fa fa-clock-o"></span> </span></div></div><div class="col-md-2"><div class="input-group clockpicker " data-placement="bottom" data-align="top" data-autoclose="true"><input type="text" placeholder="End Time" id="sc_end_' + total + '" class="form-control"> <span class="input-group-addon"> <span class="fa fa-clock-o"></span> </span></div></div><div class="col-md-5"><div class="form-group"><textarea rows="1" id="sc_desc_' + total + '" class="form-control" placeholder="Description of the day"></textarea></div></div>';
+            this.$data.dates.push({
+                id:total,
+                date:moment(new Date(currentDate)),
+                startTime:'',
+                endTime:'',
+                motive:'',
+                description:'',
+            });
             currentDate.setDate(currentDate.getDate() + 1);
         }
-        between += '</div>';
-        $('#date_list').html(between);
-        $('input[type=text], textarea').autogrow();
-        // Clock pickers
-        $('#single-input').clockpicker({
-            placement: 'bottom',
-            align: 'left',
-            autoclose: true,
-            'default': 'now'
-        });
-        $('.clockpicker').clockpicker({
-            donetext: 'Done',
-        }).find('input').change(function () {
-            console.log(this.value);
-        });
-        $('#check-minutes').click(function (e) {
-            // Have to stop propagation here
-            e.stopPropagation();
-            input.clockpicker('show').clockpicker('toggleView', 'minutes');
-        });
+        console.log(this.$data.dates);
+        // $('input[type=text], textarea').autogrow();
     }
     },
     mounted()
