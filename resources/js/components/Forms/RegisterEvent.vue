@@ -148,12 +148,12 @@
                                 <hr>
                                 <div id="datePannel">
                                 <div class="row" v-for="item in dates">
-                                    <div class="col-md-3">
+                                    <div class="col-md-2">
                                         <div class="form-group">
-                                            <input readonly disabled class="form-control" v-bind:value="item.date.format('dddd, MMMM Do YYYY')">
+                                            <input readonly disabled class="form-control" v-bind:value="item.date.format('ddd, MMMM D,YYYY')">
                                         </div>
                                     </div>
-                                    <div class="col-md-1">
+                                    <div class="col-lg-1">
                                         <input type="time" class="form-control">
                                         <small class="form-control-feedback">Start Time</small>
                                     </div>
@@ -165,9 +165,12 @@
                                         <input type="text" placeholder="" class="form-control">
                                         <small class="form-control-feedback">Motive of the day</small>
                                     </div>
-                                    <div class="col-md-4">
-                                        <input type="text" placeholder="" class="form-control">
+                                    <div class="col-md-5">
+                                        <input type="textarea" placeholder="" class="form-control date-discription">
                                         <small class="form-control-feedback">Description of the day</small>
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <hr>
                                     </div>
                                 </div>
                                 </div>
@@ -237,6 +240,14 @@
             currentDate.setDate(currentDate.getDate() + 1);
         }
         console.log(this.$data.dates);
+        //todo:enrollement should show errors and runtime warnings
+        Toast.fire({
+            title:"Done",
+            type:'success',
+            position:'top-end',
+            confirm:false,
+            timer:2500,
+        });
         // $('input[type=text], textarea').autogrow();
     }
     },
@@ -248,5 +259,8 @@
 </script>
 
 <style scoped>
-
+.date-discription
+{
+    white-space: pre-wrap;
+}
 </style>

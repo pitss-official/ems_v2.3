@@ -18,3 +18,4 @@ mix.browserSync({
     port:80,
     https:true,
 });
+mix.js('resources/js/serviceWorker.js','public/');
