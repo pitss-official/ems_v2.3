@@ -35,7 +35,7 @@
                                                         {{ event.name }}
                                                     </option>
                                                 </select>
-                                                <has-error :form="form" field="password"></has-error>
+                                                <has-error :form="form" field="eventID"></has-error>
                                             </div>
                                         </div>
                                         <!--/span-->
@@ -49,25 +49,16 @@
                                 </div>
                                 <!--/row-->
                                 <div class="row">
-                                    <!--<div class="col-md-6">-->
-                                        <!--<div class="form-group">-->
-                                            <!--<label class="control-label">Number of persons</label>-->
-                                            <!--<input name="availedCapacity" placeholder="" type="text" class="form-control" :class="{ 'is-invalid': form.errors.has('availedCapacity') }">-->
-                                            <!--<has-error :form="form" field="availedCapacity"></has-error>-->
-                                            <!--</div>-->
-                                    <!--</div>-->
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             <label class="control-label">Description</label>
-                                            <textarea  id="description" class="form-control" :class="{ 'is-invalid': form.errors.has('eventID') }"></textarea>
+                                            <textarea  id="description" v-model="form.description" class="form-control" :class="{ 'is-invalid': form.errors.has('description') }"></textarea>
                                             <has-error :form="form" field="description"></has-error>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="form-actions">
                                     <button class="btn btn-success" id="sub" type="submit"> <i class="fa fa-check"></i> Create Team</button>
-                                    <!--<button class="btn btn-inverse" onClick="location.reload()" type="button">Retry Token</button>-->
-                                    <!--<button class="btn btn-danger" type="reset">Cancel</button>-->
                                 </div>
                             </form>
                         </div>
@@ -79,25 +70,9 @@
 </template>
 
 <script>
-
-    import {
-        HasError,
-        AlertError,
-        AlertErrors,
-        AlertSuccess
-    } from 'vform'
-
-    Vue.component(HasError.name, HasError)
-    Vue.component(AlertError.name, AlertError)
-    Vue.component(AlertErrors.name, AlertErrors)
-    Vue.component(AlertSuccess.name, AlertSuccess)
-
-
     export default {
         data(){
-
             return{
-
             eventList: [],
 
             form: new Form({
@@ -105,7 +80,6 @@
                 eventID: '',
                 description: '',
             })
-
             }
         },
 
@@ -113,18 +87,17 @@
             sendForm() {
                 // Submit the form via a POST request
                 //todo: reset form
-                this.form.post('/api/forms/events/team')
-                    .then(response => {
-                        //console.log(response)
-                        title: 'hey ',
-                        text: 'Bravo! You have successfully registered team ' + this.form.teamName,
+                this.form.post('/api/forms/events/team').then(response => {
+                    console.log(response);
+                    swal.fire({
+                        title: 'Bravo!',
+                        html: 'You have successfully registered team <b>' + this.form.teamName + '</b>',
                         type: 'success',
-                        backdrop: `rgba(0, 0, 123, 0.4)
-                        });
+                        backdrop: 'rgba(0, 0, 123, 0.4)',
                     })
-            }
+                });
+            },
         },
-
         //todo: anu create function for filtering non teaming events
         mounted(){
             axios({

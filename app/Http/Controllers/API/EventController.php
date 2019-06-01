@@ -38,9 +38,7 @@ class EventController extends Controller
      */
     public function store(Request $request)
     {
-        $validatedData = $request->validate([
-
-        ]);
+        dd($request);
     }
 
     /**

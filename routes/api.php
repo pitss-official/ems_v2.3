@@ -30,3 +30,8 @@ Route::post('/forms/venues/register','API\VenueController@store');
 Route::post('/forms/moneyTransfer/transaction/initiate','API\EnrollmentController@store');
 Route::post('/verify/enrollment/{EnrollmentID}','API\EnrollmentController@verify');
 Route::post('/verify/venue/{VenueID}','API\VenueController@verify');
+
+
+Route::apiResource('/forms/events/','API\EventController');
+//todo: anu
+Route::apiResource('/forms/events/team','API\TeamController');

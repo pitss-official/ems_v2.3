@@ -16,9 +16,21 @@ class Team extends Model
         return !self::isExist($id);
     }
 
+    public static function isNotExistByName($name)
+    {
+        return !self::isExistByName($name);
+    }
+
     public static function isExist($id)
     {
         if (Team::where('id', $id)->count() == 1)
+            return true;
+        else return false;
+    }
+
+    public static function isExistByName($name)
+    {
+        if (Team::where('name', $name)->count() == 1)
             return true;
         else return false;
     }

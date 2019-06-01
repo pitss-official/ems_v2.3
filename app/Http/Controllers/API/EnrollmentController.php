@@ -62,7 +62,7 @@ class EnrollmentController extends Controller
             'team' => 'bail|nullable|integer|exists:teams,id,eventID,' . $request->eventID,
         ]);
         $coordinatorUID = Auth::guard('api')->user()->collegeUID;
-        if (User::ifNotExist($validatedData['collegeUID'])) {
+        if (User::isNotExist($validatedData['collegeUID'])) {
             $validatedData=array_merge($request->validate([
                 'email' => 'bail|required|email',
                 'fathersName' => 'nullable|string|min:1|max:100',

@@ -74,7 +74,7 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
     //this function is used to test the user is exsisting in the database or not
-    public static function ifNotExist($id)
+    public static function isNotExist($id)
     {
         if (self::where('collegeUID', $id)->count() != 1)
             return true;

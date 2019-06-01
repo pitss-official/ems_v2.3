@@ -2747,9 +2747,124 @@ __webpack_require__.r(__webpack_exports__);
   !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/Forms/AddTeamForEvent.vue?vue&type=script&lang=js& ***!
   \********************************************************************************************************************************************************************************/
 /*! exports provided: default */
-/***/ (function(module, exports) {
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-throw new Error("Module build failed (from ./node_modules/babel-loader/lib/index.js):\nSyntaxError: G:\\ems_v2.3\\resources\\js\\components\\Forms\\AddTeamForEvent.vue: Unexpected token, expected \";\" (120:24)\n\n\u001b[0m \u001b[90m 118 | \u001b[39m                    \u001b[90m//console.log(response)\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 119 | \u001b[39m                    title\u001b[33m:\u001b[39m \u001b[32m'hey '\u001b[39m\u001b[33m,\u001b[39m\u001b[0m\n\u001b[0m\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 120 | \u001b[39m                    text\u001b[33m:\u001b[39m \u001b[32m'Bravo! You have successfully registered team '\u001b[39m \u001b[33m+\u001b[39m \u001b[36mthis\u001b[39m\u001b[33m.\u001b[39mform\u001b[33m.\u001b[39mteamName\u001b[33m,\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m     | \u001b[39m                        \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 121 | \u001b[39m                    type\u001b[33m:\u001b[39m \u001b[32m'success'\u001b[39m\u001b[33m,\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 122 | \u001b[39m                    backdrop\u001b[33m:\u001b[39m \u001b[32m`rgba(0, 0, 123, 0.4)\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 123 | \u001b[39m\u001b[32m                    });\u001b[39m\u001b[0m\n    at Parser.raise (G:\\ems_v2.3\\node_modules\\@babel\\parser\\lib\\index.js:6344:17)\n    at Parser.unexpected (G:\\ems_v2.3\\node_modules\\@babel\\parser\\lib\\index.js:7659:16)\n    at Parser.semicolon (G:\\ems_v2.3\\node_modules\\@babel\\parser\\lib\\index.js:7641:40)\n    at Parser.parseExpressionStatement (G:\\ems_v2.3\\node_modules\\@babel\\parser\\lib\\index.js:10323:10)\n    at Parser.parseStatementContent (G:\\ems_v2.3\\node_modules\\@babel\\parser\\lib\\index.js:9922:19)\n    at Parser.parseStatement (G:\\ems_v2.3\\node_modules\\@babel\\parser\\lib\\index.js:9788:17)\n    at Parser.parseLabeledStatement (G:\\ems_v2.3\\node_modules\\@babel\\parser\\lib\\index.js:10315:22)\n    at Parser.parseStatementContent (G:\\ems_v2.3\\node_modules\\@babel\\parser\\lib\\index.js:9920:19)\n    at Parser.parseStatement (G:\\ems_v2.3\\node_modules\\@babel\\parser\\lib\\index.js:9788:17)\n    at Parser.parseBlockOrModuleBlockBody (G:\\ems_v2.3\\node_modules\\@babel\\parser\\lib\\index.js:10364:25)\n    at Parser.parseBlockBody (G:\\ems_v2.3\\node_modules\\@babel\\parser\\lib\\index.js:10351:10)\n    at Parser.parseBlock (G:\\ems_v2.3\\node_modules\\@babel\\parser\\lib\\index.js:10335:10)\n    at Parser.parseFunctionBody (G:\\ems_v2.3\\node_modules\\@babel\\parser\\lib\\index.js:9408:24)\n    at Parser.parseArrowExpression (G:\\ems_v2.3\\node_modules\\@babel\\parser\\lib\\index.js:9349:10)\n    at Parser.parseExprAtom (G:\\ems_v2.3\\node_modules\\@babel\\parser\\lib\\index.js:8713:18)\n    at Parser.parseExprSubscripts (G:\\ems_v2.3\\node_modules\\@babel\\parser\\lib\\index.js:8413:23)\n    at Parser.parseMaybeUnary (G:\\ems_v2.3\\node_modules\\@babel\\parser\\lib\\index.js:8393:21)\n    at Parser.parseExprOps (G:\\ems_v2.3\\node_modules\\@babel\\parser\\lib\\index.js:8280:23)\n    at Parser.parseMaybeConditional (G:\\ems_v2.3\\node_modules\\@babel\\parser\\lib\\index.js:8253:23)\n    at Parser.parseMaybeAssign (G:\\ems_v2.3\\node_modules\\@babel\\parser\\lib\\index.js:8200:21)\n    at Parser.parseExprListItem (G:\\ems_v2.3\\node_modules\\@babel\\parser\\lib\\index.js:9475:18)\n    at Parser.parseCallExpressionArguments (G:\\ems_v2.3\\node_modules\\@babel\\parser\\lib\\index.js:8620:22)\n    at Parser.parseSubscript (G:\\ems_v2.3\\node_modules\\@babel\\parser\\lib\\index.js:8515:29)\n    at Parser.parseSubscripts (G:\\ems_v2.3\\node_modules\\@babel\\parser\\lib\\index.js:8434:19)\n    at Parser.parseExprSubscripts (G:\\ems_v2.3\\node_modules\\@babel\\parser\\lib\\index.js:8423:17)\n    at Parser.parseMaybeUnary (G:\\ems_v2.3\\node_modules\\@babel\\parser\\lib\\index.js:8393:21)\n    at Parser.parseExprOps (G:\\ems_v2.3\\node_modules\\@babel\\parser\\lib\\index.js:8280:23)\n    at Parser.parseMaybeConditional (G:\\ems_v2.3\\node_modules\\@babel\\parser\\lib\\index.js:8253:23)\n    at Parser.parseMaybeAssign (G:\\ems_v2.3\\node_modules\\@babel\\parser\\lib\\index.js:8200:21)\n    at Parser.parseExpression (G:\\ems_v2.3\\node_modules\\@babel\\parser\\lib\\index.js:8148:23)\n    at Parser.parseStatementContent (G:\\ems_v2.3\\node_modules\\@babel\\parser\\lib\\index.js:9917:23)\n    at Parser.parseStatement (G:\\ems_v2.3\\node_modules\\@babel\\parser\\lib\\index.js:9788:17)\n    at Parser.parseBlockOrModuleBlockBody (G:\\ems_v2.3\\node_modules\\@babel\\parser\\lib\\index.js:10364:25)\n    at Parser.parseBlockBody (G:\\ems_v2.3\\node_modules\\@babel\\parser\\lib\\index.js:10351:10)\n    at Parser.parseBlock (G:\\ems_v2.3\\node_modules\\@babel\\parser\\lib\\index.js:10335:10)\n    at Parser.parseFunctionBody (G:\\ems_v2.3\\node_modules\\@babel\\parser\\lib\\index.js:9408:24)");
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {
+      eventList: [],
+      form: new Form({
+        teamName: '',
+        eventID: '',
+        description: ''
+      })
+    };
+  },
+  methods: {
+    sendForm: function sendForm() {
+      var _this = this;
+
+      // Submit the form via a POST request
+      //todo: reset form
+      this.form.post('/api/forms/events/team').then(function (response) {
+        console.log(response);
+        swal.fire({
+          title: 'Bravo!',
+          html: 'You have successfully registered team <b>' + _this.form.teamName + '</b>',
+          type: 'success',
+          backdrop: 'rgba(0, 0, 123, 0.4)'
+        });
+      });
+    }
+  },
+  //todo: anu create function for filtering non teaming events
+  mounted: function mounted() {
+    var _this2 = this;
+
+    axios({
+      method: 'post',
+      url: '/api/events/find/enrollable'
+    }).then(function (response) {
+      console.log(response);
+      _this2.$data.eventList = response.data;
+    })["catch"](function (error) {
+      console.log(error);
+    });
+  }
+});
 
 /***/ }),
 
@@ -3709,16 +3824,77 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      dates: []
+      dates: [],
+      event: new Form({
+        eventName: '',
+        startDate: '',
+        endDate: '',
+        description: '',
+        seats: '',
+        ticketPrice: '',
+        supportMobile: '',
+        reservationCharges: '',
+        approvalFiling: '',
+        approvalDate: '',
+        approverName: '',
+        approverMobile: '',
+        approverAddress: '',
+        approverEmail: '',
+        dates: []
+      })
     };
   },
   methods: {
+    save: function save() {
+      console.log(this.$data.event);
+      console.log(this.$data.dates);
+      this.$data.event.dates = this.$data.dates;
+      this.event.post('/api/forms/events/').then(function (response) {
+        console.log(response);
+      });
+    },
+    date_change: function date_change() {
+      $("#datePannel").hide();
+    },
     genrate_dates: function genrate_dates() {
-      $("#datePannel").html("");
+      //TODO:TIME PRECISION REQ. DAYWISE WITH VARIABLE SLOTS
+      $("#computed_1").html("");
+      $("#computed_2").html("");
 
       if ($("#start_date").val() == "") {
         swal.fire('Empty Event Dates', 'Please choose the event start and end dates before fetching the inbetween dates for scheduling', 'error');
@@ -3729,6 +3905,13 @@ __webpack_require__.r(__webpack_exports__);
           end = new Date($("#end_date").val()),
           currentDate = new Date(start),
           total = 0;
+
+      if (end < currentDate) {
+        Swal.fire("Invalid Event Dates", "Correct the event dates and try again", "error");
+        return;
+      }
+
+      $("#datePannel").show();
 
       while (currentDate <= end) {
         total++;
@@ -3741,20 +3924,21 @@ __webpack_require__.r(__webpack_exports__);
           description: ''
         });
         currentDate.setDate(currentDate.getDate() + 1);
-      }
+      } //todo:enrollement should show errors and runtime warnings
 
-      console.log(this.$data.dates); //todo:enrollement should show errors and runtime warnings
 
       Toast.fire({
         title: "Done",
         type: 'success',
         position: 'top-end',
-        confirm: false,
         timer: 2500
       }); // $('input[type=text], textarea').autogrow();
     }
   },
-  mounted: function mounted() {}
+  mounted: function mounted() {
+    $("#datePannel").hide();
+  },
+  beforeMount: function beforeMount() {}
 });
 
 /***/ }),
@@ -4738,7 +4922,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.date-discription[data-v-324fee1c]\n{\n    white-space: pre-wrap;\n}\n", ""]);
+exports.push([module.i, "\n.date-discription[data-v-324fee1c] {\n    white-space: pre-wrap;\n}\n", ""]);
 
 // exports
 
@@ -39343,7 +39527,7 @@ var render = function() {
                             ),
                             _vm._v(" "),
                             _c("has-error", {
-                              attrs: { form: _vm.form, field: "password" }
+                              attrs: { form: _vm.form, field: "eventID" }
                             })
                           ],
                           1
@@ -39363,11 +39547,32 @@ var render = function() {
                           ]),
                           _vm._v(" "),
                           _c("textarea", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.form.description,
+                                expression: "form.description"
+                              }
+                            ],
                             staticClass: "form-control",
                             class: {
-                              "is-invalid": _vm.form.errors.has("eventID")
+                              "is-invalid": _vm.form.errors.has("description")
                             },
-                            attrs: { id: "description" }
+                            attrs: { id: "description" },
+                            domProps: { value: _vm.form.description },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.$set(
+                                  _vm.form,
+                                  "description",
+                                  $event.target.value
+                                )
+                              }
+                            }
                           }),
                           _vm._v(" "),
                           _c("has-error", {
@@ -41020,102 +41225,992 @@ var render = function() {
             [
               _vm._m(0),
               _vm._v(" "),
-              _c("div", { staticClass: "card-body" }, [
-                _c(
-                  "form",
-                  { staticClass: "form-material", attrs: { method: "post" } },
-                  [
-                    _vm._m(1),
-                    _vm._v(" "),
-                    _vm._m(2),
-                    _vm._v(" "),
-                    _c("h3", { staticClass: "box-title m-t-40" }, [
-                      _vm._v("Approval Details (Optional)")
-                    ]),
-                    _vm._v(" "),
-                    _c("hr"),
-                    _vm._v(" "),
-                    _vm._m(3),
-                    _vm._v(" "),
-                    _vm._m(4),
-                    _vm._v(" "),
-                    _vm._m(5),
-                    _vm._v(" "),
-                    _c("h3", { staticClass: "box-title m-t-40" }, [
-                      _vm._v("Schedule of Event")
-                    ]),
-                    _vm._v(" "),
-                    _c("hr"),
-                    _vm._v(" "),
-                    _c(
-                      "div",
-                      { attrs: { id: "datePannel" } },
-                      _vm._l(_vm.dates, function(item) {
-                        return _c("div", { staticClass: "row" }, [
-                          _c("div", { staticClass: "col-md-2" }, [
-                            _c("div", { staticClass: "form-group" }, [
-                              _c("input", {
-                                staticClass: "form-control",
-                                attrs: { readonly: "", disabled: "" },
-                                domProps: {
-                                  value: item.date.format("ddd, MMMM D,YYYY")
-                                }
-                              })
-                            ])
+              _c(
+                "div",
+                { staticClass: "card-body" },
+                [
+                  _c("alert-errors", { attrs: { form: _vm.event } }),
+                  _vm._v(" "),
+                  _c(
+                    "form",
+                    {
+                      staticClass: "form-material",
+                      on: {
+                        submit: function($event) {
+                          $event.preventDefault()
+                          return _vm.save($event)
+                        }
+                      }
+                    },
+                    [
+                      _c("div", { staticClass: "form-body" }, [
+                        _c("h3", { staticClass: "card-title" }, [
+                          _vm._v("Basic Information")
+                        ]),
+                        _vm._v(" "),
+                        _c("hr"),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "row p-t-20" }, [
+                          _c("div", { staticClass: "col-md-6" }, [
+                            _c(
+                              "div",
+                              { staticClass: "form-group" },
+                              [
+                                _c("label", { staticClass: "control-label" }, [
+                                  _vm._v("Name")
+                                ]),
+                                _vm._v(" "),
+                                _c("input", {
+                                  directives: [
+                                    {
+                                      name: "model",
+                                      rawName: "v-model",
+                                      value: _vm.event.eventName,
+                                      expression: "event.eventName"
+                                    }
+                                  ],
+                                  staticClass: "form-control",
+                                  attrs: {
+                                    id: "eventName",
+                                    placeholder: "XYZ Event",
+                                    required: "",
+                                    type: "text"
+                                  },
+                                  domProps: { value: _vm.event.eventName },
+                                  on: {
+                                    input: function($event) {
+                                      if ($event.target.composing) {
+                                        return
+                                      }
+                                      _vm.$set(
+                                        _vm.event,
+                                        "eventName",
+                                        $event.target.value
+                                      )
+                                    }
+                                  }
+                                }),
+                                _vm._v(" "),
+                                _c(
+                                  "small",
+                                  { staticClass: "form-control-feedback" },
+                                  [_vm._v("Proposed Name of the Event")]
+                                ),
+                                _vm._v(" "),
+                                _c("has-error", {
+                                  attrs: { form: _vm.event, field: "eventName" }
+                                })
+                              ],
+                              1
+                            )
                           ]),
                           _vm._v(" "),
-                          _vm._m(6, true),
-                          _vm._v(" "),
-                          _vm._m(7, true),
-                          _vm._v(" "),
-                          _vm._m(8, true),
-                          _vm._v(" "),
-                          _vm._m(9, true),
-                          _vm._v(" "),
-                          _vm._m(10, true)
-                        ])
-                      }),
-                      0
-                    ),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "row" }, [
-                      _c("div", { staticClass: "col-md-12" }, [
-                        _c(
-                          "button",
-                          {
-                            staticClass: "btn btn-info",
-                            attrs: {
-                              id: "genrate_dates_button",
-                              type: "button"
-                            },
-                            on: {
-                              click: function($event) {
-                                $event.preventDefault()
-                                return _vm.genrate_dates($event)
-                              }
-                            }
-                          },
-                          [
-                            _vm._v(
-                              "Fetch Dates for Scheduling\n                                    "
+                          _c("div", { staticClass: "col-md-6" }, [
+                            _c(
+                              "div",
+                              { staticClass: "form-group" },
+                              [
+                                _c("label", { staticClass: "control-label" }, [
+                                  _vm._v("Start Date")
+                                ]),
+                                _vm._v(" "),
+                                _c(
+                                  "div",
+                                  {
+                                    staticClass: "input-daterange input-group",
+                                    attrs: { id: "event-dates" }
+                                  },
+                                  [
+                                    _c("input", {
+                                      directives: [
+                                        {
+                                          name: "model",
+                                          rawName: "v-model",
+                                          value: _vm.event.startDate,
+                                          expression: "event.startDate"
+                                        }
+                                      ],
+                                      staticClass: "form-control",
+                                      attrs: {
+                                        id: "start_date",
+                                        name: "start",
+                                        required: "",
+                                        type: "date"
+                                      },
+                                      domProps: { value: _vm.event.startDate },
+                                      on: {
+                                        change: _vm.date_change,
+                                        input: function($event) {
+                                          if ($event.target.composing) {
+                                            return
+                                          }
+                                          _vm.$set(
+                                            _vm.event,
+                                            "startDate",
+                                            $event.target.value
+                                          )
+                                        }
+                                      }
+                                    }),
+                                    _c(
+                                      "span",
+                                      {
+                                        staticClass:
+                                          "input-group-addon bg-info b-0 text-white"
+                                      },
+                                      [_vm._v("to")]
+                                    ),
+                                    _c("input", {
+                                      directives: [
+                                        {
+                                          name: "model",
+                                          rawName: "v-model",
+                                          value: _vm.event.endDate,
+                                          expression: "event.endDate"
+                                        }
+                                      ],
+                                      staticClass: "form-control",
+                                      attrs: {
+                                        id: "end_date",
+                                        name: "end",
+                                        type: "date"
+                                      },
+                                      domProps: { value: _vm.event.endDate },
+                                      on: {
+                                        change: _vm.date_change,
+                                        input: function($event) {
+                                          if ($event.target.composing) {
+                                            return
+                                          }
+                                          _vm.$set(
+                                            _vm.event,
+                                            "endDate",
+                                            $event.target.value
+                                          )
+                                        }
+                                      }
+                                    })
+                                  ]
+                                ),
+                                _vm._v(" "),
+                                _c(
+                                  "small",
+                                  { staticClass: "form-control-feedback" },
+                                  [_vm._v("Proposed Span of the Event")]
+                                ),
+                                _vm._v(" "),
+                                _c("has-error", {
+                                  attrs: { form: _vm.event, field: "startDate" }
+                                }),
+                                _c("has-error", {
+                                  attrs: { form: _vm.event, field: "endDate" }
+                                })
+                              ],
+                              1
                             )
-                          ]
-                        )
-                      ])
-                    ]),
-                    _vm._v(" "),
-                    _c("h3", { staticClass: "box-title m-t-40" }, [
-                      _vm._v("Details and Description")
-                    ]),
-                    _vm._v(" "),
-                    _c("hr"),
-                    _vm._v(" "),
-                    _vm._m(11),
-                    _vm._v(" "),
-                    _vm._m(12)
-                  ]
-                )
-              ])
+                          ])
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "row" }, [
+                          _c("div", { staticClass: "col-md-6" }, [
+                            _c(
+                              "div",
+                              { staticClass: "form-group " },
+                              [
+                                _c("label", { staticClass: "control-label" }, [
+                                  _vm._v("Seats")
+                                ]),
+                                _vm._v(" "),
+                                _c("input", {
+                                  directives: [
+                                    {
+                                      name: "model",
+                                      rawName: "v-model",
+                                      value: _vm.event.seats,
+                                      expression: "event.seats"
+                                    }
+                                  ],
+                                  staticClass: "form-control",
+                                  attrs: {
+                                    id: "maxseats",
+                                    placeholder: "100",
+                                    required: "",
+                                    type: "number",
+                                    value: "100"
+                                  },
+                                  domProps: { value: _vm.event.seats },
+                                  on: {
+                                    input: function($event) {
+                                      if ($event.target.composing) {
+                                        return
+                                      }
+                                      _vm.$set(
+                                        _vm.event,
+                                        "seats",
+                                        $event.target.value
+                                      )
+                                    }
+                                  }
+                                }),
+                                _vm._v(" "),
+                                _c(
+                                  "small",
+                                  { staticClass: "form-control-feedback" },
+                                  [
+                                    _vm._v(
+                                      " Define maximum seats for the event"
+                                    )
+                                  ]
+                                ),
+                                _vm._v(" "),
+                                _c("has-error", {
+                                  attrs: { form: _vm.event, field: "seats" }
+                                })
+                              ],
+                              1
+                            )
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "col-md-6" }, [
+                            _c(
+                              "div",
+                              { staticClass: "form-group" },
+                              [
+                                _c("label", { staticClass: "control-label" }, [
+                                  _vm._v("Ticket Price")
+                                ]),
+                                _vm._v(" "),
+                                _c(
+                                  "div",
+                                  {
+                                    staticClass:
+                                      "input-group bootstrap-touchspin"
+                                  },
+                                  [
+                                    _c(
+                                      "span",
+                                      {
+                                        staticClass:
+                                          "input-group-addon bootstrap-touchspin-prefix"
+                                      },
+                                      [_vm._v("₹")]
+                                    ),
+                                    _c("input", {
+                                      directives: [
+                                        {
+                                          name: "model",
+                                          rawName: "v-model",
+                                          value: _vm.event.ticketPrice,
+                                          expression: "event.ticketPrice"
+                                        }
+                                      ],
+                                      staticClass: "form-control",
+                                      attrs: {
+                                        id: "tch2",
+                                        required: "",
+                                        type: "text"
+                                      },
+                                      domProps: {
+                                        value: _vm.event.ticketPrice
+                                      },
+                                      on: {
+                                        input: function($event) {
+                                          if ($event.target.composing) {
+                                            return
+                                          }
+                                          _vm.$set(
+                                            _vm.event,
+                                            "ticketPrice",
+                                            $event.target.value
+                                          )
+                                        }
+                                      }
+                                    })
+                                  ]
+                                ),
+                                _vm._v(" "),
+                                _c("small", {
+                                  staticClass: "form-control-feedback"
+                                }),
+                                _vm._v(" "),
+                                _c("has-error", {
+                                  attrs: {
+                                    form: _vm.event,
+                                    field: "ticketPrice"
+                                  }
+                                })
+                              ],
+                              1
+                            )
+                          ])
+                        ])
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "row" }, [
+                        _c("div", { staticClass: "col-md-6" }, [
+                          _c(
+                            "div",
+                            { staticClass: "form-group" },
+                            [
+                              _c("label", { staticClass: "control-label" }, [
+                                _vm._v("Support Mobile Number")
+                              ]),
+                              _vm._v(" "),
+                              _c("input", {
+                                directives: [
+                                  {
+                                    name: "model",
+                                    rawName: "v-model",
+                                    value: _vm.event.mobile,
+                                    expression: "event.mobile"
+                                  }
+                                ],
+                                staticClass: "form-control",
+                                attrs: {
+                                  id: "mobile",
+                                  placeholder: "",
+                                  required: "",
+                                  type: "text"
+                                },
+                                domProps: { value: _vm.event.mobile },
+                                on: {
+                                  input: function($event) {
+                                    if ($event.target.composing) {
+                                      return
+                                    }
+                                    _vm.$set(
+                                      _vm.event,
+                                      "mobile",
+                                      $event.target.value
+                                    )
+                                  }
+                                }
+                              }),
+                              _vm._v(" "),
+                              _c(
+                                "small",
+                                { staticClass: "form-control-feedback" },
+                                [
+                                  _vm._v(
+                                    "It will be sent to the participants for\n                                            queries\n                                        "
+                                  )
+                                ]
+                              ),
+                              _c("has-error", {
+                                attrs: { form: _vm.event, field: "mobile" }
+                              })
+                            ],
+                            1
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "col-md-6" }, [
+                          _c(
+                            "div",
+                            { staticClass: "form-group" },
+                            [
+                              _c("label", { staticClass: "control-label" }, [
+                                _vm._v("Seat Reservation Charges")
+                              ]),
+                              _vm._v(" "),
+                              _c(
+                                "div",
+                                {
+                                  staticClass: "input-group bootstrap-touchspin"
+                                },
+                                [
+                                  _c("input", {
+                                    directives: [
+                                      {
+                                        name: "model",
+                                        rawName: "v-model",
+                                        value: _vm.event.reservationCharges,
+                                        expression: "event.reservationCharges"
+                                      }
+                                    ],
+                                    staticClass: "form-control",
+                                    attrs: {
+                                      id: "minimumTicketPricePercentage",
+                                      placeholder: "100%",
+                                      value: "100"
+                                    },
+                                    domProps: {
+                                      value: _vm.event.reservationCharges
+                                    },
+                                    on: {
+                                      input: function($event) {
+                                        if ($event.target.composing) {
+                                          return
+                                        }
+                                        _vm.$set(
+                                          _vm.event,
+                                          "reservationCharges",
+                                          $event.target.value
+                                        )
+                                      }
+                                    }
+                                  }),
+                                  _c(
+                                    "span",
+                                    {
+                                      staticClass:
+                                        "input-group-addon bootstrap-touchspin-prefix"
+                                    },
+                                    [_vm._v("%")]
+                                  )
+                                ]
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "small",
+                                { staticClass: "form-control-feedback" },
+                                [_vm._v("In Percentage")]
+                              ),
+                              _vm._v(" "),
+                              _c("has-error", {
+                                attrs: {
+                                  form: _vm.event,
+                                  field: "reservationCharges"
+                                }
+                              })
+                            ],
+                            1
+                          )
+                        ])
+                      ]),
+                      _vm._v(" "),
+                      _c(
+                        "div",
+                        { staticClass: "row", attrs: { id: "datePannel" } },
+                        [
+                          _c("div", { staticClass: "col-md-12" }, [
+                            _c("div", { staticClass: "card" }, [
+                              _c("div", { staticClass: "card-body" }, [
+                                _c("h4", { staticClass: "card-title" }, [
+                                  _vm._v("Schedule of Event")
+                                ]),
+                                _vm._v(" "),
+                                _c("h6", { staticClass: "card-subtitle" }, [
+                                  _vm._v("Plan the event dates")
+                                ]),
+                                _vm._v(" "),
+                                _c("hr"),
+                                _vm._v(" "),
+                                _c("div", { staticClass: "vtabs" }, [
+                                  _c(
+                                    "ul",
+                                    {
+                                      staticClass: "nav nav-tabs tabs-vertical",
+                                      attrs: {
+                                        role: "tablist",
+                                        id: "computed_1"
+                                      }
+                                    },
+                                    _vm._l(_vm.dates, function(item) {
+                                      return _c(
+                                        "li",
+                                        { staticClass: "nav-item" },
+                                        [
+                                          _c(
+                                            "a",
+                                            {
+                                              staticClass: "nav-link",
+                                              class: { active: item.id == 1 },
+                                              attrs: {
+                                                "data-toggle": "tab",
+                                                href: "#t" + item.id,
+                                                role: "tab"
+                                              }
+                                            },
+                                            [
+                                              _vm._m(1, true),
+                                              _vm._v(" "),
+                                              _c(
+                                                "span",
+                                                {
+                                                  staticClass: "hidden-xs-down"
+                                                },
+                                                [
+                                                  _vm._v(
+                                                    _vm._s(
+                                                      item.date.format(
+                                                        "ddd, MMM DD"
+                                                      )
+                                                    )
+                                                  )
+                                                ]
+                                              )
+                                            ]
+                                          )
+                                        ]
+                                      )
+                                    }),
+                                    0
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "div",
+                                    {
+                                      staticClass: "tab-content",
+                                      attrs: { id: "computed_2" }
+                                    },
+                                    _vm._l(_vm.dates, function(item) {
+                                      return _c(
+                                        "div",
+                                        {
+                                          staticClass: "tab-pane",
+                                          class: { active: item.id == 1 },
+                                          attrs: {
+                                            id: "t" + item.id,
+                                            role: "tabpanel"
+                                          }
+                                        },
+                                        [
+                                          _c("h3", [
+                                            _vm._v(
+                                              _vm._s(
+                                                item.date.format(
+                                                  "dddd, MMMM DD, YYYY"
+                                                )
+                                              )
+                                            )
+                                          ]),
+                                          _vm._v(" "),
+                                          _vm._m(2, true),
+                                          _vm._v(" "),
+                                          _vm._m(3, true),
+                                          _vm._v(" "),
+                                          _vm._m(4, true)
+                                        ]
+                                      )
+                                    }),
+                                    0
+                                  )
+                                ])
+                              ])
+                            ])
+                          ])
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "row" }, [
+                        _c("div", { staticClass: "col-md-12" }, [
+                          _c(
+                            "button",
+                            {
+                              staticClass: "btn btn-info",
+                              attrs: {
+                                id: "genrate_dates_button",
+                                type: "button"
+                              },
+                              on: {
+                                click: function($event) {
+                                  $event.preventDefault()
+                                  return _vm.genrate_dates($event)
+                                }
+                              }
+                            },
+                            [
+                              _vm._v(
+                                "Fetch Dates for Scheduling\n                                    "
+                              )
+                            ]
+                          )
+                        ])
+                      ]),
+                      _vm._v(" "),
+                      _c("h3", { staticClass: "box-title m-t-40" }, [
+                        _vm._v("Approval Details (Optional)")
+                      ]),
+                      _vm._v(" "),
+                      _c("hr"),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "row" }, [
+                        _c("div", { staticClass: "col-md-6 " }, [
+                          _c("div", { staticClass: "form-group" }, [
+                            _c("label", [_vm._v("Approval Filling")]),
+                            _vm._v(" "),
+                            _c(
+                              "div",
+                              { staticClass: "switch" },
+                              [
+                                _c("label", [
+                                  _vm._v(
+                                    "Check if the Proposal is filed in the approval department\n                                                "
+                                  ),
+                                  _c("input", {
+                                    directives: [
+                                      {
+                                        name: "model",
+                                        rawName: "v-model",
+                                        value: _vm.event.approvalFiling,
+                                        expression: "event.approvalFiling"
+                                      }
+                                    ],
+                                    attrs: {
+                                      checked: "",
+                                      id: "approverFillingStatus",
+                                      type: "checkbox"
+                                    },
+                                    domProps: {
+                                      checked: Array.isArray(
+                                        _vm.event.approvalFiling
+                                      )
+                                        ? _vm._i(
+                                            _vm.event.approvalFiling,
+                                            null
+                                          ) > -1
+                                        : _vm.event.approvalFiling
+                                    },
+                                    on: {
+                                      change: function($event) {
+                                        var $$a = _vm.event.approvalFiling,
+                                          $$el = $event.target,
+                                          $$c = $$el.checked ? true : false
+                                        if (Array.isArray($$a)) {
+                                          var $$v = null,
+                                            $$i = _vm._i($$a, $$v)
+                                          if ($$el.checked) {
+                                            $$i < 0 &&
+                                              _vm.$set(
+                                                _vm.event,
+                                                "approvalFiling",
+                                                $$a.concat([$$v])
+                                              )
+                                          } else {
+                                            $$i > -1 &&
+                                              _vm.$set(
+                                                _vm.event,
+                                                "approvalFiling",
+                                                $$a
+                                                  .slice(0, $$i)
+                                                  .concat($$a.slice($$i + 1))
+                                              )
+                                          }
+                                        } else {
+                                          _vm.$set(
+                                            _vm.event,
+                                            "approvalFiling",
+                                            $$c
+                                          )
+                                        }
+                                      }
+                                    }
+                                  }),
+                                  _c("span", { staticClass: "lever" }),
+                                  _vm._v("Done")
+                                ]),
+                                _vm._v(" "),
+                                _c("has-error", {
+                                  attrs: {
+                                    form: _vm.event,
+                                    field: "approvalFiling"
+                                  }
+                                })
+                              ],
+                              1
+                            )
+                          ])
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "col-md-6 " }, [
+                          _c(
+                            "div",
+                            { staticClass: "form-group" },
+                            [
+                              _c("label", [_vm._v("Approval Date")]),
+                              _vm._v(" "),
+                              _c("input", {
+                                directives: [
+                                  {
+                                    name: "model",
+                                    rawName: "v-model",
+                                    value: _vm.event.approvalDate,
+                                    expression: "event.approvalDate"
+                                  }
+                                ],
+                                staticClass:
+                                  "form-control bootstrapMaterialDatePicker",
+                                attrs: { type: "date" },
+                                domProps: { value: _vm.event.approvalDate },
+                                on: {
+                                  input: function($event) {
+                                    if ($event.target.composing) {
+                                      return
+                                    }
+                                    _vm.$set(
+                                      _vm.event,
+                                      "approvalDate",
+                                      $event.target.value
+                                    )
+                                  }
+                                }
+                              }),
+                              _vm._v(" "),
+                              _c("has-error", {
+                                attrs: {
+                                  form: _vm.event,
+                                  field: "approvalDate"
+                                }
+                              })
+                            ],
+                            1
+                          )
+                        ])
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "row" }, [
+                        _c("div", { staticClass: "col-md-6" }, [
+                          _c(
+                            "div",
+                            { staticClass: "form-group" },
+                            [
+                              _c("label", [_vm._v("Name")]),
+                              _vm._v(" "),
+                              _c("input", {
+                                directives: [
+                                  {
+                                    name: "model",
+                                    rawName: "v-model",
+                                    value: _vm.event.approverName,
+                                    expression: "event.approverName"
+                                  }
+                                ],
+                                staticClass: "form-control",
+                                attrs: { id: "approverName", type: "text" },
+                                domProps: { value: _vm.event.approverName },
+                                on: {
+                                  input: function($event) {
+                                    if ($event.target.composing) {
+                                      return
+                                    }
+                                    _vm.$set(
+                                      _vm.event,
+                                      "approverName",
+                                      $event.target.value
+                                    )
+                                  }
+                                }
+                              }),
+                              _vm._v(" "),
+                              _c(
+                                "small",
+                                { staticClass: "form-control-feedback" },
+                                [_vm._v(" Name of Approving Authority")]
+                              ),
+                              _vm._v(" "),
+                              _c("has-error", {
+                                attrs: {
+                                  form: _vm.event,
+                                  field: "approverName"
+                                }
+                              })
+                            ],
+                            1
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "col-md-6" }, [
+                          _c(
+                            "div",
+                            { staticClass: "form-group" },
+                            [
+                              _c("label", [_vm._v("Mobile Number")]),
+                              _vm._v(" "),
+                              _c("input", {
+                                directives: [
+                                  {
+                                    name: "model",
+                                    rawName: "v-model",
+                                    value: _vm.event.approverMobile,
+                                    expression: "event.approverMobile"
+                                  }
+                                ],
+                                staticClass: "form-control",
+                                attrs: { id: "approverMobile", type: "number" },
+                                domProps: { value: _vm.event.approverMobile },
+                                on: {
+                                  input: function($event) {
+                                    if ($event.target.composing) {
+                                      return
+                                    }
+                                    _vm.$set(
+                                      _vm.event,
+                                      "approverMobile",
+                                      $event.target.value
+                                    )
+                                  }
+                                }
+                              }),
+                              _vm._v(" "),
+                              _c(
+                                "small",
+                                { staticClass: "form-control-feedback" },
+                                [
+                                  _vm._v(
+                                    " Mobile Number of Approving Authority\n                                            required in case of any problem during event\n                                        "
+                                  )
+                                ]
+                              ),
+                              _vm._v(" "),
+                              _c("has-error", {
+                                attrs: {
+                                  form: _vm.event,
+                                  field: "approverMobile"
+                                }
+                              })
+                            ],
+                            1
+                          )
+                        ])
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "row" }, [
+                        _c("div", { staticClass: "col-md-6" }, [
+                          _c(
+                            "div",
+                            { staticClass: "form-group" },
+                            [
+                              _c("label", [_vm._v("Email")]),
+                              _vm._v(" "),
+                              _c("input", {
+                                directives: [
+                                  {
+                                    name: "model",
+                                    rawName: "v-model",
+                                    value: _vm.event.approverEmail,
+                                    expression: "event.approverEmail"
+                                  }
+                                ],
+                                staticClass: "form-control",
+                                attrs: { id: "approverEmail", type: "email" },
+                                domProps: { value: _vm.event.approverEmail },
+                                on: {
+                                  input: function($event) {
+                                    if ($event.target.composing) {
+                                      return
+                                    }
+                                    _vm.$set(
+                                      _vm.event,
+                                      "approverEmail",
+                                      $event.target.value
+                                    )
+                                  }
+                                }
+                              }),
+                              _vm._v(" "),
+                              _c("has-error", {
+                                attrs: {
+                                  form: _vm.event,
+                                  field: "approverEmail"
+                                }
+                              })
+                            ],
+                            1
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "col-md-6" }, [
+                          _c(
+                            "div",
+                            { staticClass: "form-group" },
+                            [
+                              _c("label", [_vm._v("Address")]),
+                              _vm._v(" "),
+                              _c("input", {
+                                directives: [
+                                  {
+                                    name: "model",
+                                    rawName: "v-model",
+                                    value: _vm.event.approverAddress,
+                                    expression: "event.approverAddress"
+                                  }
+                                ],
+                                staticClass: "form-control",
+                                attrs: {
+                                  id: "approverAddress",
+                                  type: "textarea"
+                                },
+                                domProps: { value: _vm.event.approverAddress },
+                                on: {
+                                  input: function($event) {
+                                    if ($event.target.composing) {
+                                      return
+                                    }
+                                    _vm.$set(
+                                      _vm.event,
+                                      "approverAddress",
+                                      $event.target.value
+                                    )
+                                  }
+                                }
+                              }),
+                              _vm._v(" "),
+                              _c("has-error", {
+                                attrs: {
+                                  form: _vm.event,
+                                  field: "approverAddress"
+                                }
+                              })
+                            ],
+                            1
+                          )
+                        ])
+                      ]),
+                      _vm._v(" "),
+                      _c("h3", { staticClass: "box-title m-t-40" }, [
+                        _vm._v("Details and Description")
+                      ]),
+                      _vm._v(" "),
+                      _c("hr"),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "row" }, [
+                        _c("div", { staticClass: "col-md-12" }, [
+                          _c(
+                            "div",
+                            { staticClass: "form-group" },
+                            [
+                              _c("textarea", {
+                                directives: [
+                                  {
+                                    name: "model",
+                                    rawName: "v-model",
+                                    value: _vm.event.description,
+                                    expression: "event.description"
+                                  }
+                                ],
+                                staticClass: "form-control",
+                                attrs: { id: "description", rows: "10" },
+                                domProps: { value: _vm.event.description },
+                                on: {
+                                  input: function($event) {
+                                    if ($event.target.composing) {
+                                      return
+                                    }
+                                    _vm.$set(
+                                      _vm.event,
+                                      "description",
+                                      $event.target.value
+                                    )
+                                  }
+                                }
+                              }),
+                              _vm._v(" "),
+                              _c("has-error", {
+                                attrs: { form: _vm.event, field: "description" }
+                              })
+                            ],
+                            1
+                          )
+                        ])
+                      ]),
+                      _vm._v(" "),
+                      _vm._m(5)
+                    ]
+                  )
+                ],
+                1
+              )
             ]
           )
         ])
@@ -41136,339 +42231,9 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "form-body" }, [
-      _c("h3", { staticClass: "card-title" }, [_vm._v("Basic Information")]),
-      _vm._v(" "),
-      _c("hr"),
-      _vm._v(" "),
-      _c("div", { staticClass: "row p-t-20" }, [
-        _c("div", { staticClass: "col-md-6" }, [
-          _c("div", { staticClass: "form-group" }, [
-            _c("label", { staticClass: "control-label" }, [_vm._v("Name")]),
-            _vm._v(" "),
-            _c("input", {
-              staticClass: "form-control",
-              attrs: {
-                id: "eventName",
-                placeholder: "XYZ Event",
-                required: "",
-                type: "text"
-              }
-            }),
-            _vm._v(" "),
-            _c("small", { staticClass: "form-control-feedback" }, [
-              _vm._v("Proposed Name of the Event")
-            ])
-          ])
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "col-md-6" }, [
-          _c("div", { staticClass: "form-group" }, [
-            _c("label", { staticClass: "control-label" }, [
-              _vm._v("Start Date")
-            ]),
-            _vm._v(" "),
-            _c(
-              "div",
-              {
-                staticClass: "input-daterange input-group",
-                attrs: { id: "event-dates" }
-              },
-              [
-                _c("input", {
-                  staticClass: "form-control",
-                  attrs: {
-                    id: "start_date",
-                    name: "start",
-                    required: "",
-                    type: "date"
-                  }
-                }),
-                _c(
-                  "span",
-                  { staticClass: "input-group-addon bg-info b-0 text-white" },
-                  [_vm._v("to")]
-                ),
-                _c("input", {
-                  staticClass: "form-control",
-                  attrs: { id: "end_date", name: "end", type: "date" }
-                })
-              ]
-            ),
-            _vm._v(" "),
-            _c("small", { staticClass: "form-control-feedback" }, [
-              _vm._v("Proposed Span of the Event")
-            ])
-          ])
-        ])
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "row" }, [
-        _c("div", { staticClass: "col-md-6" }, [
-          _c("div", { staticClass: "form-group " }, [
-            _c("label", { staticClass: "control-label" }, [_vm._v("Seats")]),
-            _vm._v(" "),
-            _c("input", {
-              staticClass: "form-control",
-              attrs: {
-                id: "maxseats",
-                placeholder: "100",
-                required: "",
-                type: "number",
-                value: "100"
-              }
-            }),
-            _vm._v(" "),
-            _c("small", { staticClass: "form-control-feedback" }, [
-              _vm._v(
-                " Define maximum seats for the\n                                                event\n                                            "
-              )
-            ])
-          ])
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "col-md-6" }, [
-          _c("div", { staticClass: "form-group" }, [
-            _c("label", { staticClass: "control-label" }, [
-              _vm._v("Ticket Price")
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "input-group bootstrap-touchspin" }, [
-              _c(
-                "span",
-                { staticClass: "input-group-addon bootstrap-touchspin-prefix" },
-                [_vm._v("₹")]
-              ),
-              _c("input", {
-                staticClass: "form-control",
-                attrs: { id: "tch2", required: "", type: "text" }
-              })
-            ]),
-            _vm._v(" "),
-            _c("small", { staticClass: "form-control-feedback" })
-          ])
-        ])
-      ])
+    return _c("span", { staticClass: "hidden-sm-up" }, [
+      _c("i", { staticClass: "ti-home" })
     ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "row" }, [
-      _c("div", { staticClass: "col-md-6" }, [
-        _c("div", { staticClass: "form-group" }, [
-          _c("label", { staticClass: "control-label" }, [
-            _vm._v("Support Mobile Number")
-          ]),
-          _vm._v(" "),
-          _c("input", {
-            staticClass: "form-control",
-            attrs: { id: "mobile", placeholder: "", required: "", type: "text" }
-          }),
-          _vm._v(" "),
-          _c("small", { staticClass: "form-control-feedback" }, [
-            _vm._v(
-              "It will be sent to the participants for\n                                            queries\n                                        "
-            )
-          ])
-        ])
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "col-md-6" }, [
-        _c("div", { staticClass: "form-group" }, [
-          _c("label", { staticClass: "control-label" }, [
-            _vm._v("Seat Reservation Charges")
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "input-group bootstrap-touchspin" }, [
-            _c("input", {
-              staticClass: "form-control",
-              attrs: {
-                id: "minimumTicketPricePercentage",
-                placeholder: "100%",
-                value: "100"
-              }
-            }),
-            _c(
-              "span",
-              { staticClass: "input-group-addon bootstrap-touchspin-prefix" },
-              [_vm._v("%")]
-            )
-          ]),
-          _vm._v(" "),
-          _c("small", { staticClass: "form-control-feedback" }, [
-            _vm._v("In Percentage")
-          ])
-        ])
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "row" }, [
-      _c("div", { staticClass: "col-md-6 " }, [
-        _c("div", { staticClass: "form-group" }, [
-          _c("label", [_vm._v("Approval Filling")]),
-          _vm._v(" "),
-          _c("div", { staticClass: "switch" }, [
-            _c("label", [
-              _vm._v(
-                "Check if the Proposal is filed in the approval department\n                                                "
-              ),
-              _c("input", {
-                attrs: {
-                  checked: "",
-                  id: "approverFillingStatus",
-                  type: "checkbox"
-                }
-              }),
-              _c("span", { staticClass: "lever" }),
-              _vm._v("Done")
-            ])
-          ])
-        ])
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "col-md-6 " }, [
-        _c("div", { staticClass: "form-group" }, [
-          _c("label", [_vm._v("Approval Date")]),
-          _vm._v(" "),
-          _c("input", {
-            staticClass: "form-control bootstrapMaterialDatePicker",
-            attrs: { type: "date" }
-          })
-        ])
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "row" }, [
-      _c("div", { staticClass: "col-md-6" }, [
-        _c("div", { staticClass: "form-group" }, [
-          _c("label", [_vm._v("Name")]),
-          _vm._v(" "),
-          _c("input", {
-            staticClass: "form-control",
-            attrs: { id: "approverName", type: "number" }
-          }),
-          _vm._v(" "),
-          _c("small", { staticClass: "form-control-feedback" }, [
-            _vm._v(" Name of Approving Authority")
-          ])
-        ])
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "col-md-6" }, [
-        _c("div", { staticClass: "form-group" }, [
-          _c("label", [_vm._v("Mobile Number")]),
-          _vm._v(" "),
-          _c("input", {
-            staticClass: "form-control",
-            attrs: { id: "approverMobile", type: "number" }
-          }),
-          _vm._v(" "),
-          _c("small", { staticClass: "form-control-feedback" }, [
-            _vm._v(
-              " Mobile Number of Approving Authority\n                                            required in case of any problem during event\n                                        "
-            )
-          ])
-        ])
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "row" }, [
-      _c("div", { staticClass: "col-md-6" }, [
-        _c("div", { staticClass: "form-group" }, [
-          _c("label", [_vm._v("Email")]),
-          _vm._v(" "),
-          _c("input", {
-            staticClass: "form-control",
-            attrs: { id: "approverEmail", type: "email" }
-          })
-        ])
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "col-md-6" }, [
-        _c("div", { staticClass: "form-group" }, [
-          _c("label", [_vm._v("Address")]),
-          _vm._v(" "),
-          _c("input", {
-            staticClass: "form-control",
-            attrs: { id: "approverAddress", type: "textarea" }
-          })
-        ])
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-lg-1" }, [
-      _c("input", { staticClass: "form-control", attrs: { type: "time" } }),
-      _vm._v(" "),
-      _c("small", { staticClass: "form-control-feedback" }, [
-        _vm._v("Start Time")
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-md-1" }, [
-      _c("input", { staticClass: "form-control", attrs: { type: "time" } }),
-      _vm._v(" "),
-      _c("small", { staticClass: "form-control-feedback" }, [
-        _vm._v("End Time")
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-md-3" }, [
-      _c("input", {
-        staticClass: "form-control",
-        attrs: { type: "text", placeholder: "" }
-      }),
-      _vm._v(" "),
-      _c("small", { staticClass: "form-control-feedback" }, [
-        _vm._v("Motive of the day")
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-md-5" }, [
-      _c("input", {
-        staticClass: "form-control date-discription",
-        attrs: { type: "textarea", placeholder: "" }
-      }),
-      _vm._v(" "),
-      _c("small", { staticClass: "form-control-feedback" }, [
-        _vm._v("Description of the day")
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-lg-8" }, [_c("hr")])
   },
   function() {
     var _vm = this
@@ -41477,10 +42242,55 @@ var staticRenderFns = [
     return _c("div", { staticClass: "row" }, [
       _c("div", { staticClass: "col-md-12" }, [
         _c("div", { staticClass: "form-group" }, [
-          _c("textarea", {
+          _c("label", [_vm._v("Enter a title or Subject for day of event")]),
+          _vm._v(" "),
+          _c("input", {
             staticClass: "form-control",
-            attrs: { id: "description", rows: "10" }
-          })
+            attrs: { type: "text", placeholder: "" }
+          }),
+          _vm._v(" "),
+          _c("small", { staticClass: "form-control-feedback" }, [
+            _vm._v("Motive of the day")
+          ])
+        ])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "row" }, [
+      _c("div", { staticClass: "col-lg-6" }, [
+        _c("input", { staticClass: "form-control", attrs: { type: "time" } }),
+        _vm._v(" "),
+        _c("small", { staticClass: "form-control-feedback" }, [
+          _vm._v("Start Time")
+        ])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-md-6" }, [
+        _c("input", { staticClass: "form-control", attrs: { type: "time" } }),
+        _vm._v(" "),
+        _c("small", { staticClass: "form-control-feedback" }, [
+          _vm._v("End Time")
+        ])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "row" }, [
+      _c("div", { staticClass: "col-md-12" }, [
+        _c("textarea", {
+          staticClass: "form-control date-discription",
+          attrs: { type: "text", cols: "2", placeholder: "" }
+        }),
+        _vm._v(" "),
+        _c("small", { staticClass: "form-control-feedback" }, [
+          _vm._v("Description of the day")
         ])
       ])
     ])
@@ -58283,11 +59093,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue_router__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue-router */ "./node_modules/vue-router/dist/vue-router.esm.js");
 /* harmony import */ var axios_progress_bar__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios-progress-bar */ "./node_modules/axios-progress-bar/dist/index.js");
 /* harmony import */ var axios_progress_bar__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios_progress_bar__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var vform__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vform */ "./node_modules/vform/dist/vform.common.js");
-/* harmony import */ var vform__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(vform__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var vee_validate__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! vee-validate */ "./node_modules/vee-validate/dist/vee-validate.esm.js");
-/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! sweetalert2 */ "./node_modules/sweetalert2/dist/sweetalert2.all.js");
-/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(sweetalert2__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var vee_validate__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vee-validate */ "./node_modules/vee-validate/dist/vee-validate.esm.js");
+/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! sweetalert2 */ "./node_modules/sweetalert2/dist/sweetalert2.all.js");
+/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(sweetalert2__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var vform__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! vform */ "./node_modules/vform/dist/vform.common.js");
+/* harmony import */ var vform__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(vform__WEBPACK_IMPORTED_MODULE_4__);
 /**
  * First we will load all of this project's JavaScript dependencies which
  * includes Vue and other libraries. It is a great starting point when
@@ -58297,16 +59107,19 @@ __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
 window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
 
+ // import { Form, HasError, AlertError } from 'vform'
 
 
 
 
-Vue.component(vform__WEBPACK_IMPORTED_MODULE_2__["HasError"].name, vform__WEBPACK_IMPORTED_MODULE_2__["HasError"]);
-Vue.component(vform__WEBPACK_IMPORTED_MODULE_2__["AlertError"].name, vform__WEBPACK_IMPORTED_MODULE_2__["AlertError"]);
+Vue.component(vform__WEBPACK_IMPORTED_MODULE_4__["HasError"].name, vform__WEBPACK_IMPORTED_MODULE_4__["HasError"]);
+Vue.component(vform__WEBPACK_IMPORTED_MODULE_4__["AlertError"].name, vform__WEBPACK_IMPORTED_MODULE_4__["AlertError"]);
+Vue.component(vform__WEBPACK_IMPORTED_MODULE_4__["AlertErrors"].name, vform__WEBPACK_IMPORTED_MODULE_4__["AlertErrors"]);
+Vue.component(vform__WEBPACK_IMPORTED_MODULE_4__["AlertSuccess"].name, vform__WEBPACK_IMPORTED_MODULE_4__["AlertSuccess"]);
 Vue.use(vue_router__WEBPACK_IMPORTED_MODULE_0__["default"]);
-window.Swal = sweetalert2__WEBPACK_IMPORTED_MODULE_4___default.a;
-window.swal = sweetalert2__WEBPACK_IMPORTED_MODULE_4___default.a;
-window.Form = vform__WEBPACK_IMPORTED_MODULE_2__["Form"];
+window.Swal = sweetalert2__WEBPACK_IMPORTED_MODULE_3___default.a;
+window.swal = sweetalert2__WEBPACK_IMPORTED_MODULE_3___default.a;
+window.Form = vform__WEBPACK_IMPORTED_MODULE_4__["Form"];
 window.Toast = swal.mixin({
   toast: true,
   // position: 'top-end',
@@ -58314,7 +59127,7 @@ window.Toast = swal.mixin({
 
 });
 window.linker1 = 0;
-Vue.use(vee_validate__WEBPACK_IMPORTED_MODULE_3__["default"]);
+Vue.use(vee_validate__WEBPACK_IMPORTED_MODULE_2__["default"]);
 var routes = [{
   path: '/home',
   component: __webpack_require__(/*! ./components/Personal/Dashboard */ "./resources/js/components/Personal/Dashboard.vue")["default"]
@@ -58385,17 +59198,15 @@ Vue.component('naiveMessages', __webpack_require__(/*! ./components/Personal/Mes
 var app = new Vue({
   el: '#app',
   router: router
-}); // Make sure sw are supported
-
-if ('serviceWorker' in navigator) {
-  window.addEventListener('load', function () {
-    navigator.serviceWorker.register('/serviceWorker.js').then(function (reg) {
-      return console.log('Service Worker: Registered (Pages)');
-    })["catch"](function (err) {
-      return console.log("Service Worker: Error: ".concat(err));
-    });
-  });
-}
+}); // // Make sure sw are supported
+// if ('serviceWorker' in navigator) {
+//     window.addEventListener('load', () => {
+//         navigator.serviceWorker
+//             .register('/serviceWorker.js')
+//             .then(reg => console.log('Service Worker: Registered (Pages)'))
+//             .catch(err => console.log(`Service Worker: Error: ${err}`));
+//     });
+// }
 
 /***/ }),
 

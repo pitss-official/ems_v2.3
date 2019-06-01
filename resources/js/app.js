@@ -9,11 +9,21 @@ require('./bootstrap');
 window.Vue = require('vue');
 import VueRouter from 'vue-router'
 import { loadProgressBar } from 'axios-progress-bar'
-import { Form, HasError, AlertError } from 'vform'
+// import { Form, HasError, AlertError } from 'vform'
 import VeeValidate from 'vee-validate'
 import Swal from 'sweetalert2'
+import {
+    Form,
+    HasError,
+    AlertError,
+    AlertErrors,
+    AlertSuccess
+} from 'vform';
 Vue.component(HasError.name, HasError)
 Vue.component(AlertError.name, AlertError)
+Vue.component(AlertErrors.name, AlertErrors)
+Vue.component(AlertSuccess.name, AlertSuccess)
+
 Vue.use(VueRouter)
 window.Swal=Swal
 window.swal=Swal
@@ -76,12 +86,12 @@ const app = new Vue({
     router,
 });
 
-// Make sure sw are supported
-if ('serviceWorker' in navigator) {
-    window.addEventListener('load', () => {
-        navigator.serviceWorker
-            .register('/serviceWorker.js')
-            .then(reg => console.log('Service Worker: Registered (Pages)'))
-            .catch(err => console.log(`Service Worker: Error: ${err}`));
-    });
-}
+// // Make sure sw are supported
+// if ('serviceWorker' in navigator) {
+//     window.addEventListener('load', () => {
+//         navigator.serviceWorker
+//             .register('/serviceWorker.js')
+//             .then(reg => console.log('Service Worker: Registered (Pages)'))
+//             .catch(err => console.log(`Service Worker: Error: ${err}`));
+//     });
+// }
