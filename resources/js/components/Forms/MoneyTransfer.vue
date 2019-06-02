@@ -12,6 +12,7 @@
                                 <div class="form-body">
                                     <h3 class="card-title">Enter Reciever Details</h3>
                                     <hr>
+                                    <alert-errors :form="student"></alert-errors>
                                     <div class="row p-t-20">
                                         <div class="col-md-6">
                                             <div class="form-group">
@@ -35,21 +36,29 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label class="control-label">Mobile Number (Optional)</label>
-                                            <input class="form-control" name="mobile" placeholder="" type="text">
+                                            <input class="form-control" name="mobile" placeholder="" type="text" v-model="student.mobile">
                                             <small class="form-control-feedback">Registered Mobile</small> </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label class="control-label">Amount</label>
-                                            <input class="form-control" name="amount" onChange='$("#sub").focus()' placeholder="₹" required type="number" value="0.00">
+                                            <input class="form-control" name="amount" onChange='$("#sub").focus()' placeholder="₹" required type="number" value="0.00" v-model="student.amount">
                                             <small class="form-control-feedback">Currently Supported ₹,$</small> </div>
                                     </div>
+                                </div><div class="row">
+                                <div class="col-lg-12">
+                                    <div class="form-group">
+                                        <label class="control-label">Request text(Message for reciever)</label>
+                                        <input type="text" class="form-control" v-model="student.narration" placeholder="I want to send you money for my registrations">
+                                        <small class="form-control-feedback">Write a small message for the reciever to recognise your request</small>
+                                    </div>
                                 </div>
+                            </div>
                                 <div class="form-actions">
                                     <button class="btn btn-success" id="sub" type="submit"> <i class="fa fa-check"></i> Create Request</button>
-                                    <button class="btn btn-inverse" onClick="location.reload()" type="button">Retry Token</button>
                                     <button class="btn btn-danger" type="reset">Cancel</button>
                                 </div>
+
                             </form>
                         </div>
                     </div>
@@ -72,6 +81,8 @@
                     collegeUID: null,
                     name: null,
                     mobile: null,
+                    narration:null,
+                    amount:null,
                 })
             }
 
@@ -81,6 +92,11 @@
                 find()
                 {
                     if(this._self.fields.RegistrationNumber.valid){
+                        if(this.$data.student.collegeUID==currentUserID)
+                        {
+                            this.$data.student.name=currentUserFullName;
+                            return;
+                        }
                         axios({
                             method: 'post',
                             url: '/api/members/find/name/' + this.$data.student.collegeUID,
@@ -108,8 +124,28 @@
                 },
                 send()
                 {
-                    this.student.post('/forms/moneyTransfer/transaction/initiate')
-                        .then(({ data }) => { console.log(data) })
+                    if(this.$data.student.collegeUID==currentUserID)
+                    {
+                        swal.fire("Invalid Data","You cannot initate money send request to yourself","error");
+                        return;
+                    }
+                    this.student.post('/api/put/user/queues/moneyTransfer/newRequest')
+                        .then(response => {
+                            console.log(response);
+                            if(response.data.result=="success")
+                            {
+                                swal.fire({
+                                    title: 'Request Sent!',
+                                    html: "Money transfer request sent to <b>" + this.$data.student.name + "</b><br>Request ID:<b>" + response.data.id + '</b>',
+                                    type: 'success',
+                                    backdrop: 'rgba(0, 0, 123, 0.4)',
+                                })
+                            }
+                            else
+                            {
+                                swal.fire("Server Error","Some error occurred while processing your request. Transaction truncated","error");
+                            }
+                        }).catch(reason => {swal("Server Unreachable",reason,"error")});
                 }
             },
         name: "money-transfer"

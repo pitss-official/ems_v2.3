@@ -67,8 +67,8 @@
                     var results;
                     axios(
                         {
-                            method:'post',
-                            url:'/api/account/transactions/list'
+                            method:'get',
+                            url:'/api/fetch/user/account/transactions'
                         }
                     ).then((response)=>{
                         this.$data.transactions=response.data;

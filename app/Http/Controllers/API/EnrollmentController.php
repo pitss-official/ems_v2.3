@@ -18,8 +18,7 @@ class EnrollmentController extends Controller
     {
         //$this->middleware('auth:api');
     }
-
-    public function getAllEnrolledStudents($eventID)
+    public function getAllEnrolledStudents(int $eventID)
     {
         $students = Enrollment::getAllStudents($eventID)->pluck('participantCollegeUID');
         $response = [];

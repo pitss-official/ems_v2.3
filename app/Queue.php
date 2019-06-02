@@ -20,7 +20,7 @@ class Queue extends Model
         return $this->hasOne('App\User');
     }
 
-    public function createTransferRequest($senderCollegeUID, $reciplentCollegeUID, $amount, $senderRemarks)
+    public function createTransferRequest(int $senderCollegeUID,int $reciplentCollegeUID,float $amount, $senderRemarks)
     {
         if ($senderCollegeUID == $reciplentCollegeUID)
             return ['error' => 'Sender and Receiver can not be same'];

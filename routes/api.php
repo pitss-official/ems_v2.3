@@ -18,10 +18,14 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 Route::get('fetch/navigation','API\NavigationController@pushAllLinks');
 Route::get('fetch/user/queues/pendingActions','API\QueueController@index');
+Route::get('fetch/user/account/transactions','API\CashFlowController@listAllTransactions');
+Route::post('put/user/queues/moneyTransfer/newRequest','API\CashFlowController@store');
 Route::post('fetch/user/balance/currentBalance','UsersController@breadcumbBalances');
 Route::get('put/user/theme/{themeName}','UsersController@setTheme');
 
 Route::post('/members/find/name/{collegeUID}','UsersController@getUserName');
+Route::get('/members/find/pendingBalance/{collegeUID}','API\CashFlowController@negativeStudentAccountBalance');
+Route::post('/forms/fees/enrollment/pluckPendingBalance','API\CashFlowController@store');
 Route::post('/events/find/enrollable/','API\EventController@listAll');
 Route::post('/events/find/teamable/','API\EventController@listTeamableEvents');
 Route::post('/events/find/enrollable/teams/{eventID}','API\TeamController@listAll');

@@ -134,7 +134,7 @@
                                     </li>
                                     <li role="separator" class="divider"></li>
                                     <li><a href="#"><i class="ti-user"></i> My Profile</a></li>
-                                    <li><a href="#"><i class="ti-wallet"></i> My Balance</a></li>
+                                    <li><router-link to="/MyAccount/FinancialTransactions"><i class="ti-wallet"></i> My Balance</router-link></li>
                                     <li><a href="#"><i class="ti-email"></i> Inbox</a></li>
                                     <li role="separator" class="divider"></li>
                                     <li><a href="#"><i class="ti-settings"></i> Account Setting</a></li>
@@ -187,8 +187,8 @@
                                                  data-toggle="dropdown" role="button" aria-haspopup="true"
                                                  aria-expanded="true">User Name</a>
                         <div class="dropdown-menu animated flipInY"><router-link to="/MyProfile/view" class="dropdown-item"><i
-                                    class="ti-user"></i> My Profile</router-link> <a href="#" class="dropdown-item"><i
-                                    class="ti-wallet"></i> My Balance</a> <a href="#" class="dropdown-item"><i
+                                    class="ti-user"></i> My Profile</router-link> <router-link to="/MyAccount/FinancialTransactions" class="dropdown-item"><i
+                                    class="ti-wallet"></i> My Balance</router-link> <a href="#" class="dropdown-item"><i
                                     class="ti-email"></i> Inbox</a>
                             <div class="dropdown-divider"></div>
                             <a href="#" class="dropdown-item"><i class="ti-settings"></i> Account Setting</a>

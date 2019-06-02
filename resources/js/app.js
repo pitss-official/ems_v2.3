@@ -41,6 +41,7 @@ let routes=[
     {path:'/home',component: require('./components/Personal/Dashboard').default},
     {path:'/test',component: require('./components/test1').default},
     {path:'/MyAccount/Settings',component: require('./components/Personal/Settings').default},
+    {path:'/MyAccount/FinancialTransactions',component: require('./components/Personal/Transactions').default},
     {path:'/MyProfile/view',component: require('./components/Personal/Profile').default},
     {path:'/serve/forms/enrollment/new',component: require('./components/Forms/Enrollment').default},
     {path:'/serve/forms/enrollment/collectCash',component: require('./components/Forms/EnrollmentFees').default},

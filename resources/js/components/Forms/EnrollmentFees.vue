@@ -92,7 +92,7 @@
                     if(this.student.collegeUID.length==8){
                         axios({
                             method: 'post',
-                            url: '/api/basic/Names/' + this.$data.student.collegeUID,
+                            url: '/api/members/find/name/' + this.$data.student.collegeUID,
                         })
                             .then((response) => {
                                 if(response.data) {
@@ -112,8 +112,8 @@
                             .catch((response)=> {
 
                             });axios({
-                            method: 'post',
-                            url: '/api/account/pending_balance/' + this.$data.student.collegeUID,
+                            method: 'get',
+                            url: '/api/members/find/pendingBalance/' + this.$data.student.collegeUID,
                         })
                             .then((response) => {
                                 if(response.data) {
@@ -139,7 +139,7 @@
                         confirmButtonText: 'Yes, Deposit'
                     }).then((result) => {
                         if (result.value) {
-                            this.student.post('/api/flow/transaction').then((response)=> {
+                            this.student.post('/api/forms/fees/enrollment/pluckPendingBalance').then((response)=> {
                                 console.log(response
                                 )
                                 if(typeof response.data == "number"){
