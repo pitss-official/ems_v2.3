@@ -20,6 +20,7 @@ class CreateTeamsTable extends Migration
             $table->unsignedTinyInteger('availedCapacity')->default(0);
             $table->unsignedBigInteger('eventID');
             $table->text('description')->nullable();
+            $table->unique(['eventID','name']);
             $table->foreign('eventID')->references('id')->on('events');
             $table->timestamps();
         });

@@ -2822,6 +2822,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -2856,7 +2857,7 @@ __webpack_require__.r(__webpack_exports__);
 
     axios({
       method: 'post',
-      url: '/api/events/find/enrollable'
+      url: '/api/events/find/teamable/'
     }).then(function (response) {
       console.log(response);
       _this2.$data.eventList = response.data;
@@ -3240,6 +3241,7 @@ __webpack_require__.r(__webpack_exports__);
                 url: '/api/verify/enrollment/' + result.value.data
               }).then(function (resp) {
                 console.log(resp);
+                if (isNaN(resp.data)) swal.fire("Error", "Server Error", "error");
                 swal.fire({
                   title: 'Enrollment ID: ' + result.value.data,
                   text: 'You have successfully enrolled ' + _this2.student.firstName,
@@ -3855,6 +3857,121 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -3868,6 +3985,8 @@ __webpack_require__.r(__webpack_exports__);
         seats: '',
         ticketPrice: '',
         supportMobile: '',
+        supportEmail: '',
+        supportAltMobile: '',
         reservationCharges: '',
         approvalFiling: '',
         approvalDate: '',
@@ -3875,17 +3994,31 @@ __webpack_require__.r(__webpack_exports__);
         approverMobile: '',
         approverAddress: '',
         approverEmail: '',
+        maxIncentives: '',
+        approvalStatus: '',
+        teaming: '',
+        minimumUserLevel: '',
         dates: []
-      })
+      }) //todo:coor req in dates
+
     };
   },
   methods: {
     save: function save() {
-      console.log(this.$data.event);
-      console.log(this.$data.dates);
       this.$data.event.dates = this.$data.dates;
       this.event.post('/api/forms/events/').then(function (response) {
-        console.log(response);
+        if (!isNaN(response.data)) {
+          //todo: implement cross verification like venues and integrate venues
+          swal.fire({
+            title: 'Bravo!',
+            html: 'You have successfully registered event <b>' + response.data + '</b>',
+            type: 'success',
+            backdrop: 'rgba(0, 0, 123, 0.3)'
+          });
+        } else {
+          console.log(response);
+          Swal.fire("Error Occurred", "Some error occured while processing check console", "error");
+        }
       });
     },
     date_change: function date_change() {
@@ -3921,7 +4054,8 @@ __webpack_require__.r(__webpack_exports__);
           startTime: '',
           endTime: '',
           motive: '',
-          description: ''
+          description: '',
+          coordinatorsRequired: 1
         });
         currentDate.setDate(currentDate.getDate() + 1);
       } //todo:enrollement should show errors and runtime warnings
@@ -41402,6 +41536,7 @@ var render = function() {
                                 _c("has-error", {
                                   attrs: { form: _vm.event, field: "startDate" }
                                 }),
+                                _vm._v(" "),
                                 _c("has-error", {
                                   attrs: { form: _vm.event, field: "endDate" }
                                 })
@@ -41458,7 +41593,7 @@ var render = function() {
                                   { staticClass: "form-control-feedback" },
                                   [
                                     _vm._v(
-                                      " Define maximum seats for the event"
+                                      " Define maximum seats for the\n                                                event\n                                            "
                                     )
                                   ]
                                 ),
@@ -41543,279 +41678,1014 @@ var render = function() {
                               1
                             )
                           ])
-                        ])
-                      ]),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "row" }, [
-                        _c("div", { staticClass: "col-md-6" }, [
-                          _c(
-                            "div",
-                            { staticClass: "form-group" },
-                            [
-                              _c("label", { staticClass: "control-label" }, [
-                                _vm._v("Support Mobile Number")
-                              ]),
-                              _vm._v(" "),
-                              _c("input", {
-                                directives: [
-                                  {
-                                    name: "model",
-                                    rawName: "v-model",
-                                    value: _vm.event.mobile,
-                                    expression: "event.mobile"
-                                  }
-                                ],
-                                staticClass: "form-control",
-                                attrs: {
-                                  id: "mobile",
-                                  placeholder: "",
-                                  required: "",
-                                  type: "text"
-                                },
-                                domProps: { value: _vm.event.mobile },
-                                on: {
-                                  input: function($event) {
-                                    if ($event.target.composing) {
-                                      return
-                                    }
-                                    _vm.$set(
-                                      _vm.event,
-                                      "mobile",
-                                      $event.target.value
-                                    )
-                                  }
-                                }
-                              }),
-                              _vm._v(" "),
-                              _c(
-                                "small",
-                                { staticClass: "form-control-feedback" },
-                                [
-                                  _vm._v(
-                                    "It will be sent to the participants for\n                                            queries\n                                        "
-                                  )
-                                ]
-                              ),
-                              _c("has-error", {
-                                attrs: { form: _vm.event, field: "mobile" }
-                              })
-                            ],
-                            1
-                          )
                         ]),
                         _vm._v(" "),
-                        _c("div", { staticClass: "col-md-6" }, [
-                          _c(
-                            "div",
-                            { staticClass: "form-group" },
-                            [
-                              _c("label", { staticClass: "control-label" }, [
-                                _vm._v("Seat Reservation Charges")
-                              ]),
+                        _c("div", { staticClass: "row" }, [
+                          _c("div", { staticClass: "col-md-6" }, [
+                            _c(
+                              "div",
+                              { staticClass: "form-group" },
+                              [
+                                _c("label", { staticClass: "control-label" }, [
+                                  _vm._v("Support Mobile Number")
+                                ]),
+                                _vm._v(" "),
+                                _c("input", {
+                                  directives: [
+                                    {
+                                      name: "model",
+                                      rawName: "v-model",
+                                      value: _vm.event.supportMobile,
+                                      expression: "event.supportMobile"
+                                    }
+                                  ],
+                                  staticClass: "form-control",
+                                  attrs: {
+                                    id: "mobile",
+                                    placeholder: "",
+                                    required: "",
+                                    type: "text"
+                                  },
+                                  domProps: { value: _vm.event.supportMobile },
+                                  on: {
+                                    input: function($event) {
+                                      if ($event.target.composing) {
+                                        return
+                                      }
+                                      _vm.$set(
+                                        _vm.event,
+                                        "supportMobile",
+                                        $event.target.value
+                                      )
+                                    }
+                                  }
+                                }),
+                                _vm._v(" "),
+                                _c(
+                                  "small",
+                                  { staticClass: "form-control-feedback" },
+                                  [
+                                    _vm._v(
+                                      "It will be sent to the participants\n                                                for\n                                                queries\n                                            "
+                                    )
+                                  ]
+                                ),
+                                _vm._v(" "),
+                                _c("has-error", {
+                                  attrs: {
+                                    form: _vm.event,
+                                    field: "supportMobile"
+                                  }
+                                })
+                              ],
+                              1
+                            )
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "col-md-6" }, [
+                            _c(
+                              "div",
+                              { staticClass: "form-group " },
+                              [
+                                _c("label", { staticClass: "control-label" }, [
+                                  _vm._v("Support Email")
+                                ]),
+                                _vm._v(" "),
+                                _c("input", {
+                                  directives: [
+                                    {
+                                      name: "model",
+                                      rawName: "v-model",
+                                      value: _vm.event.supportEmail,
+                                      expression: "event.supportEmail"
+                                    }
+                                  ],
+                                  staticClass: "form-control",
+                                  attrs: {
+                                    id: "supportEmail",
+                                    required: "",
+                                    type: "email"
+                                  },
+                                  domProps: { value: _vm.event.supportEmail },
+                                  on: {
+                                    input: function($event) {
+                                      if ($event.target.composing) {
+                                        return
+                                      }
+                                      _vm.$set(
+                                        _vm.event,
+                                        "supportEmail",
+                                        $event.target.value
+                                      )
+                                    }
+                                  }
+                                }),
+                                _vm._v(" "),
+                                _c(
+                                  "small",
+                                  { staticClass: "form-control-feedback" },
+                                  [
+                                    _vm._v(
+                                      "Email address for candidates to contact\n                                            "
+                                    )
+                                  ]
+                                ),
+                                _vm._v(" "),
+                                _c("has-error", {
+                                  attrs: {
+                                    form: _vm.event,
+                                    field: "supportEmail"
+                                  }
+                                })
+                              ],
+                              1
+                            )
+                          ])
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "row" }, [
+                          _c("div", { staticClass: "col-md-6" }, [
+                            _c(
+                              "div",
+                              { staticClass: "form-group " },
+                              [
+                                _c("label", { staticClass: "control-label" }, [
+                                  _vm._v("Support Alternate Mobile")
+                                ]),
+                                _vm._v(" "),
+                                _c("input", {
+                                  directives: [
+                                    {
+                                      name: "model",
+                                      rawName: "v-model",
+                                      value: _vm.event.supportAltMobile,
+                                      expression: "event.supportAltMobile"
+                                    }
+                                  ],
+                                  staticClass: "form-control",
+                                  attrs: {
+                                    id: "supportAltMobile",
+                                    type: "number"
+                                  },
+                                  domProps: {
+                                    value: _vm.event.supportAltMobile
+                                  },
+                                  on: {
+                                    input: function($event) {
+                                      if ($event.target.composing) {
+                                        return
+                                      }
+                                      _vm.$set(
+                                        _vm.event,
+                                        "supportAltMobile",
+                                        $event.target.value
+                                      )
+                                    }
+                                  }
+                                }),
+                                _vm._v(" "),
+                                _c(
+                                  "small",
+                                  { staticClass: "form-control-feedback" },
+                                  [
+                                    _vm._v(
+                                      " Alternate number for candidates\n                                            "
+                                    )
+                                  ]
+                                ),
+                                _vm._v(" "),
+                                _c("has-error", {
+                                  attrs: {
+                                    form: _vm.event,
+                                    field: "supportAltMobile"
+                                  }
+                                })
+                              ],
+                              1
+                            )
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "col-md-6" }, [
+                            _c(
+                              "div",
+                              { staticClass: "form-group" },
+                              [
+                                _c("label", { staticClass: "control-label" }, [
+                                  _vm._v("Seat Reservation Charges")
+                                ]),
+                                _vm._v(" "),
+                                _c(
+                                  "div",
+                                  {
+                                    staticClass:
+                                      "input-group bootstrap-touchspin"
+                                  },
+                                  [
+                                    _c("input", {
+                                      directives: [
+                                        {
+                                          name: "model",
+                                          rawName: "v-model",
+                                          value: _vm.event.reservationCharges,
+                                          expression: "event.reservationCharges"
+                                        }
+                                      ],
+                                      staticClass: "form-control",
+                                      attrs: {
+                                        id: "minimumTicketPricePercentage",
+                                        placeholder: "100%",
+                                        value: "100"
+                                      },
+                                      domProps: {
+                                        value: _vm.event.reservationCharges
+                                      },
+                                      on: {
+                                        input: function($event) {
+                                          if ($event.target.composing) {
+                                            return
+                                          }
+                                          _vm.$set(
+                                            _vm.event,
+                                            "reservationCharges",
+                                            $event.target.value
+                                          )
+                                        }
+                                      }
+                                    }),
+                                    _c(
+                                      "span",
+                                      {
+                                        staticClass:
+                                          "input-group-addon bootstrap-touchspin-prefix"
+                                      },
+                                      [_vm._v("%")]
+                                    )
+                                  ]
+                                ),
+                                _vm._v(" "),
+                                _c(
+                                  "small",
+                                  { staticClass: "form-control-feedback" },
+                                  [_vm._v("In Percentage")]
+                                ),
+                                _vm._v(" "),
+                                _c("has-error", {
+                                  attrs: {
+                                    form: _vm.event,
+                                    field: "reservationCharges"
+                                  }
+                                })
+                              ],
+                              1
+                            )
+                          ])
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "row" }, [
+                          _c("div", { staticClass: "col-md-6 " }, [
+                            _c("div", { staticClass: "form-group" }, [
+                              _c("label", [_vm._v("Teaming")]),
                               _vm._v(" "),
                               _c(
                                 "div",
-                                {
-                                  staticClass: "input-group bootstrap-touchspin"
-                                },
+                                { staticClass: "switch" },
                                 [
-                                  _c("input", {
-                                    directives: [
-                                      {
-                                        name: "model",
-                                        rawName: "v-model",
-                                        value: _vm.event.reservationCharges,
-                                        expression: "event.reservationCharges"
-                                      }
-                                    ],
-                                    staticClass: "form-control",
-                                    attrs: {
-                                      id: "minimumTicketPricePercentage",
-                                      placeholder: "100%",
-                                      value: "100"
-                                    },
-                                    domProps: {
-                                      value: _vm.event.reservationCharges
-                                    },
-                                    on: {
-                                      input: function($event) {
-                                        if ($event.target.composing) {
-                                          return
+                                  _c("label", [
+                                    _vm._v(
+                                      "Check if Team participations are allowed\n                                                    "
+                                    ),
+                                    _c("input", {
+                                      directives: [
+                                        {
+                                          name: "model",
+                                          rawName: "v-model",
+                                          value: _vm.event.teaming,
+                                          expression: "event.teaming"
                                         }
-                                        _vm.$set(
-                                          _vm.event,
-                                          "reservationCharges",
-                                          $event.target.value
+                                      ],
+                                      attrs: {
+                                        checked: "",
+                                        id: "teamming",
+                                        type: "checkbox"
+                                      },
+                                      domProps: {
+                                        checked: Array.isArray(
+                                          _vm.event.teaming
                                         )
+                                          ? _vm._i(_vm.event.teaming, null) > -1
+                                          : _vm.event.teaming
+                                      },
+                                      on: {
+                                        change: function($event) {
+                                          var $$a = _vm.event.teaming,
+                                            $$el = $event.target,
+                                            $$c = $$el.checked ? true : false
+                                          if (Array.isArray($$a)) {
+                                            var $$v = null,
+                                              $$i = _vm._i($$a, $$v)
+                                            if ($$el.checked) {
+                                              $$i < 0 &&
+                                                _vm.$set(
+                                                  _vm.event,
+                                                  "teaming",
+                                                  $$a.concat([$$v])
+                                                )
+                                            } else {
+                                              $$i > -1 &&
+                                                _vm.$set(
+                                                  _vm.event,
+                                                  "teaming",
+                                                  $$a
+                                                    .slice(0, $$i)
+                                                    .concat($$a.slice($$i + 1))
+                                                )
+                                            }
+                                          } else {
+                                            _vm.$set(_vm.event, "teaming", $$c)
+                                          }
+                                        }
                                       }
-                                    }
-                                  }),
-                                  _c(
-                                    "span",
-                                    {
-                                      staticClass:
-                                        "input-group-addon bootstrap-touchspin-prefix"
-                                    },
-                                    [_vm._v("%")]
-                                  )
-                                ]
-                              ),
+                                    }),
+                                    _c("span", { staticClass: "lever" }),
+                                    _vm._v("Done")
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("has-error", {
+                                    attrs: { form: _vm.event, field: "teaming" }
+                                  })
+                                ],
+                                1
+                              )
+                            ])
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "col-md-6 " }, [
+                            _c(
+                              "div",
+                              { staticClass: "form-group" },
+                              [
+                                _c("label", [
+                                  _vm._v("Registration Incentive Rate")
+                                ]),
+                                _vm._v(" "),
+                                _c(
+                                  "div",
+                                  {
+                                    staticClass:
+                                      "input-group bootstrap-touchspin"
+                                  },
+                                  [
+                                    _c("input", {
+                                      directives: [
+                                        {
+                                          name: "model",
+                                          rawName: "v-model",
+                                          value: _vm.event.maxIncentives,
+                                          expression: "event.maxIncentives"
+                                        }
+                                      ],
+                                      staticClass: "form-control",
+                                      attrs: { value: "0" },
+                                      domProps: {
+                                        value: _vm.event.maxIncentives
+                                      },
+                                      on: {
+                                        input: function($event) {
+                                          if ($event.target.composing) {
+                                            return
+                                          }
+                                          _vm.$set(
+                                            _vm.event,
+                                            "maxIncentives",
+                                            $event.target.value
+                                          )
+                                        }
+                                      }
+                                    }),
+                                    _c(
+                                      "span",
+                                      {
+                                        staticClass:
+                                          "input-group-addon bootstrap-touchspin-prefix"
+                                      },
+                                      [_vm._v("%")]
+                                    )
+                                  ]
+                                ),
+                                _vm._v(" "),
+                                _c(
+                                  "small",
+                                  { staticClass: "form-control-feedback" },
+                                  [_vm._v("In Percentage")]
+                                ),
+                                _vm._v(" "),
+                                _c("has-error", {
+                                  attrs: {
+                                    form: _vm.event,
+                                    field: "maxIncentives"
+                                  }
+                                })
+                              ],
+                              1
+                            )
+                          ])
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "row" }, [
+                          _c("div", { staticClass: "col-md-6 " }, [
+                            _c("div", { staticClass: "form-group" }, [
+                              _c("label", [_vm._v("Approval Status")]),
                               _vm._v(" "),
                               _c(
-                                "small",
-                                { staticClass: "form-control-feedback" },
-                                [_vm._v("In Percentage")]
-                              ),
-                              _vm._v(" "),
-                              _c("has-error", {
-                                attrs: {
-                                  form: _vm.event,
-                                  field: "reservationCharges"
-                                }
-                              })
-                            ],
-                            1
-                          )
-                        ])
-                      ]),
-                      _vm._v(" "),
-                      _c(
-                        "div",
-                        { staticClass: "row", attrs: { id: "datePannel" } },
-                        [
-                          _c("div", { staticClass: "col-md-12" }, [
-                            _c("div", { staticClass: "card" }, [
-                              _c("div", { staticClass: "card-body" }, [
-                                _c("h4", { staticClass: "card-title" }, [
-                                  _vm._v("Schedule of Event")
-                                ]),
-                                _vm._v(" "),
-                                _c("h6", { staticClass: "card-subtitle" }, [
-                                  _vm._v("Plan the event dates")
-                                ]),
-                                _vm._v(" "),
-                                _c("hr"),
-                                _vm._v(" "),
-                                _c("div", { staticClass: "vtabs" }, [
-                                  _c(
-                                    "ul",
-                                    {
-                                      staticClass: "nav nav-tabs tabs-vertical",
+                                "div",
+                                { staticClass: "switch" },
+                                [
+                                  _c("label", [
+                                    _vm._v(
+                                      "Check if Event is approved by higher authorities\n                                                    "
+                                    ),
+                                    _c("input", {
+                                      directives: [
+                                        {
+                                          name: "model",
+                                          rawName: "v-model",
+                                          value: _vm.event.approvalStatus,
+                                          expression: "event.approvalStatus"
+                                        }
+                                      ],
                                       attrs: {
-                                        role: "tablist",
-                                        id: "computed_1"
+                                        checked: "",
+                                        id: "approved",
+                                        type: "checkbox"
+                                      },
+                                      domProps: {
+                                        checked: Array.isArray(
+                                          _vm.event.approvalStatus
+                                        )
+                                          ? _vm._i(
+                                              _vm.event.approvalStatus,
+                                              null
+                                            ) > -1
+                                          : _vm.event.approvalStatus
+                                      },
+                                      on: {
+                                        change: function($event) {
+                                          var $$a = _vm.event.approvalStatus,
+                                            $$el = $event.target,
+                                            $$c = $$el.checked ? true : false
+                                          if (Array.isArray($$a)) {
+                                            var $$v = null,
+                                              $$i = _vm._i($$a, $$v)
+                                            if ($$el.checked) {
+                                              $$i < 0 &&
+                                                _vm.$set(
+                                                  _vm.event,
+                                                  "approvalStatus",
+                                                  $$a.concat([$$v])
+                                                )
+                                            } else {
+                                              $$i > -1 &&
+                                                _vm.$set(
+                                                  _vm.event,
+                                                  "approvalStatus",
+                                                  $$a
+                                                    .slice(0, $$i)
+                                                    .concat($$a.slice($$i + 1))
+                                                )
+                                            }
+                                          } else {
+                                            _vm.$set(
+                                              _vm.event,
+                                              "approvalStatus",
+                                              $$c
+                                            )
+                                          }
+                                        }
                                       }
-                                    },
-                                    _vm._l(_vm.dates, function(item) {
-                                      return _c(
-                                        "li",
-                                        { staticClass: "nav-item" },
-                                        [
-                                          _c(
-                                            "a",
-                                            {
-                                              staticClass: "nav-link",
-                                              class: { active: item.id == 1 },
-                                              attrs: {
-                                                "data-toggle": "tab",
-                                                href: "#t" + item.id,
-                                                role: "tab"
-                                              }
-                                            },
-                                            [
-                                              _vm._m(1, true),
-                                              _vm._v(" "),
-                                              _c(
-                                                "span",
-                                                {
-                                                  staticClass: "hidden-xs-down"
-                                                },
-                                                [
-                                                  _vm._v(
-                                                    _vm._s(
-                                                      item.date.format(
-                                                        "ddd, MMM DD"
+                                    }),
+                                    _c("span", { staticClass: "lever" }),
+                                    _vm._v("Done")
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("has-error", {
+                                    attrs: {
+                                      form: _vm.event,
+                                      field: "approvalStatus"
+                                    }
+                                  })
+                                ],
+                                1
+                              )
+                            ])
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "col-md-6 " }, [
+                            _c(
+                              "div",
+                              { staticClass: "form-group" },
+                              [
+                                _c("label", [
+                                  _vm._v("Minimum User Level for participating")
+                                ]),
+                                _vm._v(" "),
+                                _c("input", {
+                                  directives: [
+                                    {
+                                      name: "model",
+                                      rawName: "v-model",
+                                      value: _vm.event.minimumUserLevel,
+                                      expression: "event.minimumUserLevel"
+                                    }
+                                  ],
+                                  staticClass: "form-control",
+                                  attrs: { value: "0" },
+                                  domProps: {
+                                    value: _vm.event.minimumUserLevel
+                                  },
+                                  on: {
+                                    input: function($event) {
+                                      if ($event.target.composing) {
+                                        return
+                                      }
+                                      _vm.$set(
+                                        _vm.event,
+                                        "minimumUserLevel",
+                                        $event.target.value
+                                      )
+                                    }
+                                  }
+                                }),
+                                _vm._v(" "),
+                                _c(
+                                  "small",
+                                  { staticClass: "form-control-feedback" },
+                                  [_vm._v("0 for all allowed")]
+                                ),
+                                _vm._v(" "),
+                                _c("has-error", {
+                                  attrs: {
+                                    form: _vm.event,
+                                    field: "maxIncentives"
+                                  }
+                                })
+                              ],
+                              1
+                            )
+                          ])
+                        ]),
+                        _vm._v(" "),
+                        _c(
+                          "div",
+                          { staticClass: "row", attrs: { id: "datePannel" } },
+                          [
+                            _c("div", { staticClass: "col-md-12" }, [
+                              _c("div", { staticClass: "card" }, [
+                                _c("div", { staticClass: "card-body" }, [
+                                  _c("h4", { staticClass: "card-title" }, [
+                                    _vm._v("Schedule of Event")
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("h6", { staticClass: "card-subtitle" }, [
+                                    _vm._v("Plan the event dates")
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("hr"),
+                                  _vm._v(" "),
+                                  _c("div", { staticClass: "vtabs" }, [
+                                    _c(
+                                      "ul",
+                                      {
+                                        staticClass:
+                                          "nav nav-tabs tabs-vertical",
+                                        attrs: {
+                                          role: "tablist",
+                                          id: "computed_1"
+                                        }
+                                      },
+                                      _vm._l(_vm.dates, function(item) {
+                                        return _c(
+                                          "li",
+                                          { staticClass: "nav-item" },
+                                          [
+                                            _c(
+                                              "a",
+                                              {
+                                                staticClass: "nav-link",
+                                                class: { active: item.id == 1 },
+                                                attrs: {
+                                                  "data-toggle": "tab",
+                                                  href: "#t" + item.id,
+                                                  role: "tab"
+                                                }
+                                              },
+                                              [
+                                                _vm._m(1, true),
+                                                _vm._v(" "),
+                                                _c(
+                                                  "span",
+                                                  {
+                                                    staticClass:
+                                                      "hidden-xs-down"
+                                                  },
+                                                  [
+                                                    _vm._v(
+                                                      _vm._s(
+                                                        item.date.format(
+                                                          "ddd, MMM DD"
+                                                        )
                                                       )
                                                     )
+                                                  ]
+                                                )
+                                              ]
+                                            )
+                                          ]
+                                        )
+                                      }),
+                                      0
+                                    ),
+                                    _vm._v(" "),
+                                    _c(
+                                      "div",
+                                      {
+                                        staticClass: "tab-content",
+                                        attrs: { id: "computed_2" }
+                                      },
+                                      _vm._l(_vm.dates, function(item) {
+                                        return _c(
+                                          "div",
+                                          {
+                                            staticClass: "tab-pane",
+                                            class: { active: item.id == 1 },
+                                            attrs: {
+                                              id: "t" + item.id,
+                                              role: "tabpanel"
+                                            }
+                                          },
+                                          [
+                                            _c("h3", [
+                                              _vm._v(
+                                                _vm._s(
+                                                  item.date.format(
+                                                    "dddd, MMMM DD, YYYY"
+                                                  )
+                                                )
+                                              )
+                                            ]),
+                                            _vm._v(" "),
+                                            _c("div", { staticClass: "row" }, [
+                                              _c(
+                                                "div",
+                                                { staticClass: "col-md-12" },
+                                                [
+                                                  _c(
+                                                    "div",
+                                                    {
+                                                      staticClass: "form-group"
+                                                    },
+                                                    [
+                                                      _c("label", [
+                                                        _vm._v(
+                                                          "Enter a title or Subject for day of\n                                                                            event"
+                                                        )
+                                                      ]),
+                                                      _vm._v(" "),
+                                                      _c("input", {
+                                                        directives: [
+                                                          {
+                                                            name: "model",
+                                                            rawName: "v-model",
+                                                            value:
+                                                              _vm.dates[
+                                                                item.id - 1
+                                                              ].motive,
+                                                            expression:
+                                                              "dates[item.id-1].motive"
+                                                          }
+                                                        ],
+                                                        staticClass:
+                                                          "form-control",
+                                                        attrs: {
+                                                          type: "text",
+                                                          placeholder: ""
+                                                        },
+                                                        domProps: {
+                                                          value:
+                                                            _vm.dates[
+                                                              item.id - 1
+                                                            ].motive
+                                                        },
+                                                        on: {
+                                                          input: function(
+                                                            $event
+                                                          ) {
+                                                            if (
+                                                              $event.target
+                                                                .composing
+                                                            ) {
+                                                              return
+                                                            }
+                                                            _vm.$set(
+                                                              _vm.dates[
+                                                                item.id - 1
+                                                              ],
+                                                              "motive",
+                                                              $event.target
+                                                                .value
+                                                            )
+                                                          }
+                                                        }
+                                                      }),
+                                                      _vm._v(" "),
+                                                      _c(
+                                                        "small",
+                                                        {
+                                                          staticClass:
+                                                            "form-control-feedback"
+                                                        },
+                                                        [
+                                                          _vm._v(
+                                                            "Motive\n                                                                            of the day\n                                                                        "
+                                                          )
+                                                        ]
+                                                      )
+                                                    ]
                                                   )
                                                 ]
                                               )
-                                            ]
-                                          )
-                                        ]
-                                      )
-                                    }),
-                                    0
-                                  ),
-                                  _vm._v(" "),
-                                  _c(
-                                    "div",
-                                    {
-                                      staticClass: "tab-content",
-                                      attrs: { id: "computed_2" }
-                                    },
-                                    _vm._l(_vm.dates, function(item) {
-                                      return _c(
-                                        "div",
-                                        {
-                                          staticClass: "tab-pane",
-                                          class: { active: item.id == 1 },
-                                          attrs: {
-                                            id: "t" + item.id,
-                                            role: "tabpanel"
-                                          }
-                                        },
-                                        [
-                                          _c("h3", [
-                                            _vm._v(
-                                              _vm._s(
-                                                item.date.format(
-                                                  "dddd, MMMM DD, YYYY"
-                                                )
+                                            ]),
+                                            _vm._v(" "),
+                                            _c("div", { staticClass: "row" }, [
+                                              _c(
+                                                "div",
+                                                { staticClass: "col-lg-4" },
+                                                [
+                                                  _c("input", {
+                                                    directives: [
+                                                      {
+                                                        name: "model",
+                                                        rawName: "v-model",
+                                                        value:
+                                                          _vm.dates[item.id - 1]
+                                                            .startTime,
+                                                        expression:
+                                                          "dates[item.id-1].startTime"
+                                                      }
+                                                    ],
+                                                    staticClass: "form-control",
+                                                    attrs: { type: "time" },
+                                                    domProps: {
+                                                      value:
+                                                        _vm.dates[item.id - 1]
+                                                          .startTime
+                                                    },
+                                                    on: {
+                                                      input: function($event) {
+                                                        if (
+                                                          $event.target
+                                                            .composing
+                                                        ) {
+                                                          return
+                                                        }
+                                                        _vm.$set(
+                                                          _vm.dates[
+                                                            item.id - 1
+                                                          ],
+                                                          "startTime",
+                                                          $event.target.value
+                                                        )
+                                                      }
+                                                    }
+                                                  }),
+                                                  _vm._v(" "),
+                                                  _c(
+                                                    "small",
+                                                    {
+                                                      staticClass:
+                                                        "form-control-feedback"
+                                                    },
+                                                    [
+                                                      _vm._v(
+                                                        "Start\n                                                                        Time\n                                                                    "
+                                                      )
+                                                    ]
+                                                  )
+                                                ]
+                                              ),
+                                              _vm._v(" "),
+                                              _c(
+                                                "div",
+                                                { staticClass: "col-md-4" },
+                                                [
+                                                  _c("input", {
+                                                    directives: [
+                                                      {
+                                                        name: "model",
+                                                        rawName: "v-model",
+                                                        value:
+                                                          _vm.dates[item.id - 1]
+                                                            .endTime,
+                                                        expression:
+                                                          "dates[item.id-1].endTime"
+                                                      }
+                                                    ],
+                                                    staticClass: "form-control",
+                                                    attrs: { type: "time" },
+                                                    domProps: {
+                                                      value:
+                                                        _vm.dates[item.id - 1]
+                                                          .endTime
+                                                    },
+                                                    on: {
+                                                      input: function($event) {
+                                                        if (
+                                                          $event.target
+                                                            .composing
+                                                        ) {
+                                                          return
+                                                        }
+                                                        _vm.$set(
+                                                          _vm.dates[
+                                                            item.id - 1
+                                                          ],
+                                                          "endTime",
+                                                          $event.target.value
+                                                        )
+                                                      }
+                                                    }
+                                                  }),
+                                                  _vm._v(" "),
+                                                  _c(
+                                                    "small",
+                                                    {
+                                                      staticClass:
+                                                        "form-control-feedback"
+                                                    },
+                                                    [
+                                                      _vm._v(
+                                                        "End Time\n                                                                    "
+                                                      )
+                                                    ]
+                                                  )
+                                                ]
+                                              ),
+                                              _c(
+                                                "div",
+                                                { staticClass: "col-md-4" },
+                                                [
+                                                  _c("input", {
+                                                    directives: [
+                                                      {
+                                                        name: "model",
+                                                        rawName: "v-model",
+                                                        value:
+                                                          _vm.dates[item.id - 1]
+                                                            .coordinatorsRequired,
+                                                        expression:
+                                                          "dates[item.id-1].coordinatorsRequired"
+                                                      }
+                                                    ],
+                                                    staticClass: "form-control",
+                                                    attrs: { type: "number" },
+                                                    domProps: {
+                                                      value:
+                                                        _vm.dates[item.id - 1]
+                                                          .coordinatorsRequired
+                                                    },
+                                                    on: {
+                                                      input: function($event) {
+                                                        if (
+                                                          $event.target
+                                                            .composing
+                                                        ) {
+                                                          return
+                                                        }
+                                                        _vm.$set(
+                                                          _vm.dates[
+                                                            item.id - 1
+                                                          ],
+                                                          "coordinatorsRequired",
+                                                          $event.target.value
+                                                        )
+                                                      }
+                                                    }
+                                                  }),
+                                                  _vm._v(" "),
+                                                  _c(
+                                                    "small",
+                                                    {
+                                                      staticClass:
+                                                        "form-control-feedback"
+                                                    },
+                                                    [
+                                                      _vm._v(
+                                                        "Coordinators Required\n                                                                    "
+                                                      )
+                                                    ]
+                                                  )
+                                                ]
                                               )
-                                            )
-                                          ]),
-                                          _vm._v(" "),
-                                          _vm._m(2, true),
-                                          _vm._v(" "),
-                                          _vm._m(3, true),
-                                          _vm._v(" "),
-                                          _vm._m(4, true)
-                                        ]
-                                      )
-                                    }),
-                                    0
-                                  )
+                                            ]),
+                                            _vm._v(" "),
+                                            _c("div", { staticClass: "row" }, [
+                                              _c(
+                                                "div",
+                                                { staticClass: "col-md-12" },
+                                                [
+                                                  _c("textarea", {
+                                                    directives: [
+                                                      {
+                                                        name: "model",
+                                                        rawName: "v-model",
+                                                        value:
+                                                          _vm.dates[item.id - 1]
+                                                            .description,
+                                                        expression:
+                                                          "dates[item.id-1].description"
+                                                      }
+                                                    ],
+                                                    staticClass:
+                                                      "form-control date-discription",
+                                                    attrs: {
+                                                      type: "text",
+                                                      cols: "2",
+                                                      placeholder: ""
+                                                    },
+                                                    domProps: {
+                                                      value:
+                                                        _vm.dates[item.id - 1]
+                                                          .description
+                                                    },
+                                                    on: {
+                                                      input: function($event) {
+                                                        if (
+                                                          $event.target
+                                                            .composing
+                                                        ) {
+                                                          return
+                                                        }
+                                                        _vm.$set(
+                                                          _vm.dates[
+                                                            item.id - 1
+                                                          ],
+                                                          "description",
+                                                          $event.target.value
+                                                        )
+                                                      }
+                                                    }
+                                                  }),
+                                                  _vm._v(" "),
+                                                  _c(
+                                                    "small",
+                                                    {
+                                                      staticClass:
+                                                        "form-control-feedback"
+                                                    },
+                                                    [
+                                                      _vm._v(
+                                                        "Description\n                                                                        of the day\n                                                                    "
+                                                      )
+                                                    ]
+                                                  )
+                                                ]
+                                              )
+                                            ])
+                                          ]
+                                        )
+                                      }),
+                                      0
+                                    )
+                                  ])
                                 ])
                               ])
                             ])
-                          ])
-                        ]
-                      ),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "row" }, [
-                        _c("div", { staticClass: "col-md-12" }, [
-                          _c(
-                            "button",
-                            {
-                              staticClass: "btn btn-info",
-                              attrs: {
-                                id: "genrate_dates_button",
-                                type: "button"
-                              },
-                              on: {
-                                click: function($event) {
-                                  $event.preventDefault()
-                                  return _vm.genrate_dates($event)
+                          ]
+                        ),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "row" }, [
+                          _c("div", { staticClass: "col-md-12" }, [
+                            _c(
+                              "button",
+                              {
+                                staticClass: "btn btn-info",
+                                attrs: {
+                                  id: "genrate_dates_button",
+                                  type: "button"
+                                },
+                                on: {
+                                  click: function($event) {
+                                    $event.preventDefault()
+                                    return _vm.genrate_dates($event)
+                                  }
                                 }
-                              }
-                            },
-                            [
-                              _vm._v(
-                                "Fetch Dates for Scheduling\n                                    "
-                              )
-                            ]
-                          )
+                              },
+                              [
+                                _vm._v(
+                                  "Fetch Dates for Scheduling\n                                        "
+                                )
+                              ]
+                            )
+                          ])
                         ])
                       ]),
                       _vm._v(" "),
@@ -41836,7 +42706,7 @@ var render = function() {
                               [
                                 _c("label", [
                                   _vm._v(
-                                    "Check if the Proposal is filed in the approval department\n                                                "
+                                    "Check if the Proposal is filed in the approval department\n                                                    "
                                   ),
                                   _c("input", {
                                     directives: [
@@ -41996,7 +42866,11 @@ var render = function() {
                               _c(
                                 "small",
                                 { staticClass: "form-control-feedback" },
-                                [_vm._v(" Name of Approving Authority")]
+                                [
+                                  _vm._v(
+                                    " Name of Approving Authority\n                                            "
+                                  )
+                                ]
                               ),
                               _vm._v(" "),
                               _c("has-error", {
@@ -42048,7 +42922,7 @@ var render = function() {
                                 { staticClass: "form-control-feedback" },
                                 [
                                   _vm._v(
-                                    " Mobile Number of Approving Authority\n                                            required in case of any problem during event\n                                        "
+                                    " Mobile Number of Approving\n                                                Authority\n                                                required in case of any problem during event\n                                            "
                                   )
                                 ]
                               ),
@@ -42205,7 +43079,7 @@ var render = function() {
                         ])
                       ]),
                       _vm._v(" "),
-                      _vm._m(5)
+                      _vm._m(2)
                     ]
                   )
                 ],
@@ -42239,73 +43113,13 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "row" }, [
-      _c("div", { staticClass: "col-md-12" }, [
-        _c("div", { staticClass: "form-group" }, [
-          _c("label", [_vm._v("Enter a title or Subject for day of event")]),
-          _vm._v(" "),
-          _c("input", {
-            staticClass: "form-control",
-            attrs: { type: "text", placeholder: "" }
-          }),
-          _vm._v(" "),
-          _c("small", { staticClass: "form-control-feedback" }, [
-            _vm._v("Motive of the day")
-          ])
-        ])
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "row" }, [
-      _c("div", { staticClass: "col-lg-6" }, [
-        _c("input", { staticClass: "form-control", attrs: { type: "time" } }),
-        _vm._v(" "),
-        _c("small", { staticClass: "form-control-feedback" }, [
-          _vm._v("Start Time")
-        ])
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "col-md-6" }, [
-        _c("input", { staticClass: "form-control", attrs: { type: "time" } }),
-        _vm._v(" "),
-        _c("small", { staticClass: "form-control-feedback" }, [
-          _vm._v("End Time")
-        ])
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "row" }, [
-      _c("div", { staticClass: "col-md-12" }, [
-        _c("textarea", {
-          staticClass: "form-control date-discription",
-          attrs: { type: "text", cols: "2", placeholder: "" }
-        }),
-        _vm._v(" "),
-        _c("small", { staticClass: "form-control-feedback" }, [
-          _vm._v("Description of the day")
-        ])
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
     return _c("div", { staticClass: "form-actions" }, [
       _c(
         "button",
         { staticClass: "btn btn-success", attrs: { type: "submit" } },
         [
           _c("i", { staticClass: "fa fa-check" }),
-          _vm._v(" Save\n                                ")
+          _vm._v(" Save\n                                    ")
         ]
       ),
       _vm._v(" "),

@@ -23,6 +23,7 @@ Route::get('put/user/theme/{themeName}','UsersController@setTheme');
 
 Route::post('/members/find/name/{collegeUID}','UsersController@getUserName');
 Route::post('/events/find/enrollable/','API\EventController@listAll');
+Route::post('/events/find/teamable/','API\EventController@listTeamableEvents');
 Route::post('/events/find/enrollable/teams/{eventID}','API\TeamController@listAll');
 Route::post('/forms/events/enroll/student','API\EnrollmentController@store');
 Route::post('/forms/venues/register','API\VenueController@store');

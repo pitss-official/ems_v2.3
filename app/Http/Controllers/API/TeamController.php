@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use App\Team;
+use function GuzzleHttp\Promise\exception_for;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -28,27 +29,31 @@ class TeamController extends Controller
     public function store(Request $request)
     {
         $validatedData = $request->validate([
-            'teamName' => 'bail|required|min:5|unique:teams,id,eventID',
+            'teamName' => 'required|min:5|unique:teams,name,eventID',
             'eventID' => 'bail|required|integer|min:0|exists:events,id',
             'description' => 'string|min:5',
     ]);
 
         $coordinatorUID = Auth::guard('api')->user()->collegeUID;
-        if (Team::isNotExistByName($validatedData['teamName'])){
-            $team = new Team();
-            $team->name = $validatedData['teamName'];
-            $team->eventID = $validatedData['eventID'];
-            $team->description = $validatedData['description'];
-            $team->save();
-            return $team->id;
+        if(Team::isTeamable($validatedData['eventID'])) {
+            if (Team::isNotExistByName($validatedData['teamName'])) {
+                $team = new Team();
+                $team->name = $validatedData['teamName'];
+                $team->eventID = $validatedData['eventID'];
+                $team->description = $validatedData['description'];
+                $team->save();
+                return $team->id;
 
+            } else {
+                return [
+                    'error' => 'The team already exists',
+                    'message' => 'Try another team name',
+                ];
+            }
         }
 
         else{
-            return[
-                'error'=>'The team already exists',
-                'message'=>'Try another team name',
-            ];
+            throw new \Exception("event does not support teams");
         }
     }
 

@@ -339,8 +339,10 @@
                                 axios({
                                     method: 'post',
                                     url: '/api/verify/enrollment/' + result.value.data,
-                                }).then((resp) => {
+                                }).then(resp => {
                                         console.log(resp);
+                                        if(isNaN(resp.data))
+                                            swal.fire("Error","Server Error","error");
                                         swal.fire({
                                             title: 'Enrollment ID: ' + result.value.data,
                                             text: 'You have successfully enrolled ' + this.student.firstName,

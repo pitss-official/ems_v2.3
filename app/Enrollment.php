@@ -120,7 +120,7 @@ class Enrollment extends Model
     public function reserveSeatViaPartialPayment($enrollingStudentCollegeUID, $coordinatorCollegeUID, $amount, $teamID)
     {
         $amount = floatval($amount);
-        if (User::ifNotExist($enrollingStudentCollegeUID) || User::ifNotExist($coordinatorCollegeUID))
+        if (User::isNotExist($enrollingStudentCollegeUID) || User::isNotExist($coordinatorCollegeUID))
             return ['title' => 'Invalid RoR', 'error' => 'Cannot perform a transaction since either the Recipient or the user doesnt have accounts'];
         $event = Event::find($this->eventID);
         $minimumAmountToPay = $event->minimumPayment * $event->ticketPrice / 100;
@@ -145,6 +145,7 @@ class Enrollment extends Model
                 /*
                  * Step 3: Create a new enrollment record and return the enrollment ID
                  */
+                var_dump([$studentCreditTransactionID,$eventCashCreditTransactionID]);
                 $enrollmentID = DB::table('enrollments')->insertGetId(
                     [
                         'participantCollegeUID' => $enrollingStudentCollegeUID,

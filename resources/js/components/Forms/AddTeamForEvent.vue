@@ -34,6 +34,7 @@
                                                     <option v-bind:value="event.id" v-for="event in eventList">
                                                         {{ event.name }}
                                                     </option>
+
                                                 </select>
                                                 <has-error :form="form" field="eventID"></has-error>
                                             </div>
@@ -102,7 +103,7 @@
         mounted(){
             axios({
                 method: 'post',
-                url: '/api/events/find/enrollable',
+                url: '/api/events/find/teamable/',
             }).then((response)=> {
                 console.log(response);
                 this.$data.eventList = response.data;

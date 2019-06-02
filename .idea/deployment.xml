@@ -24,6 +24,10 @@
             <excludedPath local="true" path="X:/EMS_2.3/node_modules" />
             <excludedPath local="true" path="yarn.lock" />
             <excludedPath path="\yarn.lock" />
+            <excludedPath path="vendor" />
+            <excludedPath local="true" path="X:/EMS_2.3/vendor" />
+            <excludedPath path="storage" />
+            <excludedPath local="true" path="X:/EMS_2.3/storage" />
           </excludedPaths>
         </serverdata>
       </paths>

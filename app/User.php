@@ -26,7 +26,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = [
-
+        'id', 'fathersName', 'createdBy', 'gender', 'birthday', 'nationality', 'bloodGroup', 'lastLogin', 'incentiveRate', 'status', 'mobile', 'altMobile', 'authorityLevel', 'address', 'referenceUID', 'email', 'email_verified_at', 'password', 'remember_token', 'created_at', 'updated_at'
     ];
     /**
      * The attributes that should be cast to native types.
@@ -80,7 +80,14 @@ class User extends Authenticatable
             return true;
         else return false;
     }
-
+    public static function ifNotExist($id)
+    {
+        return self::isNotExist($id);
+    }
+    public static function ifExist($id)
+    {
+        return self::ifNotExist($id);
+    }
     public static function isExist($id)
     {
         if (self::where('collegeUID', $id)->count() == 1)
@@ -91,7 +98,7 @@ class User extends Authenticatable
     public function openAccount()
     {
         $account = new Account();
-        $account->newStandardAccount($this->collegeUID);
+        $account->newStandardAccount($this->collegeUID,$this->createdBy);
         return $account;
         //account will now be opened through the standarad account interface in Account class
     }

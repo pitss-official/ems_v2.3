@@ -26,10 +26,9 @@ class Account extends Model
     {
         $this->hasMany('App\Transaction');
     }
-    public function newStandardAccount($collegeUID,$creatorUID=99887766)
+    public function newStandardAccount($collegeUID,$creatorUID)
     {
-        $holder=User::where('collegeUID',$collegeUID);
-        $holderName=$holder->fullName();
+        $holderName=User::where('collegeUID',$collegeUID)->firstOrFail()->fullName();
         $account= new Account();
         $account->name=$holderName." - Standard Account";
         $account->onHold=1;
@@ -38,6 +37,7 @@ class Account extends Model
         $account->balance=0;
         $account->number=$collegeUID;
         $account->collegeUID=$collegeUID;
+        $account->createdBy=$creatorUID;
         $account->save();
         return $account->number;
     }

@@ -30,12 +30,15 @@
                                                 <!--				form-group has-danger/has-success									form-control-danger-->
                                                 <div class="input-daterange input-group" id="event-dates">
                                                     <input class="form-control" id="start_date" name="start" required
-                                                           type="date" @change="date_change" v-model="event.startDate"><span
+                                                           type="date" @change="date_change"
+                                                           v-model="event.startDate"><span
                                                     class="input-group-addon bg-info b-0 text-white">to</span><input
-                                                    class="form-control" id="end_date" @change="date_change" name="end" v-model="event.endDate" type="date">
+                                                    class="form-control" id="end_date" @change="date_change" name="end"
+                                                    v-model="event.endDate" type="date">
                                                 </div>
                                                 <small class="form-control-feedback">Proposed Span of the Event</small>
-                                                <has-error :form="event" field="startDate"></has-error><has-error :form="event" field="endDate"></has-error>
+                                                <has-error :form="event" field="startDate"></has-error>
+                                                <has-error :form="event" field="endDate"></has-error>
                                             </div>
                                         </div>
                                         <!--/span-->
@@ -45,9 +48,12 @@
                                         <div class="col-md-6">
                                             <div class="form-group ">
                                                 <label class="control-label">Seats</label>
-                                                <input class="form-control" id="maxseats" v-model="event.seats" placeholder="100" required
+                                                <input class="form-control" id="maxseats" v-model="event.seats"
+                                                       placeholder="100" required
                                                        type="number" value="100">
-                                                <small class="form-control-feedback"> Define maximum seats for the event</small>
+                                                <small class="form-control-feedback"> Define maximum seats for the
+                                                    event
+                                                </small>
                                                 <has-error :form="event" field="seats"></has-error>
                                             </div>
                                         </div>
@@ -57,81 +63,181 @@
                                                 <label class="control-label">Ticket Price</label>
                                                 <div class="input-group bootstrap-touchspin"><span
                                                     class="input-group-addon bootstrap-touchspin-prefix">₹</span><input
-                                                    class="form-control" id="tch2" required type="text" v-model="event.ticketPrice"></div>
+                                                    class="form-control" id="tch2" required type="text"
+                                                    v-model="event.ticketPrice"></div>
                                                 <small class="form-control-feedback"></small>
                                                 <has-error :form="event" field="ticketPrice"></has-error>
                                             </div>
                                         </div>
                                     </div>
-                                    <!--/span-->
-                                </div>
-                                <!--/row-->
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label class="control-label">Support Mobile Number</label>
-                                            <input class="form-control" id="mobile" placeholder="" required type="text" v-model="event.mobile">
-                                            <small class="form-control-feedback">It will be sent to the participants for
-                                                queries
-                                            </small><has-error :form="event" field="mobile"></has-error>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="control-label">Support Mobile Number</label>
+                                                <input class="form-control" id="mobile" placeholder="" required
+                                                       type="text" v-model="event.supportMobile">
+                                                <small class="form-control-feedback">It will be sent to the participants
+                                                    for
+                                                    queries
+                                                </small>
+                                                <has-error :form="event" field="supportMobile"></has-error>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group ">
+                                                <label class="control-label">Support Email</label>
+                                                <input class="form-control" id="supportEmail"
+                                                       v-model="event.supportEmail" required type="email">
+                                                <small class="form-control-feedback">Email address for candidates to contact
+                                                </small>
+                                                <has-error :form="event" field="supportEmail"></has-error>
+                                            </div>
+                                        </div>
+                                        <!--/span-->
+                                    </div>
+                                    <!--/row-->
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group ">
+                                                <label class="control-label">Support Alternate Mobile</label>
+                                                <input class="form-control" id="supportAltMobile"
+                                                       v-model="event.supportAltMobile" type="number">
+                                                <small class="form-control-feedback"> Alternate number for candidates
+                                                </small>
+                                                <has-error :form="event" field="supportAltMobile"></has-error>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="control-label">Seat Reservation Charges</label>
+                                                <div class="input-group bootstrap-touchspin"><input class="form-control"
+                                                                                                    id="minimumTicketPricePercentage"
+                                                                                                    placeholder="100%"
+                                                                                                    v-model="event.reservationCharges"
+                                                                                                    value="100"><span
+                                                    class="input-group-addon bootstrap-touchspin-prefix">%</span></div>
+                                                <small class="form-control-feedback">In Percentage</small>
+                                                <has-error :form="event" field="reservationCharges"></has-error>
+                                            </div>
                                         </div>
                                     </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label class="control-label">Seat Reservation Charges</label>
-                                            <div class="input-group bootstrap-touchspin"><input class="form-control"
-                                                                                                id="minimumTicketPricePercentage"
-                                                                                                placeholder="100%" v-model="event.reservationCharges"
-                                                                                                value="100"><span
-                                                class="input-group-addon bootstrap-touchspin-prefix">%</span></div>
-                                            <small class="form-control-feedback">In Percentage</small>
-                                            <has-error :form="event" field="reservationCharges"></has-error>
+                                    <div class="row">
+                                        <div class="col-md-6 ">
+                                            <div class="form-group">
+                                                <label>Teaming</label>
+                                                <div class="switch">
+                                                    <label>Check if Team participations are allowed
+                                                        <input checked="" v-model="event.teaming" id="teamming"
+                                                               type="checkbox"><span
+                                                            class="lever"></span>Done</label>
+                                                    <has-error :form="event" field="teaming"></has-error>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 ">
+                                            <div class="form-group">
+                                                <label>Registration Incentive Rate</label>
+                                                <div class="input-group bootstrap-touchspin"><input
+                                                    v-model="event.maxIncentives" class="form-control" value="0"><span
+                                                    class="input-group-addon bootstrap-touchspin-prefix">%</span></div>
+                                                <small class="form-control-feedback">In Percentage</small>
+                                                <has-error :form="event" field="maxIncentives"></has-error>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="row" id="datePannel">
-                                    <div class="col-md-12">
-                                        <div class="card">
-                                            <div class="card-body">
-                                                <h4 class="card-title">Schedule of Event</h4>
-                                                <h6 class="card-subtitle">Plan the event dates</h6>
-                                                <hr>
-                                                <!-- Nav tabs -->
-                                                <div class="vtabs">
-                                                    <ul class="nav nav-tabs tabs-vertical" role="tablist" id="computed_1">
-                                                        <li class="nav-item" v-for="item in dates">
-                                                            <a class="nav-link" :class="{'active': item.id==1}" data-toggle="tab" v-bind:href="'#t'+item.id" role="tab">
-                                                                <span class="hidden-sm-up"><i class="ti-home"></i></span>
-                                                                <span class="hidden-xs-down">{{item.date.format('ddd, MMM DD')}}</span> </a>
-                                                        </li>
-                                                    </ul>
-                                                    <!-- Tab panes -->
-                                                    <div class="tab-content" id="computed_2">
-                                                        <div class="tab-pane" :class="{'active': item.id==1}" v-bind:id="'t'+item.id" v-for="item in dates" role="tabpanel">
-                                                            <h3>{{item.date.format('dddd, MMMM DD, YYYY')}}</h3>
-                                                            <div class="row">
-                                                                <div class="col-md-12">
-                                                                    <div class="form-group">
-                                                                        <label>Enter a title or Subject for day of event</label>
-                                                                        <input type="text" placeholder="" class="form-control">
-                                                                        <small class="form-control-feedback">Motive of the day</small>
+                                    <div class="row">
+                                        <div class="col-md-6 ">
+                                            <div class="form-group">
+                                                <label>Approval Status</label>
+                                                <div class="switch">
+                                                    <label>Check if Event is approved by higher authorities
+                                                        <input checked="" v-model="event.approvalStatus" id="approved"
+                                                               type="checkbox"><span
+                                                            class="lever"></span>Done</label>
+                                                    <has-error :form="event" field="approvalStatus"></has-error>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 ">
+                                            <div class="form-group">
+                                                <label>Minimum User Level for participating</label>
+                                                <input v-model="event.minimumUserLevel" class="form-control" value="0">
+                                                <small class="form-control-feedback">0 for all allowed</small>
+                                                <has-error :form="event" field="maxIncentives"></has-error>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row" id="datePannel">
+                                        <div class="col-md-12">
+                                            <div class="card">
+                                                <div class="card-body">
+                                                    <h4 class="card-title">Schedule of Event</h4>
+                                                    <h6 class="card-subtitle">Plan the event dates</h6>
+                                                    <hr>
+                                                    <!-- Nav tabs -->
+                                                    <div class="vtabs">
+                                                        <ul class="nav nav-tabs tabs-vertical" role="tablist"
+                                                            id="computed_1">
+                                                            <li class="nav-item" v-for="item in dates">
+                                                                <a class="nav-link" :class="{'active': item.id==1}"
+                                                                   data-toggle="tab" v-bind:href="'#t'+item.id"
+                                                                   role="tab">
+                                                                    <span class="hidden-sm-up"><i
+                                                                        class="ti-home"></i></span>
+                                                                    <span class="hidden-xs-down">{{item.date.format('ddd, MMM DD')}}</span>
+                                                                </a>
+                                                            </li>
+                                                        </ul>
+                                                        <!-- Tab panes -->
+                                                        <div class="tab-content" id="computed_2">
+                                                            <div class="tab-pane" :class="{'active': item.id==1}"
+                                                                 v-bind:id="'t'+item.id" v-for="item in dates"
+                                                                 role="tabpanel">
+                                                                <h3>{{item.date.format('dddd, MMMM DD, YYYY')}}</h3>
+                                                                <div class="row">
+                                                                    <div class="col-md-12">
+                                                                        <div class="form-group">
+                                                                            <label>Enter a title or Subject for day of
+                                                                                event</label>
+                                                                            <input v-model="dates[item.id-1].motive"
+                                                                                   type="text" placeholder=""
+                                                                                   class="form-control">
+                                                                            <small class="form-control-feedback">Motive
+                                                                                of the day
+                                                                            </small>
+                                                                        </div>
                                                                     </div>
                                                                 </div>
-                                                            </div>
-                                                            <div class="row">
-                                                                <div class="col-lg-6">
-                                                                    <input type="time" class="form-control">
-                                                                    <small class="form-control-feedback">Start Time</small>
+                                                                <div class="row">
+                                                                    <div class="col-lg-4">
+                                                                        <input type="time"
+                                                                               v-model="dates[item.id-1].startTime"
+                                                                               class="form-control">
+                                                                        <small class="form-control-feedback">Start
+                                                                            Time
+                                                                        </small>
+                                                                    </div>
+                                                                    <div class="col-md-4">
+                                                                        <input type="time" class="form-control"
+                                                                               v-model="dates[item.id-1].endTime">
+                                                                        <small class="form-control-feedback">End Time
+                                                                        </small>
+                                                                    </div><div class="col-md-4">
+                                                                        <input type="number" class="form-control"
+                                                                               v-model="dates[item.id-1].coordinatorsRequired">
+                                                                        <small class="form-control-feedback">Coordinators Required
+                                                                        </small>
+                                                                    </div>
                                                                 </div>
-                                                                <div class="col-md-6">
-                                                                    <input type="time" class="form-control">
-                                                                    <small class="form-control-feedback">End Time</small>
-                                                                </div>
-                                                            </div>
-                                                            <div class="row">
-                                                                <div class="col-md-12">
-                                                                    <textarea type="text" cols="2" placeholder="" class="form-control date-discription"></textarea>
-                                                                    <small class="form-control-feedback">Description of the day</small>
+                                                                <div class="row">
+                                                                    <div class="col-md-12">
+                                                                        <textarea type="text" cols="2" placeholder=""
+                                                                                  class="form-control date-discription"
+                                                                                  v-model="dates[item.id-1].description"></textarea>
+                                                                        <small class="form-control-feedback">Description
+                                                                            of the day
+                                                                        </small>
+                                                                    </div>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -140,96 +246,105 @@
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <button class="btn btn-info" id="genrate_dates_button"
-                                                @click.prevent="genrate_dates"
-                                                type="button">Fetch Dates for Scheduling
-                                        </button>
-                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <button class="btn btn-info" id="genrate_dates_button"
+                                                    @click.prevent="genrate_dates"
+                                                    type="button">Fetch Dates for Scheduling
+                                            </button>
+                                        </div>
 
+                                    </div>
                                 </div>
-                                <!--/row-->
-                                <h3 class="box-title m-t-40">Approval Details (Optional)</h3>
-                                <hr>
-                                <div class="row">
-                                    <div class="col-md-6 ">
-                                        <div class="form-group">
-                                            <label>Approval Filling</label>
-                                            <div class="switch">
-                                                <label>Check if the Proposal is filed in the approval department
-                                                    <input checked="" v-model="event.approvalFiling" id="approverFillingStatus" type="checkbox"><span
-                                                        class="lever"></span>Done</label>
-                                                <has-error :form="event" field="approvalFiling"></has-error>
+                                    <!--/row-->
+                                    <h3 class="box-title m-t-40">Approval Details (Optional)</h3>
+                                    <hr>
+                                    <div class="row">
+                                        <div class="col-md-6 ">
+                                            <div class="form-group">
+                                                <label>Approval Filling</label>
+                                                <div class="switch">
+                                                    <label>Check if the Proposal is filed in the approval department
+                                                        <input checked="" v-model="event.approvalFiling"
+                                                               id="approverFillingStatus" type="checkbox"><span
+                                                            class="lever"></span>Done</label>
+                                                    <has-error :form="event" field="approvalFiling"></has-error>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 ">
+                                            <div class="form-group">
+                                                <label>Approval Date</label>
+                                                <input v-model="event.approvalDate"
+                                                       class="form-control bootstrapMaterialDatePicker" type="date">
+                                                <has-error :form="event" field="approvalDate"></has-error>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-md-6 ">
-                                        <div class="form-group">
-                                            <label>Approval Date</label>
-                                            <input v-model="event.approvalDate" class="form-control bootstrapMaterialDatePicker" type="date">
-                                            <has-error :form="event" field="approvalDate"></has-error>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label>Name</label>
+                                                <input class="form-control" v-model="event.approverName"
+                                                       id="approverName" type="text">
+                                                <small class="form-control-feedback"> Name of Approving Authority
+                                                </small>
+                                                <has-error :form="event" field="approverName"></has-error>
+                                            </div>
                                         </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label>Name</label>
-                                            <input class="form-control" v-model="event.approverName" id="approverName" type="text">
-                                            <small class="form-control-feedback"> Name of Approving Authority</small>
-                                            <has-error :form="event" field="approverName"></has-error>
+                                        <!--/span-->
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label>Mobile Number</label>
+                                                <input class="form-control" id="approverMobile"
+                                                       v-model="event.approverMobile" type="number">
+                                                <small class="form-control-feedback"> Mobile Number of Approving
+                                                    Authority
+                                                    required in case of any problem during event
+                                                </small>
+                                                <has-error :form="event" field="approverMobile"></has-error>
+                                            </div>
                                         </div>
+                                        <!--/span-->
                                     </div>
-                                    <!--/span-->
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label>Mobile Number</label>
-                                            <input class="form-control" id="approverMobile" v-model="event.approverMobile" type="number">
-                                            <small class="form-control-feedback"> Mobile Number of Approving Authority
-                                                required in case of any problem during event
-                                            </small>
-                                            <has-error :form="event" field="approverMobile"></has-error>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label>Email</label>
+                                                <input class="form-control" id="approverEmail"
+                                                       v-model="event.approverEmail" type="email">
+                                                <has-error :form="event" field="approverEmail"></has-error>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <!--/span-->
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label>Email</label>
-                                            <input class="form-control" id="approverEmail" v-model="event.approverEmail" type="email">
-                                            <has-error :form="event" field="approverEmail"></has-error>
+                                        <!--/span-->
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label>Address</label>
+                                                <input class="form-control" id="approverAddress" type="textarea"
+                                                       v-model="event.approverAddress">
+                                                <has-error :form="event" field="approverAddress"></has-error>
+                                            </div>
                                         </div>
+                                        <!--/span-->
                                     </div>
-                                    <!--/span-->
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label>Address</label>
-                                            <input class="form-control" id="approverAddress" type="textarea" v-model="event.approverAddress">
-                                            <has-error :form="event" field="approverAddress"></has-error>
+                                    <h3 class="box-title m-t-40">Details and Description</h3>
+                                    <hr>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <textarea class="form-control" id="description" rows="10"
+                                                          v-model="event.description"></textarea>
+                                                <has-error :form="event" field="description"></has-error>
+                                            </div>
                                         </div>
+                                        <!--/span-->
                                     </div>
-                                    <!--/span-->
-                                </div>
-                                <h3 class="box-title m-t-40">Details and Description</h3>
-                                <hr>
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <div class="form-group">
-                                            <textarea class="form-control" id="description" rows="10" v-model="event.description"></textarea>
-                                            <has-error :form="event" field="description"></has-error>
-                                        </div>
-                                    </div>
-                                    <!--/span-->
-                                </div>
 
-                                <div class="form-actions">
-                                    <button class="btn btn-success" type="submit"><i class="fa fa-check"></i> Save
-                                    </button>
-                                    <button class="btn btn-inverse" type="reset">Cancel</button>
-                                </div>
+                                    <div class="form-actions">
+                                        <button class="btn btn-success" type="submit"><i class="fa fa-check"></i> Save
+                                        </button>
+                                        <button class="btn btn-inverse" type="reset">Cancel</button>
+                                    </div>
                             </form>
                         </div>
                     </div>
@@ -246,39 +361,52 @@
         data() {
             return {
                 dates: [],
-                event:new Form({
-                    eventName:'',
-                    startDate:'',
-                    endDate:'',
+                event: new Form({
+                    eventName: '',
+                    startDate: '',
+                    endDate: '',
                     description: '',
-                    seats:'',
-                    ticketPrice:'',
-                    supportMobile:'',
-                    reservationCharges:'',
-                    approvalFiling:'',
-                    approvalDate:'',
-                    approverName:'',
-                    approverMobile:'',
-                    approverAddress:'',
-                    approverEmail:'',
-                    dates:[],
-                    }),
+                    seats: '',
+                    ticketPrice: '',
+                    supportMobile: '',
+                    supportEmail: '',
+                    supportAltMobile: '',
+                    reservationCharges: '',
+                    approvalFiling: '',
+                    approvalDate: '',
+                    approverName: '',
+                    approverMobile: '',
+                    approverAddress: '',
+                    approverEmail: '',
+                    maxIncentives: '',
+                    approvalStatus: '',
+                    teaming: '',
+                    minimumUserLevel: '',
+                    dates: [],
+                }),//todo:coor req in dates
             }
         },
         methods:
             {
-                save()
-                {
-                    console.log(this.$data.event);
-                    console.log(this.$data.dates);
-                    this.$data.event.dates=this.$data.dates;
+                save() {
+                    this.$data.event.dates = this.$data.dates;
                     this.event.post('/api/forms/events/').then(response => {
-                        console.log(response);
+                        if(!isNaN(response.data))
+                        {//todo: implement cross verification like venues and integrate venues
+                            swal.fire({
+                                title: 'Bravo!',
+                                html: 'You have successfully registered event <b>' + response.data + '</b>',
+                                type: 'success',
+                                backdrop: 'rgba(0, 0, 123, 0.3)',
+                            })
+                        }else {
+                            console.log(response);
+                            Swal.fire("Error Occurred","Some error occured while processing check console","error");
+                        }
                     });
                 },
 
-                date_change()
-                {
+                date_change() {
                     $("#datePannel").hide();
                 },
                 genrate_dates() {
@@ -292,7 +420,7 @@
                     var start = new Date($("#start_date").val()),
                         end = new Date($("#end_date").val()),
                         currentDate = new Date(start), total = 0;
-                    if(end<currentDate) {
+                    if (end < currentDate) {
                         Swal.fire("Invalid Event Dates", "Correct the event dates and try again", "error");
                         return;
                     }
@@ -306,6 +434,7 @@
                             endTime: '',
                             motive: '',
                             description: '',
+                            coordinatorsRequired:1
                         });
                         currentDate.setDate(currentDate.getDate() + 1);
                     }

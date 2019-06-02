@@ -15,8 +15,8 @@ class CreateTransactionsTable extends Migration
     {
         Schema::create('transactions', function (Blueprint $table) {
             $table->unsignedBigInteger('id')->autoIncrement();
-            $table->unsignedInteger('receiver');
-            $table->unsignedInteger('sender');
+            $table->unsignedBigInteger('receiver');
+            $table->unsignedBigInteger('sender');
             $table->string('description', 150);
             $table->boolean('wasQueued')->default(0);
             $table->float('amount', 16, 4);
@@ -24,8 +24,8 @@ class CreateTransactionsTable extends Migration
             $table->unsignedInteger('initBy');
             $table->unsignedBigInteger('queueID')->nullable();
             //$table->foreign('queueID')->references('id')->on('queues');
-            $table->foreign('sender')->references('collegeUID')->on('accounts');
-            $table->foreign('receiver')->references('collegeUID')->on('accounts');
+            $table->foreign('sender')->references('number')->on('accounts');
+            $table->foreign('receiver')->references('number')->on('accounts');
             $table->foreign('initBy')->references('collegeUID')->on('users');
             $table->timestamps();
         });

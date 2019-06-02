@@ -107,7 +107,7 @@ class EnrollmentController extends Controller
                     $user->openAccount();
             }
             catch(\Exception $e){
-                dd($e);
+                echo "Exception";
             }
             finally {
                 if (Account::ifNotExist($user->collegeUID))
@@ -121,10 +121,10 @@ class EnrollmentController extends Controller
         $enrollment->eventID = $validatedData['eventID'];
         $event = Event::findOrFail($validatedData['eventID']);
         if ($validatedData['amount'] >= $event->ticketPrice) {
-            return $enrollment->enrollWithFullPayment($validatedData['collegeUID'], $coordinatorUID, $validatedData['team']);
+            return $enrollment->enrollWithFullPayment((int)$validatedData['collegeUID'], $coordinatorUID, $validatedData['team']);
 
         } elseif ($validatedData['amount'] >= ($event->minimumPayment * $event->ticketPrice / 100)) {
-            return $enrollment->reserveSeatViaPartialPayment($validatedData['collegeUID'], $coordinatorUID, $validatedData['amount'], $validatedData['team']);
+            return $enrollment->reserveSeatViaPartialPayment((int)$validatedData['collegeUID'], $coordinatorUID, $validatedData['amount'], $validatedData['team']);
         } else {
             return ['error' => 'Invalid Amount', 'message' => 'Kindly enter a valid amount to proceed'];
         }
@@ -164,7 +164,21 @@ class EnrollmentController extends Controller
         //
     }
     public function verify($id)
-    {
-        return (int)Enrollment::isExist($id);
+    {//todo:check_verifing_methods http
+        /*example
+         * fetch("http://127.0.0.1:8000/api/verify/enrollment/%3Cscript%3E%20Sfdump%20=%20window.Sfdump%20%7C%7C%20(function%20(doc)%20%7B%20var%20refStyle%20=%20doc.createElement('style'),%20rxEsc%20=%20/([.*+?^${}()|\\[\\]\\/\\\\])/g,%20idRx%20=%20/\\bsf-dump-\\d+-ref[012]\\w+\\b/,%20keyHint%20=%200%20%3C=%20navigator.platform.toUpperCase().indexOf(%27MAC%27)%20?%20%27Cmd%27%20:%20%27Ctrl%27,%20addEventListener%20=%20function%20(e,%20n,%20cb)%20{%20e.addEventListener(n,%20cb,%20false);%20};%20(doc.documentElement.firstElementChild%20||%20doc.documentElement.children[0]).appendChild(refStyle);%20if%20(!doc.addEventListener)%20{%20addEventListener%20=%20function%20(element,%20eventName,%20callback)%20{%20element.attachEvent(%27on%27%20+%20eventName,%20function%20(e)%20{%20e.preventDefault%20=%20function%20()%20{e.returnValue%20=%20false;};%20e.target%20=%20e.srcElement;%20callback(e);%20});%20};%20}%20function%20toggle(a,%20recursive)%20{%20var%20s%20=%20a.nextSibling%20||%20{},%20oldClass%20=%20s.className,%20arrow,%20newClass;%20if%20(/\\bsf-dump-compact\\b/.test(oldClass))%20{%20arrow%20=%20%27&", {"credentials":"include","headers":{"accept":"application/json, text/plain, *
+         * /*","accept-language":"en-US,en;q=0.9","x-csrf-token":"tEx4wF2UG5uKrwy2wOHo3tPImrIw9ToJapkujN1c","x-requested-with":"XMLHttpRequest","x-xsrf-token":"eyJpdiI6IkZTV1wvWFNDaE5oc3RodWlvWlRkSm1BPT0iLCJ2YWx1ZSI6ImhuakZsaENxd1NzZnkxR0VrdFlhU3FEZ0FsR0Z2QTBnKzVlVmp5WGNvMHlWOHNvZk12c3RGZExQWjl1MHpaaWMiLCJtYWMiOiJhMWYxMzlkYjdkZDllZmJlY2UyNzU0ZmJkODk0ZGI4ZjRmYmRmMGE2ZWQ0ZGYyYmU0OWQyZTFkNTMxZTY3NjMzIn0="},"referrer":"http://127.0.0.1:8000/serve/forms/enrollment/new","referrerPolicy":"no-referrer-when-downgrade","body":null,"method":"POST","mode":"cors"});
+         */
+        //catchable: enrollment vue
+        $i=0;
+        try{
+        $i= (int)Enrollment::isExist($id);}
+        catch(\Exception $exception)
+        {
+            die("error");
+        }finally
+        {
+            return $i;
+        }
     }
 }

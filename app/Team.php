@@ -51,8 +51,11 @@ class Team extends Model
         return DB::table('teams')->where('id', $teamID)->value('availedCapacity');
     }
 
+    public static function isTeamable($eventID){
+        return (int)DB::table('events')->where('id',$eventID)->value('teaming');
+    }
     public static function getAllEnrollable($eventID)
-    {
+    {//this method is used at the time of enrollment for finding teams for an event
         return Team::where([
             ['eventID', '=', $eventID],
             ['availedCapacity', '<=', 'maxCapacity']
