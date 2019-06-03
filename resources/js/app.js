@@ -9,7 +9,6 @@ require('./bootstrap');
 window.Vue = require('vue');
 import VueRouter from 'vue-router'
 import { loadProgressBar } from 'axios-progress-bar'
-// import { Form, HasError, AlertError } from 'vform'
 import VeeValidate from 'vee-validate'
 import Swal from 'sweetalert2'
 import {
@@ -19,15 +18,15 @@ import {
     AlertErrors,
     AlertSuccess
 } from 'vform';
-Vue.component(HasError.name, HasError)
-Vue.component(AlertError.name, AlertError)
-Vue.component(AlertErrors.name, AlertErrors)
-Vue.component(AlertSuccess.name, AlertSuccess)
+Vue.component(HasError.name, HasError);
+Vue.component(AlertError.name, AlertError);
+Vue.component(AlertErrors.name, AlertErrors);
+Vue.component(AlertSuccess.name, AlertSuccess);
 
-Vue.use(VueRouter)
-window.Swal=Swal
-window.swal=Swal
-window.Form=Form
+Vue.use(VueRouter);
+window.Swal=Swal;
+window.swal=Swal;
+window.Form=Form;
 window.Toast = swal.mixin({
     toast: true,
     // position: 'top-end',

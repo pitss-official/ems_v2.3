@@ -7,11 +7,11 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <!-- Tell the browser to be responsive to screen width -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="">
+    <meta name="description" content="Event Management System for Organizations which facilitates easy management, online enrollments, ticket booking, online payments and much more">
+    <meta name="author" content="Nukrip Technologies Private Limited">
     <!-- Favicon icon -->
-    <link rel="icon" type="image/png" sizes="16x16" href="/assets/images/favicon.png">
-    <title>Material Pro Admin Template - The Most Complete & Trusted Bootstrap 4 Admin Template</title>
+    <link rel="icon" type="image/png" sizes="512x512" href="/app/icons/512.png">
+    <title>{{ config('app.name', 'EMS') }}</title>
     <!-- Bootstrap Core CSS -->
     <link href="/assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link href="/css/app.css" rel="stylesheet">
@@ -32,6 +32,45 @@
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
     <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
+{{--    PWA STUFF--}}
+    <link rel="manifest" href="/app/app.json">
+    <link rel="manifest" href="/app/app.webmanifest">
+    <!-- icon in the highest resolution we need it for -->
+    <meta name="mobile-web-app-capable" content="yes">
+    <link rel="icon" sizes="512x512" href="/app/icons/512.png">
+    <!-- reuse same icon for Safari -->
+    <link rel="apple-touch-icon" href="/app/icons/512.png">
+    <link rel="apple-touch-startup-image" href="/app/icons/512.png">
+    <meta name="apple-mobile-web-app-status-bar-style" content="blue">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <!-- multiple icons for IE -->
+    <meta name="msapplication-square310x310logo" content=href="/app/icons/512.png">
+    <!-- theme color -->
+    <meta name="theme-color" content="#4285f4">
+    <style type="text/css">
+        @media all and (display-mode: standalone) {
+            body {
+                background-color: yellow;
+            }
+        }
+
+    </style>
+    {{--    pwa ends--}}
+{{--    progressbar--}}
+    <style type="text/css">
+        #nprogress .bar {
+            background: darkblue !important;
+        }
+
+        #nprogress .peg {
+            box-shadow: 0 0 10px darkblue, 0 0 5px darkblue !important;
+        }
+
+        #nprogress .spinner-icon {
+            border-top-color: darkblue !important;
+            border-left-color: darkblue !important;
+        }
+    </style>
 </head>
 
 <body class="fix-header fix-sidebar card-no-border">
@@ -304,6 +343,38 @@
     $(".currentUserFullName").text(currentUserFullName);
     $(".currentUserID").text(currentUserID);
     $(".currentUserEmail").text(currentUserEmail);
+//    pwa stuff
+    window.addEventListener('beforeinstallprompt', (e) => {
+        // Prevent Chrome 67 and earlier from automatically showing the prompt
+        e.preventDefault();
+        // Stash the event so it can be triggered later.
+        deferredPrompt = e;
+        // Update UI notify the user they can add to home screen
+        btnAdd.style.display = 'block';
+    });
+    btnAdd.addEventListener('click', (e) => {
+        // hide our user interface that shows our A2HS button
+        btnAdd.style.display = 'none';
+        // Show the prompt
+        deferredPrompt.prompt();
+        // Wait for the user to respond to the prompt
+        deferredPrompt.userChoice
+            .then((choiceResult) => {
+                if (choiceResult.outcome === 'accepted') {
+                    console.log('User accepted the A2HS prompt');
+                } else {
+                    console.log('User dismissed the A2HS prompt');
+                }
+                deferredPrompt = null;
+            });
+    });
+    window.addEventListener('appinstalled', (evt) => {
+        app.logEvent('a2hs', 'installed');
+    });
+    if (window.navigator.standalone === true) {
+        console.log('display-mode is standalone');
+    }
+    //pwa ends
 </script>
 <!--Custom JavaScript -->
 <script src="/js/custom.js" defer></script>

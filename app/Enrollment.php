@@ -145,7 +145,6 @@ class Enrollment extends Model
                 /*
                  * Step 3: Create a new enrollment record and return the enrollment ID
                  */
-                var_dump([$studentCreditTransactionID,$eventCashCreditTransactionID]);
                 $enrollmentID = DB::table('enrollments')->insertGetId(
                     [
                         'participantCollegeUID' => $enrollingStudentCollegeUID,

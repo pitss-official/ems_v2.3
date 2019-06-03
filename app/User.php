@@ -53,6 +53,7 @@ class User extends Authenticatable
         return [
             'collegeUID'=>$userObject->collegeUID,
             'authorityLevel'=>$userObject->authorityLevel,
+            'level'=>$userObject->authorityLevel,
             'firstName'=>$userObject->firstName,
             'middleName'=>$userObject->middleName,
             'lastName'=>$userObject->lastName,
@@ -106,5 +107,15 @@ class User extends Authenticatable
     {
         $styles=['blue','purple','megna','red','green','default','default-dark','green-dark','red-dark','blue-dark','purple-dark','megna-dark',];
         return $styles[$this->theme];
+    }
+    public static function isAllowedForDirectTransfer(int $collegeUID)
+    {
+        //Step 1 : Find the user
+
+    }
+    //function to check if the user can send money to some user
+    public static function isAbleToInitTransaction(int $senderCollegeUID,int $recieverCollegeUID)
+    {
+        //Step 1:
     }
 }

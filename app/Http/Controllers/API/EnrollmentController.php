@@ -120,12 +120,12 @@ class EnrollmentController extends Controller
         $enrollment->eventID = $validatedData['eventID'];
         $event = Event::findOrFail($validatedData['eventID']);
         if ($validatedData['amount'] >= $event->ticketPrice) {
-            return $enrollment->enrollWithFullPayment((int)$validatedData['collegeUID'], $coordinatorUID, $validatedData['team']);
+            return ["result"=>'success',"id"=>$enrollment->enrollWithFullPayment((int)$validatedData['collegeUID'], $coordinatorUID, $validatedData['team'])];
 
         } elseif ($validatedData['amount'] >= ($event->minimumPayment * $event->ticketPrice / 100)) {
             return $enrollment->reserveSeatViaPartialPayment((int)$validatedData['collegeUID'], $coordinatorUID, $validatedData['amount'], $validatedData['team']);
         } else {
-            return ['error' => 'Invalid Amount', 'message' => 'Kindly enter a valid amount to proceed'];
+            return ["result"=>'error','error' => 'Invalid Amount', 'message' => 'Kindly enter a valid amount to proceed'];
         }
     }
 

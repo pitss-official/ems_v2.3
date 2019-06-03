@@ -17,5 +17,6 @@ mix.browserSync({
     proxy: '127.0.0.1:8000',
     port:80,
     https:true,
+    // host: 'polyserver'
 });
 // mix.js('resources/js/serviceWorker.js','public/');

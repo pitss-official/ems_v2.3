@@ -17,6 +17,7 @@ class CreateAccountsTable extends Migration
             $table->unsignedBigInteger('number')->autoIncrement();
             $table->string('name');
             $table->unsignedInteger('collegeUID');
+            $table->integer('limit')->default(0);
             $table->float('balance', 20, 4);
             $table->boolean('onHold')->default(0);
             $table->unsignedInteger('createdBy')->default(0);
