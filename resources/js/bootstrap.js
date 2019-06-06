@@ -6,12 +6,33 @@
  * code may be modified to fit the specific needs of your application.
  */
 //
-// try {
-//     window.Popper = require('popper.js').default;
-//     window.$ = window.jQuery = require('jquery');
+try {
+    window.$ = window.jQuery = require('jquery');
+    window.Popper = require('popper.js').default;
 //
 //     //require('bootstrap');
-// } catch (e) {}
+    require( 'jszip' );
+    require( 'pdfmake' );
+    require( 'datatables.net-bs' )(window,$);
+    require( 'datatables.net-autofill-bs' )(window,$);
+    require( 'datatables.net-buttons-bs' )(window,$);
+    require('datatables.net-buttons-bs/js/buttons.bootstrap.min')(window,$);
+    require( 'datatables.net-buttons/js/buttons.colVis.js' )(window,$);
+    require( 'datatables.net-buttons/js/buttons.flash.js' )(window,$);
+    require( 'datatables.net-buttons/js/buttons.html5.js' )(window,$);
+    require( 'datatables.net-buttons/js/buttons.print.js' )(window,$);
+    require( 'datatables.net-colreorder-bs' )(window,$);
+    require( 'datatables.net-fixedcolumns-bs' )(window,$);
+    require( 'datatables.net-fixedheader-bs' )(window,$);
+    require( 'datatables.net-keytable-bs' )(window,$);
+    require( 'datatables.net-responsive-bs' )(window,$);
+    require( 'datatables.net-rowgroup-bs' )(window,$);
+    require( 'datatables.net-rowreorder-bs' )(window,$);
+    require( 'datatables.net-scroller-bs' )(window,$);
+    require( 'datatables.net-select-bs' )(window,$);
+    pdfMake = require('pdfmake/build/pdfmake.js');
+    pdfFonts = require('pdfmake/build/vfs_fonts.js');
+} catch (e) {}
 
 /**
  * We'll load the axios HTTP library which allows us to easily issue requests

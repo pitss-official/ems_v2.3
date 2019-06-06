@@ -15,6 +15,8 @@ class CreateSystemTable extends Migration
     {
         Schema::create('system', function (Blueprint $table) {
             $table->unsignedBigInteger('id')->autoIncrement();
+            $table->string('name',2048);
+            $table->text('value');
             $table->timestamps();
         });
     }

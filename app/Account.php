@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class Account extends Model
 {
@@ -40,5 +41,11 @@ class Account extends Model
         $account->createdBy=$creatorUID;
         $account->save();
         return $account->number;
+    }
+    public static function isSystemAccount($accountNumber)
+    {
+        $acType = (int)Self::findOrFail($accountNumber)->type;
+        if ($acType != 0) return true;
+        else return false;
     }
 }

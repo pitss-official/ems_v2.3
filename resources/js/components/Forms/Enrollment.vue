@@ -383,9 +383,8 @@
 
                 axios({
                     method: 'post',
-                    url: '/api/events/find/enrollable/teams/' + this.$data.student.eventID,
-                })
-                    .then((response) => {
+                    url: '/api/events/find/enrollable/' + this.$data.student.eventID+'/teams/',
+                }).then((response) => {
                         this.$data.teams = response.data;
                     })
                     .catch(function (response) {

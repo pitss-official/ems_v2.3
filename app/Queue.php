@@ -22,6 +22,8 @@ class Queue extends Model
 
     public function createTransferRequest(int $senderCollegeUID,int $reciplentCollegeUID,float $amount, $senderRemarks)
     {
+
+        //todo:remove bug
         if ($senderCollegeUID == $reciplentCollegeUID)
             return ['error' => 'Sender and Receiver can not be same'];
         if (User::ifNotExist($senderCollegeUID) || User::ifNotExist($reciplentCollegeUID))
@@ -31,7 +33,7 @@ class Queue extends Model
         return DB::transaction(
             function ()
             use ($senderCollegeUID, $senderRemarks, $reciplentCollegeUID, $amount) {
-                //update the balance of requester [debit]
+                //update the balance of reciever [debit]
                 //create a queue having specific approver
                 //store the id of the queue and return it
                 //create a transaction having sender as sender and receiver as 99887766 as account number
@@ -57,6 +59,7 @@ class Queue extends Model
                 $creditAccountInitialBalance = DB::table('accounts')->where('number', $queueAccount)->value('balance');
                 /*
                  * Step 2 : Find and Update the account balance
+                 *
                  */
                 $debitAccountFinalBalance = $debitAccountInitialBalance - $amount;
                 $creditAccountFinalBalance = $creditAccountInitialBalance + $amount;
@@ -100,6 +103,8 @@ class Queue extends Model
 
     public function approveTransferRequest($approverUID, $approvalRemarks)
     {
+
+        //todo:remove bug
         $queueID = $this->id;
         if (Queue::ifNotExist($queueID) || User::ifNotExist($approverUID))
             return ['error' => 'Queue ID or Approver ID is Invalid'];
@@ -182,6 +187,7 @@ class Queue extends Model
 
     public function createGlobalTransferRequest($requestedBy, $transactionLevel, $amount, $debitAccount, $narration, $creditAccount = 0)
     {
+        //remove bug
         if ($amount <= 0) return ['title' => 'Invalid Amount', 'error' => 'Invalid Amount Entered'];
         if (User::ifNotExist($requestedBy) || Account::ifNotExist($debitAccount)) return ['title' => 'Internal Server Error', 'Transaction has been rolledback due to some internal server error'];
         else {

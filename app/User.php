@@ -108,14 +108,23 @@ class User extends Authenticatable
         $styles=['blue','purple','megna','red','green','default','default-dark','green-dark','red-dark','blue-dark','purple-dark','megna-dark',];
         return $styles[$this->theme];
     }
+    public static function findAuthenticationLevel($collegeUID)
+    {
+        return User::where('collegeUID',$collegeUID)->value('authorityLevel');
+    }
     public static function isAllowedForDirectTransfer(int $collegeUID)
     {
-        //Step 1 : Find the user
-
+        //Step 1: Find the user
+        //todo: workkkk
     }
     //function to check if the user can send money to some user
     public static function isAbleToInitTransaction(int $senderCollegeUID,int $recieverCollegeUID)
     {
         //Step 1:
+        //todo:: work
+    }
+    public function accounts()
+    {
+        return $this->hasMany('APP\Account','collegeUID','collegeUID');
     }
 }

@@ -52,13 +52,13 @@ class CashFlowController extends Controller
         return Transaction::directTransferDeQueue($coordinatorID, $validatedData['collegeUID'], $validatedData['amount'], 'Direct Cash Deposit/Transfer by ' . $coordinatorID, $coordinatorID);
     }
 
-    public function negativeStudentAccountBalance($collegeUID)
-    {
-        $ac = Account::findOrFail($collegeUID)->makeVisible(['balance']);
-        if ($ac->type != 0 || $ac->balance >= 0 )
-            return ['balance' => 0];
-        return ['balance' => $ac->balance];
-    }
+    //    public function negativeStudentAccountBalance($collegeUID)
+    //    {
+    //        $ac = Account::findOrFail($collegeUID)->makeVisible(['balance']);
+    //        if ($ac->type != 0 || $ac->balance >= 0 )
+    //            return ['balance' => 0];
+    //        return ['balance' => $ac->balance];
+    //    }
 
     /**
      * Display the specified resource.

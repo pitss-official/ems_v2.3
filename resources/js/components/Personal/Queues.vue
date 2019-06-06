@@ -28,7 +28,7 @@
                                 <td>Coordinator</td>
                                 <td>{{queue.requesterRemarks}}</td>
                                 <td>{{queue.created_at}}</td>
-                                <td><button>Approve</button><button>Deny</button></td>
+                                <td><button data-toggle="modal" data-target="#approveRequest">Approve</button><button>Deny</button></td>
                             </tr>
                             </tbody>
                             <tfoot>
@@ -51,7 +51,38 @@
                     </div>
                 </li>
             </ul>
+
         </div>
+
+        <!--modal-->
+
+        <div id="approveRequest" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Approve Request</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                            <div class="form-group">
+                                <label class="control-label">Requested from: {{queues.requestedBy}}</label>
+
+                            </div>
+                            <div class="form-group">
+                                <label for="message-text" class="control-label">Message:</label>
+                                <textarea class="form-control" id="message-text"></textarea>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-danger waves-effect waves-light">Save changes</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </li>
 </template>
 
