@@ -13,4 +13,12 @@ class DatabaseSeeder extends Seeder
     {
 
     }
+    private function systemSeed()
+    {
+        DB::table('system')->insert([
+            'id'=>1,
+            'name' => 'queueAccount',
+            'value' => 99887766,
+        ]);
+    }
 }

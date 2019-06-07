@@ -19,7 +19,8 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::get('fetch/navigation','API\NavigationController@pushAllLinks');
 Route::get('fetch/user/queues/pendingActions','API\QueueController@index');
 Route::get('fetch/user/account/transactions','API\CashFlowController@listAllTransactions');
-Route::post('put/user/queues/moneyTransfer/newRequest','API\QueueController@store');
+Route::post('put/user/queues/balanceTransfer/newRequest','API\QueueController@store');
+Route::post('put/user/queues/balanceRequest/newRequest','API\QueueController@storeBalanceTransferRequest');
 Route::post('fetch/user/balance/currentBalance','UsersController@breadcumbBalances');
 Route::get('put/user/theme/{themeName}','UsersController@setTheme');
 

@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Exceptions\QueuesExeception;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
@@ -19,21 +20,170 @@ class Queue extends Model
     {
         return $this->hasOne('App\User');
     }
+    public function createRecieveMoneyRequest(int $requestedBy,int $intendedSender,float $amount,$requesterRemarks)
+    {
+        if ($requestedBy == $intendedSender)
+            return ['result'=>"error",'error' => 'Sender and Receiver can not be same'];
+        if (User::ifNotExist($intendedSender) || User::ifNotExist($requestedBy))
+            return ['result'=>"error",'error' => 'Invaild Sender or Receiver for transaction'];
+        if(strip_tags($requesterRemarks)!=$requesterRemarks)
+        {
+            throw new QueuesExeception('UNISYX Engine: Code injection detected. Behaviour Instance recorded');
+        }
+        return DB::transaction(
+            function ()
+            use ($requestedBy, $requesterRemarks, $intendedSender, $amount) {
+                //update the balance of sender [debit]
+                //create a queue having specific approver
+                //store the id of the queue and return it
+                //create a transaction having sender as sender and receiver as 99887766 as account number
+                //get the balance of the system
+                //update the balance of the system [credit]
+                //return the queue id
+                /*
+                 * Step 0 : Set the Reciplenet to Queues Request account and Initialize the specific approve variable
+                 */
+                $specificApprover = $intendedSender;
+                $queueAccount = System::queueAccount();
+                $authenticationLevel = System::sendMoneyLevel();
+
+                /*
+                 * Step 0.1: Check the account type of the receiver to make sure the sender is not trying to send into system account
+                 */
+//                $reciplentAccountType = DB::table('accounts')->where('collegeUID', $reciplentCollegeUID)->value('type');
+                if (Account::isSystemAccount($intendedSender) != 0) return ["result"=>"error",'error' => 'You Cannot receive money to this user'];
+
+                /*
+                 * Step1 :  Fetch the initial balance of Credit and Debit Account
+                 */
+                $debitAccountInitialBalance = DB::table('accounts')->where('collegeUID', $intendedSender)->value('balance');
+                $creditAccountInitialBalance = DB::table('accounts')->where('number', $queueAccount)->value('balance');
+                /*
+                 * Step 2 : Find and Update the account balance
+                 */
+                $debitAccountFinalBalance = $debitAccountInitialBalance - $amount;
+                $creditAccountFinalBalance = $creditAccountInitialBalance + $amount;
+                DB::table('accounts')->where('collegeUID', $intendedSender)->update(['balance' => $debitAccountFinalBalance]);
+                DB::table('accounts')->where('number', $queueAccount)->update(['balance' => $creditAccountFinalBalance]);
+                /*
+                 * Step 3 : Attach a queue to this specific transaction
+                 */
+                $queueID = DB::table('queues')->insertGetId(
+                    [
+                        'requesterRemarks' => $requesterRemarks,
+                        'requestedBy' => $requestedBy,
+                        'authenticationLevel' => $authenticationLevel,
+                        'type' => 101,
+                        'specificApproval' => $specificApprover,
+                        'parameters' => $amount,
+                        'created_at' => Carbon::now(),
+                    ]
+                );
+                /*
+                 * Step 4 : Attach a Transaction Associated with this transfer
+                 */
+                $txID = DB::table('transactions')->insertGetId
+                (
+                    [
+                        'receiver' => $queueAccount,
+                        'sender' => $intendedSender,
+                        'description' => 'Transfer request scheduled for ' . $requestedBy,
+                        'wasQueued' => 1,
+                        'queueID' => $queueID,
+                        'amount' => $amount,
+                        'visibility' => 0,
+                        'created_at' => Carbon::now(),
+                        'initBy' => $requestedBy,
+                    ]
+                );
+                return $txID;
+
+            }, 5);
+    }
+    public function approveReceiveMoneyRequest($approverUID, $approvalRemarks)
+    {
+        $queueID = $this->id;
+        if (Queue::ifNotExist($queueID) || User::ifNotExist($approverUID))
+            return ['error' => 'Queue ID or Approver ID is Invalid'];
+        if (Queue::findOrFail($queueID)->authenticationLevel > User::findAuthenticationLevel($approverUID))
+            return ['error' => 'You are not allowed to Approve this transaction'];
+
+        return DB::transaction(
+            function () use ($queueID, $approverUID, $approvalRemarks) {
+                $queueAccount = System::queueAccount();
+                $userAuthenticationLevel = System::sendMoneyLevel();
+                /*
+                 * Step 1 : Find the assoc queue with the queue ID
+                 */
+                $queue = DB::table('queues')->where('id', $queueID)->first();
+                if ($queue->type != 101) return ['error' => 'Inappropriate Action'];
+                $amount = floatval($queue->parameters);
+                if(Account::balance($approverUID)<$amount)throw new QueuesExeception('You have insufficient balance. Add money and try again');
+                $associatedApprover = $queue->specificApproval;
+                if ($approverUID != $associatedApprover) return ['error' => 'Un Authorized'];
+                if ($queue->isApproved != 0) return ['error' => 'Already Approved'];
+                if ($userAuthenticationLevel < $queue->authenticationLevel) return ['error' => 'You are not Eligible for this action'];
+                /*
+                 * Step 2 : Initiate a Transfer Request
+                 */
+                $creditAccountInitialBalance = DB::table('accounts')->where('collegeUID', $approverUID)->value('balance');
+                $debitAccountInitialBalance = DB::table('accounts')->where('number', $queueAccount)->value('balance');
+                $creditAccountFinalBalance = $creditAccountInitialBalance + $amount;
+                $debitAccountFinalBalance = $debitAccountInitialBalance - $amount;
+                /*
+                 * Step 2.1 : Update the balances in Both debit and Credit Account
+                 */
+                DB::table('accounts')->where('collegeUID', $approverUID)->update(['balance' => $creditAccountFinalBalance]);
+                DB::table('accounts')->where('number', $queueAccount)->update(['balance' => $debitAccountFinalBalance]);
+                /*
+                 * Step 3 : Insert Into Transactions
+                 */
+                $txID = DB::table('transactions')->insert
+                (
+                    [
+                        'receiver' => $approverUID,
+                        'sender' => $queueAccount,
+                        'description' => 'Money Transferred from ' . $queue->requestedBy . ' ' . 'using Transfer Request',
+                        'wasQueued' => 1,
+                        'queueID' => $queueID,
+                        'amount' => $amount,
+                        'visibility' => 1,
+                        'created_at' => Carbon::now(),
+                        'initBy' => $approverUID
+                    ]
+                );
+                /*
+                 * Step 4: Mark the queue as processed
+                 */
+                DB::table('queues')->where('id', $queueID)->update(
+                    [
+                        'visibility' => 0,
+                        'isApproved' => 1,
+                        'approvedBy' => $approverUID,
+                        'approveTimeRemarks' => $approvalRemarks,
+                        'approvalTime' => Carbon::now()
+                    ]);
+                return $txID;
+            }, 5);
+    }
 
     public function createTransferRequest(int $senderCollegeUID,int $reciplentCollegeUID,float $amount, $senderRemarks)
     {
-
-        //todo:remove bug
         if ($senderCollegeUID == $reciplentCollegeUID)
-            return ['error' => 'Sender and Receiver can not be same'];
+            return ['result'=>"error",'error' => 'Sender and Receiver can not be same'];
         if (User::ifNotExist($senderCollegeUID) || User::ifNotExist($reciplentCollegeUID))
-            return ['error' => 'Invaild Sender or Reciever for transaction'];
-        if ($amount <= 0)
-            return ['error' => 'Amount can not be negative. Behaviour Instance recorded'];
+            return ['result'=>"error",'error' => 'Invaild Sender or Receiver for transaction'];
+        if ($amount <= 0||Account::balance($senderCollegeUID)<=$amount)
+            throw new QueuesExeception('Amount or your account balance can not be negative. Behaviour Instance recorded');
+//            return ['result'=>"error",'error' => 'Amount can not be negative. Behaviour Instance recorded'];
+        if(strip_tags($senderRemarks)!=$senderRemarks)
+        {
+            throw new QueuesExeception('UNISYX Engine: Code injection detected. Behaviour Instance recorded');
+        }
         return DB::transaction(
             function ()
             use ($senderCollegeUID, $senderRemarks, $reciplentCollegeUID, $amount) {
-                //update the balance of reciever [debit]
+                //update the balance of sender [debit]
                 //create a queue having specific approver
                 //store the id of the queue and return it
                 //create a transaction having sender as sender and receiver as 99887766 as account number
@@ -44,14 +194,15 @@ class Queue extends Model
                  * Step 0 : Set the Reciplenet to Queues Request account and Initialize the specific approve variable
                  */
                 $specificApprover = $reciplentCollegeUID;
-                $queueAccount = 99887766;
+                $queueAccount = System::queueAccount();
                 $authenticationLevel = 0;
 
                 /*
                  * Step 0.1: Check the account type of the receiver to make sure the sender is not trying to send into system account
                  */
-                $reciplentAccountType = DB::table('accounts')->where('collegeUID', $reciplentCollegeUID)->value('type');
-                if ($reciplentAccountType != 0) return ['error' => 'Invalid Receiver Account'];
+//                $reciplentAccountType = DB::table('accounts')->where('collegeUID', $reciplentCollegeUID)->value('type');
+                if (Account::isSystemAccount($reciplentCollegeUID) != 0) return ["result"=>"error",'error' => 'You Cannot send money to this user'];
+
                 /*
                  * Step1 :  Fetch the initial balance of Credit and Debit Account
                  */
@@ -59,7 +210,6 @@ class Queue extends Model
                 $creditAccountInitialBalance = DB::table('accounts')->where('number', $queueAccount)->value('balance');
                 /*
                  * Step 2 : Find and Update the account balance
-                 *
                  */
                 $debitAccountFinalBalance = $debitAccountInitialBalance - $amount;
                 $creditAccountFinalBalance = $creditAccountInitialBalance + $amount;

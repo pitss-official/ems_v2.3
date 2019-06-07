@@ -68,6 +68,22 @@ class QueueController extends Controller
         else
             return ["result"=>"error"];
     }
+    public function storeBalanceTransferRequest(Request $request)
+    {
+        $validatedData=$request->validate([
+            'collegeUID'=>'required|numeric|digits:8|exists:users,collegeUID|exists:accounts,number|exists:accounts,collegeUID',
+            'amount'=>'required|between:1,9999999999999999999',
+            'narration'=>'required|string|min:1|max:100',
+            'mobile'=>'nullable|numeric|digits:10'
+        ]);
+        $q = new Queue();
+        $sender=User::getCurrentAPIUser()['collegeUID'];
+        $id=$q->createRecieveMoneyRequest($sender,$validatedData['collegeUID'],$validatedData['amount'],"Money Transfer request to you. Message from sender : ".$validatedData['narration'].".");
+        if(is_numeric($id))
+            return["result"=>"success","id"=>$id];
+        else
+            return ["result"=>"error"];
+    }
 
     /**
      * Display the specified resource.

@@ -28,7 +28,7 @@
                                 <td>Coordinator</td>
                                 <td>{{queue.requesterRemarks}}</td>
                                 <td>{{queue.created_at}}</td>
-                                <td><button data-toggle="modal" data-target="#approveRequest">Approve</button><button>Deny</button></td>
+                                <td><button @click="getTransactionDetails(queue)" data-target="#approveRequest" data-toggle="modal">Approve</button><button>Deny</button></td>
                             </tr>
                             </tbody>
                             <tfoot>
@@ -41,36 +41,56 @@
                                             </div>
                                         </div>
                                         <div class="col-sm">
-                                            <button class="btn btn-info btn-rounded" data-target="#add-contact" data-toggle="modal" type="button">View All</button>
-
+                                            <button class="btn btn-info btn-rounded" data-target="#add-contact" data-toggle="modal" type="button">
+                                                View All
+                                            </button>
                                         </div>
                                     </div>
-                                </div></td>
+                                </div>
+                            </td>
                             </tfoot>
+
+
                         </table>
                     </div>
                 </li>
             </ul>
 
         </div>
-
+        <!--todo: anu-->
         <!--modal-->
 
         <div id="approveRequest" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
-            <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h4 class="modal-title">Approve Request</h4>
+                        <h4 class="modal-title">Modal Content is Responsive</h4>
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                     </div>
                     <div class="modal-body">
                         <form>
                             <div class="form-group">
-                                <label class="control-label">Requested from: {{queues.requestedBy}}</label>
+                                <label class="control-label">Request for approval: {{transactionDetails.requesterRemarks}}</label>
 
                             </div>
                             <div class="form-group">
-                                <label for="message-text" class="control-label">Message:</label>
+                                <label class="control-label"> Requested from: {{transactionDetails.requestedBy}}</label>
+
+                            </div>
+
+
+                            <div class="form-group">
+                                <label class="control-label">On: {{transactionDetails.created_at}}</label>
+
+                            </div>
+                            <div class="form-group">
+                                <!--todo: anu check this not printing amount not fetching-->
+                                <label class="control-label">Amount: {{transactionDetails.parameters}}</label>
+
+                            </div>
+
+                            <div class="form-group">
+                                <label class="control-label" for="message-text">Remarks for request:</label>
                                 <textarea class="form-control" id="message-text"></textarea>
                             </div>
                         </form>
@@ -90,9 +110,15 @@
     export default {
 
         name: "queue",
+
         data(){
+
             return{
-                queues:[]
+                queues:[],
+               // queueObj: {},
+                transactionDetails:[],
+
+
             };
         },
         mounted() {
@@ -100,6 +126,15 @@
         },
         methods:
             {
+                //todo: by anu (taking queue array from particular row and assigning its values to modal form attributes)
+                getTransactionDetails(queue){
+
+
+                    this.$data.transactionDetails = queue;
+
+
+                },
+
                 getAll()
                 {
                     axios({
@@ -108,6 +143,19 @@
                     })
                         .then((response) => {
                             this.$data.queues = response.data;
+                            //     var $i=0;
+                            //     for(var $key in response.data){
+                            //         if($i<3){
+                            //
+                            //             this.$data.queues[$key] = response.data[$i];
+                            //             $i++;
+                            //         }
+                            //     }
+                            //     console.log(this.$data.queueObj);
+                            // // this.$data.queues = response.data;
+                            console.log(response.data);
+
+
                         });
                     //$('#queue-table').dataTable();
                 },

@@ -48,4 +48,8 @@ class Account extends Model
         if ($acType != 0) return true;
         else return false;
     }
+    public static function balance($accountNumber)
+    {
+     return Self::findOrFail($accountNumber)->balance;
+    }
 }
