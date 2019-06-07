@@ -56,13 +56,13 @@ class QueueController extends Controller
         //todo:workkkkk
         $validatedData=$request->validate([
             'collegeUID'=>'required|numeric|digits:8|exists:users,collegeUID|exists:accounts,number|exists:accounts,collegeUID',
-            'amount'=>'required|between:1,9999999999999999999',
+            'amount'=>'required|min:1|between:1,9999999',
             'narration'=>'required|string|min:1|max:100',
             'mobile'=>'nullable|numeric|digits:10'
         ]);
         $q = new Queue();
         $sender=User::getCurrentAPIUser()['collegeUID'];
-        $id=$q->createTransferRequest($sender,$validatedData['collegeUID'],$validatedData['amount'],"Money Transfer request to you. Message from sender : ".$validatedData['narration'].".");
+        $id=$q->createTransferRequest($sender,$validatedData['collegeUID'],$validatedData['amount'],"$sender has sent money to you. Message from sender : ".$validatedData['narration'].".");
         if(is_numeric($id))
             return["result"=>"success","id"=>$id];
         else
@@ -78,7 +78,7 @@ class QueueController extends Controller
         ]);
         $q = new Queue();
         $sender=User::getCurrentAPIUser()['collegeUID'];
-        $id=$q->createRecieveMoneyRequest($sender,$validatedData['collegeUID'],$validatedData['amount'],"Money Transfer request to you. Message from sender : ".$validatedData['narration'].".");
+        $id=$q->createRecieveMoneyRequest($sender,$validatedData['collegeUID'],$validatedData['amount'],"$sender has requested money from you. Message from requester : ".$validatedData['narration'].".");
         if(is_numeric($id))
             return["result"=>"success","id"=>$id];
         else

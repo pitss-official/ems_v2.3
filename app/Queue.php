@@ -22,6 +22,8 @@ class Queue extends Model
     }
     public function createRecieveMoneyRequest(int $requestedBy,int $intendedSender,float $amount,$requesterRemarks)
     {
+        if ($amount <= 0)
+            throw new QueuesExeception('Amount or your account balance can not be negative. Behaviour Instance recorded');
         if ($requestedBy == $intendedSender)
             return ['result'=>"error",'error' => 'Sender and Receiver can not be same'];
         if (User::ifNotExist($intendedSender) || User::ifNotExist($requestedBy))
@@ -91,7 +93,7 @@ class Queue extends Model
                         'wasQueued' => 1,
                         'queueID' => $queueID,
                         'amount' => $amount,
-                        'visibility' => 0,
+                        'visibility' => 1,
                         'created_at' => Carbon::now(),
                         'initBy' => $requestedBy,
                     ]
@@ -107,7 +109,10 @@ class Queue extends Model
             return ['error' => 'Queue ID or Approver ID is Invalid'];
         if (Queue::findOrFail($queueID)->authenticationLevel > User::findAuthenticationLevel($approverUID))
             return ['error' => 'You are not allowed to Approve this transaction'];
-
+        if(strip_tags($approvalRemarks)!=$approvalRemarks)
+        {
+            throw new QueuesExeception('UNISYX Engine: Code injection detected. Behaviour Instance recorded');
+        }
         return DB::transaction(
             function () use ($queueID, $approverUID, $approvalRemarks) {
                 $queueAccount = System::queueAccount();
@@ -116,9 +121,82 @@ class Queue extends Model
                  * Step 1 : Find the assoc queue with the queue ID
                  */
                 $queue = DB::table('queues')->where('id', $queueID)->first();
+                $requesterAccount=$queue->requestedBy;
                 if ($queue->type != 101) return ['error' => 'Inappropriate Action'];
                 $amount = floatval($queue->parameters);
-                if(Account::balance($approverUID)<$amount)throw new QueuesExeception('You have insufficient balance. Add money and try again');
+                if ($amount <= 0)
+                    throw new QueuesExeception('Amount or your account balance can not be negative. Behaviour Instance recorded');
+                if(Account::balance($approverUID)<0)throw new QueuesExeception('You have insufficient balance. Add money and try again');
+                $associatedApprover = $queue->specificApproval;
+                if ($approverUID != $associatedApprover) return ['error' => 'Un Authorized'];
+                if ($queue->isApproved != 0) return ['error' => 'Already Approved'];
+                if ($userAuthenticationLevel < $queue->authenticationLevel) return ['error' => 'You are not Eligible for this action'];
+                /*
+                 * Step 2 : Initiate a Transfer Request
+                 */
+                $creditAccountInitialBalance = DB::table('accounts')->where('collegeUID', $requesterAccount)->value('balance');
+                $debitAccountInitialBalance = DB::table('accounts')->where('number', $queueAccount)->value('balance');
+                $creditAccountFinalBalance = $creditAccountInitialBalance + $amount;
+                $debitAccountFinalBalance = $debitAccountInitialBalance - $amount;
+                /*
+                 * Step 2.1 : Update the balances in Both debit and Credit Account
+                 */
+                DB::table('accounts')->where('collegeUID', $requesterAccount)->update(['balance' => $creditAccountFinalBalance]);
+                DB::table('accounts')->where('number', $queueAccount)->update(['balance' => $debitAccountFinalBalance]);
+                /*
+                 * Step 3 : Insert Into Transactions
+                 */
+                $txID = DB::table('transactions')->insert
+                (
+                    [
+                        'receiver' => $requesterAccount,
+                        'sender' => $queueAccount,
+                        'description' => 'Money Transferred from ' . $queue->$associatedApprover . ' ' . 'using Transfer Request',
+                        'wasQueued' => 1,
+                        'queueID' => $queueID,
+                        'amount' => $amount,
+                        'visibility' => 1,
+                        'created_at' => Carbon::now(),
+                        'initBy' => $approverUID
+                    ]
+                );
+                /*
+                 * Step 4: Mark the queue as processed
+                 */
+                DB::table('queues')->where('id', $queueID)->update(
+                    [
+                        'visibility' => 0,
+                        'isApproved' => 1,
+                        'approvedBy' => $approverUID,
+                        'approveTimeRemarks' => $approvalRemarks,
+                        'approvalTime' => Carbon::now()
+                    ]);
+                return $txID;
+            }, 5);
+    }
+    public function rejectReceiveMoneyRequest($approverUID, $approvalRemarks)
+    {
+        $queueID = $this->id;
+        if (Queue::ifNotExist($queueID) || User::ifNotExist($approverUID))
+            return ['error' => 'Queue ID or Approver ID is Invalid'];
+//        if (Queue::findOrFail($queueID)->authenticationLevel > User::findAuthenticationLevel($approverUID))
+//            return ['error' => 'You are not allowed to reject this transaction'];
+        if(strip_tags($approvalRemarks)!=$approvalRemarks)
+        {
+            throw new QueuesExeception('UNISYX Engine: Code injection detected. Behaviour Instance recorded');
+        }
+        return DB::transaction(
+            function () use ($queueID, $approverUID, $approvalRemarks) {
+                $queueAccount = System::queueAccount();
+                $userAuthenticationLevel = System::sendMoneyLevel();
+                /*
+                 * Step 1 : Find the assoc queue with the queue ID
+                 */
+                $queue = Queue::firstOrFail($queueID);
+                if ($queue->type != 101) return ['error' => 'Inappropriate Action'];
+                $amount = floatval($queue->parameters);
+                if ($amount <= 0)
+                    throw new QueuesExeception('Amount or your account balance can not be negative. Behaviour Instance recorded');
                 $associatedApprover = $queue->specificApproval;
                 if ($approverUID != $associatedApprover) return ['error' => 'Un Authorized'];
                 if ($queue->isApproved != 0) return ['error' => 'Already Approved'];
@@ -143,7 +221,7 @@ class Queue extends Model
                     [
                         'receiver' => $approverUID,
                         'sender' => $queueAccount,
-                        'description' => 'Money Transferred from ' . $queue->requestedBy . ' ' . 'using Transfer Request',
+                        'description' => 'Money rollback for balance request from ' . $queue->requestedBy . ' ' . 'using Transfer Request',
                         'wasQueued' => 1,
                         'queueID' => $queueID,
                         'amount' => $amount,
@@ -237,7 +315,7 @@ class Queue extends Model
                     [
                         'receiver' => $queueAccount,
                         'sender' => $senderCollegeUID,
-                        'description' => 'Transfer request scheduled for ' . $reciplentCollegeUID,
+                        'description' => 'Money requested by' . $reciplentCollegeUID.' via request',
                         'wasQueued' => 1,
                         'queueID' => $queueID,
                         'amount' => $amount,
