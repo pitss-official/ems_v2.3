@@ -64,17 +64,17 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h4 class="modal-title">Modal Content is Responsive</h4>
+                        <h4 class="modal-title">Request for approval</h4>
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                     </div>
                     <div class="modal-body">
                         <form>
                             <div class="form-group">
-                                <label class="control-label">Request for approval: {{transactionDetails.requesterRemarks}}</label>
+                                <label class="control-label"><b>{{transactionDetails.requesterRemarks}}</b></label>
 
                             </div>
                             <div class="form-group">
-                                <label class="control-label"> Requested from: {{transactionDetails.requestedBy}}</label>
+                                <label class="control-label"> Requested By: {{transactionDetails.requestedBy}}</label>
 
                             </div>
 
@@ -90,14 +90,14 @@
                             </div>
 
                             <div class="form-group">
-                                <label class="control-label" for="message-text">Remarks for request:</label>
-                                <textarea class="form-control" id="message-text"></textarea>
+                                <label class="control-label" name="approvalRemarks" for="message-text">Remarks for request:</label>
+                                <textarea class="form-control"  v-model="approvalRemarks" id="message-text"></textarea>
                             </div>
                         </form>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-danger waves-effect waves-light">Save changes</button>
+                        <button type="button" class="btn btn-default waves-effect" data-dismiss="modal" >Reject</button>
+                        <button type="submit" class="btn btn-danger waves-effect waves-light" @click="approve(transactionDetails)">Approve</button>
                     </div>
                 </div>
             </div>
@@ -114,6 +114,7 @@
         data(){
 
             return{
+                approvalRemarks: '',
                 queues:[],
                // queueObj: {},
                 transactionDetails:[],
@@ -126,7 +127,7 @@
         },
         methods:
             {
-                //todo: by anu (taking queue array from particular row and assigning its values to modal form attributes)
+                //todo: by anu (taking queue(in html) array from particular row and assigning its values to modal form attributes)
                 getTransactionDetails(queue){
 
 
@@ -159,8 +160,15 @@
                         });
                     //$('#queue-table').dataTable();
                 },
-                approve(queue_id)
+                approve(transactionDetails)
                 {
+
+                    axios.post('/api/approve/user/queues/pendingActions', {id:this.$data.transactionDetails.id,approvalRemarks:this.$data.approvalRemarks})
+                        .then( response => {
+                            console.log(response.data);
+                        }, error => {
+                            // Handle error response
+                        });
 
                 },
                 deny(queue_id)

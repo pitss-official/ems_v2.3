@@ -46,19 +46,26 @@
         },
         methods:
             {
-
+                fetchBalance()
+                {
+                    axios({
+                        method:'post',
+                        url:'/api/fetch/user/balance/currentBalance'
+                    }).then((response)=>{
+                        this.$data.thisMonthEarnings='&#8377;'+response.data.thisMonthEarnings;
+                        this.$data.currentBalance='&#8377;'+response.data.currentBalance;
+                    }).catch((error)=>{
+                        console.log(error);
+                    })
+                }
             },
         beforeMount() {
             setInterval(()=>{
-            axios({
-                method:'post',
-                url:'/api/fetch/user/balance/currentBalance'
-            }).then((response)=>{
-                this.$data.thisMonthEarnings='&#8377;'+response.data.thisMonthEarnings;
-                this.$data.currentBalance='&#8377;'+response.data.currentBalance;
-            }).catch((error)=>{
-                console.log(error);
-            })},25000);
+                this.fetchBalance();
+            },30000);
+        },
+        mounted() {
+            this.fetchBalance();
         }
     }
 </script>
