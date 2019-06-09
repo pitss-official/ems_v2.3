@@ -28,7 +28,7 @@ class QueueController extends Controller
 //            return ['error'=>'UnAuthenticated','message'=>'User is not eligible for such view'];
         $collegeUID = User::getCurrentAPIUser()['collegeUID'];
         $level = User::getCurrentAPIUser()['level'];
-        return Queue::where([
+        $qs= Queue::where([
             ['specificApproval', '=', $collegeUID],
             ['isApproved', '!=', 1],
             ['approvedBy', 0],
@@ -44,6 +44,7 @@ class QueueController extends Controller
                 ['approvedBy', 0],
                 ['visibility', '!=', 0]
             ])->get();
+        return $qs;
     }
 
     /**
@@ -63,7 +64,7 @@ class QueueController extends Controller
         ]);
         $q = new Queue();
         $sender=User::getCurrentAPIUser()['collegeUID'];
-        $id=$q->createTransferRequest($sender,$validatedData['collegeUID'],$validatedData['amount'],"$sender has sent &#8377".$validatedData['amount']." to you. Message : ".$validatedData['narration'].".");
+        $id=$q->createTransferRequest($sender,$validatedData['collegeUID'],$validatedData['amount'],"$sender has sent ₹".$validatedData['amount']." to you. Message : ".$validatedData['narration'].".");
         if(is_numeric($id))
             return["result"=>"success","id"=>$id];
         else
@@ -79,7 +80,7 @@ class QueueController extends Controller
         ]);
         $q = new Queue();
         $sender=User::getCurrentAPIUser()['collegeUID'];
-        $id=$q->createRecieveMoneyRequest($sender,$validatedData['collegeUID'],$validatedData['amount'],"$sender has requested money from you. Message : ".$validatedData['narration'].".");
+        $id=$q->createRecieveMoneyRequest($sender,$validatedData['collegeUID'],$validatedData['amount'],$validatedData['narration'],"Requested ₹".$validatedData['amount']." from you.");
         if(is_numeric($id))
             return["result"=>"success","id"=>$id];
         else
@@ -94,11 +95,19 @@ class QueueController extends Controller
      */
 
     public function getApprovalDetails(Request $request){
-//        $validatedData = $request->validate([
-//            'id'=>'',
-//            'approveTimeRemarks'=>'',
-//        ]);
-            return dd($request);
+        $validatedData = $request->validate([
+            'id'=>'bail|required|numeric|min:0|exists:queues,id',
+            'approvalRemarks'=>'bail|required|string|min:2|max:255',
+        ]);
+        $q=Queue::findOrFail($validatedData['id']);
+        $approvedBy = User::getCurrentAPIUser()['collegeUID'];
+        return ["result"=>'success','id'=>$q->approveAutoType($approvedBy,$validatedData['approvalRemarks'])];
+    }
+
+
+    public function denyRequestDetails(){
+
+
     }
 
 

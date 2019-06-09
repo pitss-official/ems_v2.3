@@ -32,6 +32,7 @@ try {
     require( 'datatables.net-select-bs' )(window,$);
     pdfMake = require('pdfmake/build/pdfmake.js');
     pdfFonts = require('pdfmake/build/vfs_fonts.js');
+    require('footable');
 } catch (e) {}
 
 /**

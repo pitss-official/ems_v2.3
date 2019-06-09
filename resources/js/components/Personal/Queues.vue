@@ -22,13 +22,15 @@
                             <tbody>
                             <tr v-bind:value="queue.id" v-for="queue in queues">
                                 <td>{{queue.id}}</td>
-                                <td>{{queue.requestedBy}}</td>
-                                <td>{{queue.requesterRemarks}}</td>
+                                <td v-if="queue.requestedBy!=currentUser">{{queue.requestedBy}}</td>
+                                <td v-else>You</td>
+                                <td>{{queue.typeMessage}}</td>
                                 <td>{{queue.authenticationLevel}}</td>
                                 <td>Coordinator</td>
                                 <td>{{queue.requesterRemarks}}</td>
                                 <td>{{queue.created_at}}</td>
-                                <td><button @click="getTransactionDetails(queue)" data-target="#approveRequest" data-toggle="modal">Approve</button><button>Deny</button></td>
+                                <td ><button v-if="queue.requestedBy != currentUser" @click="getTransactionDetails(queue)" data-target="#approveRequest" data-toggle="modal">Approve</button>
+                                    <button @click="deny(transactionDetails)>Deny</button></td>
                             </tr>
                             </tbody>
                             <tfoot>
@@ -93,12 +95,12 @@
 
                             <div class="form-group">
                                 <label class="control-label" name="approvalRemarks" for="message-text">Remarks for request:</label>
-                                <textarea class="form-control"  v-model="approvalRemarks" id="message-text"></textarea>
+                                <textarea class="form-control" v-model="approvalRemarks" id="message-text"></textarea>
                             </div>
                         </form>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-default waves-effect">Reject</button>
+                        <button type="button" class="btn btn-default waves-effect">Cancel</button>
                         <button type="submit" class="btn btn-primary" @click="approve(transactionDetails)">Approve</button>
                     </div>
                 </div>
@@ -109,12 +111,13 @@
 </template>
 
 <script>
-
+    import "footable"
     export default {
         name:"queue",
         data(){
 
             return{
+                currentUser: '',
                 approvalRemarks: '',
                 queues:[],
                // queueObj: {},
@@ -124,11 +127,12 @@
             };
         },
         mounted() {
-            this.getAll();
+            setInterval(()=>$('#queue-table').footable({"empty": "There are no pending actions",}),1500);
             setInterval(()=>this.getAll(),30000);
-            // $(document).ready(function() {
-            //     $("#approveRequest").modal();
-            // });
+        },
+        beforeMount()
+        {
+            this.getAll();
         },
         methods:
             {
@@ -146,6 +150,8 @@
                         url: '/api/fetch/user/queues/pendingActions',
                     })
                         .then((response) => {
+                            this.$data.currentUser = currentUserID;
+
                             this.$data.queues = response.data;
                             //     var $i=0;
                             //     for(var $key in response.data){
@@ -157,34 +163,45 @@
                             //     }
                             //     console.log(this.$data.queueObj);
                             // // this.$data.queues = response.data;
-                            console.log(response.data);
+
 
 
                         });
-                    //$('#queue-table').dataTable();
                 },
                 approve(transactionDetails)
                 {
-
+                    if(transactionDetails.requestedBy==currentUserID)
+                    {
+                        swal.fire("Error","You cannot approve your own request","error");
+                        return;
+                    }
                     axios.post('/api/approve/user/queues/approvePendingActions', {id:this.$data.transactionDetails.id,approvalRemarks:this.$data.approvalRemarks})
                         .then( response => {
-                            console.log(response.data);
                             $('#approveRequest').modal('hide');
+                            if(isNaN(response.data.id))
+                                swal.fire("Error",response.data.id.error,"error")
+                            else{
                             swal.fire({
                                 title: 'Approved successfully',
                                 text: 'You have successfully approved request created by ' + this.$data.transactionDetails.requestedBy,
                                 type: 'success',
                                 backdrop: `rgba(0, 0, 123, 0.4)`
-                            });
+                            });}
                         }, error => {
                             // Handle error response
                         });
 
                 },
-                deny(queue_id)
+                deny(transactionDetails)
                 {
+                    axios.post('/api/deny/user/queues/denyPendingActions', {id:this.$data.transactionDetails.id,approvalRemarks:this.$data.approvalRemarks})
+                        .then( response => {
 
-                }
+                }, error => {
+
+                });
+
+                },
             }
     }
 </script>

@@ -34,6 +34,7 @@ class CreateQueuesTable extends Migration
 
             //Type of the action like 21 for balance transfer
             $table->unsignedSmallInteger('type');
+            $table->string('typeMessage',150)->nullable();
 
             //Status of the action weather approved or not
             $table->boolean('isApproved')->default(0);

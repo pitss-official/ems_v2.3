@@ -23,6 +23,28 @@ Vue.component(AlertError.name, AlertError);
 Vue.component(AlertErrors.name, AlertErrors);
 Vue.component(AlertSuccess.name, AlertSuccess);
 
+import DataTable from "datatables.net-bs";
+// import "datatables.net-autofill-bs/js/autoFill.bootstrap";
+import "datatables.net-buttons-bs";
+import "datatables.net-colreorder-bs"
+import "datatables.net-fixedcolumns-bs"
+import "datatables.net-fixedheader-bs"
+import "datatables.net-keytable-bs"
+import "datatables.net-responsive-bs"
+import "datatables.net-rowgroup-bs"
+import "datatables.net-rowreorder-bs"
+import "datatables.net-scroller-bs"
+import "datatables.net-select-bs";
+import "datatables.net-buttons-bs"
+import "datatables.net-buttons/js/buttons.colVis.js"
+import "datatables.net-buttons/js/buttons.print.js"
+import "datatables.net-buttons/js/buttons.html5.js"
+import "datatables.net-buttons/js/buttons.flash.js"
+import pdfMake from "pdfmake/build/pdfmake.js"
+import pdfFonts from "pdfmake/build/vfs_fonts.js"
+pdfMake.vfs = pdfFonts.pdfMake.vfs;
+
+
 Vue.use(VueRouter);
 window.Swal=Swal;
 window.swal=Swal;

@@ -19,6 +19,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::get('fetch/navigation','API\NavigationController@pushAllLinks');
 Route::get('fetch/user/queues/pendingActions','API\QueueController@index');
 Route::post('approve/user/queues/approvePendingActions','API\QueueController@getApprovalDetails');
+Route::post('deny/user/queues/denyPendingActions','API\QueueController@denyRequestDetails');
 Route::get('fetch/user/account/transactions','API\CashFlowController@listAllTransactions');
 Route::post('put/user/queues/balanceTransfer/newRequest','API\QueueController@store');
 Route::post('put/user/queues/balanceRequest/newRequest','API\QueueController@storeBalanceTransferRequest');
