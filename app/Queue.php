@@ -557,4 +557,21 @@ class Queue extends Model
                 return $txID;
             }, 5);
     }
+
+
+    public function approveAutoType($approverUID, $approvalRemarks){
+            if($this->type == 100 ){
+                return $this->approveTransferRequest($approverUID, $approvalRemarks);
+            }
+
+            else if($this->type == 101 ){
+                return $this->approveReceiveMoneyRequest($approverUID, $approvalRemarks);
+
+            }
+
+            else if($this->type == 102 ){ //todo: by anu change queue type
+                return $this->approveGlobalTransferRequest($approverUID, $approvalRemarks);
+
+            }
+    }
 }

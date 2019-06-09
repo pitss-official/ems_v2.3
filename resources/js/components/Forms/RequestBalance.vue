@@ -134,6 +134,7 @@
                             console.log(response);
                             if(response.data.result=="success")
                             {
+                                this.$broadcast('newQueueAdded')
                                 swal.fire({
                                     title: 'Request Sent!',
                                     html: "Money transfer request sent to <b>" + this.$data.student.name + "</b><br>Request ID:<b>" + response.data.id + '</b>',

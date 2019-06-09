@@ -10,7 +10,7 @@ try {
     window.$ = window.jQuery = require('jquery');
     window.Popper = require('popper.js').default;
 //
-//     //require('bootstrap');
+    require('bootstrap');
     require( 'jszip' );
     require( 'pdfmake' );
     require( 'datatables.net-bs' )(window,$);

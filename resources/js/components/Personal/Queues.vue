@@ -60,12 +60,14 @@
         <!--todo: anu-->
         <!--modal-->
 
-        <div id="approveRequest" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
-            <div class="modal-dialog">
+        <div class="modal fade" id="approveRequest" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h4 class="modal-title">Request for approval</h4>
-                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
                     </div>
                     <div class="modal-body">
                         <form>
@@ -96,8 +98,8 @@
                         </form>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-default waves-effect" data-dismiss="modal" >Reject</button>
-                        <button type="submit" class="btn btn-danger waves-effect waves-light" @click="approve(transactionDetails)">Approve</button>
+                        <button type="button" class="btn btn-default waves-effect">Reject</button>
+                        <button type="submit" class="btn btn-primary" @click="approve(transactionDetails)">Approve</button>
                     </div>
                 </div>
             </div>
@@ -107,10 +109,9 @@
 </template>
 
 <script>
+
     export default {
-
-        name: "queue",
-
+        name:"queue",
         data(){
 
             return{
@@ -124,13 +125,15 @@
         },
         mounted() {
             this.getAll();
+            setInterval(()=>this.getAll(),30000);
+            // $(document).ready(function() {
+            //     $("#approveRequest").modal();
+            // });
         },
         methods:
             {
                 //todo: by anu (taking queue(in html) array from particular row and assigning its values to modal form attributes)
                 getTransactionDetails(queue){
-
-
                     this.$data.transactionDetails = queue;
 
 
@@ -163,9 +166,16 @@
                 approve(transactionDetails)
                 {
 
-                    axios.post('/api/approve/user/queues/pendingActions', {id:this.$data.transactionDetails.id,approvalRemarks:this.$data.approvalRemarks})
+                    axios.post('/api/approve/user/queues/approvePendingActions', {id:this.$data.transactionDetails.id,approvalRemarks:this.$data.approvalRemarks})
                         .then( response => {
                             console.log(response.data);
+                            $('#approveRequest').modal('hide');
+                            swal.fire({
+                                title: 'Approved successfully',
+                                text: 'You have successfully approved request created by ' + this.$data.transactionDetails.requestedBy,
+                                type: 'success',
+                                backdrop: `rgba(0, 0, 123, 0.4)`
+                            });
                         }, error => {
                             // Handle error response
                         });

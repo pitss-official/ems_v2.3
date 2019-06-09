@@ -63,7 +63,7 @@ class QueueController extends Controller
         ]);
         $q = new Queue();
         $sender=User::getCurrentAPIUser()['collegeUID'];
-        $id=$q->createTransferRequest($sender,$validatedData['collegeUID'],$validatedData['amount'],"$sender has sent money to you. Message : ".$validatedData['narration'].".");
+        $id=$q->createTransferRequest($sender,$validatedData['collegeUID'],$validatedData['amount'],"$sender has sent &#8377".$validatedData['amount']." to you. Message : ".$validatedData['narration'].".");
         if(is_numeric($id))
             return["result"=>"success","id"=>$id];
         else
