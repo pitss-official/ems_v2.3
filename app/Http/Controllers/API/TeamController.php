@@ -4,6 +4,8 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use App\Team;
+use App\Enrollment;
+use App\User;
 use function GuzzleHttp\Promise\exception_for;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -55,6 +57,95 @@ class TeamController extends Controller
         else{
             throw new \Exception("event does not support teams");
         }
+    }
+
+
+    //todo: by anu changeTeam.vue
+    public function getEventList(Request $request ){
+        $validatedData = $request->validate([
+            'regNo'=> 'bail|required|numeric|digits:8|exists:enrollments,participantCollegeUID',
+        ]);
+
+        $currentUser = User::getCurrentAPIUser()['collegeUID'];
+        if($currentUser == $validatedData['regNo'])
+            throw new \Exception('user cant change his/her own team');
+        else{
+            return Team::getEventByCollegeUID($validatedData['regNo']);
+        }
+    }
+
+
+
+
+    //todo: by anu changeTeam.vue
+    public function getTeam(Request $request ){
+        $validatedData = $request->validate([
+            'regNo'=> 'bail|required|integer|digits:8|exists:enrollable,participantCollegeUID',
+            'eventID'=> 'bail|required|min:1|integer|exists:events,id'
+        ]);
+
+        $currentUser = User::getCurrentAPIUser()['collegeUID'];
+        if($currentUser == $validatedData['regNo'])
+            throw new \Exception('user cant change his/her own team');
+
+        else{
+            return Enrollment::getCurrentTeam($validatedData['regNo'], $validatedData['eventID']);
+        }
+    }
+
+    //todo: by anu changeTeam.vue
+    public function fetchTeamList(Request $request){
+        $validatedData = $request->validate([
+            'regNo'=> 'bail|required|integer|digits:8|exists:enrollments,participantCollegeUID',
+            'eventID'=> 'bail|required|min:1|integer|exists:events,id'
+        ]);
+
+        $currentUser = Auth::guard('api')->user()->collegeUID;
+        if($currentUser == $validatedData['regNo'])
+            throw new \Exception('user cant change his/her own team');
+
+        else{
+            return Team::getAllEnrollable($validatedData['eventID']);
+        }
+    }
+
+    //todo: by anu for changeTeam.vue
+    public function updateTeam(Request $request){
+        $validatedData = $request->validate([
+            'regNo'=> 'bail|required|integer|digits:8|exists:enrollments,participantCollegeUID',
+            'eventID'=> 'bail|required|min:1|integer|exists:events,id',
+            'newTeamID'=> 'bail|required|min:0|exists:teams,id',
+        ]);
+        $e=Enrollment::firstOrFail($validatedData['regNo']);
+        $n = Team::findorFail($validatedData['newTeamID']);
+        $oldTeamID = $e->teamID;
+
+        if(Team::isTeamable($validatedData['eventID'])) {
+            if (Team::isNotExistByName($validatedData['newTeamID'])) {
+                if($n->availedCapacity < $n->maxCapacity)
+                {
+                    return Team::updateTeamName($validatedData['regNo'],$validatedData['eventID'],$validatedData['newTeamID'], $oldTeamID);
+
+                }
+                else{
+                    return[
+                        'error'=> 'Team caapcity is full',
+                        'message'=>'cant add more members',
+                    ];
+                }
+
+            } else {
+                return [
+                    'error' => 'The team already exists',
+                    'message' => 'Try another team name',
+                ];
+            }
+        }
+
+        else{
+            throw new \Exception("event does not support teams");
+        }
+
     }
 
     /**

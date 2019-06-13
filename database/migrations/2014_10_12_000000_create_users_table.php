@@ -35,6 +35,8 @@ class CreateUsersTable extends Migration
             $table->unsignedInteger('referenceUID')->nullable()->default(0);
             $table->unsignedSmallInteger('theme')->default(0);
             //
+            $table->string('school','3')->nullable();
+            $table->string('branch','100')->nullable();
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');

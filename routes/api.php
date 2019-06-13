@@ -31,7 +31,19 @@ Route::get('/members/find/pendingBalance/{collegeUID}','API\CashFlowController@n
 Route::post('/forms/fees/enrollment/pluckPendingBalance','API\CashFlowController@store');
 Route::post('/events/find/enrollable/','API\EventController@listAll');
 Route::post('/events/find/teamable/','API\EventController@listTeamableEvents');
-Route::post('/events/find/enrollable/{eventID}/teams/','API\TeamController@listAll');
+Route::post('events/enrollment/find/events','API\TeamController@getEventList');
+//Route::post('/find/byRegNo/team/','API\EnrollmentController@getTeam');
+Route::post('/find/enrolled/teams/','API\TeamController@fetchTeamList');
+Route::post('/put/user/data/newTeam/','API\TeamController@updateTeam');
+
+
+Route::post('/events/put/attendance/request','API\AttendenceController@storeRequest');
+
+Route::get('/events/find/enrollable/{eventID}/teams/','API\TeamController@listAll');
+
+//Route::get('/events/find/allOccurringToday','API\EventController@todaysEvents');
+Route::get('/events/all/onDate/{date}','API\EventController@findByDate');
+Route::get('/events/{eventID}/find/participants','API\EnrollmentController@getAllEnrolledStudents');
 Route::post('/forms/events/enroll/student','API\EnrollmentController@store');
 Route::post('/forms/venues/register','API\VenueController@store');
 

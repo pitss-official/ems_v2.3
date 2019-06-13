@@ -26,9 +26,9 @@ class EventController extends Controller
         return Event::getAllTeamable();
     }
 
-    public function todaysEvents()
+    public function findByDate($date)
     {
-        return Event::getTodayEvent();
+        return Event::findByDate($date);
     }
 
     /**
@@ -128,6 +128,7 @@ class EventController extends Controller
         }
         return $event->id;
     }
+
     /**
      * Display the specified resource.
      *

@@ -105,7 +105,14 @@ class QueueController extends Controller
     }
 
 
-    public function denyRequestDetails(){
+    public function denyRequestDetails(Request $request){
+        $validatedData = $request->validate([
+            'id'=>'bail|required|numeric|min:0|exists:queues,id',
+            'approvalRemarks'=>'bail|required|string|min:2|max:255',
+        ]);
+        $q=Queue::findOrFail($validatedData['id']);
+        $deniedBy = User::getCurrentAPIUser()['collegeUID'];
+        return ["result"=>'success','id'=>$q->approveAutoType($deniedBy,$validatedData['approvalRemarks'])];
 
 
     }

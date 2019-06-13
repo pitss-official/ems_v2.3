@@ -15,11 +15,14 @@ class CreateAttendenceTable extends Migration
     {
         Schema::create('attendance', function (Blueprint $table) {
             $table->unsignedBigInteger('id')->autoIncrement();
-            $table->unsignedInteger('eventID')->nullable();
+            $table->unsignedBigInteger('dateID');
             $table->unsignedInteger('attendeeUID');
             $table->unsignedInteger('coordinatorUID');
+            $table->unsignedBigInteger('enrollmentID');
+            $table->foreign('enrollmentID')->references('id')->on('enrollments');
             $table->foreign('coordinatorUID')->references('collegeUID')->on('users');
             $table->foreign('attendeeUID')->references('collegeUID')->on('users');
+            $table->foreign('dateID')->references('id')->on('eventdates');
             $table->timestamps();
         });
     }

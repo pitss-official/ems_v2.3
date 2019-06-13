@@ -94,6 +94,50 @@
                                                 <has-error :form="student" field="email"></has-error>
                                             </div>
                                         </div>
+                                    </div><!--/row-->
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group ">
+                                                <label class="control-label">School</label>
+                                                <select :class="{ 'is-invalid': student.errors.has('school') }"
+                                                        :disabled="naive.filled" :readonly="naive.filled"
+                                                        class="form-control custom-select" name="school" required
+                                                        v-model="student.school">
+                                                    <option value="A">Lovely School of Architecture and Design</option>
+                                                    <option value="B">School of Bio Engineering and Bio Sciences</option>
+                                                    <option value="C">School of Civil Engineering</option>
+                                                    <option value="D">School of Computer Application</option>
+                                                    <option value="E">School of Electronics and Electrical Engineering</option>
+                                                    <option value="F">School of Journalism, Films & Creative Arts</option>
+                                                    <option value="G">School of Chemical Engineering and Physical Sciences</option>
+                                                    <option value="K">School of Computer Science and Engineering</option>
+                                                    <option value="L">School of Law</option>
+                                                    <option value="M">School of Mechanical Engineering</option>
+                                                    <option value="P">School of Professional Enhancement</option>
+                                                    <option value="Q">School of Business</option>
+                                                    <option value="R">School of Hotel Management and Tourism</option>
+                                                    <option value="S">School of Fashion Design</option>
+                                                    <option value="U">School of Arts and Languages</option>
+                                                    <option value="Y">LIT (Pharmacy)/Department of Pharmaceutical Sciences</option>
+                                                    <option value="Z">School of Physiotherapy & Paramedical</option>
+                                                </select>
+                                                <small class="form-control-feedback"> Select your gender</small>
+                                                <has-error :form="student" field="school"></has-error>
+                                            </div>
+                                        </div>
+                                        <!--/span-->
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="control-label">Course</label>
+                                                <!--				form-group has-danger/has-success									form-control-danger-->
+                                                <input :class="{ 'is-invalid': student.errors.has('course') }"
+                                                       :disabled="naive.filled" :readonly="naive.filled"
+                                                       class="form-control" name="course" placeholder="Eg. Computer Science and Engineering"
+                                                       required type="text" v-model="student.course">
+                                                <small class="form-control-feedback"></small>
+                                                <has-error :form="student" field="course"></has-error>
+                                            </div>
+                                        </div>
                                     </div>
                                     <!--/span-->
                                 </div>
@@ -258,6 +302,8 @@
                     birthday: null,
                     team: 0,
                     amount: 0,
+                    school:null,
+                    course:null,
                     remember: false,
                 }),
                 selectedEvent: null,
@@ -382,7 +428,7 @@
                 }
 
                 axios({
-                    method: 'post',
+                    method: 'get',
                     url: '/api/events/find/enrollable/' + this.$data.student.eventID+'/teams/',
                 }).then((response) => {
                         this.$data.teams = response.data;
@@ -398,14 +444,18 @@
                     this.student.post('/api/forms/events/enroll/student')
                         .then((response) => {
                             var data = response.data;
-                            swal.fire({
-                                title: 'Enrollment ID: ' + data,
-                                text: 'You have successfully enrolled ' + this.student.firstName,
-                                type: 'success',
-                                backdrop: `rgba(0, 0, 123, 0.4)`
-                            });
-                            this.student.reset();
-                            $('#regNo').focus();
+                            if(data.result=="success") {
+                                swal.fire({
+                                    title: 'Enrollment ID: ' + data.id,
+                                    text: 'You have successfully enrolled ' + this.student.firstName,
+                                    type: 'success',
+                                    backdrop: `rgba(0, 0, 123, 0.4)`
+                                });
+                                this.student.reset();
+                                $('#regNo').focus();
+                            }else {
+                                swal.fire("Error 505","Internal Server Error","error")
+                            }
                         });
                 }).catch()
                 {

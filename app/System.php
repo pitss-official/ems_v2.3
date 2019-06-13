@@ -15,6 +15,10 @@ class System extends Model
     {
         return 1;
     }
+    public static function approveAttendanceLevel()
+    {
+        return 1000;
+    }
 
     public function canUserViewSettings(int $collegeUID)
     {
@@ -23,5 +27,9 @@ class System extends Model
     public function canUserAlterSettings(int $collegeUID)
     {
 
+    }
+    public static function defaultAttendanceRemarks()
+    {
+        return "Attendance Marked";
     }
 }

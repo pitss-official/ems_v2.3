@@ -5,12 +5,14 @@ namespace App\Http\Controllers\API;
 use App\Account;
 use App\Enrollment;
 use App\Event;
+use App\Exceptions\EnrollmentException;
 use App\Http\Controllers\Controller;
 use App\User;
-use Illuminate\Http\JsonResponse;
+use App\Team;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use phpseclib\Crypt\Hash;
+use Illuminate\Support\Facades\DB;
 
 class EnrollmentController extends Controller
 {
@@ -20,17 +22,13 @@ class EnrollmentController extends Controller
     }
     public function getAllEnrolledStudents(int $eventID)
     {
-        $students = Enrollment::getAllStudents($eventID)->pluck('participantCollegeUID');
-        $response = [];
-        $number = 1;
-        foreach ($students as $student) {
-            $user = User::where('collegeUID', $student)->firstOrFail();
-            $name = $user->firstName . ' ' . $user->middleName . ' ' . $user->lastName;
-            array_push($response, [$number, $student, $name, 0]);
-            $number++;
-        }
-        return new JsonResponse($response, 200);
-        //return Json::encode($array);
+        return DB::table('enrollments')->where('enrollments.eventID',$eventID)
+            ->join('users','enrollments.participantCollegeUID','=','users.collegeUID')
+            ->join('accounts','enrollments.participantCollegeUID','=','accounts.number')
+            ->join('teams','enrollments.teamID','=','teams.id')
+            ->select('users.firstName','users.middleName','users.lastName','users.collegeUID','users.school','users.branch','accounts.balance','teams.name','enrollments.id')
+            ->orderBy('teams.name','asc')
+            ->get();
     }
 
     /**
@@ -40,7 +38,7 @@ class EnrollmentController extends Controller
      */
     public function index()
     {
-        //
+
     }
 
     /**
@@ -64,6 +62,8 @@ class EnrollmentController extends Controller
         if (User::isNotExist($validatedData['collegeUID'])) {
             $validatedData=array_merge($request->validate([
                 'email' => 'bail|required|email',
+                'course'=>'bail|required|string|min:3|max:255',
+                'school'=>'bail|required|string|min:1|max:2',
                 'fathersName' => 'nullable|string|min:1|max:100',
                 'firstName' => 'bail|required|string|min:1|max:25',
                 'middleName' => 'nullable|string|min:1|max:25',
@@ -87,6 +87,8 @@ class EnrollmentController extends Controller
             $user->lastName = $validatedData['lastName'];
             $user->collegeUID = $validatedData['collegeUID'];
             $user->gender = $validatedData['gender'];
+            $user->school=$validatedData['school'];
+            $user->branch=$validatedData['course'];
             $user->address = $validatedData['address'];
             if ($validatedData['nationality'] == null)
                 $validatedData['nationality'] = 'IN';
@@ -112,7 +114,7 @@ class EnrollmentController extends Controller
                 if (Account::ifNotExist($user->collegeUID))
                 {
                     $user->delete();
-                    throw new \Exception("Account Creation Failed, Data has been rolled back");
+                    throw new EnrollmentException("Account Creation Failed, Data has been rolled back");
                 }
             }
         }
@@ -180,4 +182,6 @@ class EnrollmentController extends Controller
             return $i;
         }
     }
+
+
 }

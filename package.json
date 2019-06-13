@@ -27,6 +27,7 @@
     },
     "dependencies": {
         "axios-progress-bar": "^1.2.0",
+        "bootstrap-switch": "^3.4.0",
         "browser-sync": "^2.26.5",
         "datatables.net-autofill-bs": "^2.0.0",
         "datatables.net-buttons-bs": "^1.5.6",

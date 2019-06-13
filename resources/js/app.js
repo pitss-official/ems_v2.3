@@ -42,6 +42,7 @@ import "datatables.net-buttons/js/buttons.html5.js"
 import "datatables.net-buttons/js/buttons.flash.js"
 import pdfMake from "pdfmake/build/pdfmake.js"
 import pdfFonts from "pdfmake/build/vfs_fonts.js"
+import "bootstrap-switch"
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
 
@@ -69,10 +70,13 @@ let routes=[
     {path:'/serve/forms/money/transferBalance/interMember',component: require('./components/Forms/TransferBalance').default},
     {path:'/serve/forms/money/requestBalance/interMember',component: require('./components/Forms/RequestBalance').default},
     {path:'/serve/forms/money/transfer/interMember/batch',component: require('./components/Forms/BatchTransfer').default},
+    {path:'/serve/forms/search/transaction',component: require('./components/Interfaces/SearchTransaction').default},
     {path:'/serve/forms/event/new',component: require('./components/Forms/RegisterEvent').default},
     {path:'/serve/forms/venues/new',component: require('./components/Forms/AddEventVenue').default},
     {path:'/serve/forms/event/teams/new',component: require('./components/Forms/AddTeamForEvent').default},
+    {path:'/serve/forms/enrollments/changeTeam',component: require('./components/Forms/ChangeTeam').default},
     {path:'/serve/forms/digitalAttendance/Scanner',component: require('./components/Digitalizers/Barcode').default},
+    {path:'/serve/action/events/MarkStudentAttendance',component: require('./components/Forms/MarkEventAttendance').default},
     {path:'*',component: require('./components/Global/404Error').default},
 ]
 const router =new VueRouter({

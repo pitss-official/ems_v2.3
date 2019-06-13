@@ -33,6 +33,7 @@ try {
     pdfMake = require('pdfmake/build/pdfmake.js');
     pdfFonts = require('pdfmake/build/vfs_fonts.js');
     require('footable');
+    require('bootstrap-switch')
 } catch (e) {}
 
 /**

@@ -101,6 +101,7 @@ class Enrollment extends Model
                     'fundTransactionID' => $studentCreditTransactionID,
                     'enrollmentFeesTransactionID' => $eventCashCreditTransactionID,
                     'created_at' => Carbon::now(),
+                    'teamID'=>$teamID,
                     'partialPay' => 0
                 ]
             );
@@ -153,7 +154,8 @@ class Enrollment extends Model
                         'fundTransactionID' => $studentCreditTransactionID,
                         'enrollmentFeesTransactionID' => $eventCashCreditTransactionID,
                         'created_at' => Carbon::now(),
-                        'partialPay' => 1
+                        'partialPay' => 1,
+                        'teamID'=>$teamID
                     ]
                 );
                 /*
@@ -173,5 +175,9 @@ class Enrollment extends Model
     public function refundRequestInitiate($enrollmentID)
     {
 
+
     }
+
+
+
 }

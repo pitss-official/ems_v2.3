@@ -13,12 +13,14 @@ class CreateEventdatesTable extends Migration
      */
     public function up()
     {
+        //todo:: add a forgin key saying that eventdate should exist between dates of event
         Schema::create('eventdates', function (Blueprint $table) {
             $table->unsignedBigInteger('id')->autoIncrement();
             $table->date('date');
             $table->string('motive',100);
             $table->text('description')->nullable();
             $table->time('startTime');
+            $table->boolean('attendanceState')->default('false');
             $table->time('endTime');
             $table->unsignedInteger('coordinatorsRequired')->default(1);
             $table->unsignedBigInteger('eventID');

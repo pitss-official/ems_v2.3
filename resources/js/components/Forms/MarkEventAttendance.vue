@@ -7,23 +7,36 @@
                         <h4 class="m-b-0 text-white">Student Attendance Form</h4>
                     </div>
                     <div class="card-body">
-        <div class="row">
-            <div class="col-lg-6"></div>
-            <div class="col-lg-6">
-                <div class="pull-right">
-                    <div><b>Select Event</b>
-                    </div>
-                <select @change="findMembers" id="eventSelect" name="selectEvent" v-model="selectedEvent" >
-                    <option v-bind:value="event.id" v-for="event in events">
-                        {{ event.name }}
-                    </option>
-                </select>
-                </div>
-            </div>
-        </div>
-                        <table cellspacing="0" class="display nowrap table table-hover table-striped table-bordered" id="students-table" width="100%">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="pull-left">
+                                    <label>Date</label>
+                                    <input @change="getEvents" type="date" v-model="selectedDate"/>
+                                </div>
+                                <div class="pull-left">
+                                    <label>Event</label>
+                                    <select @change="findMembers" id="eventSelect" name="selectEvent"
+                                            v-model="selectedEvent">
+                                        <option v-bind:value="event.eventID" v-for="event in events">
+                                            {{ event.name }}
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+
+                            </div>
+                        </div>
+                        <table id="students-table" class="display table table-hover table-striped table-bordered"
+                               cellspacing="0" width="100%">
                         </table>
-    </div>
+                        <div class="row" id="actions">
+                            <div class="col-lg-6">
+                            <button class="btn btn-themecolor waves waves-dark" @click="markAttendance">Mark Attendance</button>
+                            <button class="btn btn-inverse" onclick="location.reload()">Refresh Page</button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -31,97 +44,222 @@
 </template>
 
 <script>
+    import moment from 'moment';
+
+    let presentStudents = [];
     export default {
         name: "MarkEventAttendance",
-        data()
-        {
+        data() {
             return {
-                naive:{
-                    filled:false,
-                },
-                selectedEvent:null,
-                events:[],
-                teams:[],
-                students:[],
-                dataSet:[],
+                selectedDate: moment().format('YYYY-MM-DD'),
+                selectedEvent: null,
+                events: [],
             };
         },
         methods:
             {
                 getEvents() {
                     axios({
-                        method: 'post',
-                        url: '/api/basic/events/today',
+                        method: 'get',
+                        url: '/api/events/all/onDate/' + this.$data.selectedDate,
                     }).then((response) => {
-                            this.$data.events = response.data
-                        }).catch((response)=> {
-                            swal.fire( 'Server Error', 'Kindly Contact the Server Admin','error');
-                        });
+                        this.$data.events = response.data
+                    }).catch((response) => {
+                        swal.fire('Server Error', 'Kindly Contact the Server Admin', 'error');
+                    });
                 },
-                findMembers()
-                {
-                  this.getStudents();
-                  // this.getCoordinators();
+                findMembers() {
+                    if(this.$data.selectedEvent===null)
+                        return;
+                    this.getStudents();
                 },
                 getStudents() {
                     axios({
-                        method: 'post',
-                        url: '/api/basic/'+this.$data.selectedEvent+'/participants',
+                        method: 'get',
+                        url: '/api/events/' + this.$data.selectedEvent + '/find/participants',
                     }).then((response) => {
-                            this.$data.students = response.data;
-                            this.$data.dataSet=[];
-                            var usableDataSet=[];
-                            console.log(response.data)
-                            for(var j=0;j<response.data.length;j++)
-                            {
-                                var dt=response.data[j];
-                                var link="<td id='"+dt[1]+"'><input type='checkbox' class='js-switch' data-color='#26c6da' data-secondary-color='#f62d51'/></td>";
-                                usableDataSet.push([dt[0],dt[1],dt[2],link]);
-                            }
-                            console.log(usableDataSet)
-                            $('#students-table').DataTable({
-                                data: usableDataSet,
-                                "columnDefs": [ {
-                                    "orderable": false,
-                                    "targets": 1
-                                } ],
-                                "order": [[ 0, "asc" ]],
-                                fixedHeader: {
-                                    header: false,
-                                    footer: false
+                        let usableDataSet = [];
+                        let schools = {
+                            A: 'Lovely School of Architecture and Design',
+                            B: 'School of Bio Engineering and Bio Sciences',
+                            C: 'School of Civil Engineering',
+                            D: 'School of Computer Application',
+                            E: 'School of Electronics and Electrical Engineering',
+                            F: 'School of Journalism, Films & Creative Arts',
+                            G: 'School of Chemical Engineering and Physical Sciences',
+                            K: 'School of Computer Science and Engineering',
+                            L: 'School of Law',
+                            M: 'School of Mechanical Engineering',
+                            P: 'School of Professional Enhancement',
+                            Q: 'School of Business',
+                            R: 'School of Hotel Management and Tourism',
+                            S: 'School of Fashion Design',
+                            U: 'School of Arts and Languages',
+                            Y: 'LIT (Pharmacy)/Department of Pharmaceutical Sciences',
+                            Z: 'School of Physiotherapy & Paramedical',
+                        };
+                        let rowArr = response.data;
+                        for (let j = 0; j < response.data.length; j++) {
+                            let name = rowArr[j].firstName;
+                            let state = '';
+                            if (rowArr[j].middleName != null)
+                                name += ' ' + rowArr[j].middleName;
+                            if (rowArr[j].lastName != null)
+                                name += ' ' + rowArr[j].lastName;
+                            if (parseFloat(rowArr[j].balance) < 0)
+                                state = 'disabled="disabled" readonly="readonly" class="attendance-checkbox-disabled"';
+                            else state = 'class="attendance-checkbox-default'
+                            let btn = '<input type="checkbox" ' + state + ' data-switch-id="' + j + '" data-collegeID="' + rowArr[j].collegeUID + '" data-enrollmentID="'+rowArr[j].id+'">';
+                            usableDataSet.push([j + 1, rowArr[j].collegeUID, name, schools[rowArr[j].school] + ', ' + rowArr[j].branch, rowArr[j].balance, btn]);
+                        }
+                        var Table=$('#students-table').DataTable({
+                            data: usableDataSet,
+                            responsive: true,
+                            dom: 'Bform',
+                            buttons: [
+                                {
+                                    extend: 'pdf',
+                                    className: 'btn btn-themecolor waves-effect waves-dark'
                                 },
-                                columns: [
-                                    { title: "Serial" },
-                                    { title: "Registration Number"},
-                                    { title: "Name" },
-                                    { title: "Action"},
-                                ]
-                            })
-                        })
-                },
-                getCoordinators() {
-                    axios({
-                        method: 'post',
-                        url: '/api/basic/events/today',
-                    })
-                        .then((response) => {
-                            this.$data.events = response.data
-                        })
-                        .catch(function (response) {
-                            swal.fire( 'Server Error', 'Kindly Contact the Server Admin','error');
+                                {
+                                    extend: 'csv',
+                                    className: 'btn btn-themecolor waves-effect waves-dark'
+                                },
+                                {
+                                    extend: 'print',
+                                    className: 'btn btn-themecolor waves-effect waves-dark'
+                                },
+                                {
+                                    extend: 'colvis',
+                                    className: 'btn btn-themecolor waves-effect waves-dark',
+                                    collectionLayout: 'fixed two-column'
+                                },
+                                {
+                                    extend: 'copy',
+                                    className: 'btn btn-themecolor waves-effect waves-dark'
+                                },
+                                {
+                                    extend: 'excel',
+                                    className: 'btn btn-themecolor waves-effect waves-dark'
+                                }
+                            ],
+                            select: true,
+                            paging: true,
+                            pagingType: 'simple',
+                            "columnDefs": [
+                                {
+                                    "orderable": false,
+                                    "targets": [0, 1, 3]
+                                },
+                                {
+                                    render: function (data, type, full, meta) {
+                                        return "<div class='text-wrap width-100'>" + data + "</div>";
+                                    },
+                                    targets: 3
+                                }
+                            ],
+                            "order": [[0, "asc"]],
+                            fixedHeader: {
+                                header: true,
+                            },
+                            columns: [
+                                {title: "Sr.", responsivePriority: 5, targets: 0},
+                                {title: "Registration Number", responsivePriority: 5},
+                                {title: "Name", responsivePriority: 5},
+                                {title: "School and Branch", responsivePriority: 10},
+                                {title: "Balance", responsivePriority: 10},
+                                {title: "Action", responsivePriority: 1},
+                            ],
                         });
-                },
-                markAttendence()
-                {
+                        $('.attendance-checkbox-default').bootstrapSwitch({
+                            animate: true,
+                            onInit: function (event, state) {
 
+                            },
+                            onSwitchChange: function (event, state) {
+                                if (state === true) {
+                                    if (presentStudents.filter(student => student.collegeUID === event.delegateTarget.dataset.collegeid).length === 0) {
+                                        presentStudents.push({collegeUID: event.delegateTarget.dataset.collegeid,enrollmentID:event.delegateTarget.dataset.enrollmentid})
+                                    }
+                                } else {
+                                    presentStudents = presentStudents.filter(student => student.collegeUID != event.delegateTarget.dataset.collegeid);
+                                }
+                            },
+                            onText: 'PRESENT',
+                            // onText:'<i class="mdi mdi-check"></i>',
+                            offText: 'ABSENT',
+                            // offText:'<i class="mdi mdi-cross"></i>',
+                            onColor: 'success',
+                            offColor: 'danger'
+                        });
+                        $('.attendance-checkbox-disabled').bootstrapSwitch(
+                            {
+                                onColor: 'danger',
+                                offColor: 'warning',
+                                onText: 'Blocked',
+                                offText: 'Blocked',
+                                disabled: true,
+                                readonly: true,
+                            }
+                        );
+                        $("#actions").show();
+                    });
+
+                },
+                markAttendance() {
+                    swal.fire({
+                        title: 'Head Count',
+                        input: 'number',
+                        type: 'question',
+                        text: 'Kindly perform head count manually and enter the number of present students',
+                        inputAttributes: {
+                            autocapitalize: 'off'
+                        },
+                        showCancelButton: true,
+                        allowOutsideClick: () => false,
+                        confirmButtonText: 'I Confirm',
+                        showLoaderOnConfirm: true,
+                        preConfirm: (value) => {
+                            return axios.post('/api/events/put/attendance/request', {
+                                headcount: value,
+                                event: this.$data.selectedEvent,
+                                dateid:this.$data.events.find(event=>event.eventID===this.$data.selectedEvent)['id'],
+                                students: presentStudents
+                            }).then(response => {
+                                return response;
+                            })
+                                .catch(error => {
+                                    Swal.showValidationMessage(
+                                        error.response.data.message
+                                    )
+                                });
+                            return value;
+                        },
+                    }).then(value=>{
+                        let data=value.value.data;
+                        if(data.result=="success")
+                        {
+                            swal.fire("Attendence Marked","Attendence has been successfully mapped for verification",'success').then();
+                        }
+                    })
                 }
             },
         mounted() {
+            $("#actions").hide();
             this.getEvents();
+        },
+        beforeMount()
+        {
         }
     }
 </script>
 
 <style scoped>
+    .text-wrap {
+        white-space: normal;
+    }
 
+    .width-100 {
+        width: 100px;
+    }
 </style>

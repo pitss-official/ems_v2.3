@@ -61,5 +61,43 @@ class Team extends Model
             ['availedCapacity', '<=', 'maxCapacity']
         ])->get();
     }
+
+
+    //todo: by anu changeTeam.vue
+    public static function getEventByCollegeUID($collegeUID){
+
+        if (User::ifNotExist($collegeUID))
+            return ['title' => 'Invalid RoR', 'error' => 'This ID is not registered'];
+        return DB::table('enrollments')
+            ->where('participantCollegeUID', $collegeUID)
+            ->join('events', 'enrollments.eventID', '=', 'events.id')
+            ->join('teams','enrollments.teamID','=','teams.id')
+            ->select('events.name', 'events.id','teams.id','teams.name')->get();
+
+
+
+
+    }
+
+    //todo: by anu changeTeam.vue
+    public static function getCurrentTeam($collegeUID, $eventID){
+
+        if (User::ifNotExist($collegeUID)||Event::isNotExist($eventID))
+            return ['title' => 'Invalid RoR', 'error' => 'This ID or event is not registered'];
+        return DB::table('enrollments')
+            ->where([['participantCollegeUID', '=', $collegeUID], ['eventID','=', $eventID]])
+            ->join('teams', 'enrollments.teamID', '=', 'teams.id')
+            ->select('teams.name', 'enrollment.teamID','enrollment.id')->get();
+
+    }
+
+    //todo: by anu changeTeam.vue
+    public static function updateTeamID($collegeUID, $eventID, $newTeamID, $oldTeamID){
+        DB::table('teams')->where('teamID', '=', $newTeamID)->increment('availedCapacity');
+
+        DB::table('teams')->where('teamID', '=', $oldTeamID)->decrement('availedCapacity');
+        return DB::table('enrollments')->where([['participantUID','=',$collegeUID], ['eventID','=',$eventID]])->update(['teamID'=>$newTeamID]);
+
+    }
 }
 

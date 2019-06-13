@@ -30,7 +30,8 @@
                                 <td>{{queue.requesterRemarks}}</td>
                                 <td>{{queue.created_at}}</td>
                                 <td ><button v-if="queue.requestedBy != currentUser" @click="getTransactionDetails(queue)" data-target="#approveRequest" data-toggle="modal">Approve</button>
-                                    <button @click="deny(transactionDetails)>Deny</button></td>
+                                    <button @click="deny(transactionDetails)">Deny</button>
+                                </td>
                             </tr>
                             </tbody>
                             <tfoot>
@@ -101,7 +102,8 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default waves-effect">Cancel</button>
-                        <button type="submit" class="btn btn-primary" @click="approve(transactionDetails)">Approve</button>
+                        <button type="submit" class="btn btn-primary" @click="approve(transactionDetails)" v-if="toggleApproveDeny == true">Approve</button>
+                        <button type="submit" class="btn btn-primary" @click="deny(transactionDetails)" v-if="toggleApproveDeny == false">Deny</button>
                     </div>
                 </div>
             </div>
@@ -117,6 +119,7 @@
         data(){
 
             return{
+                toggleApproveDeny: false,
                 currentUser: '',
                 approvalRemarks: '',
                 queues:[],
@@ -170,6 +173,8 @@
                 },
                 approve(transactionDetails)
                 {
+                    this.$data.toggleApproveDeny = true;
+                    $('#approveRequest').modal('show');
                     if(transactionDetails.requestedBy==currentUserID)
                     {
                         swal.fire("Error","You cannot approve your own request","error");
@@ -194,15 +199,30 @@
                 },
                 deny(transactionDetails)
                 {
+                    this.$data.toggleApproveDeny = false;
+                    $('#approveRequest').modal('show');
+
                     axios.post('/api/deny/user/queues/denyPendingActions', {id:this.$data.transactionDetails.id,approvalRemarks:this.$data.approvalRemarks})
                         .then( response => {
-
-                }, error => {
-
-                });
+                            $('#approveRequest').modal('hide');
+                            if(this.$data.transactionDetails.requestedBy == currentUserID){
+                                this.$data.transactionDetails.requestedBy == "you"}
+                            if(isNaN(response.data.id))
+                                swal.fire("Error",response.data.id.error,"error")
+                            else{
+                                swal.fire({
+                                    title: 'Denied successfully',
+                                    text: 'You have successfully denied request created by ' + this.$data.transactionDetails.requestedBy,
+                                    type: 'success',
+                                    backdrop: `rgba(0, 0, 123, 0.4)`
+                                });}
+                        }, error => {
+                            // Handle error response
+                        });
 
                 },
-            }
+
+        }
     }
 </script>
 

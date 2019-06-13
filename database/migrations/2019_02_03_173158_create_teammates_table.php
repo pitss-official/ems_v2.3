@@ -13,14 +13,14 @@ class CreateTeammatesTable extends Migration
      */
     public function up()
     {
-        Schema::create('teammates', function (Blueprint $table) {
-            $table->unsignedBigInteger('id')->autoIncrement();
-            $table->unsignedBigInteger('teamID');
-            $table->unsignedInteger('collegeUID');
-            $table->foreign('collegeUID')->references('collegeUID')->on('users');
-            //$table->foreign('teamID')->references('id')->on('teams');
-            $table->timestamps();
-        });
+//        Schema::create('teammates', function (Blueprint $table) {
+//            $table->unsignedBigInteger('id')->autoIncrement();
+//            $table->unsignedBigInteger('teamID');
+//            $table->unsignedInteger('collegeUID');
+//            $table->foreign('collegeUID')->references('collegeUID')->on('users');
+//            //$table->foreign('teamID')->references('id')->on('teams');
+//            $table->timestamps();
+//      });
     }
 
     /**

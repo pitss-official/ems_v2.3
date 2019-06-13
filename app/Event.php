@@ -43,17 +43,20 @@ class Event extends Model
         ])->get();
     }
 
-    public static function getTodayEvent()
-    {
-        return self::where([
-            ['visibility', '=', 1],
-            ['approvalID', '>', 0],
-            ['startDate', '<=', Carbon::now()],
-//            ['events.filledSeats','<=','events.seats'],
-            ['fillingStatus', '>', 0]
-        ])->get();
-    }
-
+//    public static function getTodayEvent()
+//    {
+//        return self::where([
+//            ['visibility', '=', 1],
+//            ['approvalID', '>', 0],
+//            ['startDate', '<=', Carbon::now()],
+////            ['events.filledSeats','<=','events.seats'],
+//            ['fillingStatus', '>', 0]
+//        ])->get();
+//    }
+public static function findByDate($date)
+{
+    return Eventdate::getDateWiseEvents($date);
+}
     public static function isNotExist($id)
     {
         if (Event::where('id', $id)->count() != 1)
