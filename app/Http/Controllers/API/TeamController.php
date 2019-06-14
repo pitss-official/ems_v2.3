@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\API;
 
+use App\Event;
 use App\Http\Controllers\Controller;
 use App\Team;
 use App\Enrollment;
@@ -78,53 +79,51 @@ class TeamController extends Controller
 
 
     //todo: by anu changeTeam.vue
-    public function getTeam(Request $request ){
-        $validatedData = $request->validate([
-            'regNo'=> 'bail|required|integer|digits:8|exists:enrollable,participantCollegeUID',
-            'eventID'=> 'bail|required|min:1|integer|exists:events,id'
-        ]);
-
-        $currentUser = User::getCurrentAPIUser()['collegeUID'];
-        if($currentUser == $validatedData['regNo'])
-            throw new \Exception('user cant change his/her own team');
-
-        else{
-            return Enrollment::getCurrentTeam($validatedData['regNo'], $validatedData['eventID']);
-        }
-    }
+//    public function getTeam(Request $request ){
+//        $validatedData = $request->validate([
+//            'regNo'=> 'bail|required|integer|digits:8|exists:enrollable,participantCollegeUID',
+//            'eventID'=> 'bail|required|min:1|integer|exists:events,id'
+//        ]);
+//
+//        $currentUser = User::getCurrentAPIUser()['collegeUID'];
+//        if($currentUser == $validatedData['regNo'])
+//            throw new \Exception('user cant change his/her own team');
+//
+//        else{
+//            return Enrollment::getCurrentTeam($validatedData['regNo'], $validatedData['eventID']);
+//        }
+//    }
 
     //todo: by anu changeTeam.vue
-    public function fetchTeamList(Request $request){
-        $validatedData = $request->validate([
-            'regNo'=> 'bail|required|integer|digits:8|exists:enrollments,participantCollegeUID',
-            'eventID'=> 'bail|required|min:1|integer|exists:events,id'
-        ]);
-
-        $currentUser = Auth::guard('api')->user()->collegeUID;
-        if($currentUser == $validatedData['regNo'])
-            throw new \Exception('user cant change his/her own team');
-
-        else{
-            return Team::getAllEnrollable($validatedData['eventID']);
-        }
-    }
+//    public function fetchTeamList(Request $request){
+//        $validatedData = $request->validate([
+//            'regNo'=> 'bail|required|integer|digits:8|exists:enrollments,participantCollegeUID',
+//            'eventID'=> 'bail|required|min:1|integer|exists:events,id'
+//        ]);
+//
+//        $currentUser = Auth::guard('api')->user()->collegeUID;
+//        if($currentUser == $validatedData['regNo'])
+//            throw new \Exception('user cant change his/her own team');
+//
+//        else{
+//            return Team::getAllEnrollable($validatedData['eventID']);
+//        }
+//    }
 
     //todo: by anu for changeTeam.vue
     public function updateTeam(Request $request){
         $validatedData = $request->validate([
             'regNo'=> 'bail|required|integer|digits:8|exists:enrollments,participantCollegeUID',
-            'eventID'=> 'bail|required|min:1|integer|exists:events,id',
+            'enrollmentID'=> 'bail|required|integer|exists:enrollments,id',
             'newTeamID'=> 'bail|required|min:0|exists:teams,id',
         ]);
-        $e=Enrollment::firstOrFail($validatedData['regNo']);
-        $n = Team::findorFail($validatedData['newTeamID']);
+        $e=Enrollment::findOrFail($validatedData['enrollmentID']);
+        $n = Team::findOrFail($validatedData['newTeamID']);
         $oldTeamID = $e->teamID;
-
-        if(Team::isTeamable($validatedData['eventID'])) {
             if (Team::isNotExistByName($validatedData['newTeamID'])) {
                 if($n->availedCapacity < $n->maxCapacity)
                 {
-                    return Team::updateTeamName($validatedData['regNo'],$validatedData['eventID'],$validatedData['newTeamID'], $oldTeamID);
+                    return Team::updateTeamID($validatedData['regNo'],$validatedData['enrollmentID'],$validatedData['newTeamID'], $oldTeamID);
 
                 }
                 else{
@@ -134,13 +133,8 @@ class TeamController extends Controller
                     ];
                 }
 
-            } else {
-                return [
-                    'error' => 'The team already exists',
-                    'message' => 'Try another team name',
-                ];
             }
-        }
+
 
         else{
             throw new \Exception("event does not support teams");
@@ -184,6 +178,6 @@ class TeamController extends Controller
 
     public function listAll($eventID)
     {
-        return Team::getAllEnrollable($eventID);
+        return Event::findOrFail($eventID)->teams()->whereColumn('maxCapacity','>','availedCapacity')->get();
     }
 }

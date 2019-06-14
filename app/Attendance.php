@@ -8,7 +8,7 @@ class Attendance extends Model
 {
     //
     protected $table='attendance';
-    protected $fillable=['eventID','attendeeUID','coordinatorUID','verified','verifiedBy','dateID'];
+    protected $fillable=['eventID','attendeeUID','coordinatorUID','verified','verifiedBy','dateID','enrollmentID'];
 //    protected $visible=['']
 
     public static function createRequest($validatedData,int $coordinatorID,$dateObject)

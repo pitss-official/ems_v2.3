@@ -19,6 +19,7 @@ class Eventdate extends Model
             ])
             ->join('events','eventdates.eventID','=','events.id')
             ->select('eventdates.id','events.name','eventdates.motive','eventdates.eventID')
+            ->orderBy('events.name','ASC')
             ->get();
     }
 }

@@ -20,16 +20,6 @@ class EnrollmentController extends Controller
     {
         //$this->middleware('auth:api');
     }
-    public function getAllEnrolledStudents(int $eventID)
-    {
-        return DB::table('enrollments')->where('enrollments.eventID',$eventID)
-            ->join('users','enrollments.participantCollegeUID','=','users.collegeUID')
-            ->join('accounts','enrollments.participantCollegeUID','=','accounts.number')
-            ->join('teams','enrollments.teamID','=','teams.id')
-            ->select('users.firstName','users.middleName','users.lastName','users.collegeUID','users.school','users.branch','accounts.balance','teams.name','enrollments.id')
-            ->orderBy('teams.name','asc')
-            ->get();
-    }
 
     /**
      * Display a listing of the resource.

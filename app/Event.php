@@ -75,6 +75,10 @@ public static function findByDate($date)
     {
         return $this->hasOne('App\User');
     }
+    public function teams()
+    {
+        return $this->hasMany('App\Team','eventID','id');
+    }
 
     public function approver()
     {

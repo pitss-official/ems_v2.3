@@ -20,6 +20,9 @@ class CreateSmartcardsTable extends Migration
             $table->string('sIDC', '10');
             $table->string('sIDD', '10');
             $table->string('sIDE', '10');
+            $table->boolean('isActive')->default(false);
+            $table->bigInteger('eventID');
+            $table->foreign('eventID')->references('id')->on('events');
             $table->unique(['sIDA', 'sIDB', 'sIDC', 'sIDD', 'sIDE']);
             $table->boolean('touched')->default(false);
             $table->boolean('used')->default(false);

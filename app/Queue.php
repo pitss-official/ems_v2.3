@@ -579,6 +579,7 @@ class Queue extends Model
             'authenticationLevel'=>$approverLevel,
             'type'=>505,
             'specificApproval'=>0,
+            'visibility'=>0,
             'typeMessage'=>$typeMessage,
         ])->id;
     }

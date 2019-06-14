@@ -18,6 +18,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 Route::get('fetch/navigation','API\NavigationController@pushAllLinks');
 Route::get('fetch/user/queues/pendingActions','API\QueueController@index');
+Route::get('fetch/user/queues/pendingAttendance','API\AttendenceController@index');
 Route::post('approve/user/queues/approvePendingActions','API\QueueController@getApprovalDetails');
 Route::post('deny/user/queues/denyPendingActions','API\QueueController@denyRequestDetails');
 Route::get('fetch/user/account/transactions','API\CashFlowController@listAllTransactions');
@@ -43,7 +44,7 @@ Route::get('/events/find/enrollable/{eventID}/teams/','API\TeamController@listAl
 
 //Route::get('/events/find/allOccurringToday','API\EventController@todaysEvents');
 Route::get('/events/all/onDate/{date}','API\EventController@findByDate');
-Route::get('/events/{eventID}/find/participants','API\EnrollmentController@getAllEnrolledStudents');
+Route::get('/events/{eventID}/find/participants','API\AttendenceController@getAllEnrolledStudents');
 Route::post('/forms/events/enroll/student','API\EnrollmentController@store');
 Route::post('/forms/venues/register','API\VenueController@store');
 

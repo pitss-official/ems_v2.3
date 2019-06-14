@@ -7,6 +7,8 @@ use App\Eventdate;
 use App\Exceptions\AttendanceException;
 use App\Http\Controllers\Controller;
 use App\User;
+use Illuminate\Support\Facades\DB;
+use App\Queue;
 use Illuminate\Http\Request;
 
 class AttendenceController extends Controller
@@ -18,9 +20,32 @@ class AttendenceController extends Controller
      */
     public function index()
     {
-        //
+        $currentLevel = User::getCurrentAPIUser()['level'];
+//        return Queue::where([
+//            ['type', 505],
+//            ['authenticationLevel','<=',$currentLevel],
+//            ['isApproved','!=',1],
+//            ['visibility','!=',0]])->get();
+        return DB::table('enrollments')->where('enrollments.eventID',8)
+            ->join('users','enrollments.participantCollegeUID','=','users.collegeUID')
+            ->join('accounts','enrollments.participantCollegeUID','=','accounts.number')
+            ->join('teams','enrollments.teamID','=','teams.id')
+            ->leftJoin('attendance','enrollments.id','=','attendance.enrollmentID')
+            ->select('users.firstName','users.middleName','users.lastName','users.collegeUID','users.school','users.branch',
+                'accounts.balance','teams.name as teamName','enrollments.id','attendance.id as attendanceID')
+            ->orderBy('teams.name','asc')
+            ->get();
     }
-
+    public function getAllEnrolledStudents(int $eventID)
+    {
+        return DB::table('enrollments')->where('enrollments.eventID',$eventID)
+            ->join('users','enrollments.participantCollegeUID','=','users.collegeUID')
+            ->join('accounts','enrollments.participantCollegeUID','=','accounts.number')
+            ->join('teams','enrollments.teamID','=','teams.id')
+            ->select('users.firstName','users.middleName','users.lastName','users.collegeUID','users.school','users.branch','accounts.balance','teams.name as teamName','enrollments.id')
+            ->orderBy('teams.name','asc')
+            ->get();
+    }
     /**
      * Store a newly created resource in storage.
      *
@@ -36,6 +61,7 @@ class AttendenceController extends Controller
             'students.*.enrollmentID'=>'required|numeric|exists:enrollments,id',
             'students.*.collegeUID'=>'required|numeric|digits:8|exists:users,collegeUID',
         ]);
+
         $date=Eventdate::findOrFail($validatedData['dateid']);
 //        if($date->attendanceState==true)
 //            throw new AttendanceException("Attendence already marked for this date and is sent for verification");

@@ -23,6 +23,7 @@ class Enrollment extends Model
 
     public static function getAllStudents($eventID)
     {
+        //check usage
         return Enrollment::where('eventID', $eventID);
     }
 
@@ -128,9 +129,6 @@ class Enrollment extends Model
         if ($amount < $minimumAmountToPay) return ['title' => 'Cannot Reserve Seat', 'error' => 'The amount is lesser than Allowed'];
         else {
             return DB::transaction(function () use ($amount, $event, $enrollingStudentCollegeUID, $coordinatorCollegeUID, $teamID) {
-                if ($teamID > 0) {
-                    Team::reduceVacancyNonTransaction($teamID);
-                }
                 /*
                  * Step 1: Transfer requested amount from the coordinator account to the student account
                  */
@@ -172,12 +170,4 @@ class Enrollment extends Model
                 , 5);
         }
     }
-    public function refundRequestInitiate($enrollmentID)
-    {
-
-
-    }
-
-
-
 }

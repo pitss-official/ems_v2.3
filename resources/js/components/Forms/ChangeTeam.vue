@@ -17,7 +17,7 @@
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label class="control-label">Registration Number</label>
-                                                <input v-model="regNo" @change="findEvent" @tab="findEvent" name="regNo" type="text" class="form-control" :class="{ 'is-invalid': form.errors.has('regNo') }">
+                                                <input v-model="form.regNo" @change="findEvent" @tab="findEvent" name="regNo" type="text" class="form-control" :class="{ 'is-invalid': form.errors.has('regNo') }">
 
                                                 <has-error :form="form" field="regNo"></has-error>
                                             </div>
@@ -29,9 +29,9 @@
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label>Select Event</label>
-                                                <select type="text" @change="findTeam" @tab="findTeam" name="eventID" v-model="form.eventID" class="form-control" :class="{ 'is-invalid': form.errors.has('eventID') }">
-                                                    <option v-bind:value="event.id" v-for="event in eventList">
-                                                        {{ event.name }}
+                                                <select type="text"  name="eventID" v-model="form.eventID"  @change="findTeam" @tab="findTeam" class="form-control" :class="{ 'is-invalid': form.errors.has('eventID') }">
+                                                    <option v-bind:value="event.eventID" v-for="event in eventList">
+                                                        {{ event.eventName }}
                                                     </option>
 
                                                 </select>
@@ -51,7 +51,8 @@
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label class="control-label">Current Team : {{currentTeamName}}</label>
+                                            <label class="control-label">Current Team</label>
+                                            <input class="form-control" v-model="currentTeamName" disabled readonly/>
                                             <!--<textarea  id="description" v-model="form.description" class="form-control" :class="{ 'is-invalid': form.errors.has('description') }"></textarea>-->
                                             <!--<has-error :form="form" field="description"></has-error>-->
                                         </div>
@@ -93,12 +94,13 @@
                 eventList: [],
                 teamList: [],
                 currentTeamName: '',
-                regNo: '',
+
 
                 form: new Form({
 
                     eventID: '',
-
+                    regNo: '',
+                    enrollmentID: '',
                     newTeamID: '',
                 })
             }
@@ -108,6 +110,7 @@
             sendForm() {
                 // Submit the form via a POST request
                 //todo: reset form
+
                 this.form.post('/api/put/user/data/newTeam').then(response => {
                     console.log(response);
                     swal.fire({
@@ -121,7 +124,7 @@
 
 
             findEvent(){
-                axios.post('/api/events/enrollment/find/events', {regNo:this.$data.regNo})
+                axios.post('/api/events/enrollment/find/events', {regNo:this.$data.form.regNo})
                     .then((response)=>{
                             this.$data.eventList = response.data;
 
@@ -132,10 +135,14 @@
             },
 
             findTeam(){
-                axios.post('/api/find/enrolled/teams', {regNo : this.$data.form.regNo, eventID: this.$data.form.eventID})
-                    .then(response=>{
-                            this.$data.teamList = response.data;
 
+                this.$data.currentTeamName = this.$data.eventList.find(event=> event.eventID == this.$data.form.eventID)['teamName'];
+                this.$data.form.enrollmentID = this.$data.eventList.find(event=> event.eventID == this.$data.form.eventID)['enrollmentID'];
+
+                axios.get('/api/events/find/enrollable/' + this.$data.form.eventID+'/teams/')
+                    .then(response=>{
+                            this.$data.teamList = response.data.filter(team=> team.name!=this.$data.currentTeamName);
+                            console.log(this.$data.teamList);
 
                         },
                         error=>{});

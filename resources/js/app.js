@@ -77,6 +77,7 @@ let routes=[
     {path:'/serve/forms/enrollments/changeTeam',component: require('./components/Forms/ChangeTeam').default},
     {path:'/serve/forms/digitalAttendance/Scanner',component: require('./components/Digitalizers/Barcode').default},
     {path:'/serve/action/events/MarkStudentAttendance',component: require('./components/Forms/MarkEventAttendance').default},
+    {path:'/serve/action/events/VerifyStudentAttendance',component: require('./components/Forms/VerifyAttendance').default},
     {path:'*',component: require('./components/Global/404Error').default},
 ]
 const router =new VueRouter({

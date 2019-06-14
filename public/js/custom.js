@@ -206,10 +206,10 @@ function initPage() {
     // ==============================================================
     // This is for the sparkline charts which is coming in the bradcrumb section
     // ==============================================================
-    $('#monthchart').sparkline([5, 6, 2, 9, 4, 7, 10, 12], {
+    $('#monthchart').sparkline([5,9,2,5,18,8,7,8,8], {
         type: 'bar',
         height: '35',
-        barWidth: '4',
+        barWidth: '3',
         resize: true,
         barSpacing: '4',
         barColor: '#1e88e5'
@@ -217,8 +217,8 @@ function initPage() {
     $('#lastmonthchart').sparkline([5, 6, 2, 9, 4, 7, 10, 12], {
         type: 'bar',
         height: '35',
-        barWidth: '4',
-        resize: true,
+        barWidth: '3',
+        resize: false,
         barSpacing: '4',
         barColor: '#7460ee'
     });
