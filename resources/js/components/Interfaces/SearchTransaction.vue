@@ -7,66 +7,116 @@
                         <h4 class="m-b-0 text-white">Search Transactions</h4>
                     </div>
                     <div class="card-body">
-                        <form @submit.prevent="search" class="form-material">
+                        <form @submit.prevent="findTransactions" class="form-material">
                             <div class="form-body">
-                                <h3 class="card-title">Enter Transaction Details</h3>
+                                <h3 class="card-title" @click="toggleSearchOptions">Transaction Details
+                                    <div class="pull-right" id="search-trans-plus-button" >
+                                        <button class="btn btn-themecolor"
+                                                id="trans-trigger-btn" type="button"><i class="fa fa-plus"></i></button>
+                                    </div>
+                                </h3>
                                 <hr>
-                                <alert-errors :form="student"></alert-errors>
-                                <div class="row p-t-20">
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label class="control-label">Registration Number</label>
-                                            <input @change="find" @tab="find" autofocus class="form-control" id="regNo"
-                                                   name="RegistrationNumber" placeholder="" required type="number"
-                                                   v-model="student.collegeUID"
-                                                   v-validate="'required|numeric|digits:8'">
-                                            <small class="form-control-feedback">Press TAB to fetch name</small>
+                                <div id="trans-search-options">
+                                    <div class="row p-t-20">
+                                        <div class="col-md-4">
+                                            <div class="form-group"><label class="control-label">Registration Number</label>
+                                                <input autofocus class="form-control" placeholder="eg. 11711709"
+                                                       type="number" v-model="collegeUID">
+                                                <small class="form-control-feedback">Enter receiver or Sender college
+                                                    ID
+                                                </small>
+                                            </div>
+                                        </div>
+                                        <!--/span-->
+                                        <div class="col-md-8">
+                                            <div class="form-group">
+                                                <label class="control-label">Name</label>
+                                                <input class="form-control" placeholder="Eg. Raman Mishra" type="text"
+                                                       v-model="name">
+                                                <small class="form-control-feedback">Enter name of the engaged student
+                                                </small>
+                                            </div>
+                                        </div>
+                                        <!--/span-->
+                                    </div>
+                                    <!--/row-->
+                                    <!--/row-->
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label class="control-label">Transaction ID</label>
+                                                <input class="form-control" placeholder="eg. 55" type="number"
+                                                       v-model="transactionID">
+                                                <small class="form-control-feedback">Registered Mobile</small>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label class="control-label">Queue ID</label>
+                                                <input class="form-control" placeholder="eg. 590" type="number"
+                                                       v-model="queueID">
+                                                <small class="form-control-feedback">Queue associated with the transaction</small>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label class="control-label">Amount</label>
+                                                <input class="form-control" placeholder="eg. 500" type="number" v-model="amount" value="0.00">
+                                                <small class="form-control-feedback">Amount associated with the
+                                                    transaction
+                                                </small>
+                                            </div>
                                         </div>
                                     </div>
-                                    <!--/span-->
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label class="control-label">Name</label>
-                                            <!--				form-group has-danger/has-success									form-control-danger-->
-                                            <input class="form-control" id="name"
-                                                   placeholder="Enter Registration Number to Fetch" readonly type="text"
-                                                   v-model="student.name">
-                                            <small class="form-control-feedback">
-                                                <div class="label label-light-danger" v-show="student.balance"><p
-                                                    style="font-size: 140% !important;" v-text="student.balance"></p>
-                                                </div>
-                                            </small>
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label class="control-label">Account number</label>
+                                                <input class="form-control" placeholder="eg. 99887766" type="number"
+                                                       v-model="accountNumber">
+                                                <small class="form-control-feedback">Account number of sender or
+                                                    receiver
+                                                </small>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label class="control-label">Initiator</label>
+                                                <input class="form-control" placeholder="eg. 99887766" type="number"
+                                                       v-model="initBy">
+                                                <small class="form-control-feedback">College ID of transaction initiator
+                                                </small>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label class="control-label">Date</label>
+                                                <input class="form-control" type="datetime-local" v-model="transDate">
+                                                <small class="form-control-feedback">Date of Transaction</small>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label class="control-label">Description</label>
+                                                <input class="form-control" placeholder="eg. Cash Transfer" type="text"
+                                                       v-model="description">
+                                                <small class="form-control-feedback">description associated with
+                                                    transaction
+                                                </small>
+                                            </div>
                                         </div>
                                     </div>
-                                    <!--/span-->
-                                </div>
-                                <!--/row-->
-                            </div>
-                            <!--/row-->
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label class="control-label">Mobile Number (Optional)</label>
-                                        <input class="form-control" id="mobile" placeholder="" type="text"
-                                               v-model="student.mobile">
-                                        <small class="form-control-feedback">Registered Mobile</small>
+                                    <div class="form-actions">
+                                        <button class="btn waves btn-themecolor" id="sub" type="submit"><i
+                                                class="fa fa-search"></i>
+                                            Search
+                                        </button>
+                                        <button class="btn btn-danger" type="reset" onClick="history.back()">Cancel & Back</button>
                                     </div>
                                 </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label class="control-label">Amount</label>
-                                        <input class="form-control" id="amount" onChange='$("#sub").focus()'
-                                               placeholder="₹" required type="number" v-model="student.amount"
-                                               v-validate="'required|min:1'" value="0.00">
-                                        <small class="form-control-feedback">Currently Supported ₹,$</small>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-actions">
-                                <button class="btn waves btn-success" id="sub" type="submit"><i class="fa fa-check"></i>
-                                    Create Request
-                                </button>
-                                <button class="btn btn-danger" type="reset">Cancel</button>
                             </div>
                         </form>
                     </div>
@@ -78,10 +128,38 @@
 
 <script>
     export default {
-        name: "SearchTransaction"
+        name: "SearchTransaction",
+        data() {
+            return {
+                transactionID: null,
+                collegeUID: null,
+                accountNumber: null,
+                amount: null,
+                queueID: null,
+                transDate: null,
+                description: null,
+                initBy: null,
+                name: null,
+            }
+        },
+        methods: {
+            findTransactions() {
+                this.toggleSearchOptions();
+                axios.post('/api/search/transactions/by-data/',this.$data).then(response=>console.log(response.data)).catch(e=>console.log(e))
+            },
+            toggleSearchOptions() {
+                $('#search-trans-plus-button').show();
+                if ($("#trans-search-options").is(":hidden") === true) {
+                    $("#trans-search-options").show();
+                    $('#trans-trigger-btn').html('<i class="fa fa-minus"></i>');
+                } else {
+                    $("#trans-search-options").hide();
+                    $('#trans-trigger-btn').html('<i class="fa fa-plus"></i>');
+                }
+            }
+        },
+        mounted() {
+            $('#search-trans-plus-button').hide();
+        }
     }
 </script>
-
-<style scoped>
-
-</style>

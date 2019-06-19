@@ -32,17 +32,19 @@ class QueueController extends Controller
             ['specificApproval', '=', $collegeUID],
             ['isApproved', '!=', 1],
             ['approvedBy', 0],
-            ['visibility', '!=', 0]])
+            ['visibility', '!=', 0],['type','!=',505]])
             ->orWhere([
                 ['authenticationLevel', '<=', $level],
                 ['isApproved', '!=', 1],
                 ['approvedBy', 0],
-                ['visibility', '!=', 0]
+                ['visibility', '!=', 0],
+                ['type','!=',505]
             ])->orWhere([
                 ['requestedBy', '=', $collegeUID],
                 ['isApproved', '!=', 1],
                 ['approvedBy', 0],
-                ['visibility', '!=', 0]
+                ['visibility', '!=', 0],
+                ['type','!=',505]
             ])->get();
         return $qs;
     }

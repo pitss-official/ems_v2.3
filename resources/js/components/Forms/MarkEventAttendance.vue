@@ -110,9 +110,9 @@
                                 state = 'disabled="disabled" readonly="readonly" class="attendance-checkbox-disabled"';
                             else state = 'class="attendance-checkbox-default'
                             let btn = '<input type="checkbox" ' + state + ' data-switch-id="' + j + '" data-collegeID="' + rowArr[j].collegeUID + '" data-enrollmentID="'+rowArr[j].id+'">';
-                            usableDataSet.push([j + 1, rowArr[j].collegeUID, name, schools[rowArr[j].school] + ', ' + rowArr[j].branch, rowArr[j].balance, btn]);
+                            usableDataSet.push([j + 1, rowArr[j].collegeUID, name, schools[rowArr[j].school] + ', ' + rowArr[j].branch,rowArr[j].teamName, rowArr[j].balance, btn]);
                         }
-                        var Table=$('#students-table').DataTable({
+                        var table=$('#students-table').DataTable({
                             data: usableDataSet,
                             responsive: true,
                             dom: 'Bform',
@@ -143,6 +143,21 @@
                                     className: 'btn btn-themecolor waves-effect waves-dark'
                                 }
                             ],
+                            "drawCallback": function ( settings ) {
+                                var api = this.api();
+                                var rows = api.rows( {page:'current'} ).nodes();
+                                var last=null;
+
+                                api.column(4, {page:'current'} ).data().each( function ( group, i ) {
+                                    if ( last !== group ) {
+                                        $(rows).eq( i ).before(
+                                            '<tr class="group"><td colspan="6" class="list-group-item-secondary">'+group+'</td></tr>'
+                                        );
+
+                                        last = group;
+                                    }
+                                } );
+                            },
                             select: true,
                             paging: true,
                             pagingType: 'simple',
@@ -151,6 +166,7 @@
                                     "orderable": false,
                                     "targets": [0, 1, 3]
                                 },
+                                { "visible": false, "targets": 4 },
                                 {
                                     render: function (data, type, full, meta) {
                                         return "<div class='text-wrap width-100'>" + data + "</div>";
@@ -167,10 +183,20 @@
                                 {title: "Registration Number", responsivePriority: 5},
                                 {title: "Name", responsivePriority: 5},
                                 {title: "School and Branch", responsivePriority: 10},
+                                {title: "Team", responsivePriority: 10},
                                 {title: "Balance", responsivePriority: 10},
                                 {title: "Action", responsivePriority: 1},
                             ],
                         });
+                        $('#students-table tbody').on( 'click', 'tr.group', function () {
+                            var currentOrder = table.order()[0];
+                            if ( currentOrder[0] === 4 && currentOrder[1] === 'asc' ) {
+                                table.order( [ 4, 'desc' ] ).draw();
+                            }
+                            else {
+                                table.order( [ 4, 'asc' ] ).draw();
+                            }
+                        } );
                         $('.attendance-checkbox-default').bootstrapSwitch({
                             animate: true,
                             onInit: function (event, state) {
@@ -186,9 +212,7 @@
                                 }
                             },
                             onText: 'PRESENT',
-                            // onText:'<i class="mdi mdi-check"></i>',
                             offText: 'ABSENT',
-                            // offText:'<i class="mdi mdi-cross"></i>',
                             onColor: 'success',
                             offColor: 'danger'
                         });
@@ -204,7 +228,6 @@
                         );
                         $("#actions").show();
                     });
-
                 },
                 markAttendance() {
                     swal.fire({
@@ -213,7 +236,8 @@
                         type: 'question',
                         text: 'Kindly perform head count manually and enter the number of present students',
                         inputAttributes: {
-                            autocapitalize: 'off'
+                            type:'number',
+                            autocapitalize: 'on'
                         },
                         showCancelButton: true,
                         allowOutsideClick: () => false,
@@ -239,7 +263,7 @@
                         let data=value.value.data;
                         if(data.result=="success")
                         {
-                            swal.fire("Attendence Marked","Attendence has been successfully mapped for verification",'success').then();
+                            swal.fire("Attendance Marked","Attendance has been successfully mapped for verification",'success').then();
                         }
                     })
                 }
@@ -253,7 +277,6 @@
         }
     }
 </script>
-
 <style scoped>
     .text-wrap {
         white-space: normal;
@@ -261,5 +284,9 @@
 
     .width-100 {
         width: 100px;
+    }
+    tr.group,
+    tr.group:hover {
+        background-color: #ddd !important;
     }
 </style>

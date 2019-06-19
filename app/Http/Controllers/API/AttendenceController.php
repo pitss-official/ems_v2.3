@@ -21,12 +21,17 @@ class AttendenceController extends Controller
     public function index()
     {
         $currentLevel = User::getCurrentAPIUser()['level'];
-//        return Queue::where([
-//            ['type', 505],
-//            ['authenticationLevel','<=',$currentLevel],
-//            ['isApproved','!=',1],
-//            ['visibility','!=',0]])->get();
-        return DB::table('enrollments')->where('enrollments.eventID',8)
+        return Queue::where([
+            ['type', 505],
+            ['authenticationLevel','<=',$currentLevel],
+            ['isApproved','!=',1],
+            ['visibility','!=',0]])->get();
+
+    }
+
+    public function getAttendanceList(int $eventID){
+
+        return DB::table('enrollments')->where('enrollments.eventID',$eventID)
             ->join('users','enrollments.participantCollegeUID','=','users.collegeUID')
             ->join('accounts','enrollments.participantCollegeUID','=','accounts.number')
             ->join('teams','enrollments.teamID','=','teams.id')
@@ -35,7 +40,10 @@ class AttendenceController extends Controller
                 'accounts.balance','teams.name as teamName','enrollments.id','attendance.id as attendanceID')
             ->orderBy('teams.name','asc')
             ->get();
+
     }
+
+
     public function getAllEnrolledStudents(int $eventID)
     {
         return DB::table('enrollments')->where('enrollments.eventID',$eventID)
@@ -64,18 +72,34 @@ class AttendenceController extends Controller
 
         $date=Eventdate::findOrFail($validatedData['dateid']);
 //        if($date->attendanceState==true)
-//            throw new AttendanceException("Attendence already marked for this date and is sent for verification");
-        if(!isset($validatedData['students'])){
+//            throw new AttendanceException("Attendance already marked for this date and is sent for verification");
+        if(!isset($validatedData['students']) & $validatedData['headcount']==0){
             $date->attendanceState=true;
             $date->save();
             return['result'=>'success'];
         }
-        if($validatedData['headcount']!=count($validatedData['students']))
-            throw new AttendanceException("Headcount Mismatch");
-        else{
+        if(isset($validatedData['students']))
+        if($validatedData['headcount']==count($validatedData['students'])){
             $coordinatorID=User::getCurrentAPIUser()['collegeUID'];
             return Attendance::createRequest($validatedData,$coordinatorID,$date);
-        }
+        } throw new AttendanceException("Headcount Mismatch");
+
+    }
+
+    public function verifyAttendance(Request $request){
+        $validatedData = $request->validate([
+            'id'=> 'required|numeric|exists:queues,id',
+        ]);
+        return Attendance::updateQueueAttendance($validatedData['id']);
+    }
+
+    public function rejectAttendance(Request $request){
+        $validatedData = $request->validate([
+            'queueID'=> 'bail|required|integer|min:0|exists:queues,id',
+        ]);
+
+        return Attendance::rejectAttendanceRequested($validatedData['queueID']);
+
 
     }
 

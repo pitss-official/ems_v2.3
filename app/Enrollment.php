@@ -9,18 +9,11 @@ use Illuminate\Support\Facades\DB;
 class Enrollment extends Model
 {
     //
-    protected $fillable = [
-        'firstName',
-        'middleName',
-        'lastName',
-        'bloodGroup',
-        'nationality',
-        'eventID',
-        'collegeUID',
-
-    ];
     protected $visible = [''];
-
+    public function event()
+    {
+        return $this->hasOne('App\Event','id','eventID');
+    }
     public static function getAllStudents($eventID)
     {
         //check usage
@@ -43,17 +36,17 @@ class Enrollment extends Model
 
     public function transactions()
     {
-        return $this->hasMany('App\Transactions');
+        return $this->hasMany('App\Transactions','id','transactionID');
     }
 
     public function beneficiary()
     {
-        return $this->hasOne('App\User');
+        return $this->hasOne('App\User','collegeUID','participantCollegeUID');
     }
 
     public function initiator()
     {
-        return $this->hasOne('App\User');
+        return $this->hasOne('App\User','collegeUID','coordinatorCollegeUID');
     }
 
     public function enrollWithFullPayment($enrollingStudentCollegeUID, $coordinatorCollegeUID, $teamID)

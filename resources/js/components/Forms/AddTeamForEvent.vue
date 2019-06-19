@@ -1,6 +1,6 @@
 <template>
-    <div id="money-transfer">
-        <div id="money-transfer-main">
+    <div id="add-team">
+        <div id="add-team-main">
             <div class="row">
                 <div class="col-lg-12">
                     <div class="card card-outline-info">
@@ -90,7 +90,7 @@
                 // Submit the form via a POST request
                 //todo: reset form
                 this.form.post('/api/forms/events/team').then(response => {
-                    console.log(response);
+
                     swal.fire({
                         title: 'Bravo!',
                         html: 'You have successfully registered team <b>' + this.form.teamName + '</b>',

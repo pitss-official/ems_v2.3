@@ -9,8 +9,8 @@ use Illuminate\Support\Facades\DB;
 
 class Queue extends Model
 {
-    protected $visible = ['requestedBy', 'created_at', 'requesterRemarks', 'id', 'authenticationLevel','typeMessage'];
-    protected $fillable=['requestedBy','type','typeMessage','requesterRemarks','parameters','authenticationLevel','specificApproval'];
+    protected $visible = ['requestedBy', 'created_at', 'requesterRemarks', 'id', 'authenticationLevel','typeMessage', 'parameters'];
+    protected $fillable=['requestedBy','type','typeMessage','requesterRemarks','parameters','authenticationLevel','specificApproval','visibility'];
     public function initiator()
     {
         return $this->hasOne('App\User');
@@ -568,18 +568,18 @@ class Queue extends Model
                 return $txID;
             }, 5);
     }
-    public function createAttendanceRequestDeTrans(int $creatorUID, $listOfPresentStudents, $requesterRemarks,$typeMessage)
+    public function createAttendanceRequestDeTrans(int $creatorUID,int $eventID, $requesterRemarks,$typeMessage)
     {
         $approverLevel=System::approveAttendanceLevel();
         //step 1: create a queue request with no specific approval
         return Queue::create([
             'requesterRemarks'=>$requesterRemarks,
-            'parameters'=>implode(',',$listOfPresentStudents),
+            'parameters'=>$eventID,
             'requestedBy'=>$creatorUID,
             'authenticationLevel'=>$approverLevel,
             'type'=>505,
             'specificApproval'=>0,
-            'visibility'=>0,
+            'visibility'=>1,
             'typeMessage'=>$typeMessage,
         ])->id;
     }

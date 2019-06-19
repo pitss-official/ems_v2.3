@@ -97,7 +97,28 @@ class CashFlowController extends Controller
     {
         //
     }
-
+    public function search(Request $request)
+    {
+        $validatedData=$request->validate([
+            'transactionID'=>'bail|nullable|exists:transactions,id|numeric|min:0',
+            'collegeUID'=>'bail|nullable|exists:users,collegeUID|numeric|digits:8',
+            'accountNumber'=>'bail|nullable|exists:accounts,number|numeric',
+            'amount'=>'bail|nullable|numeric',
+            'queueID'=>'bail|nullable|exists:queues,id|numeric',
+            'transDate'=>'bail|nullable|date',
+            'description'=>'bail|nullable|string',
+            'initBy'=>'bail|nullable|exists:users,collegeUID|numeric|digits:8',
+            'name'=>'bail|nullable|string',
+        ]);
+        return Transaction::where('id',$validatedData['transactionID'])
+            ->orWhere('receiver',$validatedData['collegeUID'])
+            ->orWhere('sender',$validatedData['collegeUID'])
+            ->orWhere('description','like','%'.$validatedData['description'].'%')
+            ->orWhere('created_at',$validatedData['transDate'])
+            ->orWhere('initBy',$validatedData['initBy'])
+            ->orWhere('amount',$validatedData['amount'])
+            ->get();
+    }
     public function listAllTransactions()
     {
         $user = Auth::guard('api')->user()->collegeUID;

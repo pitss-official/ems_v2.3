@@ -78,6 +78,7 @@ let routes=[
     {path:'/serve/forms/digitalAttendance/Scanner',component: require('./components/Digitalizers/Barcode').default},
     {path:'/serve/action/events/MarkStudentAttendance',component: require('./components/Forms/MarkEventAttendance').default},
     {path:'/serve/action/events/VerifyStudentAttendance',component: require('./components/Forms/VerifyAttendance').default},
+    {path:'/serve/action/events/RequestSmartCard',component: require('./components/Forms/RequestSmartCard').default},
     {path:'*',component: require('./components/Global/404Error').default},
 ]
 const router =new VueRouter({

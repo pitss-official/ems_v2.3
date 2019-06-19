@@ -45,13 +45,20 @@ Route::get('/events/find/enrollable/{eventID}/teams/','API\TeamController@listAl
 //Route::get('/events/find/allOccurringToday','API\EventController@todaysEvents');
 Route::get('/events/all/onDate/{date}','API\EventController@findByDate');
 Route::get('/events/{eventID}/find/participants','API\AttendenceController@getAllEnrolledStudents');
+//todo: check below "int(eventID)" ?
+Route::get('/events/{eventID}/find/verifiable/participants','API\AttendenceController@getAttendanceList');
 Route::post('/forms/events/enroll/student','API\EnrollmentController@store');
 Route::post('/forms/venues/register','API\VenueController@store');
+Route::post('/verify/student/attendance', 'API\AttendenceController@verifyAttendance');
+Route::post('/reject/student/attendance', 'API\AttendenceController@rejectAttendance');
 
 //todo: queue transactions implemention
 Route::post('/forms/moneyTransfer/transaction/initiate','API\EnrollmentController@store');
 Route::post('/verify/enrollment/{EnrollmentID}','API\EnrollmentController@verify');
 Route::post('/verify/venue/{VenueID}','API\VenueController@verify');
+
+//searching routes
+Route::post('/search/transactions/by-data/','API\CashFlowController@search');
 
 
 Route::apiResource('/forms/events/','API\EventController');
