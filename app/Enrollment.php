@@ -108,6 +108,10 @@ class Enrollment extends Model
              * Step 6: reduce the availablity in the team return the Transaction Enrollment ID
              */
             Team::reduceVacancyNonTransaction($teamID);
+            /*
+             * todo:work
+             * Step:7 credit incentives to the coordinator account
+             */
             return $enrollmentID;
         }, 5);
     }

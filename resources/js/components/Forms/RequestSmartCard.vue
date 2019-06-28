@@ -9,7 +9,7 @@
                         </div>
 
                         <div class="card-body">
-                            <form @submit.prevent="" class="form-material">
+                            <form @submit.prevent="sendForm" class="form-material">
                                 <div class="form-body">
                                     <h3 class="card-title">Enter Your Choices</h3>
                                     <hr>
@@ -53,14 +53,15 @@
                                 <div class="row">
                                     <div class="col-md-12">
                                         <div class="form-group">
-                                            <label class="control-label">Value of each pass ()</label>
-                                            <textarea  id="description" v-model="form.description" class="form-control" :class="{ 'is-invalid': form.errors.has('description') }"></textarea>
-                                            <has-error :form="form" field="description"></has-error>
+                                            <label class="control-label">Value of each pass (₹)</label>
+                                            <input  id="description" v-model="form.value" class="form-control" :class="{ 'is-invalid': form.errors.has('value') }"></input>
+                                            <small v-if="form.eventID>0" class="form-control-feedback">The value should be less than or equal to <b>₹{{eventList.find(event=>event.id==form.eventID)['ticketPrice']}}</b></small>
+                                            <has-error :form="form" field="value"></has-error>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="form-actions">
-                                    <button class="btn btn-success" id="sub" type="submit"> <i class="fa fa-check"></i> Create Team</button>
+                                    <button class="btn btn-success" id="sub" type="submit"> <i class="fa fa-check"></i> Create Pass</button>
                                 </div>
                             </form>
                         </div>
@@ -73,7 +74,63 @@
 
 <script>
     export default {
-        name: "request-smart-card"
+        name: "request-smart-card",
+        data(){
+            return{
+                eventList: [],
+                selectedEvent:'',
+
+                form: new Form({
+                    numberPasses: '',
+                    eventID: '',
+                    value: '',
+                })
+            }
+        },
+
+        methods: {
+            sendForm() {
+                // Submit the form via a POST request
+                //todo: reset form
+                this.form.post('/api/forms/generate/smartCards').then(response => {
+                    let rows=[['Sr.No.','Card-ID','Secret Key']];
+                    response.data.forEach((card,serial)=>rows.push([serial+1,card.id,card.code]));
+                    console.log(rows);
+                    var CsvString = "";
+                    rows.forEach((RowItem, RowIndex)=>{
+                        RowItem.forEach((ColItem, ColIndex)=>CsvString += ColItem + ',');
+                        CsvString += "\r\n";
+                    });
+                    CsvString = "data:application/csv," + encodeURIComponent(CsvString);
+                    var x = document.createElement("A");
+                    x.setAttribute("href", CsvString );
+                    x.setAttribute("download","cards.csv");
+                    document.body.appendChild(x);
+                    x.click();
+                    swal.fire({
+                        title: 'Bravo!',
+                        html: 'You have successfully generated cards. Please download the attached file for activation',
+                        type: 'success',
+                        backdrop: 'rgba(0, 0, 123, 0.4)',
+                    });
+                    this.$data.form.reset();
+                });
+            },
+        },
+        //todo: anu create function for filtering non teaming events
+        mounted(){
+            axios({
+                method: 'post',
+                url: '/api/events/find/enrollable/',
+            }).then((response)=> {
+
+                this.$data.eventList = response.data;
+
+            })
+                .catch((error) => {
+                    console.log(error);
+                });
+        }
     }
 </script>
 

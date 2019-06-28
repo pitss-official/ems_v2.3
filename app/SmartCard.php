@@ -34,21 +34,23 @@ class SmartCard extends Model
             ['sIDD', '=', $codeD],
             ['sIDE', '=', $codeE]
         ])->count()==0)
-//            &&$codeA!=$codeB
-//            &&$codeA!=$codeC
-//            &&$codeA!=$codeD
-//            &&$codeA!=$codeE
-//            &&$codeB!=$codeC
-//            &&$codeB!=$codeD
-//            &&$codeB!=$codeE
-//            &&$codeC!=$codeD
-//            &&$codeC!=$codeE
-//            &&$codeD!=$codeE
-//            &&(self::where('sIDA', '=', $codeA)->orWhere('sIDA', '=', $codeB)->orWhere('sIDA', '=', $codeC)->orWhere('sIDA', '=', $codeD)->orWhere('sIDA', '=', $codeE)->count()==0)
-//            &&(self::where('sIDB', '=', $codeA)->orWhere('sIDB', '=', $codeB)->orWhere('sIDB', '=', $codeC)->orWhere('sIDB', '=', $codeD)->orWhere('sIDB', '=', $codeE)->count()==0)
-//            &&(self::where('sIDC', '=', $codeA)->orWhere('sIDC', '=', $codeB)->orWhere('sIDC', '=', $codeC)->orWhere('sIDC', '=', $codeD)->orWhere('sIDC', '=', $codeE)->count()==0)
-//            &&(self::where('sIDD', '=', $codeA)->orWhere('sIDD', '=', $codeB)->orWhere('sIDD', '=', $codeC)->orWhere('sIDD', '=', $codeD)->orWhere('sIDD', '=', $codeE)->count()==0)
-//            &&(self::where('sIDE', '=', $codeA)->orWhere('sIDE', '=', $codeB)->orWhere('sIDE', '=', $codeC)->orWhere('sIDE', '=', $codeD)->orWhere('sIDE', '=', $codeE)->count()==0)
+        //optional start
+            &&$codeA!=$codeB
+            &&$codeA!=$codeC
+            &&$codeA!=$codeD
+            &&$codeA!=$codeE
+            &&$codeB!=$codeC
+            &&$codeB!=$codeD
+            &&$codeB!=$codeE
+            &&$codeC!=$codeD
+            &&$codeC!=$codeE
+            &&$codeD!=$codeE
+            &&(self::where('sIDA', '=', $codeA)->orWhere('sIDA', '=', $codeB)->orWhere('sIDA', '=', $codeC)->orWhere('sIDA', '=', $codeD)->orWhere('sIDA', '=', $codeE)->count()==0)
+            &&(self::where('sIDB', '=', $codeA)->orWhere('sIDB', '=', $codeB)->orWhere('sIDB', '=', $codeC)->orWhere('sIDB', '=', $codeD)->orWhere('sIDB', '=', $codeE)->count()==0)
+            &&(self::where('sIDC', '=', $codeA)->orWhere('sIDC', '=', $codeB)->orWhere('sIDC', '=', $codeC)->orWhere('sIDC', '=', $codeD)->orWhere('sIDC', '=', $codeE)->count()==0)
+            &&(self::where('sIDD', '=', $codeA)->orWhere('sIDD', '=', $codeB)->orWhere('sIDD', '=', $codeC)->orWhere('sIDD', '=', $codeD)->orWhere('sIDD', '=', $codeE)->count()==0)
+            &&(self::where('sIDE', '=', $codeA)->orWhere('sIDE', '=', $codeB)->orWhere('sIDE', '=', $codeC)->orWhere('sIDE', '=', $codeD)->orWhere('sIDE', '=', $codeE)->count()==0)
+//        optional end
         )
         {
             $id=Self::create([
@@ -59,7 +61,7 @@ class SmartCard extends Model
                 'sIDE'=>$codeE,
                 'eventID'=>$eventID
             ])->id;
-            return ['id'=>$id,'code'=>$codeA.'-'.$codeB.'-'.$codeC.'-'.$codeD.'-'.$codeE];
+            return ['id'=>$id,'code'=>implode('-',[$codeA,$codeB,$codeC,$codeD,$codeE])];
         }
         else return false;
     }
@@ -105,4 +107,6 @@ class SmartCard extends Model
     {
         DB::table('smartcards')->where('id', '=', $couponID)->update(['touched' => true]);
     }
+
+
 }

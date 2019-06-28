@@ -51,6 +51,7 @@ Route::post('/forms/events/enroll/student','API\EnrollmentController@store');
 Route::post('/forms/venues/register','API\VenueController@store');
 Route::post('/verify/student/attendance', 'API\AttendenceController@verifyAttendance');
 Route::post('/reject/student/attendance', 'API\AttendenceController@rejectAttendance');
+Route::post('/forms/generate/smartCards', 'API\SmartCardController@generateCardList');
 
 //todo: queue transactions implemention
 Route::post('/forms/moneyTransfer/transaction/initiate','API\EnrollmentController@store');

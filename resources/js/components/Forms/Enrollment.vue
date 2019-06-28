@@ -398,7 +398,7 @@
                                         this.student.reset();
                                     }).catch()
                                 {
-                                    swal("Enrollment Failed", "Some error occurred during enrollment", "error")
+                                    swal.fire("Enrollment Failed", "Some error occurred during enrollment", "error")
                                 }
                             }
 
@@ -406,7 +406,7 @@
                     });
                 }).catch()
                 {
-                    swal("Invalid Inputs", "Your form has multiple errors", "error");
+                    swal.fire("Invalid Inputs", "Your form has multiple errors", "error");
                 }
             },
             getEvents() {

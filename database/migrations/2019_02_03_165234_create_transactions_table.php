@@ -17,6 +17,7 @@ class CreateTransactionsTable extends Migration
             $table->unsignedBigInteger('id')->autoIncrement();
             $table->unsignedBigInteger('receiver');
             $table->unsignedBigInteger('sender');
+            $table->unsignedInteger('type')->default(100);
             $table->string('description', 150);
             $table->boolean('wasQueued')->default(0);
             $table->float('amount', 16, 4);

@@ -69,7 +69,7 @@ let routes=[
     {path:'/serve/forms/enrollment/collectCash',component: require('./components/Forms/EnrollmentFees').default},
     {path:'/serve/forms/money/transferBalance/interMember',component: require('./components/Forms/TransferBalance').default},
     {path:'/serve/forms/money/requestBalance/interMember',component: require('./components/Forms/RequestBalance').default},
-    {path:'/serve/forms/money/transfer/interMember/batch',component: require('./components/Forms/BatchTransfer').default},
+    {path:'/serve/forms/money/transfer/interMember/batch',component: require('./components/Forms/BatchMoneyTransfer').default},
     {path:'/serve/forms/search/transaction',component: require('./components/Interfaces/SearchTransaction').default},
     {path:'/serve/forms/event/new',component: require('./components/Forms/RegisterEvent').default},
     {path:'/serve/forms/venues/new',component: require('./components/Forms/AddEventVenue').default},
