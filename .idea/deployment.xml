@@ -1,37 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="PublishConfigData" serverName="polyhomesvr" overwriteAll="false" uploadOnCheckin="d57a7f12-022c-4bd8-a894-d0634b2164de" exclude=".svn;.cvs;.idea;.DS_Store;.git;.hg;*.hprof;*.pyc;.env">
+  <component name="PublishConfigData">
     <serverData>
-      <paths name="ftp_back_polyhomesvr">
+      <paths name="Local Host for EMS Express">
         <serverdata>
           <mappings>
-            <mapping deploy="/" local="$PROJECT_DIR$" web="/" />
+            <mapping local="$PROJECT_DIR$" web="/" />
           </mappings>
-        </serverdata>
-      </paths>
-      <paths name="polyhomesvr">
-        <serverdata>
-          <mappings>
-            <mapping deploy="\" local="$PROJECT_DIR$" web="/" />
-          </mappings>
-          <excludedPaths>
-            <excludedPath path=".env" />
-            <excludedPath local="true" path=".env" />
-            <excludedPath local="true" path="node_modules" />
-            <excludedPath path="node_modules" />
-            <excludedPath local="true" path="X:/EMS_2.3/public/assets" />
-            <excludedPath path="public\assets" />
-            <excludedPath local="true" path="X:/EMS_2.3/node_modules" />
-            <excludedPath local="true" path="yarn.lock" />
-            <excludedPath path="\yarn.lock" />
-            <excludedPath path="vendor" />
-            <excludedPath local="true" path="X:/EMS_2.3/vendor" />
-            <excludedPath path="storage" />
-            <excludedPath local="true" path="X:/EMS_2.3/storage" />
-          </excludedPaths>
         </serverdata>
       </paths>
     </serverData>
-    <option name="myUploadOnCheckinName" value="ftp_back_polyhomesvr" />
   </component>
 </project>

@@ -1,0 +1,1 @@
+for /l %x in (108, 1, 200) do ren ren_*.jpg render_%x.jpg
