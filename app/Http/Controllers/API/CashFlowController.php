@@ -13,7 +13,7 @@ class CashFlowController extends Controller
 {
     public function __construct()
     {
-        //$this->middleware('auth:api');
+        $this->middleware('auth:api');
     }
 
     /**
@@ -121,7 +121,8 @@ class CashFlowController extends Controller
     }
     public function listAllTransactions()
     {
-        $user = Auth::guard('api')->user()->collegeUID;
+        $user = User::getCurrentAPIUser()['collegeUID'];
+        $this->authorize('viewAll',Transaction::class);
         return Transaction::where([
             ['receiver', $user],
             ['visibility', 1],

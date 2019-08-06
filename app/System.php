@@ -32,4 +32,8 @@ class System extends Model
     {
         return "Attendance Marked";
     }
+    public static function getPropertyValueByName($name)
+    {
+        return Self::where('name',$name)->pluck('value');
+    }
 }
