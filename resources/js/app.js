@@ -75,6 +75,7 @@ let routes=[
     {path:'/serve/forms/venues/new',component: require('./components/Forms/AddEventVenue').default},
     {path:'/serve/forms/event/teams/new',component: require('./components/Forms/AddTeamForEvent').default},
     {path:'/serve/forms/enrollments/changeTeam',component: require('./components/Forms/ChangeTeam').default},
+    {path:'/serve/forms/events/budgets/add',component: require('./components/Forms/AddBudget').default},
     {path:'/serve/forms/digitalAttendance/Scanner',component: require('./components/Digitalizers/Barcode').default},
     {path:'/serve/action/events/MarkStudentAttendance',component: require('./components/Forms/MarkEventAttendance').default},
     {path:'/serve/action/events/VerifyStudentAttendance',component: require('./components/Forms/VerifyAttendance').default},
@@ -103,6 +104,7 @@ Vue.component('naiveRightSideBar', require('./components/Personal/SideBar').defa
 Vue.component('naiveQueues', require('./components/Personal/Queues').default);
 Vue.component('naiveNotifications', require('./components/Personal/Notifications').default);
 Vue.component('naiveMessages', require('./components/Personal/Messages').default);
+Vue.component('moduleUnderConstruction', require('./components/Global/ModuleUnderConstruction').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

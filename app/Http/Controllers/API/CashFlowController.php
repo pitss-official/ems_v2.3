@@ -4,6 +4,8 @@ namespace App\Http\Controllers\API;
 
 use App\Account;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\CashFlowCreateForStudentRequest;
+use App\Http\Requests\TransactionSearchRequest;
 use App\Transaction;
 use App\User;
 use Illuminate\Http\Request;
@@ -17,37 +19,20 @@ class CashFlowController extends Controller
     }
 
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
+     * transferring money from Coordinator to Enrolling Student
+     * Step 1 : Check the limit of the user;
+     * Step 2 : Check if the recipient is allowed for direct transfer
+     * Step 3 : Perform nonQueue Transfer
      * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
+     * @throws \Exception
      */
-    public function store(Request $request)
+    public function store(CashFlowCreateForStudentRequest $request)
     {
-        /* this function is intentended for transferring money from Coordinator to Enrolling Student
-         * Step 1 : Check the limit of the user;
-         * Step 2 : Check if the recipient is allowed for direct transfer
-         * Step 3 : Perform nonQueue Transfer
-         */
         $coordinatorID = User::getCurrentAPIUser()['collegeUID'];
-        $validatedData = $request->validate([
-            'collegeUID' => 'required|integer|digits:8|exists:users,collegeUID',
-            'mobile' => 'nullable|integer|digits:10',
-            'amount' => 'required|numeric|min:1'
-        ]);
+        $validatedData = $request->validatedAndSanitized();
         if ($this->negativeStudentAccountBalance($validatedData['collegeUID'])['balance'] >= 0) {
-            throw new \Exception("The recipient has non-negative balance or is inaccessible for you. <br><hr><b>Transaction Truncated</b>");
-            return;
+            return ["result"=>'error','message'=>"The recipient has non-negative balance or is inaccessible for you. <br><hr><b>Transaction Truncated</b>"];
         }
         return Transaction::directTransferDeQueue($coordinatorID, $validatedData['collegeUID'], $validatedData['amount'], 'Direct Cash Deposit/Transfer by ' . $coordinatorID, $coordinatorID);
     }
@@ -68,11 +53,6 @@ class CashFlowController extends Controller
      */
     public function show($id)
     {
-        //-
-        $user = \App\User::findOrFail($id);
-        if ($user->authorityLevel <= 10) {
-            return $user;
-        }
     }
 
     /**
@@ -97,19 +77,10 @@ class CashFlowController extends Controller
     {
         //
     }
-    public function search(Request $request)
+    public function search(TransactionSearchRequest $request)
     {
-        $validatedData=$request->validate([
-            'transactionID'=>'bail|nullable|exists:transactions,id|numeric|min:0',
-            'collegeUID'=>'bail|nullable|exists:users,collegeUID|numeric|digits:8',
-            'accountNumber'=>'bail|nullable|exists:accounts,number|numeric',
-            'amount'=>'bail|nullable|numeric',
-            'queueID'=>'bail|nullable|exists:queues,id|numeric',
-            'transDate'=>'bail|nullable|date',
-            'description'=>'bail|nullable|string',
-            'initBy'=>'bail|nullable|exists:users,collegeUID|numeric|digits:8',
-            'name'=>'bail|nullable|string',
-        ]);
+        $validatedData=$request->validatedAndSanitized();
+        $this->authorize('search',Transaction::class);
         return Transaction::where('id',$validatedData['transactionID'])
             ->orWhere('receiver',$validatedData['collegeUID'])
             ->orWhere('sender',$validatedData['collegeUID'])

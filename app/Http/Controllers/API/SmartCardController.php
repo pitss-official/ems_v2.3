@@ -15,6 +15,10 @@ use Illuminate\Support\Facades\Auth;
 
 class SmartCardController extends Controller{
 
+    public function __construct()
+    {
+        $this->middleware('auth:api');
+    }
     public function generateCardList(Request $request){
         $validatedData = $request->validate([
             'numberPasses'=>'bail|required|integer|min:1|max:100',

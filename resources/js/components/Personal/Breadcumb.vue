@@ -54,9 +54,7 @@
                     }).then((response)=>{
                         this.$data.thisMonthEarnings='&#8377;'+response.data.thisMonthEarnings;
                         this.$data.currentBalance='&#8377;'+response.data.currentBalance;
-                    }).catch((error)=>{
-                        console.log(error);
-                    })
+                    }).catch()
                 }
             },
         beforeMount() {

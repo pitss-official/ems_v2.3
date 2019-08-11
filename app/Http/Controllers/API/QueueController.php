@@ -4,16 +4,16 @@ namespace App\Http\Controllers\API;
 
 use App\Exceptions\QueuesExeception;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\QueueStoreRequest;
 use App\Queue;
 use App\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
 class QueueController extends Controller
 {
     public function __construct()
     {
-//        $this->middleware('auth');
+        $this->middleware('auth:api');
     }
 
     /**
@@ -22,17 +22,15 @@ class QueueController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
-//        //
-//        if(\User::ifNotExist(Auth::guard('api')->user()->collegeUID))
-//            return ['error'=>'UnAuthenticated','message'=>'User is not eligible for such view'];
+    {   $this->authorize('list',Queue::class);
         $collegeUID = User::getCurrentAPIUser()['collegeUID'];
         $level = User::getCurrentAPIUser()['level'];
         $qs= Queue::where([
             ['specificApproval', '=', $collegeUID],
             ['isApproved', '!=', 1],
             ['approvedBy', 0],
-            ['visibility', '!=', 0],['type','!=',505]])
+            ['visibility', '!=', 0],
+            ['type','!=',505]])
             ->orWhere([
                 ['authenticationLevel', '<=', $level],
                 ['isApproved', '!=', 1],
@@ -55,15 +53,10 @@ class QueueController extends Controller
      * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(QueueStoreRequest $request)
     {
         //todo:workkkkk
-        $validatedData=$request->validate([
-            'collegeUID'=>'required|numeric|digits:8|exists:users,collegeUID|exists:accounts,number|exists:accounts,collegeUID',
-            'amount'=>'required|numeric|min:1|between:1,9999999',
-            'narration'=>'required|string|min:1|max:100',
-            'mobile'=>'nullable|numeric|digits:10'
-        ]);
+        $validatedData=$request->validatedAndSanitized();
         $q = new Queue();
         $sender=User::getCurrentAPIUser()['collegeUID'];
         $id=$q->createTransferRequest($sender,$validatedData['collegeUID'],$validatedData['amount'],"$sender has sent ₹".$validatedData['amount']." to you. Message : ".$validatedData['narration'].".");

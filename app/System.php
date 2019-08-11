@@ -34,6 +34,19 @@ class System extends Model
     }
     public static function getPropertyValueByName($name)
     {
-        return Self::where('name',$name)->pluck('value');
+        return Self::where('name',$name)->value('value');
+    }
+    public static function sanitize(array $validatedData, array $skipKeys=[])
+    {
+        $result=[];
+        foreach ($validatedData as $key=>$value)
+        {
+            if(in_array($key,$skipKeys))
+            {
+                $result+=[$key=>$value];
+            }
+            else $result+=[$key=>htmlspecialchars(strip_tags($value))];
+        }
+        return $result;
     }
 }

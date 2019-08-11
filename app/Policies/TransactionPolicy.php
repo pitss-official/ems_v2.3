@@ -10,21 +10,24 @@ use Illuminate\Auth\Access\HandlesAuthorization;
 class TransactionPolicy
 {
     use HandlesAuthorization;
-
-    /**
-     * Determine whether the user can view the transaction.
-     *
-     * @param  \App\User  $user
-     * @return mixed
-     */
     public function viewAll(User $user)
     {
-        $requiredLevel=(int)System::getPropertyValueByName('rights_view_transactions_level');
-        if($requiredLevel<=$user->authorityLevel)
-            return true;
+        $requiredLevel=(int)System::getPropertyValueByName('rights_view_self_transactions_level');
+        if($requiredLevel<=$user->authorityLevel)return true;
         else return false;
     }
-
+    public function search(User $user)
+    {
+        $requiredLevel=(int)System::getPropertyValueByName('rights_search_non-self_transactions_level');
+        if($requiredLevel<=$user->authorityLevel)return true;
+        else return false;
+    }
+    public function collectionFromStudent(User $user)
+    {
+        $requiredLevel=(int)System::getPropertyValueByName('rights_collect-cash-from-student_self_transactions_level');
+        if($requiredLevel<=$user->authorityLevel)return true;
+        else return false;
+    }
     /**
      * Determine whether the user can create transactions.
      *

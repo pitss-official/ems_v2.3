@@ -6,6 +6,9 @@ use App\Attendance;
 use App\Eventdate;
 use App\Exceptions\AttendanceException;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\AttendanceRejectRequest;
+use App\Http\Requests\AttendanceStoreRequest;
+use App\Http\Requests\AttendanceVerifyRequest;
 use App\User;
 use Illuminate\Support\Facades\DB;
 use App\Queue;
@@ -13,11 +16,10 @@ use Illuminate\Http\Request;
 
 class AttendenceController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    public function __construct()
+    {
+        $this->middleware('auth:api');
+    }
     public function index()
     {
         $currentLevel = User::getCurrentAPIUser()['level'];
@@ -26,9 +28,7 @@ class AttendenceController extends Controller
             ['authenticationLevel','<=',$currentLevel],
             ['isApproved','!=',1],
             ['visibility','!=',0]])->get();
-
     }
-
     public function getAttendanceList(int $eventID){
 
         return DB::table('enrollments')->where('enrollments.eventID',$eventID)
@@ -40,10 +40,7 @@ class AttendenceController extends Controller
                 'accounts.balance','teams.name as teamName','enrollments.id','attendance.id as attendanceID')
             ->orderBy('teams.name','asc')
             ->get();
-
     }
-
-
     public function getAllEnrolledStudents(int $eventID)
     {
         return DB::table('enrollments')->where('enrollments.eventID',$eventID)
@@ -54,25 +51,12 @@ class AttendenceController extends Controller
             ->orderBy('teams.name','asc')
             ->get();
     }
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
-     */
-    public function storeRequest(Request $request)
+    public function storeRequest(AttendanceStoreRequest $request)
     {
-        $validatedData=$request->validate([
-            'headcount'=>'required|integer|min:0',
-            'students.*.collegeUID'=>'required|exists:enrollments,participantCollegeUID|numeric|digits:8',
-            'dateid'=>'required|numeric|exists:eventdates,id|min:1',
-            'students.*.enrollmentID'=>'required|numeric|exists:enrollments,id',
-            'students.*.collegeUID'=>'required|numeric|digits:8|exists:users,collegeUID',
-        ]);
-
+        $validatedData=$request->validatedAndSanitized();
         $date=Eventdate::findOrFail($validatedData['dateid']);
-//        if($date->attendanceState==true)
-//            throw new AttendanceException("Attendance already marked for this date and is sent for verification");
+        if($date->attendanceState==true)
+            return ["result"=>'error','message'=>"Attendance already marked for this date and is sent for verification"];
         if(!isset($validatedData['students']) & $validatedData['headcount']==0){
             $date->attendanceState=true;
             $date->save();
@@ -82,58 +66,14 @@ class AttendenceController extends Controller
         if($validatedData['headcount']==count($validatedData['students'])){
             $coordinatorID=User::getCurrentAPIUser()['collegeUID'];
             return Attendance::createRequest($validatedData,$coordinatorID,$date);
-        } throw new AttendanceException("Headcount Mismatch");
-
+        } return ['result'=>'error','message'=>'Headcount Mismatch'];
     }
-
-    public function verifyAttendance(Request $request){
-        $validatedData = $request->validate([
-            'id'=> 'required|numeric|exists:queues,id',
-        ]);
+    public function verifyAttendance(AttendanceVerifyRequest $request){
+        $validatedData = $request->validatedAndSanitized();
         return Attendance::updateQueueAttendance($validatedData['id']);
     }
-
-    public function rejectAttendance(Request $request){
-        $validatedData = $request->validate([
-            'queueID'=> 'bail|required|integer|min:0|exists:queues,id',
-        ]);
-
+    public function rejectAttendance(AttendanceRejectRequest $request){
+        $validatedData = $request->validatedAndSanitized();
         return Attendance::rejectAttendanceRequested($validatedData['queueID']);
-
-
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param int $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @param int $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param int $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
     }
 }

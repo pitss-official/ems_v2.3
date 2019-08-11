@@ -15,6 +15,17 @@ class CreateBudgetsTable extends Migration
     {
         Schema::create('budgets', function (Blueprint $table) {
             $table->unsignedBigInteger('id')->autoIncrement();
+            $table->string('name');
+            $table->double('value');
+            $table->double('remainingValue');
+            $table->boolean('parent')->default(false);
+            $table->unsignedBigInteger('parentID')->nullable();
+            $table->unsignedBigInteger('eventID');
+            $table->unsignedBigInteger('createdBy');
+            $table->unsignedBigInteger('account');
+            $table->foreign('account')->references('number')->on('accounts');
+            $table->foreign('eventID')->references('id')->on('events');
+            $table->foreign('createdBy')->references('collegeUID')->on('users');
             $table->timestamps();
         });
     }

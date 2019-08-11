@@ -10,7 +10,7 @@
     <meta name="description" content="Event Management System for Organizations which facilitates easy management, online enrollments, ticket booking, online payments and much more">
     <meta name="author" content="Nukrip Technologies Private Limited">
     <!-- Favicon icon -->
-    <link rel="icon" type="image/png" sizes="512x512" href="/app/icons/512.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="/logo.png">
     <title>{{ config('app.name', 'EMS') }}</title>
     <!-- Bootstrap Core CSS -->
     <link href="/assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -37,14 +37,14 @@
     <link rel="manifest" href="/app/app.webmanifest">
     <!-- icon in the highest resolution we need it for -->
     <meta name="mobile-web-app-capable" content="yes">
-    <link rel="icon" sizes="512x512" href="/app/icons/512.png">
+    <link rel="icon" sizes="512x512" href="/icon.png">
     <!-- reuse same icon for Safari -->
-    <link rel="apple-touch-icon" href="/app/icons/512.png">
-    <link rel="apple-touch-startup-image" href="/app/icons/512.png">
+    <link rel="apple-touch-icon" href="/icon.png">
+    <link rel="apple-touch-startup-image" href="/icon.png">
     <meta name="apple-mobile-web-app-status-bar-style" content="blue">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <!-- multiple icons for IE -->
-    <meta name="msapplication-square310x310logo" content=href="/app/icons/512.png">
+    <meta name="msapplication-square310x310logo" content=href="/icon.png">
     <!-- theme color -->
     <meta name="theme-color" content="#4285f4">
     <style type="text/css">
@@ -98,20 +98,20 @@
                 <!-- Logo -->
                 <!-- ============================================================== -->
                 <div class="navbar-header">
-                    <a class="navbar-brand" href="index.html">
+                    <a class="navbar-brand" href="/home">
                         <!-- Logo icon --><b>
                             <!--You can put here icon as well // <i class="wi wi-sunset"></i> //-->
                             <!-- Dark Logo icon -->
-                            <img src="/assets/images/logo-icon.png" alt="homepage" class="dark-logo"/>
+                            <img src="/icon.png" height="60px" alt="homepage" class="dark-logo"/>
                             <!-- Light Logo icon -->
-                            <img src="/assets/images/logo-light-icon.png" alt="homepage" class="light-logo"/>
+                            <img src="/icon.png" height="60px" alt="homepage" class="light-logo"/>
                         </b>
                         <!--End Logo icon -->
                         <!-- Logo text --><span>
                          <!-- dark Logo text -->
-                         <img src="/assets/images/logo-text.png" alt="homepage" class="dark-logo"/>
+                         <img src="/logotext.png" alt="homepage" class="dark-logo"/>
                             <!-- Light Logo text -->
-                         <img src="/assets/images/logo-light-text.png" class="light-logo" alt="homepage"/></span> </a>
+                         <img src="/logotext.png" height="22px" style="margin-left: -11px" class="light-logo" alt="homepage"/></span> </a>
                 </div>
                 <!-- ============================================================== -->
                 <!-- End Logo -->
@@ -142,7 +142,9 @@
                         <!-- ============================================================== -->
                         <!-- Messages -->
                         <!-- ============================================================== -->
+                        @can('list',App\Queue::class)
                         <naive-queues></naive-queues>
+                        @endcan
                         <!-- ============================================================== -->
                         <!-- End Messages -->
                         <!-- ============================================================== -->
@@ -268,7 +270,31 @@
             <div class="container-fluid">
                 <!-- ============================================================== -->
                 <!-- Bread crumb and right sidebar toggle -->
+                @can('viewBreadcrumb',\App\User::class)
                 <naive-breadcrumb></naive-breadcrumb>
+                @endcan
+                @cannot('viewBreadcrumb',App\User::class)
+                    <div class="row page-titles">
+                        <div class="col-md-5 col-8 align-self-center">
+                            <h3 class="text-themecolor">Dashboard</h3>
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="javascript:window.location.url">Home</a></li>
+                                <li class="breadcrumb-item active">Dashboard</li>
+                            </ol>
+                        </div>
+                        <div class="col-md-7 col-4 align-self-center">
+                            <div class="d-flex m-t-10 justify-content-end">
+                                <div class="d-flex m-r-20 m-l-10 hidden-md-down">
+                                </div>
+                                <div class="d-flex m-r-20 m-l-10 hidden-md-down">
+                                </div>
+                                <div class="">
+                                    <button class="right-side-toggle waves-effect waves-light btn-success btn btn-circle btn-sm pull-right m-l-10"><i class="ti-settings text-white"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    @endcannot
                 <!-- End Bread crumb and right sidebar toggle -->
                 <!-- ============================================================== -->
                 <!-- Start Page Content -->
@@ -286,7 +312,7 @@
             <!-- ============================================================== -->
             <!-- footer -->
             <!-- ============================================================== -->
-            <footer class="footer"> © 2017 Material Pro Admin by wrappixel.com</footer>
+            <footer class="footer">&copy;&nbsp;Student Organization MegaMinds</footer>
             <!-- ============================================================== -->
             <!-- End footer -->
             <!-- ============================================================== -->

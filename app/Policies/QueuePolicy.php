@@ -2,6 +2,7 @@
 
 namespace App\Policies;
 
+use App\System;
 use App\User;
 use App\Queue;
 use Illuminate\Auth\Access\HandlesAuthorization;
@@ -17,9 +18,11 @@ class QueuePolicy
      * @param  \App\Queue  $queue
      * @return mixed
      */
-    public function view(User $user, Queue $queue)
+    public function list(User $user)
     {
-        //
+        $requiredLevel=(int)System::getPropertyValueByName('rights_view_self_queue_level');
+        if($requiredLevel<=$user->authorityLevel)return true;
+        else return false;
     }
 
     /**

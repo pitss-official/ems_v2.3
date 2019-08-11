@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Budget extends Model
 {
     //
-
+    protected $fillable=['parentID','eventID','value','name','parent','createdBy','account','remainingValue'];
     public static function ifNotExist($budgetID)
     {
 

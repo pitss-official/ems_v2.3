@@ -1,5 +1,5 @@
 <template>
-
+<module-under-construction></module-under-construction>
 </template>
 
 <script>

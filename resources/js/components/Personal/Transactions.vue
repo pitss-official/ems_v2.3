@@ -106,8 +106,8 @@
                                         {extend:'csv',className:'btn btn-themecolor waves-effect waves-dark'},
                                         {extend:'print',className:'btn btn-themecolor waves-effect waves-dark'},
                                         {extend:'colvis',className:'btn btn-themecolor waves-effect waves-dark'},
-                                        { extend: 'copy', className: 'btn btn-themecolor waves-effect waves-dark' },
-                                        { extend: 'excel', className: 'btn btn-themecolor waves-effect waves-dark' }
+                                        {extend: 'copy', className: 'btn btn-themecolor waves-effect waves-dark' },
+                                        {extend: 'excel', className: 'btn btn-themecolor waves-effect waves-dark' }
                                     ],
                                     select: true,
                                     paging:true,

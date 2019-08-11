@@ -1,7 +1,9 @@
 <?php
 
 namespace App\Providers;
+use App\Policies\QueuePolicy;
 use App\Policies\TransactionPolicy;
+use App\Queue;
 use App\Transaction;
 use Laravel\Passport\Passport;
 use Illuminate\Support\Facades\Gate;
@@ -16,6 +18,7 @@ class AuthServiceProvider extends ServiceProvider
      */
     protected $policies = [
          Transaction::class=>TransactionPolicy::class,
+         Queue::class=>QueuePolicy::class,
     ];
 
     /**

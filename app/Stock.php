@@ -11,4 +11,5 @@ class Stock extends Model
         return $this->hasMany('App\Item');
     }
 
+
 }

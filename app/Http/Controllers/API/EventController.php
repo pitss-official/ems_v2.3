@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API;
 use App\Event;
 use App\Eventdate;
 use App\Http\Controllers\Controller;
+use App\System;
 use function GuzzleHttp\Psr7\str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -13,9 +14,8 @@ class EventController extends Controller
 {
     public function __construct()
     {
-
+        $this->middleware('auth:api');
     }
-
     public function listAll()
     {
         return Event::getAllEnrollable();
@@ -52,7 +52,7 @@ class EventController extends Controller
     public function store(Request $request)
     {
         //todo:check again
-        $validatedData= $request->validate([
+        $validatedData= System::sanitize($request->validate([
             'eventName'=>'bail|required|string|min:3|max:150',
             'startDate'=>'bail|required|date|after_or_equal:today',
             'endDate'=>'required|date|after_or_equal:today',
@@ -75,8 +75,8 @@ class EventController extends Controller
             'dates'=>'array|required',
             'dates.*.id'=>'required|integer|min:0',
             'minimumUserLevel'=>'required|numeric|between:0,1025',
-        ]);//todo: coor req in days
-        $validatedData=array_merge($validatedData,$request->validate([
+        ]));//todo: coor req in days
+        $validatedData=array_merge($validatedData,System::sanitize($request->validate([
             'dates.*.date'=>'required|before_or_equal:'.$validatedData['endDate'].'|after_or_equal:'.$validatedData['startDate'],
             'dates.*.startTime'=>'nullable|date_format:H:i',
             'dates.*.endTime'=>'nullable|date_format:H:i',
@@ -84,7 +84,7 @@ class EventController extends Controller
             'dates.*.description'=>'nullable|string|max:10240',
             'dates.*.coordinatorsRequired'=>'required|min:1|numeric',
             //todo:recheck time validation with merge req
-        ]));
+        ])));
         $event = new Event();
         try {
             $currentUser = Auth::guard('api')->user()->collegeUID;

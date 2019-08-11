@@ -1,17 +1,20 @@
 {
-    "short_name": "NuEMS",
-    "name": "Event Management System - NuEMS",
-    "icons": [{
-        "src": "/app/icons/256.png",
-        "sizes": "256x256",
-        "type": "image/png"
-    }, {
-        "src": "/app/icons/512.png",
-        "sizes": "512x512",
-        "type": "image/png"
-    }],
-    "start_url": "/home",
-    "background_color": "#3367D6",
-    "display": "standalone",
-    "scope": "/"
+    "name": "MegaMinds Organization Management System",
+    "short_name": "MegaMindsOMS",
+  "icons": [
+    {
+        "src": "/icon.png",
+      "type": "image/png",
+      "sizes": "256x256"
+    },
+    {
+        "src": "/icon.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ],
+  "start_url": "/home",
+  "background_color": "#3367D6",
+  "display": "standalone",
+  "scope": "/"
 }

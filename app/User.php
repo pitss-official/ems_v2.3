@@ -125,6 +125,6 @@ class User extends Authenticatable
     }
     public function accounts()
     {
-        return $this->hasMany('APP\Account','collegeUID','collegeUID');
+        return $this->hasMany('App\Account','collegeUID','collegeUID');
     }
 }
