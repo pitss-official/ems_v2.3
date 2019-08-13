@@ -22,3 +22,9 @@
 # Datasource local storage ignored files
 /..//.idea/dataSources/
 /..//.idea/dataSources.local.xml
+# Default ignored files
+/workspace.xml
+
+# Datasource local storage ignored files
+/dataSources/
+/dataSources.local.xml

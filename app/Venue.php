@@ -10,17 +10,14 @@ class Venue extends Model
     {
         return !self::isNotExist($id);
     }
-
     public static function isNotExist($id)
     {
         if (Venue::where('id', $id)->count() != 1)
             return true;
         else return false;
     }
-
     public function event()
     {
         return $this->hasMany('App\Event');
     }
-
 }

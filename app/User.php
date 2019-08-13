@@ -63,14 +63,6 @@ class User extends Authenticatable
                 die("Invalid Session");
             }
     }
-//    //@showlinks is used to display the user dynamic navigation links
-//    public static function showLinks()
-//    {
-//        $userLevel=Auth::guard('api')->user()->authorityLevel;
-//        $navigationList=new Navigator();
-//        $navigationList=$navigationList->getNavigationLinks($userLevel);
-//        return $navigationList;
-//    }
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
@@ -111,17 +103,6 @@ class User extends Authenticatable
     public static function findAuthenticationLevel($collegeUID)
     {
         return User::where('collegeUID',$collegeUID)->value('authorityLevel');
-    }
-    public static function isAllowedForDirectTransfer(int $collegeUID)
-    {
-        //Step 1: Find the user
-        //todo: workkkk
-    }
-    //function to check if the user can send money to some user
-    public static function isAbleToInitTransaction(int $senderCollegeUID,int $recieverCollegeUID)
-    {
-        //Step 1:
-        //todo:: work
     }
     public function accounts()
     {
