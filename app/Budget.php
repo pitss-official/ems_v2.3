@@ -17,7 +17,6 @@ class Budget extends Model
     {
 
     }
-
     public function event()
     {
         return $this->hasOne('App\Event', 'id', 'eventID');

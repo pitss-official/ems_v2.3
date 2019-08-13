@@ -65,7 +65,6 @@ class Attendance extends Model
         else{
                 return ['result' => 'error'];
             }
-
         }
 
         public static function rejectAttendanceRequested($queueID){

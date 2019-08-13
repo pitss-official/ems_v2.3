@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\SmartCard;
 use App\System;
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -14,7 +15,7 @@ class QueueStoreRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return $this->user('api')->can('create',SmartCard::class);
     }
 
     /**

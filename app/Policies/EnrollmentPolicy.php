@@ -2,6 +2,7 @@
 
 namespace App\Policies;
 
+use App\System;
 use App\User;
 use App\Enrollment;
 use Illuminate\Auth\Access\HandlesAuthorization;
@@ -28,9 +29,11 @@ class EnrollmentPolicy
      * @param  \App\User  $user
      * @return mixed
      */
-    public function create(User $user)
+    public function enroll(User $user)
     {
-        //
+        $requiredLevel=(int)System::getPropertyValueByName('rights_create_coordinator-student_enrollment_level');
+        if($requiredLevel<=$user->authorityLevel)return true;
+        else return false;
     }
 
     /**

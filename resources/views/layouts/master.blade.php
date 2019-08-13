@@ -87,7 +87,6 @@
 {{--:remove top and padding top from sidebar stylecss--}}
 <!-- ============================================================== -->
 <div id="app">
-
     <div id="main-wrapper">
         <!-- ============================================================== -->
         <!-- Topbar header - style you can find in pages.scss -->

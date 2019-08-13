@@ -16,7 +16,7 @@ class Event extends Model
         'name', 'date', 'seats'
     ];
     protected $hidden = [
-        'approvalID', 'requesterID', 'fillingStatus', 'visibility', 'filledSeats', 'updated_at', 'created_at', 'approvalDate', 'approvalStatus'
+        'minimumUserPower','seats','maxIncentiveRate','approvalID', 'requesterID', 'fillingStatus', 'visibility', 'filledSeats', 'updated_at', 'created_at', 'approvalDate', 'approvalStatus'
     ];
 
     public static function getAllEnrollable()
@@ -43,16 +43,6 @@ class Event extends Model
         ])->get();
     }
 
-//    public static function getTodayEvent()
-//    {
-//        return self::where([
-//            ['visibility', '=', 1],
-//            ['approvalID', '>', 0],
-//            ['startDate', '<=', Carbon::now()],
-////            ['events.filledSeats','<=','events.seats'],
-//            ['fillingStatus', '>', 0]
-//        ])->get();
-//    }
 public static function findByDate($date)
 {
     return Eventdate::getDateWiseEvents($date);
@@ -73,7 +63,7 @@ public static function findByDate($date)
 
     public function requester()
     {
-        return $this->hasOne('App\User');
+        return $this->hasOne('App\User','collegeUID','collegeUID');
     }
     public function teams()
     {
@@ -82,17 +72,17 @@ public static function findByDate($date)
 
     public function approver()
     {
-        return $this->hasOne('App\User');
+        return $this->hasOne('App\User','collegeUID','collegeUID');
     }
 
     public function venue()
     {
-        return $this->hasMany('App\Venue');
+        return $this->hasMany('App\Venue','eventID','id');
     }
 
     public function participants()
     {
-        return $this->hasMany('App\Enrollment');
+        return $this->hasMany('App\Enrollment','id','eventID');
     }
 
     public function transactions()
@@ -100,23 +90,39 @@ public static function findByDate($date)
         return $this->hasMany('App\Transaction');
     }
 
-    public function promotionIncentiveTransferRequest()
+    public function promotionIncentiveTransferRequest($coordinatorCollegeUID, $enrollmentTransactionID)
     {
-        //should be queued
+        $promotionAccount = '999' . $this->id . '04';
+        $narration = "Incentive CashBack of ";
+        if (User::ifNotExist($coordinatorCollegeUID)) return ['result'=>'error','title' => 'Interface Error', 'message' => 'Kindly Contact the system administrator'];
+        $coordinatorRate = User::find($coordinatorCollegeUID)->incentiveRate;
+        if ($coordinatorRate > $this->maxIncentiveRate)
+            $rate = $this->maxIncentiveRate;
+        else $rate = $coordinatorRate;
+        $amount = $this->ticketPrice * $rate;
+        $narration .= " ₹" . $amount . " received for $enrollmentTransactionID";
+        //debit account for Promotion is 04
+        $q=new Queue();
+        return $q->createGlobalTransferRequest(
+            $coordinatorCollegeUID,
+            System::getPropertyValueByName('auth_promotional_incentive_approve_level'),
+            $amount,
+            $promotionAccount,
+            $amount,14);
     }
 
     public function promotionIncentiveTransferNonRequest($coordinatorCollegeUID, $enrollmentTransactionID)
     {
         //its direct and requires no approval
         $promotionAccount = '999' . $this->id . '04';
-        $narration = "Promotional CashBack of";
-        if (User::ifNotExist($coordinatorCollegeUID)) return ['title' => 'Interface Error', 'error' => 'Kindly Contact the system administrator'];
+        $narration = "Incentive CashBack of ";
+        if (User::ifNotExist($coordinatorCollegeUID)) return ['result'=>'error','title' => 'Interface Error', 'message' => 'Kindly Contact the system administrator'];
         $coordinatorRate = User::find($coordinatorCollegeUID)->incentiveRate;
         if ($coordinatorRate > $this->maxIncentiveRate)
             $rate = $this->maxIncentiveRate;
         else $rate = $coordinatorRate;
         $amount = $this->ticketPrice * $rate;
-        $narration .= " ₹" . $amount . " recived for $enrollmentTransactionID";
+        $narration .= " ₹" . $amount . " received for $enrollmentTransactionID";
         //debit account for Promotion is 04
         return Transaction::directTransferDeQueue($promotionAccount, $coordinatorCollegeUID, $amount, $narration, 99887766);
     }

@@ -105,6 +105,7 @@ Vue.component('naiveQueues', require('./components/Personal/Queues').default);
 Vue.component('naiveNotifications', require('./components/Personal/Notifications').default);
 Vue.component('naiveMessages', require('./components/Personal/Messages').default);
 Vue.component('moduleUnderConstruction', require('./components/Global/ModuleUnderConstruction').default);
+Vue.component('smartRegistration', require('./components/Forms/SelfRegistration').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -117,12 +118,12 @@ const app = new Vue({
     router,
 });
 
-// // Make sure sw are supported
-// if ('serviceWorker' in navigator) {
-//     window.addEventListener('load', () => {
-//         navigator.serviceWorker
-//             .register('/serviceWorker.js')
-//             .then(reg => console.log('Service Worker: Registered (Pages)'))
-//             .catch(err => console.log(`Service Worker: Error: ${err}`));
-//     });
-// }
+// Make sure sw are supported
+if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+        navigator.serviceWorker
+            .register('/serviceWorker.js')
+            .then(reg => console.log('Service Worker: Registered (Pages)'))
+            .catch(err => console.log(`Service Worker: Error: ${err}`));
+    });
+}

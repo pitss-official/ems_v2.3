@@ -75,7 +75,7 @@ class QueueController extends Controller
         ]);
         $q = new Queue();
         $sender=User::getCurrentAPIUser()['collegeUID'];
-        $id=$q->createRecieveMoneyRequest($sender,$validatedData['collegeUID'],$validatedData['amount'],$validatedData['narration'],"Requested ₹".$validatedData['amount']." from you.");
+        $id=$q->createReceiveMoneyRequest($sender,$validatedData['collegeUID'],$validatedData['amount'],$validatedData['narration'],"Requested ₹".$validatedData['amount']." from you.");
         if(is_numeric($id))
             return["result"=>"success","id"=>$id];
         else

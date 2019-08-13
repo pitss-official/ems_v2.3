@@ -28,7 +28,7 @@ class Navigator extends Model
             return '<li class="nav-small-cap">'.$heads['title'].'</li>';
         }
     }
-    public function getNavigationLinks($userLevel,$parent_id=0)
+    public function getNavigationLinks(int $userLevel,int $parent_id=0)
     {
         $menu = "";
         $dash=[];
@@ -68,7 +68,6 @@ class Navigator extends Model
                 $spn='<span class="hide-menu">';
                 $ifSpn=1;
             }
-
             $menu .="<li><$tag $inc $href='".$row['link']."'>";
             if(isset($row['icon']))
                 $menu.='<i class="mdi mdi-'.$row['icon'].'"></i>';
@@ -80,11 +79,9 @@ class Navigator extends Model
             {
                 $menu .= "<ul aria-expanded='false' class='collapse'>".$sub."</ul>"; //call  recursively
             }
-
             $menu .= "</li>";
             $this->last=0;
         }
-
         return $menu;
     }
 

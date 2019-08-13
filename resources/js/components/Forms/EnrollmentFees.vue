@@ -142,7 +142,7 @@
                             this.student.post('/api/forms/fees/enrollment/pluckPendingBalance').then((response)=> {
                                 console.log(response
                                 )
-                                if(typeof response.data == "number"){
+                                if(typeof response.data.id == "number"){
                                 swal.fire(
                                     'Transferred!',
                                     'Money Transfer Request Completed Successfully. <b>TransactionID: '+response.data+'</b>',
@@ -150,6 +150,9 @@
                                 );
                                 this.student.reset();
                                     $('#regNo').focus();
+                                }
+                                else if(response.data.result="error") {
+                                    swal.fire('Error',response.data.message,'error');
                                 }
                                 else if(response.data.irata)
                                 {

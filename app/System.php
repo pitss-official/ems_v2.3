@@ -19,15 +19,6 @@ class System extends Model
     {
         return 1000;
     }
-
-    public function canUserViewSettings(int $collegeUID)
-    {
-
-    }
-    public function canUserAlterSettings(int $collegeUID)
-    {
-
-    }
     public static function defaultAttendanceRemarks()
     {
         return "Attendance Marked";
@@ -45,7 +36,15 @@ class System extends Model
             {
                 $result+=[$key=>$value];
             }
-            else $result+=[$key=>htmlspecialchars(strip_tags($value))];
+            else {
+                if(is_array($value)){
+                    $result+=[$key=>self::sanitize($value)];}
+                else{
+                    $str=htmlspecialchars(strip_tags($value));
+                    if($str!='') $result+=[$key=>$str];
+                    else $result+=[$key=>null];
+                }
+            }
         }
         return $result;
     }

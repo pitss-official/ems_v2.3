@@ -6,6 +6,7 @@ use App\Exceptions\QueuesExeception;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
+use App\Transaction;
 
 class Queue extends Model
 {
@@ -20,7 +21,7 @@ class Queue extends Model
     {
         return $this->hasOne('App\User');
     }
-    public function createRecieveMoneyRequest(int $requestedBy,int $intendedSender,float $amount,$requesterRemarks,$typeMessage="")
+    public function createReceiveMoneyRequest(int $requestedBy, int $intendedSender, float $amount, $requesterRemarks, $typeMessage="")
     {
         if ($amount <= 0)
             throw new QueuesExeception('Amount or your account balance can not be negative. Behaviour Instance recorded');
@@ -129,14 +130,15 @@ class Queue extends Model
                 $requesterAccount=$this->requestedBy;
 //                $requesterAccount=$queue->requestedBy;
                 if ($this->type != 101) return ['error' => 'Inappropriate Action'];
-                $amount = floatval($this->parameters);
+                $params=explode('|',$this->parameters);
+                $amount = floatval($params[0]);
                 if ($amount <= 0)
                     throw new QueuesExeception('Amount or your account balance can not be negative. Behaviour Instance recorded');
                 if(Account::balance($approverUID)<0)throw new QueuesExeception('You have insufficient balance. Add money and try again');
                 $associatedApprover = $this->specificApproval;
-                if ($approverUID != $associatedApprover) return ['error' => 'Un Authorized'];
+                if ($approverUID != $associatedApprover) return ['result'=>'error','message' => 'Un Authorized'];
                 if ($this->isApproved != 0) return ['error' => 'Already Approved'];
-                if ($userAuthenticationLevel < $this->authenticationLevel) return ['error' => 'You are not Eligible for this action'];
+                if ($userAuthenticationLevel < $this->authenticationLevel) return ['result'=>'error','message' => 'You are not Eligible for this action'];
                 /*
                  * Step 2 : Initiate a Transfer Request
                  */
@@ -152,20 +154,19 @@ class Queue extends Model
                 /*
                  * Step 3 : Insert Into Transactions
                  */
-                $txID = DB::table('transactions')->insert
+                $txID = \App\Transaction::create
                 (
                     [
                         'receiver' => $requesterAccount,
                         'sender' => $queueAccount,
                         'description' => 'Money Transferred from ' . $this->associatedApprover . ' ' . 'using Transfer Request',
-                        'wasQueued' => 1,
+                        'wasQueued' => 1,'type'=>$params[1],
                         'queueID' => $queueID,
                         'amount' => $amount,
                         'visibility' => 1,
-                        'created_at' => Carbon::now(),
                         'initBy' => $approverUID
                     ]
-                );
+                )->id;
                 /*
                  * Step 4: Mark the queue as processed
                  */
@@ -250,7 +251,6 @@ class Queue extends Model
                 return $txID;
             }, 5);
     }
-
     public function createTransferRequest(int $senderCollegeUID,int $reciplentCollegeUID,float $amount, $senderRemarks,$typeMessage="")
     {
         if ($senderCollegeUID == $reciplentCollegeUID)
@@ -339,7 +339,6 @@ class Queue extends Model
 
             }, 5);
     }
-
     public function approveTransferRequest($approverUID, $approvalRemarks)
     {
 
@@ -415,7 +414,7 @@ class Queue extends Model
         else return false;
     }
 
-    public function eventExpenseRemburseRequest($requestedByCollegeUID, $amount, $narration, $eventID)
+    public function eventExpenseReimburseRequest($requestedByCollegeUID, $amount, $narration, $eventID)
     {
         $eventExpensesAccount = '999' . $eventID . '08';
         $requestLevel = 100;
@@ -423,8 +422,7 @@ class Queue extends Model
         if (User::ifNotExist($requestedByCollegeUID)) return ['title' => 'Internal Server Error', 'Transaction has been rolledback due to some internal server error'];
         return $this->createGlobalTransferRequest($requestedByCollegeUID, $requestLevel, $amount, $eventExpensesAccount, 'Event Expense for event:' . $eventID . ' Msg:' . $narration);
     }
-
-    public function createGlobalTransferRequest($requestedBy, $transactionLevel, $amount, $debitAccount, $narration, $creditAccount = 0)
+    public function createGlobalTransferRequest(int $requestedBy, int $transactionLevel, float $amount, int $debitAccount, $narration,int $targetTransactionType=100, int $creditAccount = 0)
     {
         //remove bug
         if ($amount <= 0) return ['title' => 'Invalid Amount', 'error' => 'Invalid Amount Entered'];
@@ -432,7 +430,7 @@ class Queue extends Model
         else {
             return DB::transaction(
                 function ()
-                use ($requestedBy, $transactionLevel, $amount, $debitAccount, $narration, $creditAccount) {
+                use ($requestedBy, $transactionLevel, $amount, $debitAccount, $narration, $creditAccount,$targetTransactionType) {
                     //update the balance of requester [debit]
                     //create a queue having specific approver
                     //store the id of the queue and return it
@@ -475,7 +473,7 @@ class Queue extends Model
                             'authenticationLevel' => $authenticationLevel,
                             'type' => 110,
                             'specificApproval' => $specificApprover,
-                            'parameters' => $amount,
+                            'parameters' => $amount.'|transType='.$targetTransactionType,
                             'created_at' => Carbon::now(),
                         ]
                     );
@@ -502,7 +500,6 @@ class Queue extends Model
         }
 
     }
-
     public function approveGlobalTransferRequest($approverUID, $approvalRemarks)
     {
         $queueID = $this->id;

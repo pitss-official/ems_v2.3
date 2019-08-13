@@ -21,27 +21,9 @@ class EnrollmentController extends Controller
     {
         $this->middleware('auth:api');
     }
-
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
-     */
-
     public function store(Request $request)
     {
-
+        $this->authorize('enroll',Enrollment::class);
         //only for coordinator based enrollment
         $validatedData = System::sanitize($request->validate([
             'eventID' => 'bail|required|integer|exists:events,id',

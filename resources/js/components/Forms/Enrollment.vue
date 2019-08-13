@@ -51,6 +51,7 @@
                                                        class="form-control" name="middleName" type="text"
                                                        v-model="student.middleName">
                                                 <small class="form-control-feedback"></small>
+                                                <has-error :form="student" field="middleName"></has-error>
                                             </div>
                                         </div>
                                         <div class="col-md-2">
@@ -60,6 +61,7 @@
                                                        class="form-control" name="lastName" type="text"
                                                        v-model="student.lastName">
                                                 <small class="form-control-feedback"></small>
+                                                <has-error :form="student" field="lastName"></has-error>
                                             </div>
                                         </div>
                                         <!--/span-->
@@ -132,7 +134,7 @@
                                                 <!--				form-group has-danger/has-success									form-control-danger-->
                                                 <input :class="{ 'is-invalid': student.errors.has('course') }"
                                                        :disabled="naive.filled" :readonly="naive.filled"
-                                                       class="form-control" name="course" placeholder="Eg. Computer Science and Engineering"
+                                                       class="form-control" name="course" placeholder="Eg. Bachelor of Technology (Hons.)"
                                                        required type="text" v-model="student.course">
                                                 <small class="form-control-feedback"></small>
                                                 <has-error :form="student" field="course"></has-error>
@@ -152,7 +154,7 @@
                                                    placeholder="" required type="number" v-model="student.mobile">
                                             <small class="form-control-feedback">Confirmation of Seat and Pass details
                                                 will be sent on this number
-                                            </small>
+                                            </small><has-error :form="student" field="mobile"></has-error>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
@@ -166,6 +168,7 @@
                                                     {{ event.name }}
                                                 </option>
                                             </select>
+                                            <has-error :form="student" field="eventID"></has-error>
                                         </div>
                                     </div>
                                 </div>
@@ -179,6 +182,7 @@
                                             <input :disabled="naive.filled" :readonly="naive.filled"
                                                    class="form-control" name="fathersName" type="text"
                                                    v-model="student.fathersName">
+                                            <has-error :form="student" field="fathersName"></has-error>
                                         </div>
                                     </div>
                                     <!--/span-->
@@ -187,6 +191,7 @@
                                             <label>Birthday</label>
                                             <input :disabled="naive.filled" :readonly="naive.filled"
                                                    class="form-control" type="date" v-model="student.birthday">
+                                            <has-error :form="student" field="birthday"></has-error>
                                         </div>
                                     </div>
                                     <!--/span-->
@@ -197,6 +202,7 @@
                                             <label>Blood Group</label>
                                             <input :disabled="naive.filled" :readonly="naive.filled"
                                                    class="form-control" type="text" v-model="student.bloodGroup">
+                                            <has-error :form="student" field="bloodGroup"></has-error>
                                         </div>
                                     </div>
                                     <div class="col-md-3">
@@ -205,6 +211,7 @@
                                             <select class="form-control" type="text" v-model="student.nationality">
                                                 <option selected value="IN">Indian</option>
                                             </select>
+                                            <has-error :form="student" field="nationality"></has-error>
                                         </div>
                                     </div>
                                     <!--/span-->
@@ -215,6 +222,7 @@
                                                 <option v-bind:value="team.id" v-for="team in teams">{{ team.name }}
                                                 </option>
                                             </select>
+                                            <has-error :form="student" field="team"></has-error>
                                         </div>
                                     </div>
                                     <!--/span-->
@@ -226,16 +234,18 @@
                                             <textarea :disabled="naive.filled" :readonly="naive.filled"
                                                       class="form-control" id="address" rows="5"
                                                       v-model="student.address"></textarea>
+                                            <has-error :form="student" field="address"></has-error>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label>Alternate Mobile</label>
+                                            <label>Whatsapp Number</label>
                                             <input :disabled="naive.filled" :readonly="naive.filled"
                                                    class="form-control" data-mask="9999999999" id="alt-mobile"
                                                    type="text" v-model="student.altMobile">
+                                            <has-error :form="student" field="altMobile"></has-error>
                                         </div>
                                     </div>
                                     <!--/span-->
@@ -244,6 +254,7 @@
                                             <label>Group ID</label>
                                             <input :disabled="naive.filled" :readonly="naive.filled"
                                                    class="form-control" id="group" readonly type="number" value="">
+                                            <has-error :form="student" field="group"></has-error>
                                         </div>
                                     </div>
                                     <!--/span-->
@@ -274,9 +285,13 @@
 
 <script>
     // import Select from "vue-select/src/components/Select";
-    import
-        AlertErrors from "vform/src/components/AlertErrors";
-
+    import {
+        Form,
+        HasError,
+        AlertError,
+        AlertErrors,
+        AlertSuccess
+    } from 'vform';
     export default {
         components: {AlertErrors},
         data() {
@@ -363,7 +378,6 @@
                         confirmButtonText: 'Book Now',
                         showLoaderOnConfirm: true,
                         preConfirm: (value) => {
-                            console.log(value)
                             this.student.amount = value;
                             return this.student.post('/api/forms/events/enroll/student')
                                 .then(response => {
@@ -386,7 +400,6 @@
                                     method: 'post',
                                     url: '/api/verify/enrollment/' + result.value.data,
                                 }).then(resp => {
-                                        console.log(resp);
                                         if(isNaN(resp.data))
                                             swal.fire("Error","Server Error","error");
                                         swal.fire({
@@ -468,3 +481,8 @@
         }
     }
 </script>
+<style>
+    .invalid-feedback{
+        display: list-item;
+    }
+</style>

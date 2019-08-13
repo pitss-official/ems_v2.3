@@ -5,14 +5,14 @@ namespace App;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
+use function PHPSTORM_META\type;
 
 class Transaction extends Model
 {
-    protected $visible = ['amount', 'created_at', 'receiver', 'sender', 'initBy', 'id', 'description'];
+    protected $visible = array('amount', 'created_at', 'receiver', 'sender', 'initBy', 'id', 'description');
+    protected $fillable=array('receiver','sender','description','wasQueued','queueID','amount','visibility','initBy','type');
 
-    //
-
-    public static function directTransferDeQueue($debitAccountNumber, $creditAccountNumber, $amount, $narration, $initBy)
+    public static function directTransferDeQueue(int $debitAccountNumber, int $creditAccountNumber, float $amount, $narration, int $initBy, int $type=100)
     {
         if (User::ifNotExist($initBy))
             return ['error' => 'Invalid Transaction Initiator'];
@@ -22,7 +22,7 @@ class Transaction extends Model
             return ['error' => 'Invaild Account Number', 'irata' => 568745];
         if (Account::ifNotExist($debitAccountNumber) || Account::ifNotExist($creditAccountNumber))
             return ['error' => 'Invalid Credit or Debit Account Number'];
-        return DB::transaction(function () use ($debitAccountNumber, $creditAccountNumber, $amount, $narration, $initBy) {
+        return DB::transaction(function () use ($debitAccountNumber, $creditAccountNumber, $amount, $narration, $initBy,$type) {
             /*
              * Step 1 :  Find the balance in debit and credit account
              */
@@ -36,8 +36,8 @@ class Transaction extends Model
             /*
              * Step 3 : Make a transaction against the record
              */
-            $txID = DB::table('transactions')->insertGetId(
-                [
+            $txID = Self::create([
+                'type'=>$type,
                     'receiver' => $creditAccountNumber,
                     'sender' => $debitAccountNumber,
                     'description' => $narration,
@@ -45,10 +45,7 @@ class Transaction extends Model
                     'queueID' => null,
                     'amount' => $amount,
                     'visibility' => 1,
-                    'created_at' => Carbon::now(),
-                    'initBy' => $initBy,
-                ]
-            );
+                    'initBy' => $initBy,])->id;
             /*
              * Step 4 : Update the balances in the account and return the transactionID
              */
@@ -58,7 +55,7 @@ class Transaction extends Model
         }, 2);
     }
 
-    public static function nonDBTransactionDeQueueTranfer(int $debitAccountNumber, int $creditAccountNumber,float $amount, $narration,int $initBy, $visibility = 1)
+    public static function nonDBTransactionDeQueueTransfer(int $debitAccountNumber, int $creditAccountNumber,float $amount, $narration,int $initBy, $visibility = 1,$type=100)
     {
         if (User::ifNotExist($initBy)) return ['error' => 'Invalid Transaction Initiator'];
         if ($amount <= 0) return ['error' => 'Invalid Amount'];
@@ -74,7 +71,7 @@ class Transaction extends Model
         /*
          * Step 3 : Make a transaction against the record
          */
-        $txID = DB::table('transactions')->insertGetId(
+        $txID = self::create(
             [
                 'receiver' => $creditAccountNumber,
                 'sender' => $debitAccountNumber,
@@ -82,11 +79,11 @@ class Transaction extends Model
                 'wasQueued' => 0,
                 'queueID' => null,
                 'amount' => $amount,
+                'type'=>$type,
                 'visibility' => $visibility,
-                'created_at' => Carbon::now(),
                 'initBy' => $initBy,
             ]
-        );
+        )->id;
         /*
          * Step 4 : Update the balances in the account and return the transactionID
          */
@@ -105,16 +102,10 @@ class Transaction extends Model
     {
         return $this->belongsTo('App\Account');
     }
-
-    /*
-     * @return: Transaction ID
-     */
-
     public function creditAccount()
     {
         return $this->belongsTo('App\Account');
     }
-
     public function cancelTransferRequest($queueID, $remarks, $cancelledBy)
     {
         if (Queue::ifNotExist($queueID))
@@ -147,8 +138,7 @@ class Transaction extends Model
                 /*
                  * Insert a Record in Transactions
                  */
-                $txID = DB::table('transactions')->insert
-                (
+                $txID = self::create(
                     [
                         'receiver' => $creditAccount,
                         'sender' => $queueAccount,
@@ -157,7 +147,6 @@ class Transaction extends Model
                         'queueID' => $queueID,
                         'amount' => $amount,
                         'visibility' => 1,
-                        'created_at' => Carbon::now(),
                         'initBy' => $queueAccount,
                     ]
                 );

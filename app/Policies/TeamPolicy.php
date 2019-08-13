@@ -2,6 +2,7 @@
 
 namespace App\Policies;
 
+use App\System;
 use App\User;
 use App\Team;
 use Illuminate\Auth\Access\HandlesAuthorization;
@@ -9,75 +10,16 @@ use Illuminate\Auth\Access\HandlesAuthorization;
 class TeamPolicy
 {
     use HandlesAuthorization;
-
-    /**
-     * Determine whether the user can view the team.
-     *
-     * @param  \App\User  $user
-     * @param  \App\Team  $team
-     * @return mixed
-     */
-    public function view(User $user, Team $team)
-    {
-        //
-    }
-
-    /**
-     * Determine whether the user can create teams.
-     *
-     * @param  \App\User  $user
-     * @return mixed
-     */
     public function create(User $user)
     {
-        //
+        $requiredLevel=(int)System::getPropertyValueByName('rights_create_coordinator-to-participant_team_level');
+        if($requiredLevel<=$user->authorityLevel)return true;
+        else return false;
     }
-
-    /**
-     * Determine whether the user can update the team.
-     *
-     * @param  \App\User  $user
-     * @param  \App\Team  $team
-     * @return mixed
-     */
-    public function update(User $user, Team $team)
+    public function update(User $user)
     {
-        //
-    }
-
-    /**
-     * Determine whether the user can delete the team.
-     *
-     * @param  \App\User  $user
-     * @param  \App\Team  $team
-     * @return mixed
-     */
-    public function delete(User $user, Team $team)
-    {
-        //
-    }
-
-    /**
-     * Determine whether the user can restore the team.
-     *
-     * @param  \App\User  $user
-     * @param  \App\Team  $team
-     * @return mixed
-     */
-    public function restore(User $user, Team $team)
-    {
-        //
-    }
-
-    /**
-     * Determine whether the user can permanently delete the team.
-     *
-     * @param  \App\User  $user
-     * @param  \App\Team  $team
-     * @return mixed
-     */
-    public function forceDelete(User $user, Team $team)
-    {
-        //
+        $requiredLevel=(int)System::getPropertyValueByName('rights_update_coordinator-to-participant_team_level');
+        if($requiredLevel<=$user->authorityLevel)return true;
+        else return false;
     }
 }

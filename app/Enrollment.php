@@ -8,7 +8,6 @@ use Illuminate\Support\Facades\DB;
 
 class Enrollment extends Model
 {
-    //
     protected $visible = [''];
     public function event()
     {
