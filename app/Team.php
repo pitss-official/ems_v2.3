@@ -47,7 +47,7 @@ class Team extends Model
             $team->save();
             return true;
         } else
-            throw TeamException("The following team can't accomodate a new member. Kindly Choose another team");
+            abort(422,"The following team can't accomodate a new member. Kindly Choose another team");
     }
 
 

@@ -40,7 +40,7 @@ class CreateQueuesTable extends Migration
             $table->boolean('isApproved')->default(0);
 
             //if specific person is required to approve specific queue
-            $table->unsignedInteger('specificApproval')->default(0);
+            $table->unsignedInteger('specificApproval')->default(0)->nullable();
 
             //is the queue visible to the user
             $table->boolean('visibility')->default(1);

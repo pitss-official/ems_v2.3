@@ -398,12 +398,12 @@
                             } else {
                                 axios({
                                     method: 'post',
-                                    url: '/api/verify/enrollment/' + result.value.data,
+                                    url: '/api/verify/enrollment/' + result.value.data.id,
                                 }).then(resp => {
                                         if(isNaN(resp.data))
                                             swal.fire("Error","Server Error","error");
                                         swal.fire({
-                                            title: 'Enrollment ID: ' + result.value.data,
+                                            title: 'Enrollment ID: ' + result.value.data.id,
                                             text: 'You have successfully enrolled ' + this.student.firstName,
                                             type: 'success',
                                             backdrop: `rgba(0, 0, 123, 0.4)`

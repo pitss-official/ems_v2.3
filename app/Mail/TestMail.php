@@ -28,7 +28,6 @@ class TestMail extends Mailable
      */
     public function build()
     {
-        sleep(20);
-        return $this->view('mail.test');
+        return $this->view('mail.Enrollment.Receipts.Participant.event-8');
     }
 }

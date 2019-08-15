@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\VenueCreateRequest;
+use App\User;
 use App\Venue;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -13,36 +15,10 @@ class VenueController extends Controller
     {
         $this->middleware('auth:api');
     }
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+    public function store(VenueCreateRequest $request)
     {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-        $validatedData = $request->validate([
-            'type' => 'bail|required|integer|between:1,10',
-            'name' => 'bail|required|string|min:1|max:90',
-            'primaryAddressLine' => 'bail|required|string|min:1|max:90',
-            'secondaryAddressLine' => 'nullable|string|min:1|max:90',
-            'tertiaryAddressLine' => 'nullable|string|min:1|max:90',
-            'shortAddress' => 'bail|required|string|min:1|max:50',
-            'capacity' => 'bail|required|integer|min:1',
-            'price' => 'bail|required|numeric|min:0',
-            'coordinatorsRequired' => 'bail|required|integer|min:1'
-        ]);
+        $validatedData = $request->validatedAndSanitized();
+        $this->authorize('create',Venue::class);
         $venue = new Venue();
         $venue->type = $validatedData['type'];
         $venue->name = $validatedData['name'];
@@ -53,45 +29,13 @@ class VenueController extends Controller
         $venue->capacity = $validatedData['capacity'];
         $venue->price = $validatedData['price'];
         $venue->coordinatorsRequired = $validatedData['coordinatorsRequired'];
-        $venue->registeredBy = Auth::guard('api')->user()->collegeUID;
+        $venue->registeredBy = User::getCurrentAPIUser()['collegeUID'];
         $venue->save();
         return $venue->id;
     }
     public function verify($id)
     {
+        $this->authorize('verify',Venue::class);
         return (int)Venue::isExist($id);
-    }
-    /**
-     * Display the specified resource.
-     *
-     * @param int $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @param int $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param int $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Policies;
 
+use App\System;
 use App\User;
 use App\Event;
 use Illuminate\Auth\Access\HandlesAuthorization;
@@ -9,75 +10,26 @@ use Illuminate\Auth\Access\HandlesAuthorization;
 class EventPolicy
 {
     use HandlesAuthorization;
-
-    /**
-     * Determine whether the user can view the event.
-     *
-     * @param  \App\User  $user
-     * @param  \App\Event  $event
-     * @return mixed
-     */
-    public function view(User $user, Event $event)
-    {
-        //
-    }
-
-    /**
-     * Determine whether the user can create events.
-     *
-     * @param  \App\User  $user
-     * @return mixed
-     */
     public function create(User $user)
     {
-        //
+        $requiredLevel=(int)System::getPropertyValueByName('rights_create_global_event_level');
+        if($requiredLevel<=$user->authorityLevel)return true;
+        else return false;
     }
-
-    /**
-     * Determine whether the user can update the event.
-     *
-     * @param  \App\User  $user
-     * @param  \App\Event  $event
-     * @return mixed
-     */
-    public function update(User $user, Event $event)
+    public function listByDate(User $user)
     {
-        //
-    }
-
-    /**
-     * Determine whether the user can delete the event.
-     *
-     * @param  \App\User  $user
-     * @param  \App\Event  $event
-     * @return mixed
-     */
-    public function delete(User $user, Event $event)
+        $requiredLevel=(int)System::getPropertyValueByName('rights_view_global_events-by-date_level');
+        if($requiredLevel<=$user->authorityLevel)return true;
+        else return false;
+    }public function listTeamable(User $user)
     {
-        //
-    }
-
-    /**
-     * Determine whether the user can restore the event.
-     *
-     * @param  \App\User  $user
-     * @param  \App\Event  $event
-     * @return mixed
-     */
-    public function restore(User $user, Event $event)
+        $requiredLevel=(int)System::getPropertyValueByName('rights_view_global_events-teamable_level');
+        if($requiredLevel<=$user->authorityLevel)return true;
+        else return false;
+    }public function listAll(User $user)
     {
-        //
-    }
-
-    /**
-     * Determine whether the user can permanently delete the event.
-     *
-     * @param  \App\User  $user
-     * @param  \App\Event  $event
-     * @return mixed
-     */
-    public function forceDelete(User $user, Event $event)
-    {
-        //
+        $requiredLevel=(int)System::getPropertyValueByName('rights_view_global_events-all_level');
+        if($requiredLevel<=$user->authorityLevel)return true;
+        else return false;
     }
 }

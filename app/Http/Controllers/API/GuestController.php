@@ -2,23 +2,21 @@
 
 namespace App\Http\Controllers\API;
 use App\Account;
-use App\Enrollment;
 use App\Event;
 use App\Exceptions\EnrollmentException;
-use App\Mail\TestMail;
 use App\System;
 use App\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Mail;
 
 class GuestController extends Controller
 {
     public function test()
     {
-        echo "Mail Sent";
-        Mail::to('part@part.part')->queue(new TestMail());
+        $e= Event::find(8);
+        return $e->promotionIncentiveTransferRequest(19);
     }
+
     //
     public function events()
     {
@@ -48,14 +46,13 @@ class GuestController extends Controller
                 'bloodGroup' => 'nullable|string|max:5',
                 'birthday' => 'nullable|date',
             ])),$validatedData);
-            return $validatedData;
             $request->validate([
                 'email' => 'unique:users,email',
                 'mobile' => 'unique:users,mobile',
                 'regid' => 'unique:users,collegeUID',
             ]);
             $user = new User();
-            $password=random_bytes(10);
+            $password=System::randAlphaNum(10);
             $user->firstName = $validatedData['firstName'];
             $user->middleName = $validatedData['middleName'];
             $user->lastName = $validatedData['lastName'];
@@ -92,13 +89,14 @@ class GuestController extends Controller
                 }
             }
         }
+
 //        $enrollment = new Enrollment();
 //        $enrollment->eventID = $validatedData['eventID'];
 //        $event = Event::findOrFail($validatedData['eventID']);
 //        if ($validatedData['amount'] >= $event->ticketPrice) {
 //            return ["result"=>'success',"id"=>$enrollment->enrollWithFullPayment((int)$validatedData['collegeUID'], $coordinatorUID, $validatedData['team'])];
 //
-//        } elseif ($validatedData['amount'] >= ($event->minimumPayment * $event->ticketPrice / 100)) {
+//        }elseif ($validatedData['amount'] >= ($event->minimumPayment * $event->ticketPrice / 100)) {
 //            return $enrollment->reserveSeatViaPartialPayment((int)$validatedData['collegeUID'], $coordinatorUID, $validatedData['amount'], $validatedData['team']);
 //        } else {
 //            return ["result"=>'error','error' => 'Invalid Amount', 'message' => 'Kindly enter a valid amount to proceed'];

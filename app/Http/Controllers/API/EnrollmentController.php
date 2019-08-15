@@ -7,11 +7,14 @@ use App\Enrollment;
 use App\Event;
 use App\Exceptions\EnrollmentException;
 use App\Http\Controllers\Controller;
+use App\Mail\EnrollmentReceipt;
+use App\Mail\TransactionAlert;
 use App\System;
 use App\User;
 use App\Team;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use phpseclib\Crypt\Hash;
 use Illuminate\Support\Facades\DB;
 
@@ -31,6 +34,7 @@ class EnrollmentController extends Controller
             'amount' => 'required|numeric|min:0',
             'team' => 'bail|nullable|integer|exists:teams,id,eventID,' . $request->eventID,
         ]));
+        $coordinatorEmail=User::getCurrentAPIUser()['email'];
         $coordinatorUID = User::getCurrentAPIUser()['collegeUID'];
         if (User::isNotExist($validatedData['collegeUID'])) {
             $validatedData=array_merge(System::sanitize($request->validate([
@@ -90,54 +94,46 @@ class EnrollmentController extends Controller
                     throw new EnrollmentException("Account Creation Failed, Data has been rolled back");
                 }
             }
+        }else{
+            $user=User::where('collegeUID',$validatedData['collegeUID'])->firstOrFail();
         }
         $enrollment = new Enrollment();
         $enrollment->eventID = $validatedData['eventID'];
         $event = Event::findOrFail($validatedData['eventID']);
+        if($validatedData['amount']>$event->ticketPrice)$validatedData['amount']=$event->ticketPrice;
         if ($validatedData['amount'] >= $event->ticketPrice) {
-            return ["result"=>'success',"id"=>$enrollment->enrollWithFullPayment((int)$validatedData['collegeUID'], $coordinatorUID, $validatedData['team'])];
-
+            $id=$enrollment->enrollWithFullPayment((int)$validatedData['collegeUID'], $coordinatorUID, $validatedData['team']);
+            $event->promotionIncentiveTransferNonRequest($id);
         } elseif ($validatedData['amount'] >= ($event->minimumPayment * $event->ticketPrice / 100)) {
-            return $enrollment->reserveSeatViaPartialPayment((int)$validatedData['collegeUID'], $coordinatorUID, $validatedData['amount'], $validatedData['team']);
+            $id=$enrollment->reserveSeatViaPartialPayment((int)$validatedData['collegeUID'], $coordinatorUID, $validatedData['amount'], $validatedData['team']);
+            $event->promotionIncentiveTransferRequest($id);
         } else {
             return ["result"=>'error','error' => 'Invalid Amount', 'message' => 'Kindly enter a valid amount to proceed'];
         }
+        if($id>0){
+            $enrollment=Enrollment::findOrFail($id);
+            $mailParams=array(
+                'subject'=>'Registration Successful - MegaMinds OMS',
+                'event'=>$event,
+                'enrollment'=>$enrollment,
+                'participant'=>$user,
+                'coordinator'=>User::getCurrentAPIUser(),
+                'amount'=>'Rs. '.$validatedData['amount'],
+            );
+            $txMailParams=array(
+                'closing'=>'Rs. '.Account::balance($coordinatorUID),
+                'transactionID'=>$mailParams['enrollment']->id,
+                'assocID'=>$user->collegeUID,
+                'type'=>'debit',
+                'amount'=>'Rs. '.$validatedData['amount'],
+                'msg'=>"Enrollment for ".$validatedData['collegeUID']." Successful",
+                'subject'=>'Transaction Alert');
+            System::mailer($user->email,new EnrollmentReceipt($mailParams),['cc'=>$coordinatorEmail]);
+            System::mailer($coordinatorEmail,new TransactionAlert($txMailParams));
+        }
+        return ["result"=>'success',"id"=>$id];
     }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param int $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        return Enrollment::findOrFail($id);
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @param int $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param int $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
-    public function verify($id)
+    public function verify(int $id)
     {
         $i=0;
         try{
@@ -150,6 +146,4 @@ class EnrollmentController extends Controller
             return $i;
         }
     }
-
-
 }

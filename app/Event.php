@@ -9,15 +9,20 @@ class Event extends Model
 {
     //create should create a user along with some accounts for the event
     //cash account is the 999_eventID_01
-    protected $expensesAccount = 8;
-    protected $cashAccount = 1;
-    protected $promotionAccount = 9;
+    public $expensesAccount = 8;
+    public $cashAccount = 1;
+    public $promotionAccount = 9;
     protected $fillable = [
         'name', 'date', 'seats'
     ];
     protected $hidden = [
         'minimumUserPower','seats','maxIncentiveRate','approvalID', 'requesterID', 'fillingStatus', 'visibility', 'filledSeats', 'updated_at', 'created_at', 'approvalDate', 'approvalStatus'
     ];
+    public function __construct(array $attributes = [])
+    {
+        parent::__construct($attributes);
+        $this->promotionAccount='999'.$this->id.'04';
+    }
 
     public static function getAllEnrollable()
     {
@@ -90,41 +95,64 @@ public static function findByDate($date)
         return $this->hasMany('App\Transaction');
     }
 
-    public function promotionIncentiveTransferRequest($coordinatorCollegeUID, $enrollmentTransactionID)
+    public function promotionIncentiveTransferRequest($enrollmentID,$coordinatorCollegeUID="")
     {
+        $enrollment=Enrollment::findOrFail($enrollmentID);
+        if($coordinatorCollegeUID=="")
+            $coordinatorCollegeUID=$enrollment->facilitatorCollegeUID;
+        if($enrollment->incentiveState==false&&$enrollment->partialPay==true){
+            $enrollment->incentiveState=true;
+        }
+        else
+            abort(422,'Unable to Credit Incentives for enrollment '.$enrollmentID);
         $promotionAccount = '999' . $this->id . '04';
         $narration = "Incentive CashBack of ";
-        if (User::ifNotExist($coordinatorCollegeUID)) return ['result'=>'error','title' => 'Interface Error', 'message' => 'Kindly Contact the system administrator'];
-        $coordinatorRate = User::find($coordinatorCollegeUID)->incentiveRate;
+        if (User::ifNotExist($coordinatorCollegeUID)) abort(422,'INCENTIVE QUEUE ERROR Kindly Contact the system administrator');
+        $coordinatorRate = User::where('collegeUID',$coordinatorCollegeUID)->firstOrFail()->incentiveRate;
         if ($coordinatorRate > $this->maxIncentiveRate)
             $rate = $this->maxIncentiveRate;
         else $rate = $coordinatorRate;
-        $amount = $this->ticketPrice * $rate;
-        $narration .= " ₹" . $amount . " received for $enrollmentTransactionID";
+        $amount = $this->ticketPrice * $rate/100;
+        $narration .= "₹" . $amount . " received for Enrollment: $enrollmentID";
         //debit account for Promotion is 04
         $q=new Queue();
-        return $q->createGlobalTransferRequest(
+        $resp= $q->createGlobalTransferRequest(
             $coordinatorCollegeUID,
             System::getPropertyValueByName('auth_promotional_incentive_approve_level'),
             $amount,
             $promotionAccount,
-            $amount,14);
+            "Incentive Credit Request for Partial Pay Based Enrollment $enrollmentID of ₹$amount",14,99887766);
+        $enrollment->save();
+        return $resp;
     }
 
-    public function promotionIncentiveTransferNonRequest($coordinatorCollegeUID, $enrollmentTransactionID)
+    public function promotionIncentiveTransferNonRequest ($enrollmentID,$coordinatorCollegeUID="")
     {
+        $enrollment=Enrollment::findOrFail($enrollmentID);
+        if($coordinatorCollegeUID=="")
+            $coordinatorCollegeUID=$enrollment->facilitatorCollegeUID;
+        if($enrollment->incentiveState==false && $enrollment->partialPay==false){
+        $enrollment->incentiveState=true;
+        }
+        else
+            abort(422,'Unable to Credit Incentives for enrollment '.$enrollmentID);
         //its direct and requires no approval
         $promotionAccount = '999' . $this->id . '04';
         $narration = "Incentive CashBack of ";
         if (User::ifNotExist($coordinatorCollegeUID)) return ['result'=>'error','title' => 'Interface Error', 'message' => 'Kindly Contact the system administrator'];
-        $coordinatorRate = User::find($coordinatorCollegeUID)->incentiveRate;
+        $coordinatorRate = User::where('collegeUID',$coordinatorCollegeUID)->firstOrFail()->incentiveRate;
         if ($coordinatorRate > $this->maxIncentiveRate)
             $rate = $this->maxIncentiveRate;
         else $rate = $coordinatorRate;
-        $amount = $this->ticketPrice * $rate;
-        $narration .= " ₹" . $amount . " received for $enrollmentTransactionID";
+        $amount = $this->ticketPrice * $rate/100;
+        $narration .= "₹" . $amount . " received for Enrollment: $enrollmentID";
         //debit account for Promotion is 04
-        return Transaction::directTransferDeQueue($promotionAccount, $coordinatorCollegeUID, $amount, $narration, 99887766);
+        $budget=Budget::where('account',$promotionAccount)->firstOrFail();
+        $budget->remainingValue-=$amount;
+        $budget->save();
+        $resp= Transaction::directTransferDeQueue($promotionAccount, $coordinatorCollegeUID, $amount, $narration, 99887766,14);
+        $enrollment->save();
+        return $resp;
     }
 
     public function saveNew(array $options = [])

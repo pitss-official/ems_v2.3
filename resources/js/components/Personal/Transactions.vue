@@ -94,6 +94,10 @@
                                 response.data[j].sender = 'You';
                                 response.data[j].description = response.data[j].description.replace(currentUserID, 'you');
                             }
+                            if (response.data[j].receiver == currentUserID) {
+                                response.data[j].receiver = 'You';
+                                response.data[j].description = response.data[j].description.replace(currentUserID, 'you');
+                            }
                             dataSet.push([j + 1, response.data[j].id, response.data[j].sender, response.data[j].description, response.data[j].receiver, response.data[j].created_at, '₹'+response.data[j].amount]);
                             if (j == response.data.length - 1) {
                                 $('#transactions-table').DataTable({

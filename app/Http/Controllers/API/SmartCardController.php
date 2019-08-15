@@ -16,6 +16,7 @@ class SmartCardController extends Controller{
     }
     public function generateCardList(GenrateSmartCardRequest $request){
         $validatedData = $request->validatedAndSanitized();
+        $this->authorize('create',SmartCard::class);
         $event = Event::findOrFail($validatedData['eventID']);
         if($validatedData['value']<=$event->ticketPrice) {
             set_time_limit(0);

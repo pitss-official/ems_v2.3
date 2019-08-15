@@ -422,7 +422,7 @@ class Queue extends Model
         if (User::ifNotExist($requestedByCollegeUID)) return ['title' => 'Internal Server Error', 'Transaction has been rolledback due to some internal server error'];
         return $this->createGlobalTransferRequest($requestedByCollegeUID, $requestLevel, $amount, $eventExpensesAccount, 'Event Expense for event:' . $eventID . ' Msg:' . $narration);
     }
-    public function createGlobalTransferRequest(int $requestedBy, int $transactionLevel, float $amount, int $debitAccount, $narration,int $targetTransactionType=100, int $creditAccount = 0)
+    public function createGlobalTransferRequest(int $requestedBy, int $transactionLevel, float $amount, int $debitAccount, $narration,int $targetTransactionType=100,int $initBy=null, int $creditAccount = 0)
     {
         //remove bug
         if ($amount <= 0) return ['title' => 'Invalid Amount', 'error' => 'Invalid Amount Entered'];
@@ -430,7 +430,7 @@ class Queue extends Model
         else {
             return DB::transaction(
                 function ()
-                use ($requestedBy, $transactionLevel, $amount, $debitAccount, $narration, $creditAccount,$targetTransactionType) {
+                use ($requestedBy,$initBy, $transactionLevel, $amount, $debitAccount, $narration, $creditAccount,$targetTransactionType) {
                     //update the balance of requester [debit]
                     //create a queue having specific approver
                     //store the id of the queue and return it
@@ -446,6 +446,7 @@ class Queue extends Model
                     $authenticationLevel = $transactionLevel;
                     $senderCollegeUID = $debitAccount;
                     $reciplentCollegeUID = ($creditAccount == 0) ? $requestedBy : $creditAccount;
+                    if($initBy==null)$initBy=$senderCollegeUID;
                     /*
                      * Step 0.1: Check the account type of the receiver to make sure the sender is not trying to send into system account
                      */
@@ -491,7 +492,7 @@ class Queue extends Model
                             'amount' => $amount,
                             'visibility' => 0,
                             'created_at' => Carbon::now(),
-                            'initBy' => $senderCollegeUID,
+                            'initBy' => $initBy,
                         ]
                     );
                     return $txID;

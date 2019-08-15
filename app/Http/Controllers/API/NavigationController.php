@@ -19,6 +19,5 @@ class NavigationController extends Controller
         $currentUser= User::getCurrentAPIUser();
         $navigator=new Navigator();
         return $navigator->getNavigationLinks($currentUser['authorityLevel']);
-
     }
 }

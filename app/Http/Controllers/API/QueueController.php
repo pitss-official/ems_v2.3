@@ -4,6 +4,9 @@ namespace App\Http\Controllers\API;
 
 use App\Exceptions\QueuesExeception;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\CreateBalanceTransferRequest;
+use App\Http\Requests\QueueApprovalRequest;
+use App\Http\Requests\QueueDenyAutoRequest;
 use App\Http\Requests\QueueStoreRequest;
 use App\Queue;
 use App\User;
@@ -15,12 +18,6 @@ class QueueController extends Controller
     {
         $this->middleware('auth:api');
     }
-
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {   $this->authorize('list',Queue::class);
         $collegeUID = User::getCurrentAPIUser()['collegeUID'];
@@ -46,13 +43,6 @@ class QueueController extends Controller
             ])->get();
         return $qs;
     }
-
-    /**
-     * Store a newly created resource in storage.
-     * @throws QueuesExeception
-     * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(QueueStoreRequest $request)
     {
         //todo:workkkkk
@@ -65,81 +55,27 @@ class QueueController extends Controller
         else
             return ["result"=>"error"];
     }
-    public function storeBalanceTransferRequest(Request $request)
+    public function storeBalanceTransferRequest(CreateBalanceTransferRequest $request)
     {
-        $validatedData=$request->validate([
-            'collegeUID'=>'required|numeric|digits:8|exists:users,collegeUID|exists:accounts,number|exists:accounts,collegeUID',
-            'amount'=>'required|numeric|between:1,9999999999999999999|min:1',
-            'narration'=>'required|string|min:1|max:100',
-            'mobile'=>'nullable|numeric|digits:10'
-        ]);
+        $validatedData=$request->validatedAndSanitized();
         $q = new Queue();
         $sender=User::getCurrentAPIUser()['collegeUID'];
         $id=$q->createReceiveMoneyRequest($sender,$validatedData['collegeUID'],$validatedData['amount'],$validatedData['narration'],"Requested ₹".$validatedData['amount']." from you.");
         if(is_numeric($id))
             return["result"=>"success","id"=>$id];
         else
-            return ["result"=>"error"];
+            abort(422,'Invalid');
     }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param int $id
-     * @return \Illuminate\Http\Response
-     */
-
-    public function getApprovalDetails(Request $request){
-        $validatedData = $request->validate([
-            'id'=>'bail|required|numeric|min:0|exists:queues,id',
-            'approvalRemarks'=>'bail|required|string|min:2|max:255',
-        ]);
+    public function getApprovalDetails(QueueApprovalRequest $request){
+        $validatedData = $request->validatedAndSanitized();
         $q=Queue::findOrFail($validatedData['id']);
         $approvedBy = User::getCurrentAPIUser()['collegeUID'];
         return ["result"=>'success','id'=>$q->approveAutoType($approvedBy,$validatedData['approvalRemarks'])];
     }
-
-
-    public function denyRequestDetails(Request $request){
-        $validatedData = $request->validate([
-            'id'=>'bail|required|numeric|min:0|exists:queues,id',
-            'approvalRemarks'=>'bail|required|string|min:2|max:255',
-        ]);
+    public function denyRequestDetails(QueueDenyAutoRequest $request){
+        $validatedData = $request->validatedAndSanitized();
         $q=Queue::findOrFail($validatedData['id']);
         $deniedBy = User::getCurrentAPIUser()['collegeUID'];
         return ["result"=>'success','id'=>$q->approveAutoType($deniedBy,$validatedData['approvalRemarks'])];
-
-
-    }
-
-
-
-
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @param int $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //æ
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param int $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
     }
 }

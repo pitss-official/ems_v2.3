@@ -19,8 +19,8 @@
           init()
           {
               Quagga.init({
-                  numOfWorkers: 1,
-                  frequency: 2,
+                  numOfWorkers: 2,
+                  frequency: 5,
                   locate:true,
                   debug: false,
                   inputStream : {

@@ -31,56 +31,27 @@ class QueuePolicy
      * @param  \App\User  $user
      * @return mixed
      */
-    public function create(User $user)
+    public function createBalanceTransfer(User $user)
     {
-        //
+        $requiredLevel=(int)System::getPropertyValueByName('rights_create_self_create-balance-transfer_level');
+        if($requiredLevel<=$user->authorityLevel)return true;
+        else return false;
     }
 
     /**
-     * Determine whether the user can update the queue.
-     *
-     * @param  \App\User  $user
-     * @param  \App\Queue  $queue
-     * @return mixed
+     * @param User $user
+     * @return bool
      */
-    public function update(User $user, Queue $queue)
+    public function approve(User $user)
     {
-        //
+        $requiredLevel=(int)System::getPropertyValueByName('rights_action_self_approve-queue_level');
+        if($requiredLevel<=$user->authorityLevel)return true;
+        else return false;
     }
-
-    /**
-     * Determine whether the user can delete the queue.
-     *
-     * @param  \App\User  $user
-     * @param  \App\Queue  $queue
-     * @return mixed
-     */
-    public function delete(User $user, Queue $queue)
+    public function denyAuto(User $user)
     {
-        //
-    }
-
-    /**
-     * Determine whether the user can restore the queue.
-     *
-     * @param  \App\User  $user
-     * @param  \App\Queue  $queue
-     * @return mixed
-     */
-    public function restore(User $user, Queue $queue)
-    {
-        //
-    }
-
-    /**
-     * Determine whether the user can permanently delete the queue.
-     *
-     * @param  \App\User  $user
-     * @param  \App\Queue  $queue
-     * @return mixed
-     */
-    public function forceDelete(User $user, Queue $queue)
-    {
-        //
+        $requiredLevel=(int)System::getPropertyValueByName('rights_action_self_deny-queue_level');
+        if($requiredLevel<=$user->authorityLevel)return true;
+        else return false;
     }
 }

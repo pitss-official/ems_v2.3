@@ -57,6 +57,8 @@ class User extends Authenticatable
             'firstName'=>$userObject->firstName,
             'middleName'=>$userObject->middleName,
             'lastName'=>$userObject->lastName,
+            'email'=>$userObject->email,
+            'mobile'=>$userObject->mobile
             ];}
             catch (\Exception $e)
             {
@@ -69,9 +71,7 @@ class User extends Authenticatable
     //this function is used to test the user is exsisting in the database or not
     public static function isNotExist($id)
     {
-        if (self::where('collegeUID', $id)->count() != 1)
-            return true;
-        else return false;
+        return !self::isExist($id);
     }
     public static function ifNotExist($id)
     {
@@ -79,7 +79,7 @@ class User extends Authenticatable
     }
     public static function ifExist($id)
     {
-        return self::ifNotExist($id);
+        return self::isExist($id);
     }
     public static function isExist($id)
     {

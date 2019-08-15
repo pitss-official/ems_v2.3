@@ -6,6 +6,7 @@ use App\Event;
 use App\Eventdate;
 use App\Http\Controllers\Controller;
 use App\System;
+use App\User;
 use function GuzzleHttp\Psr7\str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -18,39 +19,25 @@ class EventController extends Controller
     }
     public function listAll()
     {
+        $this->authorize('listAll',Event::class);
         return Event::getAllEnrollable();
     }
 
     public function listTeamableEvents()
     {
+        $this->authorize('listTeamable',Event::class);
         return Event::getAllTeamable();
     }
 
     public function findByDate($date)
     {
+        $this->authorize('listByDate',Event::class);
         return Event::findByDate($date);
     }
 
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-
-        $ac = \App\User::find(1)->account();
-        return;
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
+        $this->authorize('create',Event::class);
         //todo:check again
         $validatedData= System::sanitize($request->validate([
             'eventName'=>'bail|required|string|min:3|max:150',
@@ -87,11 +74,11 @@ class EventController extends Controller
         ])));
         $event = new Event();
         try {
-            $currentUser = Auth::guard('api')->user()->collegeUID;
+            $currentUser = User::getCurrentAPIUser()['collegeUID'];
         }
         catch (\Exception $e)
         {
-            throw new \Exception("Unathorized");
+            throw new \Exception("Unauthorized");
         }
         $event->name=$validatedData['eventName'];
         $event->requesterID=$currentUser;//todo:
@@ -127,39 +114,5 @@ class EventController extends Controller
             $eventDate->save();
         }
         return $event->id;
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param int $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @param int $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param int $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
     }
 }

@@ -41,20 +41,21 @@ class TeamController extends Controller
             }
         }
         else{
-            throw new \Exception("event does not support teams");
+            abort(422,"Event does not support teams");
         }
     }
 
 
-    //todo: by anu changeTeam.vue
+//    //todo: by anu changeTeam.vue
     public function getEventList(Request $request ){
+        $this->authorize('listAssociatedWithUser',Team::class);
         $validatedData = System::sanitize($request->validate([
             'regNo'=> 'bail|required|numeric|digits:8|exists:enrollments,participantCollegeUID',
         ]));
 
         $currentUser = User::getCurrentAPIUser()['collegeUID'];
         if($currentUser == $validatedData['regNo'])
-            throw new \Exception('user cant change his/her own team');
+            abort(422,'user cant change his/her own team');
         else{
             return Team::getEventByCollegeUID($validatedData['regNo']);
         }
@@ -81,7 +82,7 @@ class TeamController extends Controller
 
             }
         else{
-            throw new \Exception("event does not support teams");
+            abort(422,"event does not support teams");
         }
     }
     public function listAll(int $eventID)

@@ -22,4 +22,10 @@ class TeamPolicy
         if($requiredLevel<=$user->authorityLevel)return true;
         else return false;
     }
+    public function listAssociatedWithUser(User $user)
+    {
+        $requiredLevel=(int)System::getPropertyValueByName('rights_view_coordinator-to-participant-all-participated-for-user_team_level');
+        if($requiredLevel<=$user->authorityLevel)return true;
+        else return false;
+    }
 }

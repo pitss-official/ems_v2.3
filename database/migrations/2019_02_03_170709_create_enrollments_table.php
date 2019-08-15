@@ -23,6 +23,7 @@ class CreateEnrollmentsTable extends Migration
             $table->unsignedBigInteger('enrollmentFeesTransactionID');
             $table->boolean('partialPay')->default(0);
             $table->unsignedBigInteger('teamID')->nullable();
+            $table->boolean('incentiveState')->default(false);
 
             $table->foreign('eventID')->references('id')->on('events');
             $table->foreign('participantCollegeUID')->references('collegeUID')->on('users');

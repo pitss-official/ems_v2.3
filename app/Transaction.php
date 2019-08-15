@@ -54,7 +54,10 @@ class Transaction extends Model
             return $txID;
         }, 2);
     }
-
+    public static function nonDBTransactionDeQueueTranfer(int $debitAccountNumber, int $creditAccountNumber,float $amount, $narration,int $initBy, $visibility = 1,$type=100)
+    {
+        return self::nonDBTransactionDeQueueTransfer($debitAccountNumber, $creditAccountNumber,$amount, $narration,$initBy, $visibility,$type);
+    }
     public static function nonDBTransactionDeQueueTransfer(int $debitAccountNumber, int $creditAccountNumber,float $amount, $narration,int $initBy, $visibility = 1,$type=100)
     {
         if (User::ifNotExist($initBy)) return ['error' => 'Invalid Transaction Initiator'];
