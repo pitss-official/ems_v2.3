@@ -6,7 +6,7 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 use function PHPSTORM_META\type;
-
+//todo make final balance record in each transaction
 class Transaction extends Model
 {
     protected $visible = array('amount', 'created_at', 'receiver', 'sender', 'initBy', 'id', 'description');

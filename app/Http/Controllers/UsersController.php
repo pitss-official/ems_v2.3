@@ -97,12 +97,7 @@ class UsersController extends Controller
     {
         return User::getAllCoordinators();
     }
-    public function breadcumbBalances()
-    {
-        $user= User::getCurrentAPIUser();
-        $account=Account::findOrFail($user['collegeUID']);
-        return ['thisMonthEarnings'=>0,'currentBalance'=>$account->balance];
-    }
+
     public function setTheme($themeName)
     {
         $styles=['blue','purple','megna','red','green','default','default-dark','green-dark','red-dark','blue-dark','purple-dark','megna-dark',];

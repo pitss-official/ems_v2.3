@@ -80,6 +80,9 @@ let routes=[
     {path:'/serve/action/events/MarkStudentAttendance',component: require('./components/Forms/MarkEventAttendance').default},
     {path:'/serve/action/events/VerifyStudentAttendance',component: require('./components/Forms/VerifyAttendance').default},
     {path:'/serve/action/events/RequestSmartCard',component: require('./components/Forms/RequestSmartCard').default},
+    {path:'/serve/manage/users/delete/priv/',component: require('./components/Forms/AssignIncentiveAndLevel').default},
+    {path:'/serve/forms/add/user-to-organization',component: require('./components/Forms/AddNewUserToOrganization').default},
+    {path:'/serve/payments/online/dues-to-organization',component: require('./components/Forms/SendBalanceToOrganization').default},
     {path:'*',component: require('./components/Global/404Error').default},
 ]
 const router =new VueRouter({

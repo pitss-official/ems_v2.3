@@ -106,11 +106,9 @@
                 method: 'post',
                 url: '/api/events/find/teamable/',
             }).then((response)=> {
-                console.log(response);
                 this.$data.eventList = response.data;
             })
             .catch((error) => {
-                console.log(error);
             });
         }
     }

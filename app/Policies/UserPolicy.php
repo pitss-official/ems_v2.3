@@ -15,4 +15,16 @@ class UserPolicy
         if($requiredLevel<=$user->authorityLevel)return true;
         else return false;
     }
+    public function adminCreateNewUser(User $user)
+    {
+        $requiredLevel=(int)System::getPropertyValueByName('rights_create_global_users_level');
+        if($requiredLevel<=$user->authorityLevel)return true;
+        else return false;
+    }
+    public function adminAssignIncentiveAndPermissions(User $user)
+    {
+        $requiredLevel=(int)System::getPropertyValueByName('rights_critical_global_users-assign-permissions_level');
+        if($requiredLevel<=$user->authorityLevel)return true;
+        else return false;
+    }
 }

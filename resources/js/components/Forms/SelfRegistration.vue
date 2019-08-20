@@ -1,7 +1,9 @@
 <template>
+    <div id="self-reg-main">
+
     <form-wizard @on-complete="onComplete" transition="bounce" slot="step" class="wizard" shape="tab"
                          color="#3490dc">
-                <h2 slot="title"></h2>
+                <h2 slot="title">Online Registration</h2>
                 <tab-content title="Event details" :before-change="validateStep1" icon="mdi mdi-golf">
 
                     <section>
@@ -56,7 +58,7 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label class="control-label">First Name</label>
-                                        <input v-validate="'required|alpha_spaces|min:1'" data-vv-scope="page2" v-model="form.firstName" name="firstName" type="text" class="form-control" :class="{ 'is-invalid': form.errors.has('firstName') }">
+                                        <input v-validate="'required|alpha_spaces|min:1'" data-vv-scope="page2" v-model="form.firstName" name="firstName" type="text" class="form-control wht" :class="{ 'is-invalid': form.errors.has('firstName') }">
                                         <small class="form-control-feedback">
                                             <span class="validate-error">{{ errors.first('page2.firstName') }}</span>
                                         </small>
@@ -69,7 +71,7 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label class="control-label">Middle Name</label>
-                                        <input v-model="form.middleName" data-vv-scope="page2" v-validate="'alpha_spaces|min:1'" name="middleName" type="text" class="form-control" :class="{ 'is-invalid': form.errors.has('middleName') }">
+                                        <input v-model="form.middleName" data-vv-scope="page2" v-validate="'alpha_spaces|min:1'" name="middleName" type="text" class="form-control wht" :class="{ 'is-invalid': form.errors.has('middleName') }">
                                         <small class="form-control-feedback">
                                             <span class="validate-error">{{ errors.first('page2.middleName') }}</span>
                                         </small>
@@ -83,7 +85,7 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label class="control-label">Last Name</label>
-                                        <input v-model="form.lastName" data-vv-scope="page2" v-validate="'required|alpha_spaces|min:1'" name="lastName" type="text" class="form-control" :class="{ 'is-invalid': form.errors.has('lastName') }">
+                                        <input v-model="form.lastName" data-vv-scope="page2" v-validate="'required|alpha_spaces|min:1'" name="lastName" type="text" class="form-control wht" :class="{ 'is-invalid': form.errors.has('lastName') }">
                                         <small class="form-control-feedback">
                                             <span class="validate-error">{{ errors.first('page2.lastName') }}</span>
                                         </small>
@@ -101,7 +103,7 @@
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label class="control-label">Father's Name</label>
-                                            <input v-model="form.fathersName" data-vv-scope="page2" v-validate="'required|alpha_spaces|min:1'" name="fathersName" type="text" class="form-control" :class="{ 'is-invalid': form.errors.has('fathersName') }">
+                                            <input v-model="form.fathersName" data-vv-scope="page2" v-validate="'required|alpha_spaces|min:1'" name="fathersName" type="text" class="form-control wht" :class="{ 'is-invalid': form.errors.has('fathersName') }">
                                             <small class="form-control-feedback">
                                                 <span class="validate-error">{{ errors.first('page2.fathersName') }}</span>
                                             </small>
@@ -114,7 +116,7 @@
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label class="control-label">Registration Number</label>
-                                            <input v-model="form.regid" data-vv-scope="page2" v-validate="'required|numeric|digits:8'" name="regid" type="text" class="form-control" :class="{ 'is-invalid': form.errors.has('regid') }">
+                                            <input v-model="form.regid" data-vv-scope="page2" v-validate="'required|numeric|digits:8'" name="regid" type="text" class="form-control wht" :class="{ 'is-invalid': form.errors.has('regid') }">
                                             <small class="form-control-feedback">
                                                 <span class="validate-error">{{ errors.first('page2.regid') }}</span>
                                             </small>
@@ -128,7 +130,7 @@
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label class="control-label">Gender</label>
-                                            <select type="text" data-vv-scope="page2" v-validate="'required'" name="gender" class="form-control" v-model="form.gender" :class="{ 'is-invalid': form.errors.has('gender') }">
+                                            <select type="text" data-vv-scope="page2" v-validate="'required'" name="gender" class="form-control " v-model="form.gender" :class="{ 'is-invalid': form.errors.has('gender') }">
                                                 <option value="0">Male</option>
                                                 <option value="1">Female</option>
                                                 <option value="2">Other</option>
@@ -176,7 +178,7 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label class="control-label">Email address</label>
-                                        <input v-model="form.email" data-vv-scope="page3" v-validate="'required|email'" name="email" type="text" class="form-control" :class="{ 'is-invalid': form.errors.has('email') }">
+                                        <input v-model="form.email" data-vv-scope="page3" v-validate="'required|email'" name="email" type="text" class="form-control wht" :class="{ 'is-invalid': form.errors.has('email') }">
                                         <small class="form-control-feedback">
                                             <span class="validate-error">{{ errors.first('page3.email') }}</span>
                                         </small>
@@ -189,7 +191,7 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label class="control-label">Mobile Number</label>
-                                        <input v-model="form.mobile" data-vv-scope="page3" v-validate="'required|numeric|digits:10'" name="mobile" type="text" class="form-control" :class="{ 'is-invalid': form.errors.has('mobile') }">
+                                        <input v-model="form.mobile" data-vv-scope="page3" v-validate="'required|numeric|digits:10'" name="mobile" type="text" class="form-control wht" :class="{ 'is-invalid': form.errors.has('mobile') }">
                                         <small class="form-control-feedback">
                                             <span class="validate-error">{{ errors.first('page3.mobile') }}</span>
                                         </small>
@@ -201,7 +203,7 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label class="control-label">Whatsapp Number</label>
-                                        <input v-model="form.whatsapp" data-vv-scope="page3" v-validate="'required|numeric|digits:10'" name="whatsapp" type="text" class="form-control" :class="{ 'is-invalid': form.errors.has('whatsapp') }">
+                                        <input v-model="form.whatsapp" data-vv-scope="page3" v-validate="'required|numeric|digits:10'" name="whatsapp" type="text" class="form-control wht" :class="{ 'is-invalid': form.errors.has('whatsapp') }">
                                         <small class="form-control-feedback">
                                             <span class="validate-error">{{ errors.first('page3.whatsapp') }}</span>
                                         </small>
@@ -233,7 +235,7 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label class="control-label">Course</label>
-                                        <input v-model="form.course" data-vv-scope="page3" v-validate="'required|alpha_spaces|min:1'" name="course" type="text" class="form-control" :class="{ 'is-invalid': form.errors.has('course') }">
+                                        <input v-model="form.course" data-vv-scope="page3" v-validate="'required|alpha_spaces|min:1'" name="course" type="text" class="form-control wht" :class="{ 'is-invalid': form.errors.has('course') }">
                                         <small class="form-control-feedback">
                                             <span class="validate-error">{{ errors.first('page3.course') }}</span>
                                         </small>
@@ -246,7 +248,7 @@
                                 <div v-if="selectedEvent.teaming==1" class="col-md-4">
                                     <div class="form-group">
                                         <label class="control-label">Team Name</label>
-                                        <input v-model="form.teamName" data-vv-scope="page3" v-validate="'required|alpha_dash|min:1'" name="teamName" type="text" class="form-control" :class="{ 'is-invalid': form.errors.has('teamName') }">
+                                        <input v-model="form.teamName" data-vv-scope="page3" v-validate="'required|alpha_dash|min:1'" name="teamName" type="text" class="form-control wht" :class="{ 'is-invalid': form.errors.has('teamName') }">
                                         <small class="form-control-feedback">
                                             <span class="validate-error">{{ errors.first('page3.teamName') }}</span>
                                         </small>
@@ -260,7 +262,7 @@
                                     <div class="form-group">
                                         <label class="control-label">Payment Mode</label>
                                         <select v-validate="'required'" data-vv-scope="page3" v-model="form.smartMode" name="smartMode" type="text" class="form-control" :class="{ 'is-invalid': form.errors.has('smartMode') }">
-                                        <option value="0">Smart Code</option>
+<!--                                        <option value="0">Smart Code</option>-->
                                         <option value="1">Credit/Debit Card/UPI/Wallet/Net Banking</option>
                                         </select>
                                         <small class="form-control-feedback">
@@ -313,27 +315,17 @@
                             </div>
                             <div class="form-content" v-if="form.smartMode==1">
                                 <p><label>Credit/Debit Card</label></p>
-                                <p><b>Rs. {{selectedEvent.ticketPrice}}</b></p>
-                                <div class="form-row" >
-                                    <div class="form-holder" style="width: 100%">
-                                        <button class="btn btn-success" id="sub" type="submit"> <i class="fa fa-check"></i>Pay Now</button>
-                                          </div>
-                                </div>
-
-                        </div>
+                                <p><b>Amount Payable Rs. {{selectedEvent.ticketPrice}}</b></p>
+                                <p>In case of any problem email us at support@megaminds.club</p>
+                            </div>
                         </div>
                     </section>
                 </tab-content>
             </form-wizard>
+    <div id="submitter">
+    </div>
+    </div>
 </template>
-
-
-
-
-
-
-
-
 <script>
     import {FormWizard, TabContent} from 'vue-form-wizard'
     import 'vue-form-wizard/dist/vue-form-wizard.min.css'
@@ -401,7 +393,10 @@
             },
             onComplete()
             {
-                this.$data.form.post('/api/guest/register/self').then(res=>console.log(res.data))
+                this.$data.form.post('/api/guest/register/self').then(res=>{
+                    $('#submitter').html(res.data);
+                    $('#paynow').submit();
+                })
                     .catch(res=>{swal.fire('Error Occurred',res.message,'error')});
             },
             fetchEvents(){
@@ -420,7 +415,7 @@
         }
     }
 </script>
-<style>
+<style scoped>
     .validate-error{
         color: red;
     }

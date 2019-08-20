@@ -10,6 +10,7 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::post('/payment/status', 'API\OnlinePaymentController@paymentResponseActionEval');
 
 Route::get('/', function () {
     return view('welcome');
@@ -18,6 +19,6 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
-Route::get('/test', 'API\GuestController@test')->name('home');
+Route::get('/test', 'API\DashboardController@test')->name('test');
 
 Route::get('{path}','HomeController@index')->where( 'path', '([A-z\d/-/_.]+)?' );

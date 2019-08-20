@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\DB;
 
 class Enrollment extends Model
 {
-    protected $visible = ['id','fundTransactionID','enrollmentFeesTransactionID'];
+    protected $visible = ['id','fundTransactionID','enrollmentFeesTransactionID','created_at'];
     public function event()
     {
         return $this->hasOne('App\Event','id','eventID');
@@ -48,7 +48,7 @@ class Enrollment extends Model
         return $this->hasOne('App\User','collegeUID','coordinatorCollegeUID');
     }
 
-    public function enrollWithFullPayment($enrollingStudentCollegeUID, $coordinatorCollegeUID, $teamID)
+    public function enrollWithFullPayment($enrollingStudentCollegeUID, $coordinatorCollegeUID, $teamID,$eventAccount="01")
     {
         //Vaidation
         /*
@@ -68,9 +68,9 @@ class Enrollment extends Model
             $event = Event::find($this->eventID);
             //TRANSACTION BEGIN
             $coordinatorAccount = DB::table('accounts')->where('number', '=', $coordinatorCollegeUID);
-            return DB::transaction(function () use ($event, $teamID, $coordinatorCollegeUID, $enrollingStudentCollegeUID) {
+            return DB::transaction(function () use ($event, $teamID, $coordinatorCollegeUID, $enrollingStudentCollegeUID,$eventAccount) {
                 //eventCashAccount Begins with EVENTID_0_1
-                $eventCashAccount = '999' . $this->eventID . "01";
+                $eventCashAccount = '999' . $this->eventID . $eventAccount;
 
                 $amount = $event->ticketPrice;
                 $eventNarration = "Enrollment successful for $enrollingStudentCollegeUID by $coordinatorCollegeUID";

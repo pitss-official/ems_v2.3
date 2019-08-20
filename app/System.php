@@ -7,6 +7,9 @@ use Illuminate\Support\Facades\Mail;
 
 class System extends Model
 {
+    /*
+     * 55 is online payment transaction
+     */
     protected $table = "system";
 
     public static function queueAccount()
@@ -43,7 +46,11 @@ class System extends Model
             } else {
                 if (is_array($value)) {
                     $result += [$key => self::sanitize($value)];
-                } else {
+                }elseif (is_bool($value))
+                {
+                    $result+=[$key=>$value];
+                }
+                else{
                     $str = htmlspecialchars(strip_tags($value));
                     if ($str != '') $result += [$key => $str];
                     else $result += [$key => null];

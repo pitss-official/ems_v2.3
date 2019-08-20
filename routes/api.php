@@ -24,7 +24,7 @@ Route::get('fetch/user/queues/pendingAttendance','API\AttendenceController@index
 Route::get('fetch/user/account/transactions','API\CashFlowController@listAllTransactions')->middleware('auth:api','throttle: 12,1');
 Route::get('put/user/theme/{themeName}','UsersController@setTheme')->middleware('auth:api','throttle: 12,1');
 Route::get('/members/find/pendingBalance/{collegeUID}','API\CashFlowController@negativeStudentAccountBalance')->middleware('auth:api','throttle: 12,1');
-Route::get('/events/find/enrollable/{eventID}/teams/','API\TeamController@listAll')->middleware('auth:api','throttle: 12,1');
+Route::get('/events/find/enrollable/{eventID}/teams','API\TeamController@listAll')->middleware('auth:api','throttle: 12,1');
 Route::get('/events/all/onDate/{date}','API\EventController@findByDate')->middleware('auth:api','throttle: 12,1');
 Route::get('/events/{eventID}/find/participants','API\AttendenceController@getAllEnrolledStudents')->middleware('auth:api','throttle: 12,1');
 Route::get('/events/{eventID}/find/verifiable/participants','API\AttendenceController@getAttendanceList')->middleware('auth:api','throttle: 12,1');
@@ -33,15 +33,15 @@ Route::post('/events/put/attendance/request','API\AttendenceController@storeRequ
 Route::post('put/user/queues/balanceRequest/newRequest','API\QueueController@storeBalanceTransferRequest')->middleware('auth:api','throttle: 12,1');
 Route::post('deny/user/queues/denyPendingActions','API\QueueController@denyRequestDetails')->middleware('auth:api','throttle: 12,1');
 Route::post('put/user/queues/balanceTransfer/newRequest','API\QueueController@store')->middleware('auth:api','throttle: 12,1');
-Route::post('fetch/user/balance/currentBalance','UsersController@breadcumbBalances')->middleware('auth:api','throttle: 12,1');
+Route::post('fetch/user/balance/currentBalance','API\DashboardController@breadcumbBalances')->middleware('auth:api','throttle: 12,1');
 Route::post('approve/user/queues/approvePendingActions','API\QueueController@getApprovalDetails')->middleware('auth:api','throttle: 12,1');
 Route::post('/members/find/name/{collegeUID}','UsersController@getUserName')->middleware('auth:api','throttle: 12,1');
 Route::post('/forms/fees/enrollment/pluckPendingBalance','API\CashFlowController@store')->middleware('auth:api','throttle: 12,1');
-Route::post('/events/find/enrollable/','API\EventController@listAll')->middleware('auth:api','throttle: 12,1');
-Route::post('/events/find/teamable/','API\EventController@listTeamableEvents')->middleware('auth:api','throttle: 12,1');
+Route::post('/events/find/enrollable','API\EventController@listAll')->middleware('auth:api','throttle: 12,1');
+Route::post('/events/find/teamable','API\EventController@listTeamableEvents')->middleware('auth:api','throttle: 12,1');
 Route::post('events/enrollment/find/events','API\TeamController@getEventList')->middleware('auth:api','throttle: 12,1');
-Route::post('/find/enrolled/teams/','API\TeamController@fetchTeamList')->middleware('auth:api','throttle: 12,1');
-Route::post('/put/user/data/newTeam/','API\TeamController@updateTeam')->middleware('auth:api','throttle: 12,1');
+Route::post('/find/enrolled/teams','API\TeamController@fetchTeamList')->middleware('auth:api','throttle: 12,1');
+Route::post('/put/user/data/newTeam','API\TeamController@updateTeam')->middleware('auth:api','throttle: 12,1');
 Route::post('/put/events/budget/newBudget','API\BudgetController@store')->middleware('auth:api','throttle: 12,1');
 
 Route::post('/forms/events/enroll/student','API\EnrollmentController@store')->middleware('auth:api','throttle: 12,1');
@@ -53,11 +53,14 @@ Route::post('/forms/generate/smartCards', 'API\SmartCardController@generateCardL
 Route::post('/forms/moneyTransfer/transaction/initiate','API\EnrollmentController@store')->middleware('auth:api','throttle: 12,1');
 Route::post('/verify/enrollment/{EnrollmentID}','API\EnrollmentController@verify')->middleware('auth:api','throttle: 12,1');
 Route::post('/verify/venue/{VenueID}','API\VenueController@verify')->middleware('auth:api','throttle: 12,1');
-Route::post('/search/transactions/by-data/','API\CashFlowController@search')->middleware('auth:api','throttle: 12,1');
+Route::post('/search/transactions/by-data','API\CashFlowController@search')->middleware('auth:api','throttle: 12,1');
 
+//op
+Route::post('/request/ops/paydues-request','API\OnlinePaymentController@payDuesToOrganization')->middleware('auth:api','throttle:15,1');
 
-Route::apiResource('/forms/events/','API\EventController')->middleware('auth:api','throttle: 12,1');
-Route::apiResource('/forms/events/team','API\TeamController')->middleware('auth:api','throttle: 12,1');
+Route::post('/forms/events/addNew/Event','API\EventController@store')->middleware('auth:api','throttle: 12,1');
+Route::post('/forms/events/team','API\TeamController@store')->middleware('auth:api','throttle: 12,1');
 
-
-Route::get('/test/{param}','SystemController@test')->middleware('auth:api','throttle: 12,1');
+//admin
+Route::delete('/put/user/var/update-delete','API\SystemController@assignPermit')->middleware('auth:api','throttle: 12,1');
+Route::delete('/put/user/var/add-delete','API\SystemController@createUser')->middleware('auth:api','throttle: 12,1');

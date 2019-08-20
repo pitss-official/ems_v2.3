@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class PendingPayment extends Model
 {
+    protected $fillable=array('collegeUID','transactionID','amount','debitAccountNumber','creditAccountNumber','reference');
     public function debitAccount()
     {
         return $this->hasOne('App\Account', 'number', 'debitAccountNumber');

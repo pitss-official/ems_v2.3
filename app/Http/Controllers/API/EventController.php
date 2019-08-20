@@ -17,6 +17,9 @@ class EventController extends Controller
     {
         $this->middleware('auth:api');
     }
+    public function index(){
+        return true;
+    }
     public function listAll()
     {
         $this->authorize('listAll',Event::class);

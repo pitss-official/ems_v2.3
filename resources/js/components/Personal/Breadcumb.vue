@@ -34,6 +34,7 @@
 </template>
 
 <script>
+    import moment from 'moment'
     export default {
         name: "breadcumb",
         data()
@@ -52,6 +53,48 @@
                         method:'post',
                         url:'/api/fetch/user/balance/currentBalance'
                     }).then((response)=>{
+
+                        let dateTo = moment().format('DD-MM-YYYY');
+                        window.earningArrSpark=[]
+                        for(let i=0;i<8;i++)
+                        {
+                            let d=moment().subtract(i,'d').format('DD-MM-YYYY');
+                            if(response.data.thisWeekEarning[d]!=undefined){
+                                earningArrSpark.push(response.data.thisWeekEarning[d].map(item => item.amount).reduce((prev, next) => prev + next))
+                            }else{
+                                earningArrSpark.push(0)
+                            }
+                        }
+                        window.enrollmentArrSpark=[]
+                        for(let i=0;i<8;i++)
+                        {
+
+                            let d=moment().subtract(i,'d').format('DD-MM-YYYY');
+                            if(response.data.thisWeekEnrollments[d]!=undefined){
+                                enrollmentArrSpark.push(response.data.thisWeekEnrollments[d].length)
+                            }else{
+                                enrollmentArrSpark.push(0)
+                            }
+                        }
+                        window.mainchart={'dts':[],'org':[],'curr':[]}
+                        // window.mainchart.org=[]
+                        // window.mainchart.curr=[]
+                        for(let i=0;i<31;i++)
+                        {
+                            let d=moment().subtract(i,'d').format('DD-MM-YYYY');
+                            let e=moment().subtract(i,'d').format('DD/MM');
+                            mainchart.dts.push(e);
+                            if(response.data.totalEnrollmentsByOrganization[d]!=undefined){
+                                mainchart.org.push(response.data.totalEnrollmentsByOrganization[d].length)
+                            }else{
+                                mainchart.org.push(0)
+                            }
+                            if(response.data.totalEnrollmentsDoneByUser[d]!=undefined){
+                                mainchart.curr.push(response.data.totalEnrollmentsDoneByUser[d].length)
+                            }else{
+                                mainchart.curr.push(0)
+                            }
+                        }
                         this.$data.thisMonthEarnings='&#8377;'+response.data.thisMonthEarnings;
                         this.$data.currentBalance='&#8377;'+response.data.currentBalance;
                     }).catch()

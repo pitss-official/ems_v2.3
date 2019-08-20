@@ -174,15 +174,6 @@ function initPage() {
     $(".list-task li label").click(function () {
         $(this).toggleClass("task-done");
     });
-
-    // ==============================================================
-    // Login and Recover Password
-    // ==============================================================
-    $('#to-recover').on("click", function () {
-        $("#loginform").slideUp();
-        $("#recoverform").fadeIn();
-    });
-
     // ==============================================================
     // Collapsable cards
     // ==============================================================
@@ -206,21 +197,50 @@ function initPage() {
     // ==============================================================
     // This is for the sparkline charts which is coming in the bradcrumb section
     // ==============================================================
-    $('#monthchart').sparkline([5,9,2,5,18,8,7,8,8], {
-        type: 'bar',
-        height: '35',
-        barWidth: '3',
-        resize: true,
-        barSpacing: '4',
-        barColor: '#1e88e5'
-    });
-    $('#lastmonthchart').sparkline([5, 6, 2, 9, 4, 7, 10, 12], {
-        type: 'bar',
-        height: '35',
-        barWidth: '3',
-        resize: false,
-        barSpacing: '4',
-        barColor: '#7460ee'
-    });
-    var sparkResize;
+    setInterval(()=>{
+        $('#monthchart').sparkline(earningArrSpark, {
+            type: 'bar',
+            height: '35',
+            barWidth: '3',
+            resize: true,
+            barSpacing: '4',
+            barColor: '#1e88e5'
+        });
+        $('#lastmonthchart').sparkline(enrollmentArrSpark, {
+            type: 'bar',
+            height: '35',
+            barWidth: '3',
+            resize: false,
+            barSpacing: '4',
+            barColor: '#7460ee'
+        });
+        new Chartist.Line('.progresser-chart', {
+            labels: mainchart.dts
+            , series: [
+                mainchart.curr, mainchart.org
+            ]
+        }, {
+            low: 0
+            , showArea: true
+            , fullWidth: true
+            , chartPadding: 30
+
+            , axisX: {
+                showLabel: true
+                , divisor: 2
+                , showGrid: false
+                , offset: 50
+            }
+            , plugins: [
+                Chartist.plugins.tooltip()
+            ], // As this is axis specific we need to tell Chartist to use whole numbers only on the concerned axis
+            axisY: {
+                onlyInteger: true
+                , showLabel: true
+                , scaleMinSpace: 50
+                , showGrid: true
+                , offset: 10
+            }
+        });
+    },1000);
 }

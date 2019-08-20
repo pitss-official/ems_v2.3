@@ -10,7 +10,7 @@
                         <div class="card-body">
                             <form @submit.prevent="send" class="form-material">
                                 <div class="form-body">
-                                    <h3 class="card-title">Enter Reciever Details</h3>
+                                    <h3 class="card-title">Enter Receiver Details</h3>
                                     <hr>
                                     <alert-errors :form="student"></alert-errors>
                                     <div class="row p-t-20">
@@ -48,9 +48,9 @@
                                 </div><div class="row">
                                 <div class="col-lg-12">
                                     <div class="form-group">
-                                        <label class="control-label">Request text(Message for reciever)</label>
+                                        <label class="control-label">Request text(Message for receiver)</label>
                                         <input class="form-control" placeholder="I want to send you money for my registrations" type="text" v-model="student.narration">
-                                        <small class="form-control-feedback">Write a small message for the reciever to recognise your request</small>
+                                        <small class="form-control-feedback">Write a small message for the receiver to recognise your request</small>
                                     </div>
                                 </div>
                             </div>
@@ -126,7 +126,7 @@
                 {
                     if(this.$data.student.collegeUID==currentUserID)
                     {
-                        swal.fire("Invalid Data","You cannot initate money send request to yourself","error");
+                        swal.fire("Invalid Data","You cannot initiate money send request to yourself","error");
                         return;
                     }
                     this.student.post('/api/put/user/queues/balanceTransfer/newRequest')

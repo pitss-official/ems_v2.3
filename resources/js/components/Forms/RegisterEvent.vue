@@ -390,7 +390,7 @@
             {
                 save() {
                     this.$data.event.dates = this.$data.dates;
-                    this.event.post('/api/forms/events/').then(response => {
+                    this.event.post('/api/forms/events/addNew/Event').then(response => {
                         if(!isNaN(response.data))
                         {//todo: implement cross verification like venues and integrate venues
                             swal.fire({
@@ -401,7 +401,7 @@
                             })
                         }else {
                             console.log(response);
-                            Swal.fire("Error Occurred","Some error occured while processing check console","error");
+                            Swal.fire("Error Occurred","Some error occurred while processing check console","error");
                         }
                     });
                 },

@@ -21,33 +21,33 @@
                             <li><a class="purple-dark-theme" data-theme="purple-dark" href="javascript:void(0)">11</a></li>
                             <li><a class="megna-dark-theme " data-theme="megna-dark" href="javascript:void(0)">12</a></li>
                         </ul>
-                        <ul class="m-t-20 chatonline">
-                            <li><b>Chat option</b></li>
-                            <li>
-                                <a href="javascript:void(0)"><img alt="user-img" class="img-circle"> <span>Varun Dhavan <small class="text-success">online</small></span></a>
-                            </li>
-                            <li>
-                                <a href="javascript:void(0)"><img alt="user-img" class="img-circle"> <span>Genelia Deshmukh <small class="text-warning">Away</small></span></a>
-                            </li>
-                            <li>
-                                <a href="javascript:void(0)"><img alt="user-img" class="img-circle"> <span>Ritesh Deshmukh <small class="text-danger">Busy</small></span></a>
-                            </li>
-                            <li>
-                                <a href="javascript:void(0)"><img  alt="user-img" class="img-circle"> <span>Arijit Sinh <small class="text-muted">Offline</small></span></a>
-                            </li>
-                            <li>
-                                <a href="javascript:void(0)"><img  alt="user-img" class="img-circle"> <span>Govinda Star <small class="text-success">online</small></span></a>
-                            </li>
-                            <li>
-                                <a href="javascript:void(0)"><img alt="user-img" class="img-circle"> <span>John Abraham<small class="text-success">online</small></span></a>
-                            </li>
-                            <li>
-                                <a href="javascript:void(0)"><img alt="user-img" class="img-circle"> <span>Hritik Roshan<small class="text-success">online</small></span></a>
-                            </li>
-                            <li>
-                                <a href="javascript:void(0)"><img alt="user-img" class="img-circle"> <span>Pwandeep rajan <small class="text-success">online</small></span></a>
-                            </li>
-                        </ul>
+<!--                        <ul class="m-t-20 chatonline">-->
+<!--                            <li><b>Chat option</b></li>-->
+<!--                            <li>-->
+<!--                                <a href="javascript:void(0)"><img alt="user-img" class="img-circle"> <span>Varun Dhavan <small class="text-success">online</small></span></a>-->
+<!--                            </li>-->
+<!--                            <li>-->
+<!--                                <a href="javascript:void(0)"><img alt="user-img" class="img-circle"> <span>Genelia Deshmukh <small class="text-warning">Away</small></span></a>-->
+<!--                            </li>-->
+<!--                            <li>-->
+<!--                                <a href="javascript:void(0)"><img alt="user-img" class="img-circle"> <span>Ritesh Deshmukh <small class="text-danger">Busy</small></span></a>-->
+<!--                            </li>-->
+<!--                            <li>-->
+<!--                                <a href="javascript:void(0)"><img  alt="user-img" class="img-circle"> <span>Arijit Sinh <small class="text-muted">Offline</small></span></a>-->
+<!--                            </li>-->
+<!--                            <li>-->
+<!--                                <a href="javascript:void(0)"><img  alt="user-img" class="img-circle"> <span>Govinda Star <small class="text-success">online</small></span></a>-->
+<!--                            </li>-->
+<!--                            <li>-->
+<!--                                <a href="javascript:void(0)"><img alt="user-img" class="img-circle"> <span>John Abraham<small class="text-success">online</small></span></a>-->
+<!--                            </li>-->
+<!--                            <li>-->
+<!--                                <a href="javascript:void(0)"><img alt="user-img" class="img-circle"> <span>Hritik Roshan<small class="text-success">online</small></span></a>-->
+<!--                            </li>-->
+<!--                            <li>-->
+<!--                                <a href="javascript:void(0)"><img alt="user-img" class="img-circle"> <span>Pwandeep rajan <small class="text-success">online</small></span></a>-->
+<!--                            </li>-->
+<!--                        </ul>-->
                     </div>
                 </div>
             </div>

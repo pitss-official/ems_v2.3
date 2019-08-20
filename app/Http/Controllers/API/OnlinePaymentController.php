@@ -1,141 +1,114 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\API;
 
+use App\Account;
+use App\Enrollment;
+use App\Event;
+use App\Http\Requests\OnlinePaymentResponseRequest;
+use App\Http\Requests\PayDuesToOrganizationRequest;
+use App\Mail\EnrollmentReceipt;
+use App\Mail\TransactionAlert;
 use App\OnlinePayment;
-use Illuminate\Http\Request;
+use App\PendingPayment;
 use App\System;
+use App\Transaction;
+use App\User;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\DB;
 
 class OnlinePaymentController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+    public function paymentResponseActionEval(OnlinePaymentResponseRequest $request)
     {
-        //
+        $validatedData = $request->validatedAndSanitized();
+        return DB::transaction(function () use ($validatedData, $request) {
+            $pendingPayment = PendingPayment::findOrFail($validatedData['ORDERID']);
+            if ($request->validateTransaction($validatedData['ORDERID'])) {
+                /*
+                 * check if the request was not approved earlier
+                 * check if the amount matching with the alloc amount in pending payments table
+                 */
+                if ($pendingPayment->approval == 1 || $pendingPayment->amount != $validatedData['TXNAMOUNT']) {
+                    abort(422, 'Payment Approved and still PG sent response or amount is different');
+                } else {
+                    $opt = OnlinePayment::create($validatedData + ['request' => json_encode($request->headers->all()).'|'.json_encode($request->getContent()), 'verified' => true]);
+                    $pendingPayment->approval = 1;
+                    $pendingPayment->approvalTime = now();
+                        $txID = Transaction::nonDBTransactionDeQueueTransfer(
+                        $pendingPayment->debitAccountNumber,
+                        $pendingPayment->creditAccountNumber,
+                        $validatedData['TXNAMOUNT'],
+                        'Online Payment using Payment Gateway',
+                        99887766,
+                        1,
+                        55
+                    );
+                    $pendingPayment->remarks = "txID=$txID|opID=" . $opt->id;
+                    $pendingPayment->save();
+                    $attr = explode('|', $pendingPayment->reference);
+                    $action = $attr[0];
+                    if ($action == "enrollment") {
+                        $coorID = 99887766;
+                        $participantCollegeUID = $pendingPayment->collegeUID;
+                        $eventID = $attr[1];
+                        $teamID = $attr[2];
+                        $enrollment = new Enrollment();
+                        $enrollment->eventID = $eventID;
+                        //event online account ends with 03
+                        $id = $enrollment->enrollWithFullPayment($participantCollegeUID, $coorID, $teamID, "03");
+                        $enrollment->id = $id;
+                        $user = User::where('collegeUID', $participantCollegeUID)->firstOrFail();
+                        $event = Event::find($eventID);
+                        $mailParams = array(
+                            'subject' => 'Registration Successful - MegaMinds OMS',
+                            'event' => $event,
+                            'enrollment' => $enrollment,
+                            'participant' => $user,
+                            'coordinator' => ['firstName' => 'Online', 'lastName' => 'Gateway'],
+                            'amount' => 'Rs. ' . $validatedData['TXNAMOUNT'],
+                        );
+                        System::mailer($user->email, new EnrollmentReceipt($mailParams));
+                        return view('layouts.payments.success');
+                    }elseif ($action=="op")
+                    {
+                        $user = User::where('collegeUID', $pendingPayment->collegeUID)->firstOrFail();
+                        $txMailParams=array(
+                            'closing'=>'Rs. '.Account::balance($pendingPayment->collegeUID),
+                            'transactionID'=>$txID,
+                            'assocID'=>$pendingPayment->collegeUID,
+                            'type'=>'credit',
+                            'amount'=>'Rs. '.$validatedData['TXNAMOUNT'],
+                            'msg'=>"Online Payment Successful",
+                            'subject'=>'Transaction Alert');
+                        System::mailer($user->email,new TransactionAlert($txMailParams));
+                        return view('layouts.payments.success');
+                    }
+                }
+            } else {
+                //some error in the response
+                //we will store the response without performing any action
+                $opt = OnlinePayment::create($validatedData + ['request' => json_encode($request->headers->all()).'|'.json_encode($request->getContent()), 'verified' => false]);
+                $pendingPayment->approval = 0;
+                $pendingPayment->save();
+                return view('layouts.payments.failed');
+            }
+        });
     }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        <?php
-/**
-* import checksum generation utility
-* You can get this utility from https://developer.paytm.com/docs/checksum/
-*/
-require_once("encdec_paytm.php");
-/* initialize an array with request parameters */
-$paytmParams = array(
-
-	/* Find your MID in your Paytm Dashboard at https://dashboard.paytm.com/next/apikeys */
-	"MID" => System::getPropertyValueByName('config_paytm_mid'),
-
-	/* Find your WEBSITE in your Paytm Dashboard at https://dashboard.paytm.com/next/apikeys */
-	"WEBSITE" => "YOUR_WEBSITE_HERE",
-
-	/* Find your INDUSTRY_TYPE_ID in your Paytm Dashboard at https://dashboard.paytm.com/next/apikeys */
-	"INDUSTRY_TYPE_ID" => "YOUR_INDUSTRY_TYPE_ID_HERE",
-
-	/* WEB for website and WAP for Mobile-websites or App */
-	"CHANNEL_ID" => "YOUR_CHANNEL_ID",
-
-	/* Enter your unique order id */
-	"ORDER_ID" => "YOUR_ORDER_ID",
-
-	/* unique id that belongs to your customer */
-	"CUST_ID" => "CUSTOMER_ID",
-
-	/* customer's mobile number */
-	"MOBILE_NO" => "CUSTOMER_MOBILE_NUMBER",
-
-	/* customer's email */
-	"EMAIL" => "CUSTOMER_EMAIL",
-
-	/**
-	* Amount in INR that is payble by customer
-	* this should be numeric with optionally having two decimal points
-	*/
-	"TXN_AMOUNT" => "ORDER_TRANSACTION_AMOUNT",
-
-	/* on completion of transaction, we will send you the response on this URL */
-	"CALLBACK_URL" => "YOUR_CALLBACK_URL",
-);
-
-/**
-* Generate checksum for parameters we have
-* Find your Merchant Key in your Paytm Dashboard at https://dashboard.paytm.com/next/apikeys
-*/
-$checksum = getChecksumFromArray($paytmParams, "YOUR_KEY_HERE");
-
-/* for Staging */
-$url = "https://securegw-stage.paytm.in/order/process";
-
-/* for Production */
-// $url = "https://securegw.paytm.in/order/process";
-
-
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\OnlinePayment  $onlinePayment
-     * @return \Illuminate\Http\Response
-     */
-    public function show(OnlinePayment $onlinePayment)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\OnlinePayment  $onlinePayment
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(OnlinePayment $onlinePayment)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\OnlinePayment  $onlinePayment
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, OnlinePayment $onlinePayment)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\OnlinePayment  $onlinePayment
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(OnlinePayment $onlinePayment)
-    {
-        //
+    public function payDuesToOrganization(PayDuesToOrganizationRequest $request){
+        $validated=$request->validatedAndSanitized();
+        $amt=(int)$validated['amount'];
+        $uid=User::getCurrentAPIUser()['collegeUID'];
+        $pendingPayments=PendingPayment::create([
+            'collegeUID'=>$uid,
+            'transactionID'=>'gen_'.System::randAlphaNum(12),
+            'amount'=>$amt,
+            'debitAccountNumber'=>System::getPropertyValueByName('accounts_org_digi-cash_paytm'),
+            'creditAccountNumber'=>$uid,
+            'reference'=>'op|',
+        ]);
+        $onlinePayment = new OnlinePayment();
+        $user=User::where('collegeUID',$uid)->firstOrFail();
+        return $onlinePayment->addMoneyRequest($pendingPayments->id,$user,$amt);
     }
 }

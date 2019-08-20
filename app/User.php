@@ -17,7 +17,24 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'firstName','middleName','lastName','collegeUID','nationality','bloodGroup','fathersName','mobile','altMobile','address'
+        'firstName',
+        'middleName',
+        'lastName',
+        'collegeUID',
+        'nationality',
+        'bloodGroup',
+        'fathersName',
+        'mobile',
+        'altMobile',
+        'address',
+        'createdBy',
+        'gender',
+        'birthday',
+        'email',
+        'branch',
+        'school',
+        'status',
+        'referenceUID','password'
     ];
 
     /**
@@ -62,7 +79,7 @@ class User extends Authenticatable
             ];}
             catch (\Exception $e)
             {
-                die("Invalid Session");
+                echo $e;
             }
     }
     protected $casts = [

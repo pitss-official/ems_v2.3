@@ -11,12 +11,7 @@ use App\Mail\EnrollmentReceipt;
 use App\Mail\TransactionAlert;
 use App\System;
 use App\User;
-use App\Team;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Mail;
-use phpseclib\Crypt\Hash;
-use Illuminate\Support\Facades\DB;
 
 class EnrollmentController extends Controller
 {
@@ -49,7 +44,7 @@ class EnrollmentController extends Controller
                 'altMobile' => 'nullable|integer|digits:10|unique:users',
                 'gender' => 'bail|required|integer|digits_between:0,3',
                 'address' => 'nullable|string|max:250',
-                'nationality' => 'nullable|string|max:5',
+                'nationality' => 'bail|required|string|max:5',
                 'bloodGroup' => 'nullable|string|max:5',
                 'birthday' => 'nullable|date',
             ])),$validatedData);
@@ -78,7 +73,7 @@ class EnrollmentController extends Controller
             $user->fathersName = $validatedData['fathersName'];
             $user->createdBy = $coordinatorUID;
             $user->password = \Illuminate\Support\Facades\Hash::make(random_bytes(10));
-            $user->status = 1;
+            $user->status = 0;
             $user->referenceUID = $coordinatorUID;
             $user->save();
             try{

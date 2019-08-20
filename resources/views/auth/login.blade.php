@@ -1,13 +1,14 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Login') }}</div>
-
-                <div class="card-body">
+{{--<div class="container">--}}
+{{--    <div class="row justify-content-center">--}}
+{{--        <div class="col-md-8">--}}
+{{--            <div class="card">--}}
+{{--                <div class="card-header">{{ __('Login') }}</div>--}}
+{{----}}
+{{--                <div class="card-body">--}}
+                    <h2 style="color: white; text-align: center;" class="pb-1">Login to MegaMinds</h2>
                     <form method="POST" action="{{ route('login') }}">
                         @csrf
 
@@ -15,13 +16,13 @@
                             <label for="collegeUID" class="col-md-4 col-form-label text-md-right">{{ __('College Registration Number') }}</label>
 
                             <div class="col-md-6">
-                                <input id="collegeUID" type="number" class="form-control @error('collegeUID') is-invalid @enderror" name="collegeUID" value="{{ old('collegeUID') }}" required autocomplete="collegeUID" autofocus>
+                                <input id="collegeUID" type="number" class="form-control @if($errors->has('collegeUID')) is-invalid @endif" name="collegeUID" value="{{ old('collegeUID') }}" required autocomplete="collegeUID" autofocus>
 
-                                @error('collegeUID')
+                                @if($errors->has('collegeUID'))
                                     <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
+                                        <strong>{{ $errors->first('collegeUID') }}</strong>
                                     </span>
-                                @enderror
+                                @endif
                             </div>
                         </div>
 
@@ -29,13 +30,13 @@
                             <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
 
                             <div class="col-md-6">
-                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
+                                <input id="password" type="password" class="form-control @if($errors->has('password')) is-invalid @endif" name="password" required autocomplete="current-password">
 
-                                @error('password')
+                                @if($errors->has('password'))
                                     <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
+                                        <strong>{{ $errors->first('password') }}</strong>
                                     </span>
-                                @enderror
+                                @endif
                             </div>
                         </div>
 
@@ -65,9 +66,9 @@
                             </div>
                         </div>
                     </form>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+{{--                </div>--}}
+{{--            </div>--}}
+{{--        </div>--}}
+{{--    </div>--}}
+{{--</div>--}}
 @endsection

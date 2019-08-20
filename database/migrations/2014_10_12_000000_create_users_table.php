@@ -26,7 +26,7 @@ class CreateUsersTable extends Migration
             $table->string('bloodGroup',5)->nullable();
             $table->dateTime('lastLogin')->useCurrent();
             $table->float('incentiveRate',10,2)->default(0);
-            $table->unsignedTinyInteger('status')->default(1);
+            $table->unsignedTinyInteger('status')->default(0);
             $table->bigInteger('mobile');
             $table->bigInteger('altMobile')->nullable();
             $table->unsignedSmallInteger('authorityLevel')->default(0);

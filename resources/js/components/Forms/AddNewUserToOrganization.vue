@@ -1,14 +1,14 @@
 <template>
-    <div id="enrollment">
-        <div id="enrollment-main">
+    <div>
+        <div id="add-org">
             <div class="row">
                 <div class="col-lg-12">
                     <div class="card card-outline-info" id="mains">
                         <div class="card-header">
-                            <h4 class="m-b-0 text-white">Student Registration Form</h4>
+                            <h4 class="m-b-0 text-white">Add User to Organization</h4>
                         </div>
                         <div class="card-body">
-                            <form @submit.prevent="enrollWithFullPayment" class="form-material">
+                            <form @submit.prevent="addUser" class="form-material">
                                 <div class="form-body">
                                     <h3 class="card-title">Student Details</h3>
                                     <hr>
@@ -130,14 +130,14 @@
                                         <!--/span-->
                                         <div class="col-md-6">
                                             <div class="form-group">
-                                                <label class="control-label">Course</label>
+                                                <label class="control-label">Branch</label>
                                                 <!--				form-group has-danger/has-success									form-control-danger-->
-                                                <input :class="{ 'is-invalid': student.errors.has('course') }"
+                                                <input :class="{ 'is-invalid': student.errors.has('branch') }"
                                                        :disabled="naive.filled" :readonly="naive.filled"
                                                        class="form-control" name="course" placeholder="Eg. Bachelor of Technology (Hons.)"
-                                                       required type="text" v-model="student.course">
+                                                       required type="text" v-model="student.branch">
                                                 <small class="form-control-feedback"></small>
-                                                <has-error :form="student" field="course"></has-error>
+                                                <has-error :form="student" field="branch"></has-error>
                                             </div>
                                         </div>
                                     </div>
@@ -155,20 +155,6 @@
                                             <small class="form-control-feedback">Confirmation of Seat and Pass details
                                                 will be sent on this number
                                             </small><has-error :form="student" field="mobile"></has-error>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label class="control-label">Event Selection</label>
-                                            <select :class="{ 'is-invalid': student.errors.has('collegeUID') }"
-                                                    @change="readyData(student.teamID)"
-                                                    class="form-control custom-select" id="eventID" required
-                                                    v-model="student.eventID">
-                                                <option v-bind:value="event.id" v-for="event in events">
-                                                    {{ event.name }}
-                                                </option>
-                                            </select>
-                                            <has-error :form="student" field="eventID"></has-error>
                                         </div>
                                     </div>
                                 </div>
@@ -214,18 +200,6 @@
                                             <has-error :form="student" field="nationality"></has-error>
                                         </div>
                                     </div>
-                                    <!--/span-->
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label>Team ID</label>
-                                            <select class="form-control" type="number" v-model="student.team">
-                                                <option v-bind:value="team.id" v-for="team in teams">{{ team.name }}
-                                                </option>
-                                            </select>
-                                            <has-error :form="student" field="team"></has-error>
-                                        </div>
-                                    </div>
-                                    <!--/span-->
                                 </div>
                                 <div class="row">
                                     <div class="col-md-12 ">
@@ -260,16 +234,10 @@
                                     <!--/span-->
                                 </div>
                                 <!--/row-->
-
-
                                 <div class="form-actions">
-                                    <button :disabled="student.busy" @click="enrollWithFullPayment"
+                                    <button :disabled="student.busy" @click="addUser"
                                             class="btn btn-primary" id="btn-fullpay" type="submit"><i
-                                        class="fa fa-check"></i> Enroll and Pay Now
-                                    </button>
-                                    <button :disabled="student.busy" @click="partialPay" class="btn btn-info"
-                                            id="btn-partpay" type="button"><i class="fa fa-check"></i> Enroll and
-                                        Paritial Pay Now
+                                        class="fa fa-check"></i> Add Now
                                     </button>
                                     <button class="btn btn-danger" onClick="reset()" type="button">Cancel</button>
                                 </div>
@@ -311,18 +279,13 @@
                     mobile: null,
                     altMobile: null,
                     email: null,
-                    eventID: null,
                     nationality: null,
                     bloodGroup: null,
                     birthday: null,
-                    team: 0,
-                    amount: 0,
                     school:null,
-                    course:null,
+                    branch:null,
                     remember: false,
                 }),
-                selectedEvent: null,
-                events: [],
                 teams: []
             };
         },
@@ -354,130 +317,18 @@
 
                 }
             },
-            partialPay() {
-                var flag = 0;
-                if (this.selectedEvent.minimumPayment == 100) {
-                    swal.fire({
-                        title: 'Not Allowed',
-                        text: 'This event is not allowed for reservation of seats via partial payment',
-                        type: 'error',
-                        backdrop: `rgba(123, 10, 0, 0.4)`
-                    });
-                    return;
-                }
-                this.$validator.validateAll().then(() => {
-                    swal.fire({
-                        title: 'Enter Amount',
-                        input: 'number',
-                        type: 'question',
-                        text: 'Minimum Allowed Amount for this event is Rs. ' + this.selectedEvent.ticketPrice * this.selectedEvent.minimumPayment / 100,
-                        inputAttributes: {
-                            autocapitalize: 'off'
-                        },
-                        showCancelButton: true,
-                        confirmButtonText: 'Book Now',
-                        showLoaderOnConfirm: true,
-                        preConfirm: (value) => {
-                            this.student.amount = value;
-                            return this.student.post('/api/forms/events/enroll/student')
-                                .then(response => {
-                                    return response;
-                                })
-                                .catch(error => {
-                                    Swal.showValidationMessage(
-                                        `You have some validation errors`
-                                    )
-                                })
-                        },
-                        allowOutsideClick: () => false
-                    }).then((result) => {
-                        if (result.value) {
-                            if (result.value.data.error) {
-                                swal.fire(result.value.data.error, result.value.data.message, "error");
-                                return;
-                            } else {
-                                axios({
-                                    method: 'post',
-                                    url: '/api/verify/enrollment/' + result.value.data.id,
-                                }).then(resp => {
-                                        if(isNaN(resp.data))
-                                            swal.fire("Error","Server Error","error");
-                                        swal.fire({
-                                            title: 'Enrollment ID: ' + result.value.data.id,
-                                            text: 'You have successfully enrolled ' + this.student.firstName,
-                                            type: 'success',
-                                            backdrop: `rgba(0, 0, 123, 0.4)`
-                                        });
-                                        this.student.reset();
-                                    }).catch()
-                                {
-                                    swal.fire("Enrollment Failed", "Some error occurred during enrollment", "error")
-                                }
-                            }
-
-                        }
-                    });
-                }).catch()
-                {
-                    swal.fire("Invalid Inputs", "Your form has multiple errors", "error");
-                }
-            },
-            getEvents() {
-                axios({
-                    method: 'post',
-                    url: '/api/events/find/enrollable/',
+            addUser()
+            {
+                this.student.delete('/api/put/user/var/add-delete').then(res=>{
+                    if(res.data.result=='success')
+                    {
+                        swal.fire('Success','Enrollment into the Organization Successful','success');
+                    }
+                    else swal.fire('Error','Error Processing your data','error');
                 })
-                    .then((response) => {
-                        this.$data.events = response.data
-                    })
-                    .catch(function (response) {
-                        swal.fire('Server Error', 'Kindly Contact the Server Admin', 'error');
-                    });
-            },
-            readyData() {
-                for (var j = 0; j < this.events.length; j++) {
-                    if (this.student.eventID == this.events[j].id)
-                        this.selectedEvent = this.events[j];
-                }
-
-                axios({
-                    method: 'get',
-                    url: '/api/events/find/enrollable/' + this.$data.student.eventID+'/teams/',
-                }).then((response) => {
-                        this.$data.teams = response.data;
-                    })
-                    .catch(function (response) {
-                        swal.fire('Server Error', 'Kindly Contact the Server Admin', 'error');
-                    });
-            },
-            enrollWithFullPayment() {
-                this.$validator.validateAll().then(() => {
-                    this.student.amount = this.selectedEvent.ticketPrice;
-                    this.student.mobile = parseInt(this.student.mobile);
-                    this.student.post('/api/forms/events/enroll/student')
-                        .then((response) => {
-                            var data = response.data;
-                            if(data.result=="success") {
-                                swal.fire({
-                                    title: 'Enrollment ID: ' + data.id,
-                                    text: 'You have successfully enrolled ' + this.student.firstName,
-                                    type: 'success',
-                                    backdrop: `rgba(0, 0, 123, 0.4)`
-                                });
-                                this.student.reset();
-                                $('#regNo').focus();
-                            }else {
-                                swal.fire("Error 505","Internal Server Error","error")
-                            }
-                        });
-                }).catch()
-                {
-                    swal("Invalid Inputs", "Your form has multiple errors", "error");
-                }
-            },
+            }
         },
         mounted() {
-            this.getEvents();
         }
     }
 </script>
