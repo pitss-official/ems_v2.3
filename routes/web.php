@@ -12,6 +12,14 @@
 */
 Route::post('/payment/status', 'API\OnlinePaymentController@paymentResponseActionEval');
 
+//todo remove production
+Route::get('/upio',function (){
+   $rand=\App\System::randAlphaNum(8);
+   echo $rand;
+   echo '<br>';
+   echo \Illuminate\Support\Facades\Hash::make($rand);
+});
+
 Route::get('/', function () {
     return view('welcome');
 });

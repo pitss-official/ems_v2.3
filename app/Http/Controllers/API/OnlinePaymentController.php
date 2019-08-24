@@ -43,8 +43,16 @@ class OnlinePaymentController extends Controller
                         99887766,
                         1,
                         55
+                    );$txID2 = Transaction::nonDBTransactionDeQueueTransfer(
+                        $pendingPayment->creditAccountNumber,
+                        99887766,
+                        $validatedData['TXNAMOUNT'],
+                        'Payment for Online Enrollment',
+                        99887766,
+                        1,
+                        55
                     );
-                    $pendingPayment->remarks = "txID=$txID|opID=" . $opt->id;
+                    $pendingPayment->remarks = "txID=$txID|txID2=$txID2|opID=" . $opt->id;
                     $pendingPayment->save();
                     $attr = explode('|', $pendingPayment->reference);
                     $action = $attr[0];

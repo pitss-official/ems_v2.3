@@ -324,6 +324,7 @@
             </form-wizard>
     <div id="submitter">
     </div>
+</div>
     </div>
 </template>
 <script>
