@@ -16,4 +16,10 @@ class SmartCardPolicy
         if($requiredLevel<=$user->authorityLevel)return true;
         else return false;
     }
+    public function activate(User $user)
+    {
+        $requiredLevel=(int)System::getPropertyValueByName('rights_global_non-self_activate-smartcards_level');
+        if($requiredLevel<=$user->authorityLevel)return true;
+        else return false;
+    }
 }

@@ -25,7 +25,7 @@ class EnrollmentController extends Controller
         //only for coordinator based enrollment
         $validatedData = System::sanitize($request->validate([
             'eventID' => 'bail|required|integer|exists:events,id',
-            'collegeUID' => 'bail|required|unique:enrollments,participantCollegeUID,eventID' . $request->eventID . '|digits:8|numeric',
+            'collegeUID' => 'bail|required|digits:8|numeric',
             'amount' => 'required|numeric|min:0',
             'team' => 'bail|nullable|integer|exists:teams,id,eventID,' . $request->eventID,
         ]));
@@ -77,7 +77,7 @@ class EnrollmentController extends Controller
             $user->referenceUID = $coordinatorUID;
             $user->save();
             try{
-                    $user->openAccount();
+                $user->openAccount();
             }
             catch(\Exception $e){
                 echo "Exception";
@@ -132,7 +132,7 @@ class EnrollmentController extends Controller
     {
         $i=0;
         try{
-        $i= (int)Enrollment::isExist($id);}
+            $i= (int)Enrollment::isExist($id);}
         catch(\Exception $exception)
         {
             die("error");

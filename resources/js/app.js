@@ -7,10 +7,15 @@
 require('./bootstrap');
 
 window.Vue = require('vue');
+import sha256 from 'js-sha256'
+window.sha256=sha256
+import VueQrcodeReader from "vue-qrcode-reader"
 import VueRouter from 'vue-router'
 import { loadProgressBar } from 'axios-progress-bar'
 import VeeValidate from 'vee-validate'
 import Swal from 'sweetalert2'
+import Dexie from 'dexie'
+window.Dexie=Dexie
 import {
     Form,
     HasError,
@@ -47,6 +52,8 @@ pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
 
 Vue.use(VueRouter);
+Vue.use(VueQrcodeReader);
+
 window.Swal=Swal;
 window.swal=Swal;
 window.Form=Form;
@@ -58,10 +65,19 @@ window.Toast = swal.mixin({
 });
 window.linker1=0
 Vue.use(VeeValidate);
-
+window.eventStream=new Vue();
 let routes=[
     {path:'/home',component: require('./components/Personal/Dashboard').default},
-    {path:'/test',component: require('./components/test1').default},
+    {path:'/chat/:chatID',children: [
+            {
+                // UserProfile will be rendered inside User's <router-view>
+                // when /user/:id/profile is matched
+                path: 'messages',
+                component: require('./components/UI/MessageHolder').default
+            },],
+        component: require('./components/Display/Chat').default},
+    // {path:'/chat',component: require('./components/UI/MessageHolder').default},
+    // {path:'/test',component: require('./components/test1').default},
     {path:'/MyAccount/Settings',component: require('./components/Personal/Settings').default},
     {path:'/MyAccount/FinancialTransactions',component: require('./components/Personal/Transactions').default},
     {path:'/MyProfile/view',component: require('./components/Personal/Profile').default},
@@ -82,6 +98,7 @@ let routes=[
     {path:'/serve/action/events/RequestSmartCard',component: require('./components/Forms/RequestSmartCard').default},
     {path:'/serve/manage/users/delete/priv/',component: require('./components/Forms/AssignIncentiveAndLevel').default},
     {path:'/serve/forms/add/user-to-organization',component: require('./components/Forms/AddNewUserToOrganization').default},
+    {path:'/serve/transactions/addTransaction/doubleEntryTransaction',component: require('./components/Forms/TransferMoney').default},
     {path:'/serve/payments/online/dues-to-organization',component: require('./components/Forms/SendBalanceToOrganization').default},
     {path:'*',component: require('./components/Global/404Error').default},
 ]
@@ -109,6 +126,8 @@ Vue.component('naiveNotifications', require('./components/Personal/Notifications
 Vue.component('naiveMessages', require('./components/Personal/Messages').default);
 Vue.component('moduleUnderConstruction', require('./components/Global/ModuleUnderConstruction').default);
 Vue.component('smartRegistration', require('./components/Forms/SelfRegistration').default);
+Vue.component('uiDashboardTile', require('./components/UI/DashboardTile').default);
+Vue.component('msg',require('./components/UI/message').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -121,12 +140,45 @@ const app = new Vue({
     router,
 });
 
+
 // Make sure sw are supported
 if ('serviceWorker' in navigator) {
     window.addEventListener('load', () => {
         navigator.serviceWorker
             .register('/serviceWorker.js')
-            .then(reg => console.log('Service Worker: Registered (Pages)'))
+            .then(reg => {
+                console.log('Service Worker: Registered (Pages)')
+                reg.pushManager.getSubscription().then(function(sub) {
+                    if (sub === null) {
+                        // Update UI to ask user to register for Push
+                        console.log('Not subscribed to push service!');
+                    } else {
+                        // We have a subscription, update the database
+                        console.log('Subscription object: ', sub);
+                    }
+                });
+                if(!window.location.href.includes('/register') && !window.location.href.includes('/login')){
+                if(Notification.permission == 'default'){
+                    Notification.requestPermission(result=>{
+                        if (result=='granted'){
+                            navigator.serviceWorker.getRegistration().then(function(reg) {
+                                reg.showNotification('Application Setup Complete');
+                            });
+                        }
+                        else {
+                            swal.fire('Application may behave incorrectly',
+                                'You have denied notification access which may broke the application behaviour',
+                                "warning");
+                        }
+                    });
+                }
+                if(Notification.permission=='denied'){
+                    swal.fire('Application may behave incorrectly',
+                        'You have denied notification access which may broke the application behaviour',
+                        "warning");
+                }}
+            })
+
             .catch(err => console.log(`Service Worker: Error: ${err}`));
     });
 }

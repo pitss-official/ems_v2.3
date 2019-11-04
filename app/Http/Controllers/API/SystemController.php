@@ -32,21 +32,27 @@ class SystemController extends Controller
             'password'=>\Illuminate\Support\Facades\Hash::make(System::randAlphaNum(20))
         );
         $validatedData=array_merge($validatedData,$attrs);
-        return ["result"=>'success','id'=>User::create($validatedData)->id];
+        $user=User::create($validatedData);
+        $user->openAccount();
+        return ["result"=>'success','id'=>$user->id];
     }
 
     public function assignPermit(AssignPermitRequest $request){
         $validatedData=$request->validatedAndSanitized();
         if($validatedData['collegeUID']==User::getCurrentAPIUser()['collegeUID'])abort(422,'Cannot Instantiate Request');
+        if(User::getCurrentAPIUser()['level']<$validatedData['power'])
+            $validatedData['power']=User::getCurrentAPIUser()['level'];
+        $targetUser=User::where('collegeUID',$validatedData['collegeUID'])->firstOrFail();
+        if($targetUser->authorityLevel>=User::getCurrentAPIUser()['level'])
+            abort(422,'Unauthorized to perform this action');
         if(User::getCurrentAPIUser()['level']<System::getPropertyValueByName('rights_critical_global_users-assign-permissions_level'))abort(422,'Actionable Attempt to theat system');
         if(System::getPropertyValueByName('actions_if_permission_assignment_require_queue')==0)
         {
-            $user=User::where('collegeUID',$validatedData['collegeUID'])->first();
+            $user=$targetUser;
             $user->authorityLevel=$validatedData['power'];
             $user->status=$validatedData['active'];
             $user->incentiveRate=$validatedData['incentiveRate'];
             $user->save();
-            $user->openAccount();
             return ['result'=>'success','id'=>$user->id];
         }
         else

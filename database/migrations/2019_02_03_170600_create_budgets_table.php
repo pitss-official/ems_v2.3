@@ -21,7 +21,7 @@ class CreateBudgetsTable extends Migration
             $table->boolean('parent')->default(false);
             $table->unsignedBigInteger('parentID')->nullable();
             $table->unsignedBigInteger('eventID');
-            $table->unsignedBigInteger('createdBy');
+            $table->unsignedInteger('createdBy');
             $table->unsignedBigInteger('account');
             $table->foreign('account')->references('number')->on('accounts');
             $table->foreign('eventID')->references('id')->on('events');

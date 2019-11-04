@@ -136,7 +136,8 @@ class Queue extends Model
                     throw new QueuesExeception('Amount or your account balance can not be negative. Behaviour Instance recorded');
                 if(Account::balance($approverUID)<0)throw new QueuesExeception('You have insufficient balance. Add money and try again');
                 $associatedApprover = $this->specificApproval;
-                if ($approverUID != $associatedApprover) return ['result'=>'error','message' => 'Un Authorized'];
+                if ($approverUID != $associatedApprover)
+                    return ['result'=>'error','message' => 'Un Authorized'];
                 if ($this->isApproved != 0) return ['error' => 'Already Approved'];
                 if ($userAuthenticationLevel < $this->authenticationLevel) return ['result'=>'error','message' => 'You are not Eligible for this action'];
                 /*
@@ -199,12 +200,13 @@ class Queue extends Model
                 /*
                  * Step 1 : Find the assoc queue with the queue ID
                  */
-                $queue = Queue::firstOrFail($queueID);
+                $queue = Queue::findOrFail($queueID);
                 if ($queue->type != 101) return ['error' => 'Inappropriate Action'];
                 $amount = floatval($queue->parameters);
                 if ($amount <= 0)
                     throw new QueuesExeception('Amount or your account balance can not be negative. Behaviour Instance recorded');
                 $associatedApprover = $queue->specificApproval;
+                $requesterAccount=$this->requestedBy;
                 if ($approverUID != $associatedApprover) return ['error' => 'Un Authorized'];
                 if ($queue->isApproved != 0) return ['error' => 'Already Approved'];
                 if ($userAuthenticationLevel < $queue->authenticationLevel) return ['error' => 'You are not Eligible for this action'];
@@ -593,24 +595,14 @@ class Queue extends Model
 
             else if($this->type == 102 ){ //todo: by anu change queue type
                 return $this->approveGlobalTransferRequest($approverUID, $approvalRemarks);
-
             }
+            else throw new QueuesExeception('Un-Identified Queue Type');
     }
-
-//todo: by anu write all functions
     public function denyAutoType($approverUID, $approvalRemarks){
-//        if($this->type == 100 ){
-//            return $this->approveTransferRequest($approverUID, $approvalRemarks);
-//        }
 
         if($this->type == 101 ){
             return $this->rejectReceiveMoneyRequest($approverUID, $approvalRemarks);
-
         }
-
-//        else if($this->type == 102 ){ //todo: by anu change queue type
-//            return $this->approveGlobalTransferRequest($approverUID, $approvalRemarks);
-//
-//        }
+        else throw new QueuesExeception('Un-Identified Queue Type');
     }
 }

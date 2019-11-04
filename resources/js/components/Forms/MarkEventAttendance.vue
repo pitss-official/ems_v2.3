@@ -54,6 +54,7 @@
                 selectedDate: moment().format('YYYY-MM-DD'),
                 selectedEvent: null,
                 events: [],
+                dt:null,
             };
         },
         methods:
@@ -74,6 +75,11 @@
                     this.getStudents();
                 },
                 getStudents() {
+                    if(this.$data.dt!=null){
+                        this.$data.dt.destroy()
+                    }
+                    // if(table != undefined)
+                    //     table.destroy()
                     axios({
                         method: 'get',
                         url: '/api/events/' + this.$data.selectedEvent + '/find/participants',
@@ -112,7 +118,7 @@
                             let btn = '<input type="checkbox" ' + state + ' data-switch-id="' + j + '" data-collegeID="' + rowArr[j].collegeUID + '" data-enrollmentID="'+rowArr[j].id+'">';
                             usableDataSet.push([j + 1, rowArr[j].collegeUID, name, schools[rowArr[j].school] + ', ' + rowArr[j].branch,rowArr[j].teamName, rowArr[j].balance, btn]);
                         }
-                        var table=$('#students-table').DataTable({
+                        var tab=$('#students-table').DataTable({
                             data: usableDataSet,
                             responsive: true,
                             dom: 'Bform',
@@ -159,7 +165,7 @@
                                 } );
                             },
                             select: true,
-                            paging: true,
+                            paging: false,
                             pagingType: 'simple',
                             "columnDefs": [
                                 {
@@ -189,12 +195,12 @@
                             ],
                         });
                         $('#students-table tbody').on( 'click', 'tr.group', function () {
-                            var currentOrder = table.order()[0];
+                            var currentOrder = tab.order()[0];
                             if ( currentOrder[0] === 4 && currentOrder[1] === 'asc' ) {
-                                table.order( [ 4, 'desc' ] ).draw();
+                                tab.order( [ 4, 'desc' ] ).draw();
                             }
                             else {
-                                table.order( [ 4, 'asc' ] ).draw();
+                                tab.order( [ 4, 'asc' ] ).draw();
                             }
                         } );
                         $('.attendance-checkbox-default').bootstrapSwitch({
@@ -227,6 +233,7 @@
                             }
                         );
                         $("#actions").show();
+                        this.$data.dt=tab;
                     });
                 },
                 markAttendance() {

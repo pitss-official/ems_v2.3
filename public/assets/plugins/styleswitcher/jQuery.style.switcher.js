@@ -1,12 +1,11 @@
 // Theme color settings
 $(document).ready(function(){
 function store(val) {
-    console.log(val);
+    $('.ti-close.right-side-toggle').click();
     axios({
         method:'get',
         url:'/api/put/user/theme/'+val
     }).then((response)=>{
-        console.log(response.data.message);
         Toast.fire({
             type: 'success',
             position: 'bottom',

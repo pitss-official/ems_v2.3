@@ -62,25 +62,28 @@ class User extends Authenticatable
             $name.=" ".$this->lastName;
         return $name;
     }
+    public static function getNameFromCollegeUID($collegeUID){
+        return self::where('collegeUID',$collegeUID)->firstOrFail()->fullName();
+    }
     //this function will return the current user (api user) object
     public static function getCurrentAPIUser()
     {
         try{
-        $userObject=Auth::guard('api')->user();
-        return [
-            'collegeUID'=>$userObject->collegeUID,
-            'authorityLevel'=>$userObject->authorityLevel,
-            'level'=>$userObject->authorityLevel,
-            'firstName'=>$userObject->firstName,
-            'middleName'=>$userObject->middleName,
-            'lastName'=>$userObject->lastName,
-            'email'=>$userObject->email,
-            'mobile'=>$userObject->mobile
+            $userObject=Auth::guard('api')->user();
+            return [
+                'collegeUID'=>$userObject->collegeUID,
+                'authorityLevel'=>$userObject->authorityLevel,
+                'level'=>$userObject->authorityLevel,
+                'firstName'=>$userObject->firstName,
+                'middleName'=>$userObject->middleName,
+                'lastName'=>$userObject->lastName,
+                'email'=>$userObject->email,
+                'mobile'=>$userObject->mobile
             ];}
-            catch (\Exception $e)
-            {
-                echo $e;
-            }
+        catch (\Exception $e)
+        {
+            die("Invalid Session");
+        }
     }
     protected $casts = [
         'email_verified_at' => 'datetime',
@@ -124,5 +127,9 @@ class User extends Authenticatable
     public function accounts()
     {
         return $this->hasMany('App\Account','collegeUID','collegeUID');
+    }
+    public static function getUserByCollegeUID($collegeUID,$whereOptions=[]){
+        if($whereOptions==[])$whereOptions=[['collegeUID','=',$collegeUID]];
+        return self::where($whereOptions)->firstOrFail();
     }
 }

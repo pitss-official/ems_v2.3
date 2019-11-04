@@ -19,7 +19,7 @@
                                         <th>Transaction ID</th>
                                         <th>Sent By</th>
                                         <th>Description</th>
-                                        <th>Recieved By</th>
+                                        <th>Received By</th>
                                         <th>DateTime</th>
                                         <th>Amount</th>
                                     </tr>
@@ -30,7 +30,7 @@
                                         <th>Transaction ID</th>
                                         <th>Sent By</th>
                                         <th>Description</th>
-                                        <th>Recieved By</th>
+                                        <th>Received By</th>
                                         <th>DateTime</th>
                                         <th>Amount</th>
                                     </tr>
@@ -114,7 +114,7 @@
                                         {extend: 'excel', className: 'btn btn-themecolor waves-effect waves-dark' }
                                     ],
                                     select: true,
-                                    paging:true,
+                                    paging:false,
                                     pagingType:'simple',
                                 });
 

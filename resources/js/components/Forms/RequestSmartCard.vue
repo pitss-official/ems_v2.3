@@ -90,8 +90,6 @@
 
         methods: {
             sendForm() {
-                // Submit the form via a POST request
-                //todo: reset form
                 this.form.post('/api/forms/generate/smartCards').then(response => {
                     let rows=[['Sr.No.','Card-ID','Secret Key']];
                     response.data.forEach((card,serial)=>rows.push([serial+1,card.id,card.code]));

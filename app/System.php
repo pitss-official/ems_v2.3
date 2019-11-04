@@ -60,9 +60,12 @@ class System extends Model
         return $result;
     }
 
-    public static function randAlphaNum(int $count)
+    public static function randAlphaNum(int $count,bool $specialChars=true)
     {
+        if($specialChars==true)
         $array = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890abcdefghijklmnopqrstuvwxyz_@#$*()";
+        else
+            $array = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890abcdefghijklmnopqrstuvwxyz";
         $result = "";
         for ($i = 0; $i < $count; $i++) {
             $result .= $array[rand(0, strlen($array) - 1)];

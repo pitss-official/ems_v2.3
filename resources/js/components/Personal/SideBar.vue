@@ -57,7 +57,9 @@
 
 <script>
     export default {
-        name: "side-bar"
+        name: "side-bar",
+        methods:{
+        }
     }
 </script>
 

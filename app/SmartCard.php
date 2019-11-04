@@ -9,7 +9,7 @@ use phpDocumentor\Reflection\Types\Self_;
 class SmartCard extends Model
 {
     protected $table="smartcards";
-    protected $fillable=['sIDA','sIDB','sIDC','sIDD','sIDE','eventID'];
+    protected $fillable=['sIDA','sIDB','sIDC','sIDD','sIDE','eventID','value'];
     private static function randFiveChars()
     {
         $array="ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890abcdefghijklmnopqrstuvwxyz";
@@ -20,7 +20,7 @@ class SmartCard extends Model
         }
         return $result;
     }
-    private static function generateCard($eventID)
+    private static function generateCard($eventID,$value)
     {
         $codeA=Self::randFiveChars();
         $codeB=Self::randFiveChars();
@@ -59,19 +59,20 @@ class SmartCard extends Model
                 'sIDC'=>$codeC,
                 'sIDD'=>$codeD,
                 'sIDE'=>$codeE,
-                'eventID'=>$eventID
+                'eventID'=>$eventID,
+                'value'=>$value
             ])->id;
-            return ['id'=>$id,'code'=>implode('-',[$codeA,$codeB,$codeC,$codeD,$codeE])];
+            return ['id'=>$id,'code'=>implode('-',[$codeA,$codeB,$codeC,$codeD,$codeE]),'value'=>$value];
         }
         else return false;
     }
-    public static function generateCards($eventID,$number)
+    public static function generateCards($eventID,$number,$value)
     {
         $cards=[];
         for($i=0;$i<$number;$i++){
             $card=false;
             while($card===false) {
-                $card=Self::generateCard($eventID);
+                $card=Self::generateCard($eventID,$value);
             }
             array_push($cards,$card);
         }

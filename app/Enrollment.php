@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\DB;
 
 class Enrollment extends Model
 {
-    protected $visible = ['id','fundTransactionID','enrollmentFeesTransactionID','created_at'];
+    protected $visible = ['id','facilitatorCollegeUID','fundTransactionID','enrollmentFeesTransactionID','created_at'];
     public function event()
     {
         return $this->hasOne('App\Event','id','eventID');

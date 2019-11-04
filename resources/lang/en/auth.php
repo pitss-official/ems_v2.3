@@ -14,6 +14,7 @@ return [
     */
 
     'failed' => 'These credentials do not match our records.',
+    'notPermitted'=>'You are not permitted to login into the portal. Reason: User Inactive',
     'throttle' => 'Too many login attempts. Please try again in :seconds seconds.',
 
 ];

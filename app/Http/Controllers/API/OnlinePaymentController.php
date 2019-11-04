@@ -35,7 +35,7 @@ class OnlinePaymentController extends Controller
                     $opt = OnlinePayment::create($validatedData + ['request' => json_encode($request->headers->all()).'|'.json_encode($request->getContent()), 'verified' => true]);
                     $pendingPayment->approval = 1;
                     $pendingPayment->approvalTime = now();
-                        $txID = Transaction::nonDBTransactionDeQueueTransfer(
+                    $txID = Transaction::nonDBTransactionDeQueueTransfer(
                         $pendingPayment->debitAccountNumber,
                         $pendingPayment->creditAccountNumber,
                         $validatedData['TXNAMOUNT'],
@@ -43,20 +43,20 @@ class OnlinePaymentController extends Controller
                         99887766,
                         1,
                         55
-                    );$txID2 = Transaction::nonDBTransactionDeQueueTransfer(
-                        $pendingPayment->creditAccountNumber,
-                        99887766,
-                        $validatedData['TXNAMOUNT'],
-                        'Payment for Online Enrollment',
-                        99887766,
-                        1,
-                        55
                     );
-                    $pendingPayment->remarks = "txID=$txID|txID2=$txID2|opID=" . $opt->id;
-                    $pendingPayment->save();
+                    $txID2='';
                     $attr = explode('|', $pendingPayment->reference);
                     $action = $attr[0];
                     if ($action == "enrollment") {
+                        $txID2 = Transaction::nonDBTransactionDeQueueTransfer(
+                            $pendingPayment->creditAccountNumber,
+                            99887766,
+                            $validatedData['TXNAMOUNT'],
+                            'Payment for Online Enrollment',
+                            99887766,
+                            1,
+                            56
+                        );
                         $coorID = 99887766;
                         $participantCollegeUID = $pendingPayment->collegeUID;
                         $eventID = $attr[1];
@@ -92,6 +92,8 @@ class OnlinePaymentController extends Controller
                         System::mailer($user->email,new TransactionAlert($txMailParams));
                         return view('layouts.payments.success');
                     }
+                    $pendingPayment->remarks = "txID=$txID|txID2=$txID2|opID=" . $opt->id;
+                    $pendingPayment->save();
                 }
             } else {
                 //some error in the response

@@ -2,8 +2,10 @@
 
 namespace App;
 
+use App\Http\Controllers\UsersController;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class Dashboard extends Model
 {
@@ -31,7 +33,7 @@ class Dashboard extends Model
      */
     public function countTotalMonthlyEnrollments()
     {
-        return Enrollment::where([['facilitatorCollegeUID','=',$this->user['collegeUID']],['created_at','>=',now()->subMonth(1)]])
+        return Enrollment::where([['facilitatorCollegeUID','=',$this->user['collegeUID']],['created_at','>=',now()->subDays(31)]])
             ->select('created_at')
             ->get()
             ->groupBy(function($date) {
@@ -58,14 +60,36 @@ class Dashboard extends Model
             'thisWeekEarning'=>$this->getWeeklyEarningsRecord(),
             'thisWeekEnrollments'=>$this->getWeeklyEnrollments(),
             'totalEnrollmentsByOrganization'=>$this->totalMonthlyEnrollmentsDoneByOrganization(),
-            'totalEnrollmentsDoneByUser'=>$this->countTotalMonthlyEnrollments()
+            'totalEnrollmentsDoneByUser'=>$this->countTotalMonthlyEnrollments(),
+            'totalMembers'=>User::where([['authorityLevel','=',0]])->count(),
+            'totalMembersIntroduced'=>User::where('referenceUID',User::getCurrentAPIUser()['collegeUID'])->count(),
+            'totalCoordinators'=>User::where([['status','=',1],['authorityLevel','>',0]])->count(),
+            'upcomingEvents'=>count(Event::getAllEnrollable()),
+            'totalEvents'=>Event::count(),
+            'rankings'=>$this->rankings(),
         ];
+    }
+    public function rankings(){
+        $finarr=[];
+        foreach (Event::getAllEnrollableIDs() as $event){
+        $arr= Enrollment::where('eventID',$event)->select('facilitatorCollegeUID as id')->get()->groupBy(function ($e){
+            return User::getNameFromCollegeUID($e->id);
+        })->toArray();
+        $map=[];
+        foreach (array_keys($arr) as $val){
+            $map+=[$val=>count($arr[$val])];
+        }
+        $name=Event::find($event)->name;
+        $finarr+=[$name=>$map];
+        }
+        return $finarr;
     }
     public function getPersonalDashboard()
     {
         return[
-          'totalEnrollmentsByOrganization'=>$this->totalMonthlyEnrollmentsDoneByOrganization(),
-          'totalEnrollmentsDoneByUser'=>$this->countTotalMonthlyEnrollments()
+            'totalEnrollmentsByOrganization'=>$this->totalMonthlyEnrollmentsDoneByOrganization(),
+            'totalEnrollmentsDoneByUser'=>$this->countTotalMonthlyEnrollments(),
+
         ];
     }
 }

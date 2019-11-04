@@ -28,6 +28,12 @@ class TransactionPolicy
         if($requiredLevel<=$user->authorityLevel)return true;
         else return false;
     }
+    public function performDoubleEntryTransaction(User $user)
+    {
+        $requiredLevel=(int)System::getPropertyValueByName('rights_create_global_double-entry-transaction_level');
+        if($requiredLevel<=$user->authorityLevel)return true;
+        else return false;
+    }
     /**
      * Determine whether the user can create transactions.
      *

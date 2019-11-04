@@ -114,6 +114,7 @@
                                                 class="fa fa-search"></i>
                                             Search
                                         </button>
+                                        <button class="btn btn-warning" type="reset">Clear</button>
                                         <button class="btn btn-danger" type="reset" onClick="history.back()">Cancel & Back</button>
                                     </div>
                                 </div>
@@ -127,7 +128,7 @@
                                             <th>Transaction ID</th>
                                             <th>Sent By</th>
                                             <th>Description</th>
-                                            <th>Recieved By</th>
+                                            <th>Received By</th>
                                             <th>DateTime</th>
                                             <th>Amount</th>
                                         </tr>
@@ -138,7 +139,7 @@
                                             <th>Transaction ID</th>
                                             <th>Sent By</th>
                                             <th>Description</th>
-                                            <th>Recieved By</th>
+                                            <th>Received By</th>
                                             <th>DateTime</th>
                                             <th>Amount</th>
                                         </tr>
@@ -180,34 +181,30 @@
                 axios.post('/api/search/transactions/by-data/',this.$data).then(response=>{
                     this.$data.transactions = response.data;
                     var dataSet = [];
-                    // for (let j = 0; j < response.data.length; j++) {
-                    //     if (response.data[j].sender == currentUserID) {
-                    //         response.data[j].sender = 'You';
-                    //         response.data[j].description = response.data[j].description.replace(currentUserID, 'you');
-                    //     }
-                    //     dataSet.push([j + 1,response.data[j].id, response.data[j].initBy, response.data[j].sender, response.data[j].description, response.data[j].receiver, response.data[j].created_at, '₹'+response.data[j].amount]);
-                    //     if (j == response.data.length - 1) {
-                    //         $('#transactions-table').DataTable({
-                    //             responsive:true,
-                    //             data: dataSet,
-                    //             dom:'Bform',
-                    //             "order": [[0, "desc"]],
-                    //             buttons: [
-                    //                 {extend:'pdf',className:'btn btn-themecolor waves-effect waves-dark'},
-                    //                 {extend:'csv',className:'btn btn-themecolor waves-effect waves-dark'},
-                    //                 {extend:'print',className:'btn btn-themecolor waves-effect waves-dark'},
-                    //                 {extend:'colvis',className:'btn btn-themecolor waves-effect waves-dark'},
-                    //                 {extend: 'copy', className: 'btn btn-themecolor waves-effect waves-dark' },
-                    //                 {extend: 'excel', className: 'btn btn-themecolor waves-effect waves-dark' }
-                    //             ],
-                    //             select: true,
-                    //             paging:true,
-                    //             pagingType:'simple',
-                    //         });
-                    //
-                    //     }
-                    // }
-                }).catch(e=>console.log(e));
+                    for (let j = 0; j < response.data.length; j++) {
+                        dataSet.push([j + 1,response.data[j].id, response.data[j].initBy, response.data[j].sender, response.data[j].description, response.data[j].receiver, response.data[j].created_at, '₹'+response.data[j].amount]);
+                        if (j == response.data.length - 1) {
+                            $('#transactions-table').DataTable({
+                                responsive:true,
+                                data: dataSet,
+                                dom:'Bform',
+                                "order": [[0, "desc"]],
+                                buttons: [
+                                    {extend:'pdf',className:'btn btn-themecolor waves-effect waves-dark'},
+                                    {extend:'csv',className:'btn btn-themecolor waves-effect waves-dark'},
+                                    {extend:'print',className:'btn btn-themecolor waves-effect waves-dark'},
+                                    {extend:'colvis',className:'btn btn-themecolor waves-effect waves-dark'},
+                                    {extend: 'copy', className: 'btn btn-themecolor waves-effect waves-dark' },
+                                    {extend: 'excel', className: 'btn btn-themecolor waves-effect waves-dark' }
+                                ],
+                                select: true,
+                                paging:false
+                            });
+
+                        }
+                    }
+                }).catch(e=>{swal.fire(e.response.statusText
+                    ,JSON.stringify(e.response.data.errors),'error')});
             },
             toggleSearchOptions() {
                 $('#search-trans-plus-button').show();

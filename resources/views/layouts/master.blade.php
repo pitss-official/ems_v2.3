@@ -2,6 +2,11 @@
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
 <head>
+    <script>
+        window.currentUserID ={{Auth::user()->collegeUID}};
+        window.currentUserEmail ="{{Auth::user()->email}}";
+        window.currentUserFullName = "{{Auth::user()->firstName.' '.Auth::user()->middleName.' '.Auth::user()->lastName}}";
+    </script>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -46,7 +51,7 @@
     <!-- multiple icons for IE -->
     <meta name="msapplication-square310x310logo" content=href="/icon.png">
     <!-- theme color -->
-    <meta name="theme-color" content="#4285f4">
+    <meta id="meta-theme-color" name="theme-color" content="#317EFB"/>
     <style type="text/css">
         @media all and (display-mode: standalone) {
             body {
@@ -91,7 +96,7 @@
         <!-- ============================================================== -->
         <!-- Topbar header - style you can find in pages.scss -->
         <!-- ============================================================== -->
-        <header class="topbar">
+        <header id="siteHeader" class="topbar">
             <nav class="navbar top-navbar navbar-expand-md navbar-light">
                 <!-- ============================================================== -->
                 <!-- Logo -->
@@ -121,7 +126,7 @@
                     <!-- ============================================================== -->
                     <ul class="navbar-nav mr-auto mt-md-0">
                         <!-- This is  -->
-                        <li class="nav-item"><a
+                        <li class="nav-item"><a id="nav-toggle-button"
                                 class="nav-link nav-toggler hidden-md-up text-muted waves-effect waves-dark"
                                 href="javascript:void(0)"><i class="mdi mdi-menu"></i></a></li>
                         <li class="nav-item"><a
@@ -228,7 +233,7 @@
                     <div class="profile-text"><a href="#" class="dropdown-toggle u-dropdown currentUserFullName"
                                                  data-toggle="dropdown" role="button" aria-haspopup="true"
                                                  aria-expanded="true">User Name</a>
-                        <div class="dropdown-menu animated flipInY"><router-link to="/MyProfile/view" class="dropdown-item"><i
+                        <div class="dropdown-menu animated flipInY" onclick="$('#nav-toggle-button').click()"><router-link to="/MyProfile/view" class="dropdown-item"><i
                                     class="ti-user"></i> My Profile</router-link> <router-link to="/MyAccount/FinancialTransactions" class="dropdown-item"><i
                                     class="ti-wallet"></i> My Balance</router-link>
 {{--                            <a href="#" class="dropdown-item"><i--}}
@@ -350,8 +355,8 @@
 <!-- This page plugins -->
 <!-- ============================================================== -->
 <!-- chartist chart -->
-<script src="/assets/plugins/chartist-js/dist/chartist.min.js"></script>
-<script src="/assets/plugins/chartist-plugin-tooltip-master/dist/chartist-plugin-tooltip.min.js"></script>
+<script defer src="/assets/plugins/chartist-js/dist/chartist.min.js"></script>
+<script defer src="/assets/plugins/chartist-plugin-tooltip-master/dist/chartist-plugin-tooltip.min.js"></script>
 <!-- ============================================================== -->
 <!-- Style switcher -->
 <!-- ============================================================== -->
@@ -370,9 +375,6 @@
     {{--    }).fail(function() {--}}
     {{--    $('.conditional-profile-image').html('<i class="fa fa-user"></i>');--}}
     {{--});--}}
-    window.currentUserID ={{Auth::user()->collegeUID}};
-    window.currentUserEmail ="{{Auth::user()->email}}";
-    window.currentUserFullName = "{{Auth::user()->firstName.' '.Auth::user()->middleName.' '.Auth::user()->lastName}}";
     document.getElementsByClassName("currentUserFullName").innerHTML = currentUserFullName;
     $(".currentUserFullName").text(currentUserFullName);
     $(".currentUserID").text(currentUserID);
@@ -386,28 +388,31 @@
         // Update UI notify the user they can add to home screen
         btnAdd.style.display = 'block';
     });
-    btnAdd.addEventListener('click', (e) => {
-        // hide our user interface that shows our A2HS button
-        btnAdd.style.display = 'none';
-        // Show the prompt
-        deferredPrompt.prompt();
-        // Wait for the user to respond to the prompt
-        deferredPrompt.userChoice
-            .then((choiceResult) => {
-                if (choiceResult.outcome === 'accepted') {
-                    console.log('User accepted the A2HS prompt');
-                } else {
-                    console.log('User dismissed the A2HS prompt');
-                }
-                deferredPrompt = null;
-            });
-    });
+    // btnAdd.addEventListener('click', (e) => {
+    //     // hide our user interface that shows our A2HS button
+    //     btnAdd.style.display = 'none';
+    //     // Show the prompt
+    //     deferredPrompt.prompt();
+    //     // Wait for the user to respond to the prompt
+    //     deferredPrompt.userChoice
+    //         .then((choiceResult) => {
+    //             if (choiceResult.outcome === 'accepted') {
+    //                 console.log('User accepted the A2HS prompt');
+    //             } else {
+    //                 console.log('User dismissed the A2HS prompt');
+    //             }
+    //             deferredPrompt = null;
+    //         });
+    // });
     window.addEventListener('appinstalled', (evt) => {
         app.logEvent('a2hs', 'installed');
     });
     if (window.navigator.standalone === true) {
         console.log('display-mode is standalone');
     }
+    setInterval(function () {
+        $('#meta-theme-color')[0].content=$('#siteHeader').css("background")
+    },500)
     //pwa ends
 </script>
 <!--Custom JavaScript -->

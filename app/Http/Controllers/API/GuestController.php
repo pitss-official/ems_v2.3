@@ -25,7 +25,7 @@ class GuestController extends Controller
     {
         $validatedData = System::sanitize($request->validate([
             'event' => 'bail|required|integer|exists:events,id',
-            'regid' => 'bail|required|unique:enrollments,participantCollegeUID,eventID' . $request->event . '|digits:8|numeric',
+            'regid' => 'bail|required|numeric|digits:8',
             'team' => 'bail|nullable|integer|exists:teams,id,eventID,'.$request->event,
         ]));
         return DB::transaction(function () use ($validatedData, $request) {
@@ -82,19 +82,19 @@ class GuestController extends Controller
                     }
                 }
             }
-        $user = User::where('collegeUID', $validatedData['regid'])->firstOrFail();
-        $event = Event::findOrFail($validatedData['event']);
-        $pendingPayments=PendingPayment::create([
-            'collegeUID'=>$validatedData['regid'],
-            'transactionID'=>'gen_'.System::randAlphaNum(12),
-            'amount'=>$event->ticketPrice,
-            'debitAccountNumber'=>System::getPropertyValueByName('accounts_org_digi-cash_paytm'),
-            'creditAccountNumber'=>$validatedData['regid'],
+            $user = User::where('collegeUID', $validatedData['regid'])->firstOrFail();
+            $event = Event::findOrFail($validatedData['event']);
+            $pendingPayments=PendingPayment::create([
+                'collegeUID'=>$validatedData['regid'],
+                'transactionID'=>'gen_'.System::randAlphaNum(12),
+                'amount'=>$event->ticketPrice,
+                'debitAccountNumber'=>System::getPropertyValueByName('accounts_org_digi-cash_paytm'),
+                'creditAccountNumber'=>$validatedData['regid'],
 //            'reference'=>'enrollment|'.$validatedData['event'].'|'.$validatedData['team'],
-            'reference'=>'enrollment|'.$validatedData['event'].'|'.'11',
-        ]);
-        $onlinePayment = new OnlinePayment();
-        return $onlinePayment->initiateRequest($pendingPayments->id, $user, $event->ticketPrice);
+                'reference'=>'enrollment|'.$validatedData['event'].'|'.'11',
+            ]);
+            $onlinePayment = new OnlinePayment();
+            return $onlinePayment->initiateRequest($pendingPayments->id, $user, $event->ticketPrice);
         });
     }
 }

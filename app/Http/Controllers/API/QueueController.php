@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\API;
 
-use App\Exceptions\QueuesExeception;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CreateBalanceTransferRequest;
 use App\Http\Requests\QueueApprovalRequest;
@@ -10,7 +9,6 @@ use App\Http\Requests\QueueDenyAutoRequest;
 use App\Http\Requests\QueueStoreRequest;
 use App\Queue;
 use App\User;
-use Illuminate\Http\Request;
 
 class QueueController extends Controller
 {
@@ -76,6 +74,6 @@ class QueueController extends Controller
         $validatedData = $request->validatedAndSanitized();
         $q=Queue::findOrFail($validatedData['id']);
         $deniedBy = User::getCurrentAPIUser()['collegeUID'];
-        return ["result"=>'success','id'=>$q->approveAutoType($deniedBy,$validatedData['approvalRemarks'])];
+        return ["result"=>'success','id'=>$q->denyAutoType($deniedBy,$validatedData['approvalRemarks'])];
     }
 }

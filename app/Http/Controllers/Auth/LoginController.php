@@ -7,6 +7,7 @@ use App\User;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Validation\ValidationException;
 
 class LoginController extends Controller
 {
@@ -66,6 +67,9 @@ class LoginController extends Controller
                 if ($this->attemptLogin($request)) {
                     return $this->sendLoginResponse($request);
                 }
+            }else{
+                $this->incrementLoginAttempts($request);
+                return $this->sendNotPermittedResponse($request);
             }
         }
         // If the login attempt was unsuccessful we will increment the number of attempts
@@ -74,6 +78,12 @@ class LoginController extends Controller
         $this->incrementLoginAttempts($request);
 
         return $this->sendFailedLoginResponse($request);
+    }
+    protected function sendNotPermittedResponse(Request $request)
+    {
+        throw ValidationException::withMessages([
+            $this->username() => [trans('auth.notPermitted')],
+        ]);
     }
 
 }

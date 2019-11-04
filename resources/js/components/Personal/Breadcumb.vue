@@ -37,6 +37,7 @@
     import moment from 'moment'
     export default {
         name: "breadcumb",
+        // components:{'breadcumb':require('./Breadcumb.vue')},
         data()
         {
             return{
@@ -53,7 +54,7 @@
                         method:'post',
                         url:'/api/fetch/user/balance/currentBalance'
                     }).then((response)=>{
-
+                        eventStream.$emit("dashboardDataReceived", response.data);
                         let dateTo = moment().format('DD-MM-YYYY');
                         window.earningArrSpark=[]
                         for(let i=0;i<8;i++)
@@ -77,8 +78,6 @@
                             }
                         }
                         window.mainchart={'dts':[],'org':[],'curr':[]}
-                        // window.mainchart.org=[]
-                        // window.mainchart.curr=[]
                         for(let i=0;i<31;i++)
                         {
                             let d=moment().subtract(i,'d').format('DD-MM-YYYY');
@@ -106,6 +105,9 @@
             },30000);
         },
         mounted() {
+            eventStream.$on('dashboardDataRequired',data=>{
+               this.fetchBalance();
+            });
             this.fetchBalance();
         }
     }

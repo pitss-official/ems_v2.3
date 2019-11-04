@@ -5,11 +5,11 @@ namespace App\Http\Controllers\API;
 use App\Account;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CashFlowCreateForStudentRequest;
+use App\Http\Requests\DoubleEntryTransactionRequest;
 use App\Http\Requests\TransactionSearchRequest;
+use App\System;
 use App\Transaction;
 use App\User;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
 class CashFlowController extends Controller
 {
@@ -48,14 +48,72 @@ class CashFlowController extends Controller
     {
         $validatedData=$request->validatedAndSanitized();
         $this->authorize('search',Transaction::class);
-        return Transaction::where('id',$validatedData['transactionID'])
-            ->orWhere('receiver',$validatedData['collegeUID'])
-            ->orWhere('sender',$validatedData['collegeUID'])
-            ->orWhere('description','like','%'.$validatedData['description'].'%')
-            ->orWhere('created_at',$validatedData['transDate'])
-            ->orWhere('initBy',$validatedData['initBy'])
-            ->orWhere('amount',$validatedData['amount'])
-            ->get();
+        $retObj=Transaction::where('id','<',0);
+
+        if($validatedData['transactionID']!=null)
+        {
+            $retObj=$retObj->orWhere('id',$validatedData['transactionID']);
+        }
+        if($validatedData['name']!=null)
+        {
+            $user=User::where('firstName','like',$validatedData['name'])->first()->collegeUID;
+            $validatedData['collegeUID']=$user;
+//            $retObj=$retObj->orWhere('id',$validatedData['transactionID']);
+        }
+        if($validatedData['collegeUID']!=null)
+        {
+            $retObj=$retObj->orWhere('receiver',$validatedData['collegeUID'])
+            ->orWhere('sender',$validatedData['collegeUID']);
+        }if($validatedData['accountNumber']!=null)
+        {
+            $retObj=$retObj->orWhere('receiver',$validatedData['accountNumber'])
+            ->orWhere('sender',$validatedData['accountNumber']);
+        }
+        if($validatedData['description']!=null)
+        {
+            $retObj=$retObj->orWhere('description','like','%'.$validatedData['description'].'%');
+        }
+        if($validatedData['transDate']!=null)
+        {
+            $retObj=$retObj->orWhere('created_at',$validatedData['transDate']);
+        }
+        if($validatedData['initBy']!=null)
+        {
+            $retObj=$retObj->orWhere('initBy',$validatedData['initBy']);
+        }
+        if($validatedData['amount']!=null)
+        {
+            $retObj=$retObj->orWhere('amount',$validatedData['amount']);
+        } if($validatedData['queueID']!=null)
+        {
+            $retObj=$retObj->orWhere('queueID',$validatedData['queueID']);
+        }
+        return $retObj->get();
+    }
+    public function details(int $number)
+    {
+        return Account::where('number',$number)->firstOrFail()->setVisible(['balance','name']);
+    }
+    public function doubleEntryTransaction(DoubleEntryTransactionRequest $request)
+    {
+        $validatedData=$request->validatedAndSanitized();
+        if(System::getPropertyValueByName('should_global_double-entry-transactions-queued')==0) {
+            $tr = Transaction::directTransferDeQueue(
+                $validatedData['debitAccount'],
+                $validatedData['creditAccount'],
+                $validatedData['amount'],
+                $validatedData['narration'],
+                User::getCurrentAPIUser()['collegeUID'],
+                '852'
+            );
+            if($tr>0)
+                return['result'=>'success','id'=>$tr];
+            else
+                abort(422,'Transaction Aborted');
+        }
+        else{
+            //todo make queueable
+        }
     }
     public function listAllTransactions()
     {

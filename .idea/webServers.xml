@@ -2,15 +2,12 @@
 <project version="4">
   <component name="WebServers">
     <option name="servers">
-      <webServer id="e708253a-06c5-4400-b77a-beb01b325240" name="polyhomesvr" url="http://polyhomesvr">
-        <fileTransfer port="0" mountedRoot="X:\EMS_2.3" accessType="MOUNT" />
-      </webServer>
-      <webServer id="d57a7f12-022c-4bd8-a894-d0634b2164de" name="ftp_back_polyhomesvr" url="http://polyhomesvr">
-        <fileTransfer host="polyhomesvr" port="21" rootFolder="/EMS_v2.3">
+      <webServer id="d57a7f12-022c-4bd8-a894-d0634b2164de" name="ftp_back_polyhomesvr" url="https://nuoms.nukrip.com">
+        <fileTransfer host="nukrip.com" port="21098" rootFolder="/home/nukreprl/" accessType="SFTP">
           <advancedOptions>
             <advancedOptions dataProtectionLevel="Private" passiveMode="true" shareSSLContext="true" />
           </advancedOptions>
-          <option name="port" value="21" />
+          <option name="port" value="21098" />
         </fileTransfer>
       </webServer>
     </option>

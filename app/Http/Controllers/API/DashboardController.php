@@ -19,6 +19,9 @@ class DashboardController extends Controller
     public function breadcumbBalances()
     {
         $this->user=User::getCurrentAPIUser();
+        $user=User::where('collegeUID',$this->user['collegeUID'])->first();
+        $user->lastLogin=now();
+        $user->save();
         $this->dashboard=new Dashboard();
         $this->dashboard->user=$this->user;
         return $this->dashboard->breadcumbData();

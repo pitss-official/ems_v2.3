@@ -33,7 +33,16 @@ class Event extends Model
 //            ['events.filledSeats','<=','events.seats'],
             ['fillingStatus', '>', 0]
         ])->get();
-    }
+    }public static function getAllEnrollableIDs()
+{
+    return self::where([
+        ['visibility', '=', 1],
+        ['approvalID', '>', 0],
+        ['endDate', '>=', Carbon::now()],
+//            ['events.filledSeats','<=','events.seats'],
+        ['fillingStatus', '>', 0]
+    ])->pluck('id');
+}
 
     public static function getAllTeamable()
     {

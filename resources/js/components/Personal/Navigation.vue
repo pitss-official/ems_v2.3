@@ -1,7 +1,6 @@
 <template>
-    <nav class="sidebar-nav">
+    <nav class="sidebar-nav" @click="click">
         <component v-bind:is="template.component"></component>
-
     </nav>
 </template>
 <script>
@@ -21,7 +20,11 @@
             }
         },
         methods:
-            {},
+            {
+                click(event){
+                    event.target.matches('.router-link-exact-active')?$('#nav-toggle-button').click():'';
+                }
+            },
         mounted() {
             axios.get("/api/fetch/navigation").then(({data}) =>{
                 this.link = data

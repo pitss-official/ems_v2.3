@@ -29,9 +29,12 @@
                                 <td>Coordinator</td>
                                 <td>{{queue.requesterRemarks}}</td>
                                 <td>{{queue.created_at}}</td>
-                                <td ><button v-if="queue.requestedBy != currentUser" @click="getTransactionDetails(queue)" data-target="#approveRequest" data-toggle="modal">Approve</button>
-                                    <button @click="deny(transactionDetails)">Deny</button>
+                                <td v-if="queue.requestedBy != currentUser">
+                                    <button alt="Approve Request" :data-queue="JSON.stringify(queue)"  @click="selectQueue">Approve</button>
+                                    <button alt="Deny Request" data-toggle="modal" data-target="#queueActionModal" :data-queue="JSON.stringify(queue)" @click="selectQueue">Deny</button>
                                 </td>
+
+                                <td v-else>No Permissible Action</td>
                             </tr>
                             </tbody>
                             <tfoot>
@@ -43,72 +46,16 @@
                                                 <ul class="pagination"> </ul>
                                             </div>
                                         </div>
-                                        <div class="col-sm">
-                                            <button class="btn btn-info btn-rounded" data-target="#add-contact" data-toggle="modal" type="button">
-                                                View All
-                                            </button>
-                                        </div>
                                     </div>
                                 </div>
                             </td>
                             </tfoot>
-
-
                         </table>
                     </div>
                 </li>
             </ul>
 
         </div>
-        <!--todo: anu-->
-        <!--modal-->
-
-        <div class="modal fade" id="approveRequest" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h4 class="modal-title">Request for approval</h4>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <form>
-                            <div class="form-group">
-                                <label class="control-label"><b>{{transactionDetails.requesterRemarks}}</b></label>
-
-                            </div>
-                            <div class="form-group">
-                                <label class="control-label"> Requested By: {{transactionDetails.requestedBy}}</label>
-
-                            </div>
-
-
-                            <div class="form-group">
-                                <label class="control-label">On: {{transactionDetails.created_at}}</label>
-
-                            </div>
-                            <div class="form-group">
-                                <!--todo: anu check this not printing amount not fetching-->
-                                <label class="control-label">Amount: {{transactionDetails.parameters}}</label>
-
-                            </div>
-
-                            <div class="form-group">
-                                <label class="control-label" name="approvalRemarks" for="message-text">Remarks for request:</label>
-                                <textarea class="form-control" v-model="approvalRemarks" id="message-text"></textarea>
-                            </div>
-                        </form>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default waves-effect">Cancel</button>
-                        <button type="submit" class="btn btn-primary" @click="approve(transactionDetails)" v-if="toggleApproveDeny == true">Approve</button>
-                        <button type="submit" class="btn btn-primary" @click="deny(transactionDetails)" v-if="toggleApproveDeny == false">Deny</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
     </li>
 </template>
 
@@ -121,12 +68,9 @@
             return{
                 toggleApproveDeny: false,
                 currentUser: '',
-                approvalRemarks: '',
                 queues:[],
-               // queueObj: {},
                 transactionDetails:[],
-
-
+                selectedQueue:null,
             };
         },
         mounted() {
@@ -139,11 +83,8 @@
         },
         methods:
             {
-                //todo: by anu (taking queue(in html) array from particular row and assigning its values to modal form attributes)
                 getTransactionDetails(queue){
                     this.$data.transactionDetails = queue;
-
-
                 },
 
                 getAll()
@@ -156,76 +97,93 @@
                             this.$data.currentUser = currentUserID;
 
                             this.$data.queues = response.data;
-                            //     var $i=0;
-                            //     for(var $key in response.data){
-                            //         if($i<3){
-                            //
-                            //             this.$data.queues[$key] = response.data[$i];
-                            //             $i++;
-                            //         }
-                            //     }
-                            //     console.log(this.$data.queueObj);
-                            // // this.$data.queues = response.data;
-
-
-
                         });
                 },
-                approve(transactionDetails)
-                {
-                    this.$data.toggleApproveDeny = true;
-                    $('#approveRequest').modal('show');
-                    if(transactionDetails.requestedBy==currentUserID)
-                    {
-                        swal.fire("Error","You cannot approve your own request","error");
-                        return;
+                selectQueue(event){
+                    let q=JSON.parse(event.target.dataset.queue)
+                    let r=q.requestedBy;
+                    if(q.requestedBy==currentUserID)
+                        r='You';
+                    else{
+                        axios.post('/members/find/name/'+q.requestedBy).then(res=>{r= res.data}).catch(res=>{
+                            r=q.requestedBy;
+                        });
                     }
-                    axios.post('/api/approve/user/queues/approvePendingActions', {id:this.$data.transactionDetails.id,approvalRemarks:this.$data.approvalRemarks})
-                        .then( response => {
-                            $('#approveRequest').modal('hide');
-                            if(isNaN(response.data.id))
-                                swal.fire("Error",response.data.id.error,"error")
-                            else{
-                            swal.fire({
-                                title: 'Approved successfully',
-                                text: 'You have successfully approved request created by ' + this.$data.transactionDetails.requestedBy,
-                                type: 'success',
-                                backdrop: `rgba(0, 0, 123, 0.4)`
-                            });}
-                        }, error => {
-                            // Handle error response
-                        });
-
-                },
-                deny(transactionDetails)
-                {
-                    this.$data.toggleApproveDeny = false;
-                    $('#approveRequest').modal('show');
-
-                    axios.post('/api/deny/user/queues/denyPendingActions', {id:this.$data.transactionDetails.id,approvalRemarks:this.$data.approvalRemarks})
-                        .then( response => {
-                            $('#approveRequest').modal('hide');
-                            if(this.$data.transactionDetails.requestedBy == currentUserID){
-                                this.$data.transactionDetails.requestedBy == "you"}
-                            if(isNaN(response.data.id))
-                                swal.fire("Error",response.data.id.error,"error")
-                            else{
-                                swal.fire({
-                                    title: 'Denied successfully',
-                                    text: 'You have successfully denied request created by ' + this.$data.transactionDetails.requestedBy,
-                                    type: 'success',
-                                    backdrop: `rgba(0, 0, 123, 0.4)`
-                                });}
-                        }, error => {
-                            // Handle error response
-                        });
-
-                },
+                    swal.fire({
+                        html:'<h1>'+event.target.innerHTML+' Request'+'</h1>'+
+                            '<h3>Queue ID: <b>'+q.id+'</b></h3>'+
+                            '<h3>Requested By: <b>'+r+'</b></h3>'+
+                            '<h3>Value: <b>'+q.parameters+'</b></h3>'+
+                            '<h3>Created At: <b>'+q.created_at+'</b></h3>'+
+                            '<h3>Type Message: <b>'+q.typeMessage+'</b></h3>'+
+                            '<h3>Queue Level: <b>'+q.authenticationLevel+'</b></h3>',
+                        showCancelButton:true,
+                        input:'text',
+                        type:"question",
+                        backdrop: `rgba(0, 0, 123, 0.4)`,
+                        confirmButtonText: event.target.innerHTML,
+                        showLoaderOnConfirm: true,
+                        preConfirm: (text) => {
+                            if(text.length==0){
+                                Swal.showValidationMessage(
+                                    `Enter a message to approve the request`
+                                )
+                            }
+                            else {
+                                if (event.target.innerHTML=="Approve")
+                                axios.post('/api/approve/user/queues/approvePendingActions', {id:q.id,approvalRemarks:text})
+                                    .then( response => {
+                                        if(isNaN(response.data.id))
+                                            swal.fire("Error",response.data.id.error,"error")
+                                        else{
+                                            swal.fire({
+                                                title: 'Approved successfully',
+                                                text: 'You have successfully approved request created by ' + this.$data.transactionDetails.requestedBy,
+                                                type: response.data.result,
+                                                backdrop: `rgba(0, 0, 123, 0.4)`
+                                            });}
+                                    }).catch (error => {
+                                        swal.fire({
+                                            title: 'Error Processing',
+                                            text: error.response.statusText,
+                                            type: "error",
+                                            backdrop: `rgba(0, 0, 123, 0.4)`
+                                        });
+                                    });
+                                else
+                                    axios.post('/api/deny/user/queues/denyPendingActions', {id:q.id,approvalRemarks:text})
+                                        .then( response => {
+                                            if(isNaN(response.data.id))
+                                                swal.fire("Error",response.data.id.error,"error")
+                                            else{
+                                                swal.fire({
+                                                    title: 'Denied successfully',
+                                                    text: 'You have successfully denied request created by ' + this.$data.transactionDetails.requestedBy,
+                                                    type: 'success',
+                                                    backdrop: `rgba(0, 0, 123, 0.4)`
+                                                });}
+                                        }).catch (error => {
+                                        swal.fire({
+                                            title: 'Error Processing',
+                                            text: error.response.statusText,
+                                            type: "error",
+                                            backdrop: `rgba(0, 0, 123, 0.4)`
+                                        });
+                                    });
+                            }
+                        },
+                        allowOutsideClick: () => !Swal.isLoading()
+                    }).then(res=>{
+                    })
+                    $('.nav-item.dropdown.mega-dropdown.show').click();
+                }
 
         }
     }
 </script>
 
-<style scoped>
-
+<style>
+    .modal-backdrop.fade.show{
+        /*z-index:0 !important;*/
+    }
 </style>
