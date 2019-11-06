@@ -44,7 +44,11 @@
     <meta name="mobile-web-app-capable" content="yes">
     <link rel="icon" sizes="512x512" href="/icon.png">
     <!-- reuse same icon for Safari -->
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
     <link rel="apple-touch-icon" href="/icon.png">
+    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
     <link rel="apple-touch-startup-image" href="/icon.png">
     <meta name="apple-mobile-web-app-status-bar-style" content="blue">
     <meta name="apple-mobile-web-app-capable" content="yes">

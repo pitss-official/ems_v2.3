@@ -62,8 +62,10 @@ class Transaction extends Model
     {
         if (User::ifNotExist($initBy)) return ['error' => 'Invalid Transaction Initiator'];
         if ($amount <= 0) return ['error' => 'Invalid Amount'];
-        if ($debitAccountNumber == $creditAccountNumber) return ['error' => 'Invaild Account Number'];
-        if (Account::ifNotExist($debitAccountNumber) || Account::ifNotExist($creditAccountNumber)) return ['error' => 'Invalid Credit or Debit Account Number', 'ln-feed' => 8451];
+        if ($debitAccountNumber == $creditAccountNumber) return ['error' => 'Invalid Account Number'];
+//        if (Account::ifNotExist($debitAccountNumber) || Account::ifNotExist($creditAccountNumber)) {
+//            return ['error' => 'Invalid Credit or Debit Account Number', 'ln-feed' => 8451];
+//        }
         $creditAccountInitialBalance = DB::table('accounts')->where('number', $creditAccountNumber)->value('balance');
         $debitAccountInitialBalance = DB::table('accounts')->where('number', $debitAccountNumber)->value('balance');
         /*

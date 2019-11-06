@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use App\SmartCard;
+use App\System;
 use Illuminate\Foundation\Http\FormRequest;
 
 class ActivateSmartCardRequest extends FormRequest
@@ -27,5 +28,9 @@ class ActivateSmartCardRequest extends FormRequest
         return [
 
         ];
+    }
+    public function validatedAndSanitized(array $skippedKeys=[])
+    {
+        return System::sanitize($this->validated(),$skippedKeys);
     }
 }

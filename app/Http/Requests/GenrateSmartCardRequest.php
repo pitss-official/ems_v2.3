@@ -26,7 +26,7 @@ class GenrateSmartCardRequest extends FormRequest
     public function rules()
     {
         return [
-            'numberPasses'=>'bail|required|integer|min:1|max:100',
+            'numberPasses'=>'bail|required|integer|min:1|max:500',
             'eventID'=>'bail|required|numeric|min:0|exists:events,id',
             'value'=>'bail|required|numeric|min:0',
         ];
@@ -44,4 +44,5 @@ class GenrateSmartCardRequest extends FormRequest
     {
         return System::sanitize($this->validated(),$skippedKeys);
     }
+
 }
